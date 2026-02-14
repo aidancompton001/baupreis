@@ -5,9 +5,7 @@ const DEV_SLUG = "dev-local";
 
 function isClerkConfigured(): boolean {
   const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  // Only treat Clerk as configured for live keys.
-  // Test keys (pk_test_) → dev mode (auto-create org, skip Clerk auth)
-  return key.startsWith("pk_live_");
+  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
 }
 
 function getClerkUserId(): string | null {
@@ -37,7 +35,77 @@ export async function getOrg() {
     return await devAutoCreateOrg();
   }
 
-  return null;
+  // Clerk mode: auto-create org for authenticated user (replaces webhook)
+  return await autoCreateOrgForClerkUser(userId);
+}
+
+/** Auto-create org + user for a Clerk-authenticated user on first access. */
+async function autoCreateOrgForClerkUser(clerkUserId: string) {
+  // Get user info from Clerk
+  let email = "user@baupreis.ai";
+  let name = "BauPreis User";
+  try {
+    const { currentUser } = require("@clerk/nextjs/server");
+    const user = await currentUser();
+    if (user) {
+      email = user.emailAddresses?.[0]?.emailAddress || email;
+      name = [user.firstName, user.lastName].filter(Boolean).join(" ") || name;
+    }
+  } catch {
+    // Clerk API might fail, use defaults
+  }
+
+  const slug = "org-" + clerkUserId.slice(-8);
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // Check again inside transaction (race condition guard)
+    const check = await client.query(
+      `SELECT o.* FROM organizations o JOIN users u ON u.org_id = o.id
+       WHERE u.clerk_user_id = $1 AND o.is_active = true`,
+      [clerkUserId]
+    );
+    if (check.rows[0]) {
+      await client.query("COMMIT");
+      return check.rows[0];
+    }
+
+    // Create org with Trial plan (14 days)
+    const orgResult = await client.query(
+      `INSERT INTO organizations (name, slug, plan, trial_ends_at,
+        max_materials, max_users, max_alerts,
+        features_telegram, features_forecast, features_api, features_pdf_reports)
+       VALUES ($1, $2, 'trial', NOW() + INTERVAL '14 days',
+        5, 1, 3, false, false, false, false)
+       RETURNING *`,
+      [name, slug]
+    );
+    const org = orgResult.rows[0];
+
+    // Create user
+    await client.query(
+      `INSERT INTO users (org_id, clerk_user_id, email, name, role)
+       VALUES ($1, $2, $3, $4, 'owner')`,
+      [org.id, clerkUserId, email, name]
+    );
+
+    // Add first 5 materials (Trial/Basis limit)
+    await client.query(
+      `INSERT INTO org_materials (org_id, material_id)
+       SELECT $1, id FROM materials WHERE is_active = true
+       ORDER BY id LIMIT 5`,
+      [org.id]
+    );
+
+    await client.query("COMMIT");
+    return org;
+  } catch (e) {
+    await client.query("ROLLBACK");
+    throw e;
+  } finally {
+    client.release();
+  }
 }
 
 /** In dev mode, create org + user + org_materials automatically. */
@@ -46,7 +114,6 @@ async function devAutoCreateOrg() {
   try {
     await client.query("BEGIN");
 
-    // Create org with Pro plan (all main features visible for demo)
     const orgResult = await client.query(
       `INSERT INTO organizations (name, slug, plan, max_materials, max_users, max_alerts,
         features_telegram, features_forecast, features_api, features_pdf_reports)
@@ -56,14 +123,12 @@ async function devAutoCreateOrg() {
     );
     const org = orgResult.rows[0];
 
-    // Create user
     await client.query(
       `INSERT INTO users (org_id, clerk_user_id, email, name, role)
        VALUES ($1, $2, $3, $4, 'owner')`,
       [org.id, DEV_USER_ID, "dev@localhost", "Dev User"]
     );
 
-    // Add all 16 materials to org
     await client.query(
       `INSERT INTO org_materials (org_id, material_id)
        SELECT $1, id FROM materials WHERE is_active = true`,

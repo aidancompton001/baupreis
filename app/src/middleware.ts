@@ -89,7 +89,7 @@ async function prodMiddleware(req: NextRequest) {
 export default function middleware(req: NextRequest) {
   // Skip Clerk if in dev mode or if Clerk keys are not configured
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  if (process.env.NODE_ENV === "development" || !clerkKey.startsWith("pk_live_") && !clerkKey.startsWith("pk_test_c")) {
+  if (process.env.NODE_ENV === "development" || (!clerkKey.startsWith("pk_live_") && !clerkKey.startsWith("pk_test_"))) {
     return devMiddleware(req);
   }
   return prodMiddleware(req);
