@@ -5,7 +5,9 @@ const DEV_SLUG = "dev-local";
 
 function isClerkConfigured(): boolean {
   const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
+  // Only treat Clerk as configured for live keys.
+  // Test keys (pk_test_) → dev mode (auto-create org, skip Clerk auth)
+  return key.startsWith("pk_live_");
 }
 
 function getClerkUserId(): string | null {
