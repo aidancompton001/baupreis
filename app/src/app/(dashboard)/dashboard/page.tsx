@@ -51,7 +51,7 @@ export default function DashboardPage() {
       fetch("/api/index?days=1").then((res) => res.json()).catch(() => []),
     ])
       .then(([analysisData, priceData, indexRows]) => {
-        setAnalysis(analysisData);
+        if (Array.isArray(analysisData)) setAnalysis(analysisData);
         const map = new Map<string, PricePoint>();
         if (Array.isArray(priceData)) {
           for (const p of priceData) {
