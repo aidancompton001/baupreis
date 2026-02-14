@@ -1,0 +1,31 @@
+# environment
+.env
+
+# docker volumes
+postgres_data/
+n8n_data/
+traefik_letsencrypt/
+
+# local files
+local-files/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Node
+node_modules/
+
+# Archives
+*.tar
+*.tar.gz
+
+# Windows artifacts
+nul
+
+# Claude local
+.claude/

@@ -1,0 +1,80 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLocale } from "@/i18n/LocaleContext";
+
+const navItems = [
+  { href: "/dashboard", labelKey: "nav.overview", icon: "📊" },
+  { href: "/prognose", labelKey: "nav.forecasts", icon: "🤖" },
+  { href: "/chat", labelKey: "nav.chat", icon: "💬" },
+  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: "📐" },
+  { href: "/alerts", labelKey: "nav.alerts", icon: "🔔" },
+  { href: "/berichte", labelKey: "nav.reports", icon: "📄" },
+  { href: "/einstellungen", labelKey: "nav.settings", icon: "⚙️" },
+];
+
+// Mobile: show only core 5 items (Chat + Gleitklausel accessible via desktop sidebar)
+const mobileNavItems = navItems.filter(
+  (item) => item.href !== "/chat" && item.href !== "/preisgleitklausel"
+);
+
+export default function DashboardNav() {
+  const pathname = usePathname();
+  const { t } = useLocale();
+
+  function isActive(href: string): boolean {
+    if (href === "/dashboard") return pathname === "/dashboard";
+    return pathname.startsWith(href);
+  }
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:block w-64 fixed left-0 top-16 bottom-0 bg-white border-r overflow-y-auto">
+        <nav className="p-4 space-y-1">
+          {navItems.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+                  active
+                    ? "bg-brand-50 text-brand-600 font-medium"
+                    : "text-gray-700 hover:bg-gray-100"
+                }`}
+              >
+                <span>{item.icon}</span>
+                <span>{t(item.labelKey)}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </aside>
+
+      {/* Mobile Bottom Nav — ALL 5 ITEMS */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-50">
+        <div className="flex justify-around py-2">
+          {mobileNavItems.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex flex-col items-center text-[10px] px-1 ${
+                  active
+                    ? "text-brand-600 font-medium"
+                    : "text-gray-600 hover:text-brand-600"
+                }`}
+              >
+                <span className="text-base">{item.icon}</span>
+                <span className="truncate max-w-[60px]">{t(item.labelKey)}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </>
+  );
+}
