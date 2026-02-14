@@ -37,18 +37,41 @@ export async function POST(req: NextRequest) {
       "-" +
       Date.now();
 
-    const orgResult = await pool.query(
-      `INSERT INTO organizations (name, slug, plan, trial_ends_at)
-       VALUES ($1, $2, 'trial', NOW() + INTERVAL '14 days')
-       RETURNING id`,
-      [name || email, slug]
-    );
+    const dbClient = await pool.connect();
+    try {
+      await dbClient.query("BEGIN");
 
-    await pool.query(
-      `INSERT INTO users (org_id, clerk_user_id, email, name, role)
-       VALUES ($1, $2, $3, $4, 'owner')`,
-      [orgResult.rows[0].id, id, email, name]
-    );
+      const orgResult = await dbClient.query(
+        `INSERT INTO organizations (name, slug, plan, trial_ends_at,
+          max_materials, max_users, max_alerts,
+          features_telegram, features_forecast, features_api, features_pdf_reports)
+         VALUES ($1, $2, 'trial', NOW() + INTERVAL '14 days',
+          5, 1, 3, false, false, false, false)
+         RETURNING id`,
+        [name || email, slug]
+      );
+
+      await dbClient.query(
+        `INSERT INTO users (org_id, clerk_user_id, email, name, role)
+         VALUES ($1, $2, $3, $4, 'owner')`,
+        [orgResult.rows[0].id, id, email, name]
+      );
+
+      // Add first 5 materials for Trial plan
+      await dbClient.query(
+        `INSERT INTO org_materials (org_id, material_id)
+         SELECT $1, id FROM materials WHERE is_active = true
+         ORDER BY id LIMIT 5`,
+        [orgResult.rows[0].id]
+      );
+
+      await dbClient.query("COMMIT");
+    } catch (e) {
+      await dbClient.query("ROLLBACK");
+      throw e;
+    } finally {
+      dbClient.release();
+    }
   }
 
   if (evt.type === "user.deleted") {

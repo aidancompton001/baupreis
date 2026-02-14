@@ -35,18 +35,20 @@ export async function getOrg() {
     return await devAutoCreateOrg();
   }
 
-  // Clerk mode: auto-create org for authenticated user (replaces webhook)
+  // Clerk mode: auto-create org for authenticated user (no webhook needed)
   return await autoCreateOrgForClerkUser(userId);
 }
 
-/** Auto-create org + user for a Clerk-authenticated user on first access. */
+/** Auto-create org for a Clerk-authenticated user on first access. */
 async function autoCreateOrgForClerkUser(clerkUserId: string) {
-  // Get user info from Clerk
   let email = "user@baupreis.ai";
   let name = "BauPreis User";
+
+  // Try to get user info from Clerk Backend API
   try {
-    const { currentUser } = require("@clerk/nextjs/server");
-    const user = await currentUser();
+    const { clerkClient } = require("@clerk/nextjs/server");
+    const client = clerkClient();
+    const user = await client.users.getUser(clerkUserId);
     if (user) {
       email = user.emailAddresses?.[0]?.emailAddress || email;
       name = [user.firstName, user.lastName].filter(Boolean).join(" ") || name;
@@ -60,7 +62,7 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
   try {
     await client.query("BEGIN");
 
-    // Check again inside transaction (race condition guard)
+    // Race condition guard
     const check = await client.query(
       `SELECT o.* FROM organizations o JOIN users u ON u.org_id = o.id
        WHERE u.clerk_user_id = $1 AND o.is_active = true`,
@@ -110,11 +112,11 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
 
 /** In dev mode, create org + user + org_materials automatically. */
 async function devAutoCreateOrg() {
-  const client = await pool.connect();
+  const dbClient = await pool.connect();
   try {
-    await client.query("BEGIN");
+    await dbClient.query("BEGIN");
 
-    const orgResult = await client.query(
+    const orgResult = await dbClient.query(
       `INSERT INTO organizations (name, slug, plan, max_materials, max_users, max_alerts,
         features_telegram, features_forecast, features_api, features_pdf_reports)
        VALUES ($1, $2, 'pro', 99, 1, 999, true, true, false, false)
@@ -123,25 +125,25 @@ async function devAutoCreateOrg() {
     );
     const org = orgResult.rows[0];
 
-    await client.query(
+    await dbClient.query(
       `INSERT INTO users (org_id, clerk_user_id, email, name, role)
        VALUES ($1, $2, $3, $4, 'owner')`,
       [org.id, DEV_USER_ID, "dev@localhost", "Dev User"]
     );
 
-    await client.query(
+    await dbClient.query(
       `INSERT INTO org_materials (org_id, material_id)
        SELECT $1, id FROM materials WHERE is_active = true`,
       [org.id]
     );
 
-    await client.query("COMMIT");
+    await dbClient.query("COMMIT");
     return org;
   } catch (e) {
-    await client.query("ROLLBACK");
+    await dbClient.query("ROLLBACK");
     throw e;
   } finally {
-    client.release();
+    dbClient.release();
   }
 }
 
