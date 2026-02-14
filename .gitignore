@@ -1,5 +1,6 @@
 # environment
 .env
+CREDENTIALS.md
 
 # docker volumes
 postgres_data/
