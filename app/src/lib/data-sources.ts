@@ -70,38 +70,6 @@ export async function fetchMetalsPrices(): Promise<Map<string, PricePoint>> {
     }
   } catch (err: any) {
     console.error("[data-sources] metals.dev fetch failed:", err.message);
-
-    // Retry once after 5 seconds
-    if (!err.message?.includes("aborted")) {
-      try {
-        await new Promise((r) => setTimeout(r, 5000));
-        const res = await fetch(
-          `https://api.metals.dev/v1/latest?api_key=${apiKey}&currency=EUR&unit=mt`
-        );
-        if (res.ok) {
-          const data = await res.json();
-          if (data.status === "success" && data.metals) {
-            const keyMapping: Record<string, string> = {
-              copper: "copper_lme",
-              aluminum: "aluminum_lme",
-              zinc: "zinc_lme",
-              nickel: "nickel_lme",
-            };
-            for (const [metalsDevKey, materialCode] of Object.entries(keyMapping)) {
-              const price = data.metals[metalsDevKey];
-              if (typeof price === "number" && price > 0) {
-                result.set(materialCode, {
-                  price_eur: Math.round(price * 100) / 100,
-                  source: "metals.dev",
-                });
-              }
-            }
-          }
-        }
-      } catch (retryErr: any) {
-        console.error("[data-sources] metals.dev retry failed:", retryErr.message);
-      }
-    }
   }
 
   return result;

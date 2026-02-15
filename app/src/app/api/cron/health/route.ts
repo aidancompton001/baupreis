@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * POST /api/cron/health
  * Crontab: every 5 minutes
- * Checks: DB connectivity, metals.dev API, data freshness.
+ * Checks: DB connectivity, data freshness.
  * Sends alert email if any check fails.
  */
 export async function POST(req: NextRequest) {
@@ -18,7 +18,6 @@ export async function POST(req: NextRequest) {
 
   const checks: Record<string, boolean> = {
     db: false,
-    metals_api: false,
     fresh_data: false,
   };
   const errors: string[] = [];
@@ -31,28 +30,7 @@ export async function POST(req: NextRequest) {
     errors.push(`DB: ${err.message}`);
   }
 
-  // Check 2: metals.dev API reachability
-  try {
-    const apiKey = process.env.METALS_DEV_API_KEY;
-    if (apiKey) {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 5000);
-      const res = await fetch(
-        `https://api.metals.dev/v1/latest?api_key=${apiKey}&currency=EUR&unit=mt`,
-        { signal: controller.signal }
-      );
-      clearTimeout(timeout);
-      checks.metals_api = res.ok;
-      if (!res.ok) errors.push(`metals.dev: HTTP ${res.status}`);
-    } else {
-      // Not configured — skip, don't fail
-      checks.metals_api = true;
-    }
-  } catch (err: any) {
-    errors.push(`metals.dev: ${err.message}`);
-  }
-
-  // Check 3: Data freshness — latest price should be within 24 hours
+  // Check 2: Data freshness — latest price should be within 24 hours
   try {
     const result = await pool.query(
       "SELECT MAX(timestamp) as latest FROM prices"
@@ -67,7 +45,6 @@ export async function POST(req: NextRequest) {
         errors.push(`Data freshness: latest price is ${hoursAgo}h old`);
       }
     } else {
-      // No prices at all — first run, not a failure
       checks.fresh_data = true;
     }
   } catch (err: any) {
@@ -76,7 +53,6 @@ export async function POST(req: NextRequest) {
 
   const allOk = Object.values(checks).every(Boolean);
 
-  // Send alert email if any check failed
   if (!allOk) {
     const adminEmail = process.env.EMAIL_FROM?.match(/<(.+)>/)?.[1] || process.env.ACME_EMAIL;
     if (adminEmail) {
