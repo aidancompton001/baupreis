@@ -61,7 +61,7 @@ export async function createSubscription(
         brand_name: "BauPreis AI",
         locale: "de-DE",
         user_action: "SUBSCRIBE_NOW",
-        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard?paypal_subscription_id={subscriptionId}`,
+        return_url: `${process.env.NEXT_PUBLIC_APP_URL}/einstellungen/abo?success=1`,
         cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/einstellungen/abo`,
       },
     }),
