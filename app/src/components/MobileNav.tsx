@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleContext";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 
 export default function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -65,6 +66,9 @@ export default function MobileNav() {
             >
               {t("nav.freeTrial")}
             </Link>
+            <div className="pt-4 border-t mt-2">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       )}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MobileNav from "@/components/MobileNav";
+import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import { cookies } from "next/headers";
 import { t as tr, type Locale } from "@/i18n";
 
@@ -45,6 +46,7 @@ export default function LandingPage() {
             >
               {tr(locale, "nav.freeTrial")}
             </Link>
+            <LanguageSwitcher />
           </div>
           <MobileNav />
         </div>
