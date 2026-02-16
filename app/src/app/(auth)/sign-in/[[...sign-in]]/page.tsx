@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import ClerkSignIn from "@/components/auth/ClerkSignIn";
 
 function DevSignIn() {
   const router = useRouter();
@@ -15,20 +16,11 @@ function DevSignIn() {
   );
 }
 
-function ProdSignIn() {
-  const { SignIn } = require("@clerk/nextjs");
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <SignIn />
-    </div>
-  );
-}
-
 export default function SignInPage() {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
   const hasValidClerkKey = clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
   if (!hasValidClerkKey) {
     return <DevSignIn />;
   }
-  return <ProdSignIn />;
+  return <ClerkSignIn />;
 }

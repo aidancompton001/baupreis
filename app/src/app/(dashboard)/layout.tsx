@@ -2,6 +2,7 @@ import Link from "next/link";
 import DashboardNav from "@/components/layout/DashboardNav";
 import TrialBanner from "@/components/dashboard/TrialBanner";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
+import UserAvatarClient from "@/components/layout/UserAvatarClient";
 
 function DevUserBadge() {
   return (
@@ -17,8 +18,7 @@ function UserAvatar() {
   if (!hasValidClerkKey) {
     return <DevUserBadge />;
   }
-  const { UserButton } = require("@clerk/nextjs");
-  return <UserButton afterSignOutUrl="/" />;
+  return <UserAvatarClient />;
 }
 
 export default function DashboardLayout({
