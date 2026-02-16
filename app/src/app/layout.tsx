@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
+import ClerkProviderWrapper from "@/components/auth/ClerkProviderWrapper";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
@@ -77,10 +78,9 @@ export default function RootLayout({
   }
 
   // Production: wrap in ClerkProvider
-  const { ClerkProvider } = require("@clerk/nextjs");
   return (
-    <ClerkProvider>
+    <ClerkProviderWrapper>
       <Shell locale={locale}>{children}</Shell>
-    </ClerkProvider>
+    </ClerkProviderWrapper>
   );
 }
