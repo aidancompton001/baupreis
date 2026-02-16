@@ -366,6 +366,7 @@ const ru: Record<string, string> = {
   "onboarding.nextWithCount": "Далее ({count} материал{plural})",
 
   // Landing
+  "landing.painPoint": "Экономьте 15-30% на стройматериалах, покупая в правильное время",
   "landing.heroTitle1": "Цены на стройматериалы в реальном времени.",
   "landing.heroTitle2": "ИИ-прогнозы.",
   "landing.heroSubtitle": "Отслеживайте сталь, медь, древесину и ещё 13 стройматериалов. Получайте ИИ-прогнозы и ценовые оповещения прямо на телефон.",

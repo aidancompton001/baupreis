@@ -363,6 +363,7 @@ const en: Record<string, string> = {
   "onboarding.nextWithCount": "Next ({count} material{plural})",
 
   // Landing
+  "landing.painPoint": "Save 15-30% on Construction Materials by Buying at the Right Time",
   "landing.heroTitle1": "Construction Material Prices in Real-Time.",
   "landing.heroTitle2": "AI Forecasts.",
   "landing.heroSubtitle": "Monitor steel, copper, wood and 13 more construction materials. Get AI-powered forecasts and price alerts directly to your phone.",

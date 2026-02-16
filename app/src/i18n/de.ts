@@ -367,6 +367,7 @@ const de: Record<string, string> = {
   "onboarding.nextWithCount": "Weiter ({count} Material{plural})",
 
   // Landing Page
+  "landing.painPoint": "Sparen Sie 15-30% bei Materialkosten durch den richtigen Kaufzeitpunkt",
   "landing.heroTitle1": "Baustoffpreise in Echtzeit.",
   "landing.heroTitle2": "KI-Prognosen.",
   "landing.heroSubtitle": "\u00dcberwachen Sie Stahl, Kupfer, Holz und 13 weitere Baustoffe. Erhalten Sie KI-gest\u00fctzte Prognosen und Preisalarme direkt auf Ihr Handy.",

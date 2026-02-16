@@ -53,6 +53,9 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
+          <p className="text-2xl md:text-3xl font-bold text-brand-600 mb-4">
+            {tr(locale, "landing.painPoint")}
+          </p>
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             {tr(locale, "landing.heroTitle1")}
             <br />
