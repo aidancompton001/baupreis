@@ -4,10 +4,11 @@
 SaaS-сервис мониторинга цен на стройматериалы в Германии с AI-прогнозами.
 Multi-tenant, 3 тарифа: Basis (49), Pro (149), Team (299 EUR/мес).
 
+
 ## Tech Stack
 - **Frontend:** Next.js 14 (App Router) + TypeScript + Tailwind CSS + shadcn/ui
 - **Auth:** Clerk (Google OAuth + Email)
-- **Billing:** Stripe (subscriptions, 3 plans)
+- **Billing:** PayPal (subscriptions, 3 plans)
 - **Database:** PostgreSQL 16 (multi-tenant)
 - **AI:** Claude API (Sonnet 4.5) for analysis, forecasts, reports
 - **Background Jobs:** Next.js API routes (`/api/cron/*`) + system crontab (6 jobs: data collector, AI analyzer, alerts, reports, health, index)
@@ -20,7 +21,7 @@ Multi-tenant, 3 тарифа: Basis (49), Pro (149), Team (299 EUR/мес).
 - Data (materials, prices, analysis) is SHARED across all tenants
 - Settings (alert_rules, reports, telegram) are PER-ORG (per organization)
 - Auth via Clerk webhooks -> auto-create org + user on registration
-- Billing via Stripe webhooks -> update org plan + feature flags
+- Billing via PayPal webhooks -> update org plan + feature flags
 - Feature gating: check org.plan before allowing access to Pro/Team features
 
 ## Key Conventions
@@ -64,13 +65,13 @@ Multi-tenant, 3 тарифа: Basis (49), Pro (149), Team (299 EUR/мес).
 │       └── lib/            # Utilities and helpers
 │           ├── db.ts       # PostgreSQL connection pool
 │           ├── auth.ts     # Clerk helpers + org resolver
-│           ├── stripe.ts   # Stripe helpers
+│           ├── paypal.ts   # PayPal helpers
 │           ├── plans.ts    # Plan limits & feature checks
 │           └── utils.ts    # Formatters, helpers
 ```
 
 ## Multi-tenant Data Model
-- `organizations` — tenants with plan, stripe IDs, feature flags
+- `organizations` — tenants with plan, PayPal IDs, feature flags
 - `users` — linked to org via org_id, linked to Clerk via clerk_user_id
 - `materials` — SHARED catalog (16 materials)
 - `prices` — SHARED price data from APIs
