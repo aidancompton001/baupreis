@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { cookies } from "next/headers";
 import { t as tr, type Locale } from "@/i18n";
 
@@ -7,14 +6,6 @@ export default function DatenschutzPage() {
 
   return (
     <main className="min-h-screen">
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold text-brand-600">
-            BauPreis AI
-          </Link>
-        </div>
-      </nav>
-
       <div className="pt-32 pb-20 px-4 max-w-3xl mx-auto prose">
         <h1>{tr(locale, "datenschutz.heading")}</h1>
 

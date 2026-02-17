@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { cookies } from "next/headers";
 import { t as tr, type Locale } from "@/i18n";
 
@@ -7,20 +6,6 @@ export default function UeberUnsPage() {
 
   return (
     <main className="min-h-screen">
-      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold text-brand-600">
-            BauPreis AI
-          </Link>
-          <Link
-            href="/sign-up"
-            className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition"
-          >
-            {tr(locale, "nav.freeTrial")}
-          </Link>
-        </div>
-      </nav>
-
       <section className="pt-32 pb-20 px-4">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
