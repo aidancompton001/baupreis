@@ -45,17 +45,21 @@ export default clerkMiddleware(async (auth, request) => {
     auth().protect();
   }
 
-  // Apply locale detection cookie
+  // Always create an explicit response — never let clerkMiddleware
+  // generate its own, which could interfere with cookie propagation.
+  const response = NextResponse.next();
+
+  // Apply locale detection cookie (first visit only)
   const locale = detectLocale(request);
   if (locale) {
-    const response = NextResponse.next();
     response.cookies.set("locale", locale, {
       path: "/",
       maxAge: 31536000,
       sameSite: "lax",
     });
-    return response;
   }
+
+  return response;
 });
 
 export const config = {

@@ -17,15 +17,36 @@ import {
 
 const VALID_LOCALES: Locale[] = ["de", "en", "ru"];
 
-/** Read locale cookie on the client. Returns null on server or if missing. */
+/** Read locale from cookie using regex (robust against edge-case formatting). */
 function readCookieLocale(): Locale | null {
   if (typeof document === "undefined") return null;
-  const match = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith("locale="));
-  if (!match) return null;
-  const val = match.split("=")[1] as Locale;
+  const m = document.cookie.match(/(?:^|;\s*)locale=([^;]*)/);
+  if (!m) return null;
+  const val = m[1].trim() as Locale;
   return VALID_LOCALES.includes(val) ? val : null;
+}
+
+/** Read locale from localStorage as fallback. */
+function readStoredLocale(): Locale | null {
+  try {
+    const val = localStorage.getItem("locale") as Locale | null;
+    return val && VALID_LOCALES.includes(val) ? val : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Persist locale to both cookie AND localStorage. */
+function persistLocale(locale: Locale) {
+  document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`;
+  try {
+    localStorage.setItem("locale", locale);
+  } catch {}
+}
+
+/** Get the best locale from all available sources. */
+function resolveClientLocale(fallback: Locale): Locale {
+  return readCookieLocale() || readStoredLocale() || fallback;
 }
 
 interface LocaleContextValue {
@@ -49,30 +70,46 @@ export function LocaleProvider({
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  // On client, always prefer the cookie value over server-provided initialLocale.
-  // This prevents the locale from resetting when server renders with a stale cookie
-  // or when middleware/Accept-Language header disagrees with user's choice.
   const [locale, setLocaleState] = useState<Locale>(() => {
-    const cookieLocale = readCookieLocale();
-    return cookieLocale || initialLocale;
+    // On client: prefer cookie → localStorage → server-provided initialLocale.
+    if (typeof document !== "undefined") {
+      return resolveClientLocale(initialLocale);
+    }
+    return initialLocale;
   });
 
-  // Sync on mount: if cookie was set by LanguageSwitcher but server
-  // rendered with a different initialLocale, correct it immediately.
+  // Sync on mount: ensure cookie/localStorage agree with state.
+  // Also handles hydration mismatch (server rendered one locale, client has another).
   useEffect(() => {
-    const cookieLocale = readCookieLocale();
-    if (cookieLocale && cookieLocale !== locale) {
-      setLocaleState(cookieLocale);
-      document.documentElement.lang = cookieLocale;
+    const persisted = resolveClientLocale(locale);
+    if (persisted !== locale) {
+      setLocaleState(persisted);
     }
+    // Ensure both stores have the current locale
+    persistLocale(persisted);
+    document.documentElement.lang = persisted;
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Re-sync when tab becomes visible (catches cross-tab changes)
+  useEffect(() => {
+    function onVisible() {
+      if (document.visibilityState !== "visible") return;
+      const persisted = resolveClientLocale(locale);
+      if (persisted !== locale) {
+        setLocaleState(persisted);
+        document.documentElement.lang = persisted;
+      }
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [locale]);
 
   const dict = getTranslations(locale);
   const deDict = getTranslations("de");
 
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    document.cookie = `locale=${newLocale};path=/;max-age=31536000;SameSite=Lax`;
+    persistLocale(newLocale);
     document.documentElement.lang = newLocale;
   }, []);
 
