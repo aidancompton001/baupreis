@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import DashboardNav from "@/components/layout/DashboardNav";
 import TrialBanner from "@/components/dashboard/TrialBanner";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import UserAvatarClient from "@/components/layout/UserAvatarClient";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 function DevUserBadge() {
   return (

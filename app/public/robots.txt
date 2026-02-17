@@ -1,0 +1,28 @@
+# BauPreis AI — robots.txt
+User-agent: *
+
+# Public pages — allow
+Allow: /
+Allow: /preise
+Allow: /ueber-uns
+Allow: /datenschutz
+Allow: /impressum
+Allow: /agb
+Allow: /blog
+
+# Dashboard & protected — block
+Disallow: /dashboard
+Disallow: /prognose
+Disallow: /chat
+Disallow: /preisgleitklausel
+Disallow: /alerts
+Disallow: /berichte
+Disallow: /einstellungen
+Disallow: /account
+Disallow: /onboarding
+Disallow: /sign-in
+Disallow: /sign-up
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://baupreis.ais152.com/sitemap.xml
