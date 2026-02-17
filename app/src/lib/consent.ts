@@ -6,7 +6,7 @@ export interface ConsentData {
 
 export const CONSENT_COOKIE_NAME = "cookie_consent";
 export const CONSENT_VERSION = "1.0";
-export const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
+export const GA_MEASUREMENT_ID = "G-QWRZR920QR";
 
 /** Read consent from cookie */
 export function readConsent(): ConsentData | null {
