@@ -471,6 +471,15 @@ const de: Record<string, string> = {
   "pricing.featApi": "API-Zugang",
   "pricing.featDedicatedSupport": "Dedizierter Support",
   "pricing.featTelegramEmail": "Telegram + E-Mail Alarme",
+  "pricing.disclaimerTitle": "Preishinweise",
+  "pricing.disclaimerFinal": "Alle Preise sind Endpreise.",
+  "pricing.disclaimerEuBizLabel": "F\u00fcr EU-Gesch\u00e4ftskunden (mit USt-IdNr.):",
+  "pricing.disclaimerEuBizText": "Der angezeigte Preis ist Ihr Endpreis. Es gilt das Reverse-Charge-Verfahren: Sie f\u00fchren die Umsatzsteuer in Ihrem Land selbst ab und k\u00f6nnen sie gleichzeitig als Vorsteuer abziehen. Dies ist steuerlich neutral.",
+  "pricing.disclaimerEuPrivLabel": "F\u00fcr EU-Privatkunden:",
+  "pricing.disclaimerEuPrivText": "Der angezeigte Preis ist Ihr Endpreis. Es werden keine zus\u00e4tzlichen Kosten erhoben.",
+  "pricing.disclaimerNonEuLabel": "F\u00fcr Nicht-EU-Kunden:",
+  "pricing.disclaimerNonEuText": "Der angezeigte Preis ist Ihr Endpreis. Keine EU-Steuern.",
+  "pricing.disclaimerAdvantage": "Als au\u00dferhalb der EU ans\u00e4ssiger Anbieter erheben wir keine EU-Umsatzsteuer. Dies ist Ihr Preisvorteil gegen\u00fcber EU-Anbietern.",
 
   // Legal Pages - AGB
   "agb.title": "AGB \u2014 BauPreis AI",

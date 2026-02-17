@@ -167,6 +167,35 @@ export default function PreisePage() {
           </div>
         </div>
       </section>
+
+      {/* Price disclaimer */}
+      <section className="pb-20 px-4">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl p-8">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            {t("pricing.disclaimerTitle")}
+          </h2>
+          <p className="text-sm text-gray-700 mb-2 font-medium">
+            {t("pricing.disclaimerFinal")}
+          </p>
+          <div className="space-y-3 text-sm text-gray-600">
+            <p>
+              <strong>{t("pricing.disclaimerEuBizLabel")}</strong>{" "}
+              {t("pricing.disclaimerEuBizText")}
+            </p>
+            <p>
+              <strong>{t("pricing.disclaimerEuPrivLabel")}</strong>{" "}
+              {t("pricing.disclaimerEuPrivText")}
+            </p>
+            <p>
+              <strong>{t("pricing.disclaimerNonEuLabel")}</strong>{" "}
+              {t("pricing.disclaimerNonEuText")}
+            </p>
+            <p className="text-gray-500 italic">
+              {t("pricing.disclaimerAdvantage")}
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

@@ -470,6 +470,15 @@ const ru: Record<string, string> = {
   "pricing.featApi": "API-доступ",
   "pricing.featDedicatedSupport": "Выделенная поддержка",
   "pricing.featTelegramEmail": "Telegram + E-Mail оповещения",
+  "pricing.disclaimerTitle": "Информация о ценах",
+  "pricing.disclaimerFinal": "Все цены являются конечными.",
+  "pricing.disclaimerEuBizLabel": "Для бизнес-клиентов из ЕС (с VAT ID):",
+  "pricing.disclaimerEuBizText": "Указанная цена \u2014 ваша конечная цена. Применяется механизм обратного начисления (Reverse Charge): вы самостоятельно начисляете НДС в вашей стране и одновременно вычитаете его как входной НДС. Это налогово нейтрально.",
+  "pricing.disclaimerEuPrivLabel": "Для частных клиентов из ЕС:",
+  "pricing.disclaimerEuPrivText": "Указанная цена \u2014 ваша конечная цена. Дополнительные расходы не взимаются.",
+  "pricing.disclaimerNonEuLabel": "Для клиентов за пределами ЕС:",
+  "pricing.disclaimerNonEuText": "Указанная цена \u2014 ваша конечная цена. Налоги ЕС не применяются.",
+  "pricing.disclaimerAdvantage": "Как поставщик, зарегистрированный за пределами ЕС, мы не взимаем НДС ЕС. Это ваше ценовое преимущество по сравнению с поставщиками из ЕС.",
 
   // Legal - AGB
   "agb.title": "Условия использования — BauPreis AI",

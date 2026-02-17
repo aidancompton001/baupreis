@@ -467,6 +467,15 @@ const en: Record<string, string> = {
   "pricing.featApi": "API access",
   "pricing.featDedicatedSupport": "Dedicated support",
   "pricing.featTelegramEmail": "Telegram + email alerts",
+  "pricing.disclaimerTitle": "Price Information",
+  "pricing.disclaimerFinal": "All prices are final prices.",
+  "pricing.disclaimerEuBizLabel": "For EU business customers (with VAT ID):",
+  "pricing.disclaimerEuBizText": "The displayed price is your final price. Reverse charge applies: You self-account VAT in your country and can simultaneously deduct it as input VAT. This is tax-neutral.",
+  "pricing.disclaimerEuPrivLabel": "For EU private customers:",
+  "pricing.disclaimerEuPrivText": "The displayed price is your final price. No additional costs.",
+  "pricing.disclaimerNonEuLabel": "For non-EU customers:",
+  "pricing.disclaimerNonEuText": "The displayed price is your final price. No EU taxes.",
+  "pricing.disclaimerAdvantage": "As a provider based outside the EU, we do not charge EU VAT. This is your price advantage compared to EU providers.",
 
   // Legal pages - AGB (Terms & Conditions)
   "agb.title": "Terms & Conditions \u2014 BauPreis AI",
