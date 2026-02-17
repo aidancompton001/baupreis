@@ -5,6 +5,7 @@ import {
   useContext,
   useState,
   useCallback,
+  useEffect,
   type ReactNode,
 } from "react";
 import {
@@ -13,6 +14,19 @@ import {
   getTranslations,
   tPlural as tPluralFn,
 } from "./index";
+
+const VALID_LOCALES: Locale[] = ["de", "en", "ru"];
+
+/** Read locale cookie on the client. Returns null on server or if missing. */
+function readCookieLocale(): Locale | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("locale="));
+  if (!match) return null;
+  const val = match.split("=")[1] as Locale;
+  return VALID_LOCALES.includes(val) ? val : null;
+}
 
 interface LocaleContextValue {
   locale: Locale;
@@ -35,7 +49,23 @@ export function LocaleProvider({
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  // On client, always prefer the cookie value over server-provided initialLocale.
+  // This prevents the locale from resetting when server renders with a stale cookie
+  // or when middleware/Accept-Language header disagrees with user's choice.
+  const [locale, setLocaleState] = useState<Locale>(() => {
+    const cookieLocale = readCookieLocale();
+    return cookieLocale || initialLocale;
+  });
+
+  // Sync on mount: if cookie was set by LanguageSwitcher but server
+  // rendered with a different initialLocale, correct it immediately.
+  useEffect(() => {
+    const cookieLocale = readCookieLocale();
+    if (cookieLocale && cookieLocale !== locale) {
+      setLocaleState(cookieLocale);
+      document.documentElement.lang = cookieLocale;
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const dict = getTranslations(locale);
   const deDict = getTranslations("de");

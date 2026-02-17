@@ -19,11 +19,19 @@ const isPublicRoute = createRouteMatcher([
   "/blog/(.*)",
 ]);
 
+/**
+ * Detect locale for FIRST visit only (no cookie yet).
+ * Once a cookie exists, NEVER override it — the user's choice is final.
+ */
 function detectLocale(req: NextRequest): string | null {
-  if (req.cookies.get("locale")) return null;
-  const acceptLang = req.headers.get("accept-language") || "";
-  if (acceptLang.includes("ru")) return "ru";
-  if (acceptLang.includes("en")) return "en";
+  const existing = req.cookies.get("locale")?.value;
+  if (existing && ["de", "en", "ru"].includes(existing)) return null;
+
+  // First visit: parse Accept-Language header
+  const acceptLang = (req.headers.get("accept-language") || "").toLowerCase();
+  // Match primary language tags (e.g. "ru", "ru-RU", "en-US")
+  if (/\bru\b/.test(acceptLang)) return "ru";
+  if (/\ben\b/.test(acceptLang)) return "en";
   return "de";
 }
 
