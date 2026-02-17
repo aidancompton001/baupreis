@@ -43,8 +43,9 @@ function Shell({
   locale: Locale;
 }) {
   return (
-    <html lang={locale}>
+    <html lang={locale} className="notranslate" translate="no">
       <head>
+        <meta name="google" content="notranslate" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta

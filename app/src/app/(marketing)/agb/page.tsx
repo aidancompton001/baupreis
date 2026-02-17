@@ -1,41 +1,24 @@
 import { cookies } from "next/headers";
-import { t as tr, type Locale } from "@/i18n";
+import type { Locale } from "@/i18n";
+import { getLegalContent } from "@/legal";
 
-export default function AGBPage() {
+export default async function AGBPage() {
   const locale = (cookies().get("locale")?.value || "de") as Locale;
+  const legal = await getLegalContent("agb", locale);
 
   return (
     <main className="min-h-screen">
       <div className="pt-32 pb-20 px-4 max-w-3xl mx-auto prose">
-        <h1>{tr(locale, "agb.heading")}</h1>
-
-        <h2>{tr(locale, "agb.s1.title")}</h2>
-        <p>{tr(locale, "agb.s1.text")}</p>
-
-        <h2>{tr(locale, "agb.s2.title")}</h2>
-        <p>{tr(locale, "agb.s2.text")}</p>
-
-        <h2>{tr(locale, "agb.s3.title")}</h2>
-        <p>{tr(locale, "agb.s3.text")}</p>
-
-        <h2>{tr(locale, "agb.s4.title")}</h2>
-        <p>{tr(locale, "agb.s4.text")}</p>
-
-        <h2>{tr(locale, "agb.s5.title")}</h2>
-        <p>{tr(locale, "agb.s5.text")}</p>
-
-        <h2>{tr(locale, "agb.s6.title")}</h2>
-        <p>{tr(locale, "agb.s6.text")}</p>
-
-        <h2>{tr(locale, "agb.s7.title")}</h2>
-        <p>{tr(locale, "agb.s7.text")}</p>
-
-        <h2>{tr(locale, "agb.s8.title")}</h2>
-        <p>{tr(locale, "agb.s8.text")}</p>
-
-        <p className="text-sm text-gray-500 mt-8">
-          <em>{tr(locale, "agb.disclaimer")}</em>
-        </p>
+        <h1>{legal.heading}</h1>
+        <p className="text-sm text-gray-500 not-prose">{legal.date}</p>
+        {legal.sections.map((s, i) => (
+          <section key={i}>
+            <h2>{s.title}</h2>
+            <div className="whitespace-pre-line text-base leading-relaxed">
+              {s.content}
+            </div>
+          </section>
+        ))}
       </div>
     </main>
   );
