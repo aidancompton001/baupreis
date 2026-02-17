@@ -64,10 +64,12 @@ function Shell({
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body className={inter.className}>
-        <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
-        <GoogleAnalytics />
-        <CookieConsent />
-        <ServiceWorkerRegister />
+        <LocaleProvider initialLocale={locale}>
+          {children}
+          <GoogleAnalytics />
+          <CookieConsent />
+          <ServiceWorkerRegister />
+        </LocaleProvider>
       </body>
     </html>
   );
