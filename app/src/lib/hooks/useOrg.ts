@@ -15,6 +15,8 @@ export interface OrgData {
   features_pdf_reports: boolean;
   telegram_chat_id: string | null;
   whatsapp_phone: string | null;
+  paypal_subscription_id: string | null;
+  paypal_payer_id: string | null;
   trial_ends_at: string | null;
   is_active: boolean;
   created_at: string;

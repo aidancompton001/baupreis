@@ -12,6 +12,7 @@ const navItems = [
   { href: "/alerts", labelKey: "nav.alerts", icon: "🔔" },
   { href: "/berichte", labelKey: "nav.reports", icon: "📄" },
   { href: "/einstellungen", labelKey: "nav.settings", icon: "⚙️" },
+  { href: "/account", labelKey: "nav.account", icon: "👤" },
 ];
 
 // Mobile: show only core 5 items (Chat + Gleitklausel accessible via desktop sidebar)
