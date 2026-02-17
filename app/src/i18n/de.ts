@@ -501,6 +501,20 @@ const de: Record<string, string> = {
   "blog.subheading": "Marktanalysen, Trends und Tipps f\u00fcr den Baustoffeinkauf.",
   "blog.placeholder1": "Beitr\u00e4ge werden in K\u00fcrze ver\u00f6ffentlicht.",
   "blog.placeholder2": "Registrieren Sie sich, um keine Updates zu verpassen.",
+
+  // Cookie Consent
+  "cookie.title": "Diese Website verwendet Cookies",
+  "cookie.description": "Wir verwenden Cookies, um die Nutzung unserer Website zu analysieren und zu verbessern. Sie k\u00f6nnen Ihre Einstellungen jederzeit \u00e4ndern.",
+  "cookie.privacyLink": "Datenschutzerkl\u00e4rung",
+  "cookie.necessary": "Notwendig",
+  "cookie.alwaysActive": "Immer aktiv",
+  "cookie.analytics": "Analytik (Google Analytics)",
+  "cookie.analyticsDesc": "Hilft uns zu verstehen, wie Besucher unsere Website nutzen.",
+  "cookie.acceptAll": "Alle akzeptieren",
+  "cookie.necessaryOnly": "Nur notwendige",
+  "cookie.details": "Details",
+  "cookie.saveSettings": "Einstellungen speichern",
+  "cookie.settings": "Cookie-Einstellungen",
 };
 
 export default de;

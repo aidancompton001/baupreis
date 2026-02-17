@@ -5,6 +5,9 @@ import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import ClerkProviderWrapper from "@/components/auth/ClerkProviderWrapper";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieConsent from "@/components/CookieConsent";
+import { GA_MEASUREMENT_ID } from "@/lib/consent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
@@ -46,6 +49,11 @@ function Shell({
     <html lang={locale} className="notranslate" translate="no">
       <head>
         <meta name="google" content="notranslate" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+          }}
+        />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
@@ -57,6 +65,8 @@ function Shell({
       </head>
       <body className={inter.className}>
         <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
+        <GoogleAnalytics />
+        <CookieConsent />
         <ServiceWorkerRegister />
       </body>
     </html>

@@ -497,6 +497,20 @@ const en: Record<string, string> = {
   "blog.subheading": "Market analyses, trends and tips for construction material procurement.",
   "blog.placeholder1": "Posts will be published soon.",
   "blog.placeholder2": "Register to never miss an update.",
+
+  // Cookie Consent
+  "cookie.title": "This website uses cookies",
+  "cookie.description": "We use cookies to analyze and improve the use of our website. You can change your settings at any time.",
+  "cookie.privacyLink": "Privacy Policy",
+  "cookie.necessary": "Necessary",
+  "cookie.alwaysActive": "Always active",
+  "cookie.analytics": "Analytics (Google Analytics)",
+  "cookie.analyticsDesc": "Helps us understand how visitors use our website.",
+  "cookie.acceptAll": "Accept all",
+  "cookie.necessaryOnly": "Only necessary",
+  "cookie.details": "Details",
+  "cookie.saveSettings": "Save settings",
+  "cookie.settings": "Cookie Settings",
 };
 
 export default en;

@@ -500,6 +500,20 @@ const ru: Record<string, string> = {
   "blog.subheading": "Рыночная аналитика, тренды и советы по закупке стройматериалов.",
   "blog.placeholder1": "Публикации скоро появятся.",
   "blog.placeholder2": "Зарегистрируйтесь, чтобы не пропустить обновления.",
+
+  // Cookie Consent
+  "cookie.title": "Этот сайт использует файлы cookie",
+  "cookie.description": "Мы используем файлы cookie для анализа и улучшения работы нашего сайта. Вы можете изменить настройки в любое время.",
+  "cookie.privacyLink": "Политика конфиденциальности",
+  "cookie.necessary": "Необходимые",
+  "cookie.alwaysActive": "Всегда активны",
+  "cookie.analytics": "Аналитика (Google Analytics)",
+  "cookie.analyticsDesc": "Помогает нам понять, как посетители используют наш сайт.",
+  "cookie.acceptAll": "Принять все",
+  "cookie.necessaryOnly": "Только необходимые",
+  "cookie.details": "Подробнее",
+  "cookie.saveSettings": "Сохранить настройки",
+  "cookie.settings": "Настройки cookie",
 };
 
 export default ru;

@@ -310,6 +310,12 @@ export default function LandingPage() {
             <Link href="/agb" className="hover:text-gray-900">
               {t("landing.footerAgb")}
             </Link>
+            <button
+              onClick={() => (window as any).__openCookieSettings?.()}
+              className="hover:text-gray-900 cursor-pointer"
+            >
+              {t("cookie.settings")}
+            </button>
           </div>
         </div>
       </footer>
