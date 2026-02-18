@@ -1,4 +1,4 @@
-import { cancelSubscription } from "@/lib/paypal";
+import { cancelSubscription } from "@/lib/paddle";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,7 +27,7 @@ export async function GET() {
       `SELECT o.id, o.name, o.plan, o.max_materials, o.max_users, o.max_alerts,
               o.features_telegram, o.features_forecast, o.features_api, o.features_pdf_reports,
               o.telegram_chat_id, o.whatsapp_phone,
-              o.paypal_subscription_id, o.paypal_payer_id,
+              o.paddle_subscription_id, o.paddle_customer_id, o.paddle_status,
               o.trial_ends_at, o.is_active, o.created_at
        FROM organizations o
        JOIN users u ON u.org_id = o.id
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     const userResult = await pool.query(
-      `SELECT u.*, o.id as org_id, o.paypal_subscription_id
+      `SELECT u.*, o.id as org_id, o.paddle_subscription_id
        FROM users u JOIN organizations o ON u.org_id = o.id
        WHERE u.clerk_user_id = $1`,
       [userId]
@@ -67,30 +67,31 @@ export async function POST(req: NextRequest) {
 
     const user = userResult.rows[0];
 
-    // Handle subscription management — redirect to PayPal account
+    // Handle subscription management — open Paddle customer portal
     if (body.action === "manage_billing") {
-      if (!user.paypal_subscription_id) {
+      if (!user.paddle_subscription_id) {
         return NextResponse.json(
           { error: "Kein aktives Abonnement vorhanden" },
           { status: 400 }
         );
       }
-      const portalUrl =
-        process.env.PAYPAL_MODE === "live"
-          ? "https://www.paypal.com/myaccount/autopay"
-          : "https://www.sandbox.paypal.com/myaccount/autopay";
-      return NextResponse.json({ portalUrl });
+      // Paddle doesn't have a generic portal URL like Stripe.
+      // Users manage subscriptions via the Paddle checkout overlay or cancel via API.
+      // Return a portal-like URL for the subscription management page.
+      return NextResponse.json({
+        portalUrl: `${process.env.NEXT_PUBLIC_APP_URL}/einstellungen/abo`,
+      });
     }
 
     // Handle subscription cancellation
     if (body.action === "cancel_subscription") {
-      if (!user.paypal_subscription_id) {
+      if (!user.paddle_subscription_id) {
         return NextResponse.json(
           { error: "Kein aktives Abonnement vorhanden" },
           { status: 400 }
         );
       }
-      await cancelSubscription(user.paypal_subscription_id, "Cancelled by user");
+      await cancelSubscription(user.paddle_subscription_id);
       return NextResponse.json({ success: true });
     }
 

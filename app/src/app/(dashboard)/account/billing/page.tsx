@@ -94,7 +94,7 @@ export default function BillingPage() {
   const plan = org?.plan || "trial";
   const badgeColor = PLAN_BADGE_COLORS[plan] || PLAN_BADGE_COLORS.trial;
   const isTrial = plan === "trial";
-  const hasSubscription = !!org?.paypal_subscription_id;
+  const hasSubscription = !!org?.paddle_subscription_id;
 
   return (
     <div className="space-y-6">
@@ -150,16 +150,22 @@ export default function BillingPage() {
               <div className="bg-blue-50 rounded-lg p-2">
                 <svg
                   className="w-6 h-6 text-blue-600"
-                  fill="currentColor"
+                  fill="none"
+                  stroke="currentColor"
                   viewBox="0 0 24 24"
                 >
-                  <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                  />
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">PayPal</p>
+                <p className="text-sm font-medium text-gray-900">Paddle</p>
                 <p className="text-xs text-gray-500">
-                  ID: ...{org.paypal_subscription_id!.slice(-6)}
+                  ID: ...{org.paddle_subscription_id!.slice(-6)}
                 </p>
               </div>
             </div>

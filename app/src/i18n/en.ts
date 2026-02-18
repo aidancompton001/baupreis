@@ -239,7 +239,7 @@ const en: Record<string, string> = {
   "subscription.selectPlan": "Choose Plan",
   "subscription.upgrade": "Upgrade now",
   "subscription.currentPlanBadge": "Current plan",
-  "subscription.redirecting": "Redirecting to PayPal...",
+  "subscription.redirecting": "Redirecting to payment...",
   "subscription.activating": "Activating subscription...",
   "subscription.activated": "Subscription activated successfully!",
   "subscription.error": "Activation error",

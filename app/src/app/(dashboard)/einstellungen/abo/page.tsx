@@ -1,9 +1,24 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
 import { PLAN_PRICES } from "@/lib/plans";
 import { useLocale } from "@/i18n/LocaleContext";
+import { usePaddle } from "@/hooks/usePaddle";
+
+const PRICE_IDS: Record<string, { monthly: string; yearly: string }> = {
+  basis: {
+    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_BASIS_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_BASIS_YEARLY || "",
+  },
+  pro: {
+    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_YEARLY || "",
+  },
+  team: {
+    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_YEARLY || "",
+  },
+};
 
 const PLANS = [
   {
@@ -53,12 +68,11 @@ const PLANS = [
 
 export default function AboPage() {
   const { t, dateFmtLocale } = useLocale();
-  const searchParams = useSearchParams();
+  const paddle = usePaddle();
   const [org, setOrg] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [yearly, setYearly] = useState(false);
   const [subscribing, setSubscribing] = useState<string | null>(null);
-  const [activating, setActivating] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -67,35 +81,6 @@ export default function AboPage() {
       .then((r) => r.json())
       .then((data) => setOrg(data));
   }, []);
-
-  // Handle PayPal return (redirect back from PayPal with subscription_id)
-  useEffect(() => {
-    const subId = searchParams.get("subscription_id");
-    const success = searchParams.get("success");
-
-    if (subId && success === "1" && !activating) {
-      setActivating(true);
-      fetch("/api/paypal/activate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ subscriptionId: subId }),
-      })
-        .then((r) => r.json())
-        .then((data) => {
-          if (data.success) {
-            setSuccessMessage(t("subscription.activated"));
-            reloadOrg();
-          } else {
-            setErrorMessage(data.error || "Aktivierung fehlgeschlagen");
-          }
-        })
-        .catch(() => setErrorMessage("Aktivierung fehlgeschlagen"))
-        .finally(() => setActivating(false));
-
-      // Clean URL
-      window.history.replaceState({}, "", "/einstellungen/abo");
-    }
-  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     fetch("/api/org")
@@ -107,6 +92,51 @@ export default function AboPage() {
       .catch(() => setLoading(false));
   }, []);
 
+  // Check for success param (after Paddle checkout redirect)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("success") === "1") {
+      setSuccessMessage(t("subscription.activated"));
+      reloadOrg();
+      window.history.replaceState({}, "", "/einstellungen/abo");
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  function handleSubscribe(planId: string) {
+    if (!paddle) {
+      setErrorMessage("Paddle nicht geladen. Bitte Seite neu laden.");
+      return;
+    }
+
+    const priceIds = PRICE_IDS[planId];
+    const priceId = yearly ? priceIds?.yearly : priceIds?.monthly;
+
+    if (!priceId) {
+      setErrorMessage("Preis-ID nicht gefunden.");
+      return;
+    }
+
+    setSubscribing(planId);
+    setErrorMessage(null);
+
+    paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      customData: { orgId: org?.id },
+      settings: {
+        locale: "de",
+        successUrl: `${window.location.origin}/einstellungen/abo?success=1`,
+        displayMode: "overlay",
+        theme: "light",
+      },
+      customer: {
+        email: org?.email || undefined,
+      },
+    });
+
+    // Paddle overlay handles its own UI, reset subscribing state
+    setTimeout(() => setSubscribing(null), 2000);
+  }
+
   async function handleManageBilling() {
     const res = await fetch("/api/org", {
       method: "POST",
@@ -116,35 +146,6 @@ export default function AboPage() {
     const data = await res.json();
     if (data.portalUrl) {
       window.open(data.portalUrl, "_blank");
-    }
-  }
-
-  async function handleSubscribe(planId: string) {
-    setSubscribing(planId);
-    setErrorMessage(null);
-
-    try {
-      const res = await fetch("/api/paypal/create-subscription", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          plan: planId,
-          period: yearly ? "yearly" : "monthly",
-        }),
-      });
-
-      const data = await res.json();
-
-      if (data.approveUrl) {
-        // Redirect to PayPal for approval
-        window.location.href = data.approveUrl;
-      } else {
-        setErrorMessage(data.error || "Fehler beim Erstellen des Abonnements");
-        setSubscribing(null);
-      }
-    } catch {
-      setErrorMessage("Verbindungsfehler. Bitte versuchen Sie es erneut.");
-      setSubscribing(null);
     }
   }
 
@@ -166,13 +167,6 @@ export default function AboPage() {
         </h1>
       </div>
 
-      {/* Activating after PayPal return */}
-      {activating && (
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 mb-6">
-          Abonnement wird aktiviert...
-        </div>
-      )}
-
       {/* Success / Error messages */}
       {successMessage && (
         <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 mb-6">
@@ -186,7 +180,7 @@ export default function AboPage() {
             onClick={() => setErrorMessage(null)}
             className="ml-2 text-red-600 hover:text-red-800 font-medium"
           >
-            ✕
+            &#10005;
           </button>
         </div>
       )}
@@ -209,7 +203,7 @@ export default function AboPage() {
                 })}
               </p>
             )}
-            {currentPlan === "basis" && !org?.paypal_subscription_id && org?.trial_ends_at && (
+            {currentPlan === "basis" && !org?.paddle_subscription_id && org?.trial_ends_at && (
               <div className="mt-1">
                 <p className="text-sm text-red-600 font-medium">
                   {t("trial.expired")}
@@ -220,7 +214,7 @@ export default function AboPage() {
               </div>
             )}
           </div>
-          {org?.paypal_subscription_id && (
+          {org?.paddle_subscription_id && (
             <button
               onClick={handleManageBilling}
               className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition text-sm"
@@ -308,7 +302,7 @@ export default function AboPage() {
 
               <h3 className="text-lg font-semibold">{plan.name}</h3>
               <p className="text-3xl font-bold mt-2">
-                €{price}
+                &euro;{price}
                 <span className="text-sm text-gray-500 font-normal">
                   {yearly ? t("pricing.perYear") : t("pricing.perMonth")}
                 </span>
@@ -359,7 +353,7 @@ export default function AboPage() {
                   }`}
                 >
                   {isSubscribing
-                    ? "Weiterleitung zu PayPal..."
+                    ? t("subscription.activating")
                     : t("subscription.upgrade")}
                 </button>
               )}

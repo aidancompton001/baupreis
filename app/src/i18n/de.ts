@@ -240,7 +240,7 @@ const de: Record<string, string> = {
   "subscription.selectPlan": "Plan w\u00e4hlen",
   "subscription.upgrade": "Jetzt upgraden",
   "subscription.currentPlanBadge": "Aktueller Plan",
-  "subscription.redirecting": "Weiterleitung zu PayPal...",
+  "subscription.redirecting": "Weiterleitung zur Zahlung...",
   "subscription.activating": "Abonnement wird aktiviert...",
   "subscription.activated": "Abonnement erfolgreich aktiviert!",
   "subscription.error": "Fehler bei der Aktivierung",

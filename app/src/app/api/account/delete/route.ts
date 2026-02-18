@@ -24,13 +24,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Cancel PayPal subscription if active
-    if (org.paypal_subscription_id) {
+    // Cancel Paddle subscription if active
+    if (org.paddle_subscription_id) {
       try {
-        const { cancelSubscription } = await import("@/lib/paypal");
-        await cancelSubscription(org.paypal_subscription_id, "Account deleted by user");
+        const { cancelSubscription } = await import("@/lib/paddle");
+        await cancelSubscription(org.paddle_subscription_id, "immediately");
       } catch {
-        // Continue even if PayPal cancellation fails
+        // Continue even if Paddle cancellation fails
       }
     }
 

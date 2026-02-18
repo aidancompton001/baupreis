@@ -239,7 +239,7 @@ const ru: Record<string, string> = {
   "subscription.selectPlan": "Выбрать план",
   "subscription.upgrade": "Обновить план",
   "subscription.currentPlanBadge": "Текущий план",
-  "subscription.redirecting": "Перенаправление на PayPal...",
+  "subscription.redirecting": "Перенаправление на оплату...",
   "subscription.activating": "Активация подписки...",
   "subscription.activated": "Подписка успешно активирована!",
   "subscription.error": "Ошибка активации",
