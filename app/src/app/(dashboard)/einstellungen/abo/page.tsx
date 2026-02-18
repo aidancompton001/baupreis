@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { PLAN_PRICES } from "@/lib/plans";
 import { useLocale } from "@/i18n/LocaleContext";
-import dynamic from "next/dynamic";
-
-const PayPalSubscribeButton = dynamic(
-  () => import("@/components/dashboard/PayPalSubscribeButton"),
-  { ssr: false }
-);
 
 const PLANS = [
   {
@@ -63,9 +57,45 @@ export default function AboPage() {
   const [org, setOrg] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [yearly, setYearly] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [subscribing, setSubscribing] = useState<string | null>(null);
+  const [activating, setActivating] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const reloadOrg = useCallback(() => {
+    fetch("/api/org")
+      .then((r) => r.json())
+      .then((data) => setOrg(data));
+  }, []);
+
+  // Handle PayPal return (redirect back from PayPal with subscription_id)
+  useEffect(() => {
+    const subId = searchParams.get("subscription_id");
+    const success = searchParams.get("success");
+
+    if (subId && success === "1" && !activating) {
+      setActivating(true);
+      fetch("/api/paypal/activate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ subscriptionId: subId }),
+      })
+        .then((r) => r.json())
+        .then((data) => {
+          if (data.success) {
+            setSuccessMessage(t("subscription.activated"));
+            reloadOrg();
+          } else {
+            setErrorMessage(data.error || "Aktivierung fehlgeschlagen");
+          }
+        })
+        .catch(() => setErrorMessage("Aktivierung fehlgeschlagen"))
+        .finally(() => setActivating(false));
+
+      // Clean URL
+      window.history.replaceState({}, "", "/einstellungen/abo");
+    }
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     fetch("/api/org")
@@ -73,20 +103,9 @@ export default function AboPage() {
       .then((data) => {
         setOrg(data);
         setLoading(false);
-        // Auto-select plan from URL query param (e.g. ?plan=team)
-        const planParam = searchParams.get("plan");
-        if (planParam && ["basis", "pro", "team"].includes(planParam) && data.plan !== planParam) {
-          setSelectedPlan(planParam);
-        }
       })
       .catch(() => setLoading(false));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  function reloadOrg() {
-    fetch("/api/org")
-      .then((r) => r.json())
-      .then((data) => setOrg(data));
-  }
+  }, []);
 
   async function handleManageBilling() {
     const res = await fetch("/api/org", {
@@ -97,6 +116,35 @@ export default function AboPage() {
     const data = await res.json();
     if (data.portalUrl) {
       window.open(data.portalUrl, "_blank");
+    }
+  }
+
+  async function handleSubscribe(planId: string) {
+    setSubscribing(planId);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/paypal/create-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          plan: planId,
+          period: yearly ? "yearly" : "monthly",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.approveUrl) {
+        // Redirect to PayPal for approval
+        window.location.href = data.approveUrl;
+      } else {
+        setErrorMessage(data.error || "Fehler beim Erstellen des Abonnements");
+        setSubscribing(null);
+      }
+    } catch {
+      setErrorMessage("Verbindungsfehler. Bitte versuchen Sie es erneut.");
+      setSubscribing(null);
     }
   }
 
@@ -117,6 +165,13 @@ export default function AboPage() {
           {t("subscription.title")}
         </h1>
       </div>
+
+      {/* Activating after PayPal return */}
+      {activating && (
+        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-lg p-4 mb-6">
+          Abonnement wird aktiviert...
+        </div>
+      )}
 
       {/* Success / Error messages */}
       {successMessage && (
@@ -209,10 +264,7 @@ export default function AboPage() {
       <div className="flex justify-center mb-8">
         <div className="bg-gray-100 rounded-lg p-1 inline-flex">
           <button
-            onClick={() => {
-              setYearly(false);
-              setSelectedPlan(null);
-            }}
+            onClick={() => setYearly(false)}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
               !yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
             }`}
@@ -220,10 +272,7 @@ export default function AboPage() {
             {t("pricing.monthly")}
           </button>
           <button
-            onClick={() => {
-              setYearly(true);
-              setSelectedPlan(null);
-            }}
+            onClick={() => setYearly(true)}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
               yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
             }`}
@@ -240,6 +289,7 @@ export default function AboPage() {
             PLAN_PRICES[plan.id as keyof typeof PLAN_PRICES];
           const price = yearly ? prices.yearly : prices.monthly;
           const isCurrentPlan = currentPlan === plan.id;
+          const isSubscribing = subscribing === plan.id;
 
           return (
             <div
@@ -296,44 +346,21 @@ export default function AboPage() {
                 >
                   {t("subscription.currentPlanBadge")}
                 </button>
-              ) : selectedPlan === plan.id ? (
-                <div className="space-y-3">
-                  <PayPalSubscribeButton
-                    planName={plan.id}
-                    billingPeriod={yearly ? "yearly" : "monthly"}
-                    orgId={org?.id || ""}
-                    onSuccess={(subscriptionId, activatedPlan) => {
-                      setSuccessMessage(t("subscription.activated"));
-                      setErrorMessage(null);
-                      setSelectedPlan(null);
-                      reloadOrg();
-                    }}
-                    onError={(error) => {
-                      setErrorMessage(error);
-                      setSuccessMessage(null);
-                    }}
-                  />
-                  <button
-                    onClick={() => setSelectedPlan(null)}
-                    className="w-full text-sm text-gray-500 hover:text-gray-700 py-1"
-                  >
-                    {t("common.cancel")}
-                  </button>
-                </div>
               ) : (
                 <button
-                  onClick={() => {
-                    setSelectedPlan(plan.id);
-                    setErrorMessage(null);
-                    setSuccessMessage(null);
-                  }}
+                  onClick={() => handleSubscribe(plan.id)}
+                  disabled={!!subscribing}
                   className={`w-full py-2.5 rounded-lg text-sm font-semibold transition ${
-                    plan.popular
-                      ? "bg-brand-600 text-white hover:bg-brand-700"
-                      : "border border-brand-600 text-brand-600 hover:bg-brand-50"
+                    isSubscribing
+                      ? "bg-gray-200 text-gray-500 cursor-wait"
+                      : plan.popular
+                        ? "bg-brand-600 text-white hover:bg-brand-700"
+                        : "border border-brand-600 text-brand-600 hover:bg-brand-50"
                   }`}
                 >
-                  {t("subscription.upgrade")}
+                  {isSubscribing
+                    ? "Weiterleitung zu PayPal..."
+                    : t("subscription.upgrade")}
                 </button>
               )}
             </div>

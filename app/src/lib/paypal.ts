@@ -38,7 +38,7 @@ export async function getAccessToken(): Promise<string> {
   return data.access_token;
 }
 
-/** @deprecated Use PayPal JS SDK buttons instead (client-side subscription creation) */
+/** Create subscription via REST API (server-side, redirect flow) */
 export async function createSubscription(
   planId: string,
   orgId: string,
