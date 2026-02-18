@@ -11,6 +11,30 @@ interface PayPalSubscribeButtonProps {
   onError: (error: string) => void;
 }
 
+/**
+ * Parse PayPal error into a user-friendly German message.
+ */
+function parsePayPalError(err: unknown): string {
+  const raw = String(err);
+  console.error("[PayPal] Error details:", err);
+
+  // PayPal popup/window errors
+  if (raw.includes("preapproved")) {
+    return "PayPal konnte keine wiederkehrende Zahlung einrichten. Bitte prüfen Sie: (1) Ihr PayPal-Konto ist verifiziert, (2) eine Zahlungsquelle (Bankkonto oder Kreditkarte) ist hinterlegt, (3) wiederkehrende Zahlungen sind in Ihren PayPal-Einstellungen aktiviert.";
+  }
+  if (raw.includes("INSTRUMENT_DECLINED") || raw.includes("instrument_declined")) {
+    return "Ihre Zahlungsmethode wurde abgelehnt. Bitte verwenden Sie eine andere Karte oder ein anderes Bankkonto.";
+  }
+  if (raw.includes("popup") || raw.includes("window")) {
+    return "Das PayPal-Fenster wurde blockiert. Bitte erlauben Sie Pop-ups für diese Seite und versuchen Sie es erneut.";
+  }
+  if (raw.includes("PLAN_NOT_ACTIVE") || raw.includes("not active")) {
+    return "Der gewählte Tarif ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.";
+  }
+
+  return `Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support. (${raw.slice(0, 120)})`;
+}
+
 export default function PayPalSubscribeButton({
   planName,
   billingPeriod,
@@ -51,22 +75,29 @@ export default function PayPalSubscribeButton({
           label: "subscribe",
         }}
         createSubscription={async (_data, actions) => {
-          const res = await fetch(
-            `/api/paypal/plans?plan=${planName}&period=${billingPeriod}`
-          );
-          const { planId, error } = await res.json();
-          if (error || !planId) {
-            throw new Error(error || "Plan ID nicht gefunden");
-          }
+          try {
+            const res = await fetch(
+              `/api/paypal/plans?plan=${planName}&period=${billingPeriod}`
+            );
+            const { planId, error } = await res.json();
+            if (error || !planId) {
+              throw new Error(error || "Plan ID nicht gefunden");
+            }
 
-          return actions.subscription.create({
-            plan_id: planId,
-            custom_id: orgId,
-          });
+            console.log("[PayPal] Creating subscription with plan:", planId, "org:", orgId);
+            return actions.subscription.create({
+              plan_id: planId,
+              custom_id: orgId,
+            });
+          } catch (err) {
+            console.error("[PayPal] createSubscription error:", err);
+            throw err;
+          }
         }}
         onApprove={async (data) => {
           setActivating(true);
           try {
+            console.log("[PayPal] Subscription approved:", data.subscriptionID);
             const res = await fetch("/api/paypal/activate", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -81,13 +112,14 @@ export default function PayPalSubscribeButton({
               onError(result.error || "Aktivierung fehlgeschlagen");
             }
           } catch (err: any) {
+            console.error("[PayPal] activate error:", err);
             onError(err.message || "Aktivierung fehlgeschlagen");
           } finally {
             setActivating(false);
           }
         }}
         onError={(err) => {
-          onError(String(err));
+          onError(parsePayPalError(err));
         }}
         onCancel={() => {
           // User closed popup without completing
