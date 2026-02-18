@@ -3,6 +3,12 @@
 import { useEffect, useState } from "react";
 import { PLAN_PRICES } from "@/lib/plans";
 import { useLocale } from "@/i18n/LocaleContext";
+import dynamic from "next/dynamic";
+
+const PayPalSubscribeButton = dynamic(
+  () => import("@/components/dashboard/PayPalSubscribeButton"),
+  { ssr: false }
+);
 
 const PLANS = [
   {
@@ -55,7 +61,9 @@ export default function AboPage() {
   const [org, setOrg] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [yearly, setYearly] = useState(false);
-  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/org")
@@ -67,24 +75,10 @@ export default function AboPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  async function handleCheckout(planId: string) {
-    setCheckoutLoading(planId);
-    try {
-      const res = await fetch("/api/org", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          plan: planId,
-          billingPeriod: yearly ? "yearly" : "monthly",
-        }),
-      });
-      const data = await res.json();
-      if (data.approveUrl) {
-        window.location.href = data.approveUrl;
-      }
-    } catch {
-      setCheckoutLoading(null);
-    }
+  function reloadOrg() {
+    fetch("/api/org")
+      .then((r) => r.json())
+      .then((data) => setOrg(data));
   }
 
   async function handleManageBilling() {
@@ -116,6 +110,24 @@ export default function AboPage() {
           {t("subscription.title")}
         </h1>
       </div>
+
+      {/* Success / Error messages */}
+      {successMessage && (
+        <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 mb-6">
+          {successMessage}
+        </div>
+      )}
+      {errorMessage && (
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 mb-6">
+          {errorMessage}
+          <button
+            onClick={() => setErrorMessage(null)}
+            className="ml-2 text-red-600 hover:text-red-800 font-medium"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Current plan info */}
       <div className="bg-white rounded-xl border p-6 mb-6">
@@ -180,7 +192,10 @@ export default function AboPage() {
       <div className="flex justify-center mb-8">
         <div className="bg-gray-100 rounded-lg p-1 inline-flex">
           <button
-            onClick={() => setYearly(false)}
+            onClick={() => {
+              setYearly(false);
+              setSelectedPlan(null);
+            }}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
               !yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
             }`}
@@ -188,7 +203,10 @@ export default function AboPage() {
             {t("pricing.monthly")}
           </button>
           <button
-            onClick={() => setYearly(true)}
+            onClick={() => {
+              setYearly(true);
+              setSelectedPlan(null);
+            }}
             className={`px-4 py-2 rounded-md text-sm font-medium transition ${
               yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
             }`}
@@ -205,8 +223,6 @@ export default function AboPage() {
             PLAN_PRICES[plan.id as keyof typeof PLAN_PRICES];
           const price = yearly ? prices.yearly : prices.monthly;
           const isCurrentPlan = currentPlan === plan.id;
-          const isUpgrade =
-            currentPlan === "trial" || currentPlan === "cancelled" || currentPlan === "suspended";
 
           return (
             <div
@@ -263,21 +279,44 @@ export default function AboPage() {
                 >
                   {t("subscription.currentPlanBadge")}
                 </button>
+              ) : selectedPlan === plan.id ? (
+                <div className="space-y-3">
+                  <PayPalSubscribeButton
+                    planName={plan.id}
+                    billingPeriod={yearly ? "yearly" : "monthly"}
+                    orgId={org?.id || ""}
+                    onSuccess={(subscriptionId, activatedPlan) => {
+                      setSuccessMessage(t("subscription.activated"));
+                      setErrorMessage(null);
+                      setSelectedPlan(null);
+                      reloadOrg();
+                    }}
+                    onError={(error) => {
+                      setErrorMessage(error);
+                      setSuccessMessage(null);
+                    }}
+                  />
+                  <button
+                    onClick={() => setSelectedPlan(null)}
+                    className="w-full text-sm text-gray-500 hover:text-gray-700 py-1"
+                  >
+                    {t("common.cancel")}
+                  </button>
+                </div>
               ) : (
                 <button
-                  onClick={() => handleCheckout(plan.id)}
-                  disabled={checkoutLoading !== null}
+                  onClick={() => {
+                    setSelectedPlan(plan.id);
+                    setErrorMessage(null);
+                    setSuccessMessage(null);
+                  }}
                   className={`w-full py-2.5 rounded-lg text-sm font-semibold transition ${
                     plan.popular
                       ? "bg-brand-600 text-white hover:bg-brand-700"
                       : "border border-brand-600 text-brand-600 hover:bg-brand-50"
-                  } ${checkoutLoading ? "opacity-50 cursor-wait" : ""}`}
+                  }`}
                 >
-                  {checkoutLoading === plan.id
-                    ? t("subscription.redirecting")
-                    : isUpgrade
-                      ? t("subscription.upgrade")
-                      : t("subscription.upgrade")}
+                  {t("subscription.upgrade")}
                 </button>
               )}
             </div>

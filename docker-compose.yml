@@ -27,6 +27,7 @@ services:
         - NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/dashboard
         - NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/onboarding
         - NEXT_PUBLIC_APP_URL=https://${DOMAIN}
+        - NEXT_PUBLIC_PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
     restart: always
     depends_on:
       postgres:

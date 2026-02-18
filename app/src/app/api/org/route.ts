@@ -1,4 +1,4 @@
-import { createSubscription, cancelSubscription } from "@/lib/paypal";
+import { cancelSubscription } from "@/lib/paypal";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -94,33 +94,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    // Handle new subscription checkout
-    const { plan, billingPeriod } = body;
-
-    if (!plan || !billingPeriod) {
-      return NextResponse.json(
-        { error: "Plan und Abrechnungszeitraum erforderlich" },
-        { status: 400 }
-      );
-    }
-
-    const planEnvKey = `PAYPAL_PLAN_${plan.toUpperCase()}_${billingPeriod.toUpperCase()}`;
-    const planId = process.env[planEnvKey];
-
-    if (!planId) {
-      return NextResponse.json(
-        { error: "Ungültige Plan-Konfiguration" },
-        { status: 400 }
-      );
-    }
-
-    const { approveUrl } = await createSubscription(
-      planId,
-      user.org_id,
-      user.email
+    return NextResponse.json(
+      { error: "Unbekannte Aktion" },
+      { status: 400 }
     );
-
-    return NextResponse.json({ approveUrl });
   } catch (error: any) {
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
