@@ -28,10 +28,10 @@ export default function UpgradeCard({
         {description || t("upgrade.defaultDescription", { plan: requiredPlan, feature })}
       </p>
       <Link
-        href="/einstellungen/abo"
+        href={`/einstellungen/abo?plan=${requiredPlan.toLowerCase()}`}
         className="inline-block bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 transition"
       >
-        {t("upgrade.button")}
+        {t("upgrade.button", { plan: requiredPlan })}
       </Link>
     </div>
   );

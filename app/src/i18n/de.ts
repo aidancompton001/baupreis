@@ -345,7 +345,7 @@ const de: Record<string, string> = {
   // Upgrade Card
   "upgrade.featureFrom": "{feature} \u2014 ab dem {plan}-Plan",
   "upgrade.defaultDescription": "Upgraden Sie auf den {plan}-Plan, um {feature} zu nutzen.",
-  "upgrade.button": "Jetzt upgraden",
+  "upgrade.button": "Auf {plan} upgraden",
 
   // Onboarding
   "onboarding.welcome": "Willkommen bei BauPreis AI!",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { PLAN_PRICES } from "@/lib/plans";
 import { useLocale } from "@/i18n/LocaleContext";
 import dynamic from "next/dynamic";
@@ -58,6 +59,7 @@ const PLANS = [
 
 export default function AboPage() {
   const { t, dateFmtLocale } = useLocale();
+  const searchParams = useSearchParams();
   const [org, setOrg] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [yearly, setYearly] = useState(false);
@@ -71,9 +73,14 @@ export default function AboPage() {
       .then((data) => {
         setOrg(data);
         setLoading(false);
+        // Auto-select plan from URL query param (e.g. ?plan=team)
+        const planParam = searchParams.get("plan");
+        if (planParam && ["basis", "pro", "team"].includes(planParam) && data.plan !== planParam) {
+          setSelectedPlan(planParam);
+        }
       })
       .catch(() => setLoading(false));
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function reloadOrg() {
     fetch("/api/org")
