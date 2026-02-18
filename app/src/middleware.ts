@@ -27,9 +27,7 @@ function detectLocale(req: NextRequest): string | null {
   const existing = req.cookies.get("locale")?.value;
   if (existing && ["de", "en", "ru"].includes(existing)) return null;
 
-  // First visit: parse Accept-Language header
   const acceptLang = (req.headers.get("accept-language") || "").toLowerCase();
-  // Match primary language tags (e.g. "ru", "ru-RU", "en-US")
   if (/\bru\b/.test(acceptLang)) return "ru";
   if (/\ben\b/.test(acceptLang)) return "en";
   return "de";
@@ -40,26 +38,25 @@ export default clerkMiddleware(async (auth, request) => {
   const isConfigured =
     clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
 
-  // Only protect routes when Clerk is properly configured
   if (isConfigured && !isPublicRoute(request)) {
     auth().protect();
   }
 
-  // Always create an explicit response — never let clerkMiddleware
-  // generate its own, which could interfere with cookie propagation.
-  const response = NextResponse.next();
-
-  // Apply locale detection cookie (first visit only)
+  // Set locale cookie via request headers so Clerk's internal
+  // response (with Set-Cookie for __session, __client_uat) is preserved.
   const locale = detectLocale(request);
   if (locale) {
+    const response = NextResponse.next({
+      request: { headers: new Headers(request.headers) },
+    });
     response.cookies.set("locale", locale, {
       path: "/",
       maxAge: 31536000,
       sameSite: "lax",
+      secure: true,
     });
+    return response;
   }
-
-  return response;
 });
 
 export const config = {
