@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
               ar.rule_type, ar.threshold_pct, ar.time_window, ar.channel,
               m.code, m.name_de, m.unit,
               o.telegram_chat_id, o.whatsapp_phone,
+              o.features_telegram,
               u.email as owner_email
        FROM alert_rules ar
        JOIN materials m ON ar.material_id = m.id
@@ -167,7 +168,7 @@ export async function POST(req: NextRequest) {
               `BauPreis Alarm: ${rule.name_de}`,
               messageText.replace(/\n/g, "<br>")
             );
-          } else if (ch === "telegram" && rule.telegram_chat_id) {
+          } else if (ch === "telegram" && rule.features_telegram && rule.telegram_chat_id) {
             result = await sendTelegram(rule.telegram_chat_id, messageText);
           } else if (ch === "whatsapp" && rule.whatsapp_phone) {
             const plainText = messageText.replace(/<[^>]*>/g, "");

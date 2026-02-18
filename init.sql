@@ -167,7 +167,7 @@ CREATE INDEX idx_org_materials ON org_materials(org_id);
 CREATE TABLE telegram_pending_connections (
     id              UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     code            VARCHAR(20) UNIQUE NOT NULL,
-    chat_id         VARCHAR(100) NOT NULL,
+    org_id          UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
     expires_at      TIMESTAMPTZ NOT NULL DEFAULT (NOW() + INTERVAL '5 minutes'),
     created_at      TIMESTAMPTZ DEFAULT NOW()
 );

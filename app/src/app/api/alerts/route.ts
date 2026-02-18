@@ -104,6 +104,29 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Validate telegram channel: org must have feature + connected bot
+    const needsTelegram =
+      body.channel === "telegram" ||
+      body.channel === "both" ||
+      body.channel === "all";
+    if (needsTelegram) {
+      if (!org.features_telegram) {
+        return NextResponse.json(
+          { error: "Telegram ist nicht in Ihrem Plan enthalten." },
+          { status: 403 }
+        );
+      }
+      if (!org.telegram_chat_id) {
+        return NextResponse.json(
+          {
+            error:
+              "Bitte verbinden Sie zuerst Telegram unter Einstellungen → Telegram.",
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Check alert limit
     const countResult = await pool.query(
       "SELECT COUNT(*) FROM alert_rules WHERE org_id = $1 AND is_active = true",
