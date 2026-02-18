@@ -14,15 +14,14 @@ export default function TrialBanner() {
   if (org.plan !== "trial") return null;
   if (!org.trial_ends_at) return null;
 
-  const totalDays = 7;
+  const endsAt = new Date(org.trial_ends_at).getTime();
+  const createdAt = org.created_at ? new Date(org.created_at).getTime() : endsAt - 7 * 86400000;
+  const totalDays = Math.max(1, Math.round((endsAt - createdAt) / 86400000));
   const daysLeft = Math.max(
     0,
-    Math.ceil(
-      (new Date(org.trial_ends_at).getTime() - Date.now()) /
-        (1000 * 60 * 60 * 24)
-    )
+    Math.ceil((endsAt - Date.now()) / 86400000)
   );
-  const daysUsed = totalDays - daysLeft;
+  const daysUsed = Math.max(0, totalDays - daysLeft);
   const progress = Math.min(100, Math.round((daysUsed / totalDays) * 100));
 
   const isUrgent = daysLeft <= 2;
