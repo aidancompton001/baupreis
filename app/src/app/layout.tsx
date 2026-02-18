@@ -5,12 +5,12 @@ import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import ClerkProviderWrapper from "@/components/auth/ClerkProviderWrapper";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
 import CookieConsent from "@/components/CookieConsent";
-import { GA_MEASUREMENT_ID } from "@/lib/consent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
+
+const GTM_ID = "GTM-TF2Q5T8C";
 
 const OG_LOCALE_MAP: Record<Locale, string> = {
   de: "de_DE",
@@ -49,9 +49,16 @@ function Shell({
     <html lang={locale} className="notranslate" translate="no">
       <head>
         <meta name="google" content="notranslate" />
+        {/* Consent Mode v2 defaults (must load BEFORE GTM) */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{'analytics_storage':'denied','ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','wait_for_update':500});`,
+          }}
+        />
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`,
           }}
         />
         <link rel="manifest" href="/manifest.json" />
@@ -64,9 +71,17 @@ function Shell({
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
       <body className={inter.className}>
+        {/* GTM noscript fallback */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
         <LocaleProvider initialLocale={locale}>
           {children}
-          <GoogleAnalytics />
           <CookieConsent />
           <ServiceWorkerRegister />
         </LocaleProvider>
