@@ -70,7 +70,8 @@ export async function POST(req: NextRequest) {
     // Fetch all active orgs
     const orgsResult = await pool.query(
       `SELECT id, plan FROM organizations
-       WHERE is_active = true AND plan != 'cancelled'`
+       WHERE is_active = true AND plan != 'cancelled'
+         AND (plan != 'trial' OR trial_ends_at > NOW())`
     );
 
     for (const org of orgsResult.rows) {

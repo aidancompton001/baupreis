@@ -175,7 +175,7 @@ c) Claim damages`,
       title: "4. Free Trial",
       content: `(1) TRIAL PERIOD
 
-New customers receive a 14-day free trial period from registration. During the trial:
+New customers receive a 7-day free trial period from registration. During the trial:
 - Full access to all features of the selected plan
 - No payment required
 - No credit card required
@@ -183,7 +183,7 @@ New customers receive a 14-day free trial period from registration. During the t
 
 (2) AFTER TRIAL END
 
-After the 14-day trial period:
+After the 7-day trial period:
 - Access will be automatically suspended
 - No automatic charges without your explicit consent
 - Prompt to select a paid subscription plan

@@ -45,8 +45,8 @@ export async function POST(req: NextRequest) {
         `INSERT INTO organizations (name, slug, plan, trial_ends_at,
           max_materials, max_users, max_alerts,
           features_telegram, features_forecast, features_api, features_pdf_reports)
-         VALUES ($1, $2, 'trial', NOW() + INTERVAL '14 days',
-          5, 1, 3, false, false, false, false)
+         VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
+          99, 5, 999, true, true, true, true)
          RETURNING id`,
         [name || email, slug]
       );
@@ -57,11 +57,10 @@ export async function POST(req: NextRequest) {
         [orgResult.rows[0].id, id, email, name]
       );
 
-      // Add first 5 materials for Trial plan
+      // Add all materials for Trial (full access)
       await dbClient.query(
         `INSERT INTO org_materials (org_id, material_id)
-         SELECT $1, id FROM materials WHERE is_active = true
-         ORDER BY id LIMIT 5`,
+         SELECT $1, id FROM materials WHERE is_active = true`,
         [orgResult.rows[0].id]
       );
 

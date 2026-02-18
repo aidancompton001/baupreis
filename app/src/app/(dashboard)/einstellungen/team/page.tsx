@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 import { formatDate } from "@/lib/utils";
 
 interface Member {
@@ -152,6 +153,8 @@ export default function TeamPage() {
             : t("team.stats", { active: activeCount, max: maxUsers })}
         </p>
       </div>
+
+      {org?.plan === "trial" && <TrialFeatureBanner plan="Team" />}
 
       {/* Invite form */}
       <div className="bg-white rounded-xl border p-6 mb-6">

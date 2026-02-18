@@ -73,13 +73,13 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
       return check.rows[0];
     }
 
-    // Create org with Trial plan (14 days)
+    // Create org with Trial plan (7 days, full access)
     const orgResult = await client.query(
       `INSERT INTO organizations (name, slug, plan, trial_ends_at,
         max_materials, max_users, max_alerts,
         features_telegram, features_forecast, features_api, features_pdf_reports)
-       VALUES ($1, $2, 'trial', NOW() + INTERVAL '14 days',
-        5, 1, 3, false, false, false, false)
+       VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
+        99, 5, 999, true, true, true, true)
        RETURNING *`,
       [name, slug]
     );
@@ -92,11 +92,10 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
       [org.id, clerkUserId, email, name]
     );
 
-    // Add first 5 materials (Trial/Basis limit)
+    // Add all materials (Trial = full access)
     await client.query(
       `INSERT INTO org_materials (org_id, material_id)
-       SELECT $1, id FROM materials WHERE is_active = true
-       ORDER BY id LIMIT 5`,
+       SELECT $1, id FROM materials WHERE is_active = true`,
       [org.id]
     );
 

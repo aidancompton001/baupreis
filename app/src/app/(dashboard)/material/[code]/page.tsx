@@ -5,6 +5,8 @@ import { useParams } from "next/navigation";
 import { formatPercent, getTrendArrow, getTrendColor } from "@/lib/utils";
 import { SkeletonMaterialDetail } from "@/components/dashboard/Skeleton";
 import { useLocale } from "@/i18n/LocaleContext";
+import { useOrg } from "@/lib/hooks/useOrg";
+import PlanBadge from "@/components/dashboard/PlanBadge";
 import {
   LineChart,
   Line,
@@ -43,6 +45,7 @@ interface Analysis {
 export default function MaterialDetailPage() {
   const params = useParams();
   const { t, locale, dateFmtLocale } = useLocale();
+  const { org } = useOrg();
   const code = params.code as string;
   const [prices, setPrices] = useState<PricePoint[]>([]);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
@@ -287,7 +290,10 @@ export default function MaterialDetailPage() {
 
             {analysis.forecast_json && (
               <div className="pt-4 border-t">
-                <h3 className="font-medium mb-2">{t("material.forecast14d")}</h3>
+                <h3 className="font-medium mb-2">
+                  {t("material.forecast14d")}
+                  {org?.plan === "trial" && <> <PlanBadge plan="Pro" /></>}
+                </h3>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
                     <p className="text-gray-500">{t("material.days", { count: 7 })}</p>

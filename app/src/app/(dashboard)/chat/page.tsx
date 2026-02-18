@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 
 interface Message {
   role: "user" | "assistant";
@@ -160,6 +161,8 @@ export default function ChatPage() {
           {t("chat.subtitle")}
         </p>
       </div>
+
+      {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto bg-white rounded-xl border p-4 mb-4 space-y-4">

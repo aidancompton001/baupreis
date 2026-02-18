@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 
 export default function TelegramPage() {
   const { org, loading: orgLoading } = useOrg();
@@ -72,6 +73,8 @@ export default function TelegramPage() {
           {t("telegram.subtitle")}
         </p>
       </div>
+
+      {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       <div className="bg-white rounded-xl border p-6 max-w-lg">
         <h2 className="font-semibold mb-4">Schritt-für-Schritt</h2>

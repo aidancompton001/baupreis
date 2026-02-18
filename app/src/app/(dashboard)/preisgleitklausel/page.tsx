@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 
 interface MaterialRow {
   code: string;
@@ -247,6 +248,8 @@ export default function PreisgleitklauselPage() {
           {t("escalation.subtitle")}
         </p>
       </div>
+
+      {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       <div className="bg-white rounded-xl border p-6 mb-6">
         <h2 className="font-semibold mb-4">{t("escalation.contractData")}</h2>

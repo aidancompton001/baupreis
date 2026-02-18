@@ -6,6 +6,7 @@ import DOMPurify from "isomorphic-dompurify";
 import { SkeletonListRow } from "@/components/dashboard/Skeleton";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
+import PlanBadge from "@/components/dashboard/PlanBadge";
 
 export default function BerichtePage() {
   const { org } = useOrg();
@@ -85,7 +86,7 @@ export default function BerichtePage() {
                     download
                     className="text-gray-500 hover:text-gray-700 text-sm"
                   >
-                    PDF
+                    PDF {org?.plan === "trial" && <PlanBadge plan="Team" />}
                   </a>
                 )}
                 <button

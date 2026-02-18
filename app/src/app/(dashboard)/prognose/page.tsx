@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 import { SkeletonPrognoseCard } from "@/components/dashboard/Skeleton";
 
 export default function PrognosePage() {
@@ -71,6 +72,8 @@ export default function PrognosePage() {
           {t("forecast.subtitle")}
         </p>
       </div>
+
+      {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       {analysis.length > 0 ? (
         <div className="space-y-4">

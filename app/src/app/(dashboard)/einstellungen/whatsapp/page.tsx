@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
+import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 
 export default function WhatsAppSettingsPage() {
   const { org, loading: orgLoading } = useOrg();
@@ -115,6 +116,7 @@ export default function WhatsAppSettingsPage() {
           <h1 className="text-2xl font-bold text-gray-900">{t("whatsapp.title")}</h1>
           <p className="text-gray-600">{t("whatsapp.subtitle")}</p>
         </div>
+        {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
         <div className="bg-white rounded-xl border p-6">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">✅</span>

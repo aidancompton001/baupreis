@@ -37,7 +37,8 @@ export async function POST(req: NextRequest) {
        JOIN materials m ON ar.material_id = m.id
        JOIN organizations o ON ar.org_id = o.id
        JOIN users u ON u.org_id = o.id AND u.role = 'owner'
-       WHERE ar.is_active = true AND o.is_active = true`
+       WHERE ar.is_active = true AND o.is_active = true
+         AND (o.plan != 'trial' OR o.trial_ends_at > NOW())`
     );
 
     for (const rule of rulesResult.rows) {

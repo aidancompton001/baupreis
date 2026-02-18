@@ -157,7 +157,7 @@ c) Schadensersatzansprüche geltend zu machen`,
       title: "\u00A7 4 Kostenlose Testphase",
       content: `(1) TESTBEDINGUNGEN
 
-Neukunden erhalten eine kostenlose Testphase von 14 Tagen ab Registrierung. Während der Testphase:
+Neukunden erhalten eine kostenlose Testphase von 7 Tagen ab Registrierung. Während der Testphase:
 - Vollzugriff auf alle Funktionen des gewählten Tarifs
 - Keine Zahlungsverpflichtung
 - Keine Kreditkarte erforderlich
@@ -165,7 +165,7 @@ Neukunden erhalten eine kostenlose Testphase von 14 Tagen ab Registrierung. Wäh
 
 (2) NACH TESTENDE
 
-Nach Ablauf der 14-tägigen Testphase:
+Nach Ablauf der 7-tägigen Testphase:
 - Wird der Zugriff automatisch gesperrt
 - Keine automatischen Abbuchungen ohne ausdrückliche Zustimmung
 - Aufforderung zur Auswahl eines kostenpflichtigen Tarifs

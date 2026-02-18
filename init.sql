@@ -29,7 +29,7 @@ CREATE TABLE organizations (
     billing_zip             VARCHAR(20),
     billing_country         VARCHAR(100),
     is_active               BOOLEAN DEFAULT true,
-    trial_ends_at           TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '14 days'),
+    trial_ends_at           TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '7 days'),
     created_at              TIMESTAMPTZ DEFAULT NOW(),
     updated_at              TIMESTAMPTZ DEFAULT NOW()
 );

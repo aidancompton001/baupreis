@@ -154,6 +154,16 @@ export default function AboPage() {
                 })}
               </p>
             )}
+            {currentPlan === "basis" && !org?.paypal_subscription_id && org?.trial_ends_at && (
+              <div className="mt-1">
+                <p className="text-sm text-red-600 font-medium">
+                  {t("trial.expired")}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {t("trial.expiredHint")}
+                </p>
+              </div>
+            )}
           </div>
           {org?.paypal_subscription_id && (
             <button

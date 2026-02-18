@@ -3,12 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale } from "@/i18n/LocaleContext";
+import { useOrg } from "@/lib/hooks/useOrg";
+import PlanBadge from "@/components/dashboard/PlanBadge";
 
-const navItems = [
+const navItems: Array<{
+  href: string;
+  labelKey: string;
+  icon: string;
+  plan?: "Pro" | "Team";
+}> = [
   { href: "/dashboard", labelKey: "nav.overview", icon: "📊" },
-  { href: "/prognose", labelKey: "nav.forecasts", icon: "🤖" },
-  { href: "/chat", labelKey: "nav.chat", icon: "💬" },
-  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: "📐" },
+  { href: "/prognose", labelKey: "nav.forecasts", icon: "🤖", plan: "Pro" },
+  { href: "/chat", labelKey: "nav.chat", icon: "💬", plan: "Pro" },
+  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: "📐", plan: "Pro" },
   { href: "/alerts", labelKey: "nav.alerts", icon: "🔔" },
   { href: "/berichte", labelKey: "nav.reports", icon: "📄" },
   { href: "/einstellungen", labelKey: "nav.settings", icon: "⚙️" },
@@ -23,6 +30,8 @@ const mobileNavItems = navItems.filter(
 export default function DashboardNav() {
   const pathname = usePathname();
   const { t } = useLocale();
+  const { org } = useOrg();
+  const isTrial = org?.plan === "trial";
 
   function isActive(href: string): boolean {
     if (href === "/dashboard") return pathname === "/dashboard";
@@ -48,6 +57,7 @@ export default function DashboardNav() {
               >
                 <span>{item.icon}</span>
                 <span>{t(item.labelKey)}</span>
+                {isTrial && item.plan && <PlanBadge plan={item.plan} />}
               </Link>
             );
           })}
