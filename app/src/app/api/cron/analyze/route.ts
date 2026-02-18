@@ -15,7 +15,7 @@ import Anthropic from "@anthropic-ai/sdk";
  * - change_pct_7d, change_pct_30d
  * - recommendation (buy_now/wait/watch)
  * - confidence (0-100)
- * - explanation_de (German text)
+ * - explanation_de/en/ru (multilingual text)
  * - forecast_json ({7d, 30d, 90d} price predictions)
  */
 export async function POST(req: NextRequest) {
@@ -117,19 +117,30 @@ export async function POST(req: NextRequest) {
         const forecast90d =
           Math.round(latestPrice * (1 + (change30d / 100) * 0.5) * 100) / 100;
 
-        const explanations: Record<string, string> = {
+        const explanationsDe: Record<string, string> = {
           rising: `${data.name_de}: Preise steigen leicht. Kaufempfehlung vor weiteren Erhöhungen.`,
           falling: `${data.name_de}: Preisrückgang zu beobachten. Abwarten könnte sich lohnen.`,
           stable: `${data.name_de}: Preise bleiben stabil. Kein dringender Handlungsbedarf.`,
+        };
+        const explanationsEn: Record<string, string> = {
+          rising: `${data.name_de}: Prices are rising slightly. Buying recommended before further increases.`,
+          falling: `${data.name_de}: Price decline observed. Waiting could be worthwhile.`,
+          stable: `${data.name_de}: Prices remain stable. No urgent action needed.`,
+        };
+        const explanationsRu: Record<string, string> = {
+          rising: `${data.name_de}: Цены немного растут. Рекомендуется покупка до дальнейшего роста.`,
+          falling: `${data.name_de}: Наблюдается снижение цен. Возможно, стоит подождать.`,
+          stable: `${data.name_de}: Цены остаются стабильными. Срочных действий не требуется.`,
         };
 
         try {
           await pool.query(
             `INSERT INTO analysis
               (material_id, timestamp, trend, change_pct_7d, change_pct_30d,
-               forecast_json, explanation_de, recommendation, confidence,
+               forecast_json, explanation_de, explanation_en, explanation_ru,
+               recommendation, confidence,
                model_version, prompt_tokens, completion_tokens)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
             [
               data.material_id,
               now,
@@ -141,7 +152,9 @@ export async function POST(req: NextRequest) {
                 "30d": forecast30d,
                 "90d": forecast90d,
               }),
-              explanations[trend],
+              explanationsDe[trend],
+              explanationsEn[trend],
+              explanationsRu[trend],
               recommendation,
               35,
               "synthetic",
@@ -192,6 +205,8 @@ Format:
     "recommendation": "buy_now" | "wait" | "watch",
     "confidence": number (0-100),
     "explanation_de": "2-3 Sätze auf Deutsch",
+    "explanation_en": "2-3 sentences in English",
+    "explanation_ru": "2-3 предложения на русском",
     "forecast_json": { "7d": number, "30d": number, "90d": number }
   }
 ]
@@ -226,6 +241,8 @@ Regeln:
       recommendation: string;
       confidence: number;
       explanation_de: string;
+      explanation_en: string;
+      explanation_ru: string;
       forecast_json: { "7d": number; "30d": number; "90d": number };
     }>;
 
@@ -266,9 +283,10 @@ Regeln:
         await pool.query(
           `INSERT INTO analysis
             (material_id, timestamp, trend, change_pct_7d, change_pct_30d,
-             forecast_json, explanation_de, recommendation, confidence,
+             forecast_json, explanation_de, explanation_en, explanation_ru,
+             recommendation, confidence,
              model_version, prompt_tokens, completion_tokens)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
           [
             materialData.material_id,
             now,
@@ -277,6 +295,8 @@ Regeln:
             a.change_pct_30d,
             JSON.stringify(a.forecast_json),
             a.explanation_de,
+            a.explanation_en || a.explanation_de,
+            a.explanation_ru || a.explanation_de,
             a.recommendation,
             a.confidence,
             modelVersion,

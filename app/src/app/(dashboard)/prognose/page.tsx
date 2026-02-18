@@ -8,7 +8,7 @@ import { SkeletonPrognoseCard } from "@/components/dashboard/Skeleton";
 
 export default function PrognosePage() {
   const { org, loading: orgLoading } = useOrg();
-  const { t } = useLocale();
+  const { t, locale, dateFmtLocale } = useLocale();
   const [analysis, setAnalysis] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -98,28 +98,30 @@ export default function PrognosePage() {
                 </span>
               </div>
 
-              {item.explanation_de && (
-                <p className="text-gray-700 mb-4">{item.explanation_de}</p>
+              {(item[`explanation_${locale}`] || item.explanation_de) && (
+                <p className="text-gray-700 mb-4">
+                  {item[`explanation_${locale}`] || item.explanation_de}
+                </p>
               )}
 
               {item.forecast_json && (
                 <div className="grid grid-cols-3 gap-4 text-sm bg-gray-50 rounded-lg p-4">
                   <div>
-                    <p className="text-gray-500 mb-1">7 Tage</p>
+                    <p className="text-gray-500 mb-1">{t("material.days", { count: 7 })}</p>
                     <p className="font-semibold text-green-600">
-                      €{Number(item.forecast_json["7d"]).toLocaleString("de-DE", { minimumFractionDigits: 2 })}
+                      €{Number(item.forecast_json["7d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500 mb-1">30 Tage</p>
+                    <p className="text-gray-500 mb-1">{t("material.days", { count: 30 })}</p>
                     <p className="font-semibold">
-                      €{Number(item.forecast_json["30d"]).toLocaleString("de-DE", { minimumFractionDigits: 2 })}
+                      €{Number(item.forecast_json["30d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500 mb-1">90 Tage</p>
+                    <p className="text-gray-500 mb-1">{t("material.days", { count: 90 })}</p>
                     <p className="font-semibold text-red-600">
-                      €{Number(item.forecast_json["90d"]).toLocaleString("de-DE", { minimumFractionDigits: 2 })}
+                      €{Number(item.forecast_json["90d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                 </div>

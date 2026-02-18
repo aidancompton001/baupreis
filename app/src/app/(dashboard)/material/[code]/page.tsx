@@ -32,14 +32,17 @@ interface Analysis {
   change_pct_7d: number;
   change_pct_30d: number;
   explanation_de: string;
+  explanation_en?: string;
+  explanation_ru?: string;
   recommendation: string;
   forecast_json: any;
   confidence: number;
+  [key: string]: any;
 }
 
 export default function MaterialDetailPage() {
   const params = useParams();
-  const { t, dateFmtLocale } = useLocale();
+  const { t, locale, dateFmtLocale } = useLocale();
   const code = params.code as string;
   const [prices, setPrices] = useState<PricePoint[]>([]);
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
@@ -250,8 +253,10 @@ export default function MaterialDetailPage() {
               </div>
             </div>
 
-            {analysis.explanation_de && (
-              <p className="text-gray-700">{analysis.explanation_de}</p>
+            {(analysis[`explanation_${locale}`] || analysis.explanation_de) && (
+              <p className="text-gray-700">
+                {analysis[`explanation_${locale}`] || analysis.explanation_de}
+              </p>
             )}
 
             {analysis.recommendation && (
@@ -285,19 +290,19 @@ export default function MaterialDetailPage() {
                 <h3 className="font-medium mb-2">{t("material.forecast14d")}</h3>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-500">7 Tage</p>
+                    <p className="text-gray-500">{t("material.days", { count: 7 })}</p>
                     <p className="font-medium">
                       €{Number(analysis.forecast_json["7d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">30 Tage</p>
+                    <p className="text-gray-500">{t("material.days", { count: 30 })}</p>
                     <p className="font-medium">
                       €{Number(analysis.forecast_json["30d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">90 Tage</p>
+                    <p className="text-gray-500">{t("material.days", { count: 90 })}</p>
                     <p className="font-medium">
                       €{Number(analysis.forecast_json["90d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
