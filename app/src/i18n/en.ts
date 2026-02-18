@@ -1,7 +1,7 @@
 const en: Record<string, string> = {
   // Meta
   "meta.title": "BauPreis AI \u2014 Construction Material Prices in Real-Time | AI Forecasts for Construction Companies",
-  "meta.description": "Monitor construction material prices 24/7 with AI. Get price alerts, forecasts and recommendations. From \u20ac49/month. 7 days free.",
+  "meta.description": "Monitor construction material prices 24/7 with AI. Get price alerts, forecasts and recommendations. From \u20ac1/month. 7 days free.",
   "meta.ogTitle": "BauPreis AI \u2014 Construction Material Prices in Real-Time",
   "meta.ogDescription": "Monitor construction material prices 24/7 with AI. Price alerts, forecasts and recommendations.",
 
@@ -379,7 +379,7 @@ const en: Record<string, string> = {
   "landing.heroSubtitle": "Monitor steel, copper, wood and 13 more construction materials. Get AI-powered forecasts and price alerts directly to your phone.",
   "landing.ctaTrial": "Try 7 Days Free",
   "landing.ctaPricing": "See Pricing",
-  "landing.ctaSubline": "From \u20ac49/month. No credit card required.",
+  "landing.ctaSubline": "From \u20ac1/month. No credit card required.",
   "landing.problemTitle": "Material prices fluctuate. You find out too late.",
   "landing.problemText": "Steel prices rise 15% in a week. Copper drops. Wood prices explode. As a procurement manager, you need this information immediately \u2014 not when the supplier calls.",
   "landing.solutionTitle": "Your Solution: BauPreis AI",

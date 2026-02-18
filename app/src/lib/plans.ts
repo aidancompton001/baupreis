@@ -53,7 +53,7 @@ export function applyPlanToOrg(plan: string) {
 }
 
 export const PLAN_PRICES = {
-  basis: { monthly: 49, yearly: 470 },
+  basis: { monthly: 1, yearly: 10 },
   pro: { monthly: 149, yearly: 1430 },
   team: { monthly: 299, yearly: 2870 },
 };

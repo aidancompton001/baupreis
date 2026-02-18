@@ -28,7 +28,7 @@ E-Mail: pashchenkoh@gmail.com
 
 (2) Der konkrete Leistungsumfang richtet sich nach dem vom Kunden gewählten Tarif. Folgende Tarife stehen zur Verfügung:
 
-BASIS-TARIF (€49/Monat oder €470/Jahr)
+BASIS-TARIF (€1/Monat oder €10/Jahr)
 \u2713 Überwachung von 5 Baustoffen
 \u2713 1 Benutzer
 \u2713 3 Preisalarme

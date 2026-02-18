@@ -46,7 +46,7 @@ BauPreis AI provides a Software-as-a-Service (SaaS) platform for real-time monit
 
 We offer three subscription plans:
 
-BASIS PLAN (\u20AC49/month or \u20AC470/year)
+BASIS PLAN (\u20AC1/month or \u20AC10/year)
 \u2713 Monitor 5 materials
 \u2713 1 user
 \u2713 3 price alerts

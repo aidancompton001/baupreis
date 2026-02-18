@@ -12,8 +12,8 @@ export default function PreisePage() {
     {
       id: "basis",
       name: "Basis",
-      monthlyPrice: 49,
-      yearlyPrice: 470,
+      monthlyPrice: 1,
+      yearlyPrice: 10,
       description: t("pricing.basisDesc"),
       features: [
         t("pricing.feat5Materials"),

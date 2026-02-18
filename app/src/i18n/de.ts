@@ -1,7 +1,7 @@
 const de: Record<string, string> = {
   // Meta
   "meta.title": "BauPreis AI \u2014 Baustoffpreise in Echtzeit | KI-Prognosen f\u00fcr Bauunternehmen",
-  "meta.description": "\u00dcberwachen Sie Baustoffpreise 24/7 mit KI. Erhalten Sie Preisalarme, Prognosen und Empfehlungen. Ab \u20ac49/Monat. 7 Tage kostenlos.",
+  "meta.description": "\u00dcberwachen Sie Baustoffpreise 24/7 mit KI. Erhalten Sie Preisalarme, Prognosen und Empfehlungen. Ab \u20ac1/Monat. 7 Tage kostenlos.",
   "meta.ogTitle": "BauPreis AI \u2014 Baustoffpreise in Echtzeit",
   "meta.ogDescription": "\u00dcberwachen Sie Baustoffpreise 24/7 mit KI. Preisalarme, Prognosen und Empfehlungen.",
 
@@ -383,7 +383,7 @@ const de: Record<string, string> = {
   "landing.heroSubtitle": "\u00dcberwachen Sie Stahl, Kupfer, Holz und 13 weitere Baustoffe. Erhalten Sie KI-gest\u00fctzte Prognosen und Preisalarme direkt auf Ihr Handy.",
   "landing.ctaTrial": "7 Tage kostenlos testen",
   "landing.ctaPricing": "Preise ansehen",
-  "landing.ctaSubline": "Ab \u20ac49/Monat. Keine Kreditkarte erforderlich.",
+  "landing.ctaSubline": "Ab \u20ac1/Monat. Keine Kreditkarte erforderlich.",
   "landing.problemTitle": "Materialpreise schwanken. Sie erfahren es zu sp\u00e4t.",
   "landing.problemText": "Stahlpreise steigen um 15% in einer Woche. Kupfer bricht ein. Holzpreise explodieren. Als Einkaufsleiter brauchen Sie diese Informationen sofort \u2014 nicht erst, wenn der Lieferant anruft.",
   "landing.solutionTitle": "Ihre L\u00f6sung: BauPreis AI",
