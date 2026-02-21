@@ -121,6 +121,27 @@ const ru: Record<string, string> = {
   "alerts.error.create": "Ошибка при создании правила.",
   "alerts.error.connection": "Ошибка соединения. Попробуйте ещё раз.",
 
+  // API error keys (alerts)
+  "api.error.alerts.invalidRuleType": "Недопустимый тип правила.",
+  "api.error.alerts.invalidChannel": "Недопустимый канал.",
+  "api.error.alerts.invalidPriority": "Недопустимый приоритет.",
+  "api.error.alerts.invalidTimeWindow": "Недопустимое временное окно.",
+  "api.error.alerts.invalidThreshold": "Порог должен быть от 0 до 100.",
+  "api.error.alerts.materialNotInPlan": "Материал не входит в ваш план.",
+  "api.error.alerts.materialNotFound": "Материал не найден.",
+  "api.error.alerts.telegramNotInPlan": "Telegram недоступен в вашем плане.",
+  "api.error.alerts.telegramNotConnected": "Сначала подключите Telegram в Настройки → Telegram.",
+  "api.error.alerts.limitReached": "Лимит оповещений достигнут. Обновите план.",
+  "api.error.alerts.idRequired": "Требуется ID оповещения.",
+  // API error keys (whatsapp)
+  "api.error.whatsapp.notInPlan": "WhatsApp доступен начиная с плана Pro.",
+  "api.error.whatsapp.invalidPhone": "Неверный номер телефона. Формат: +49...",
+  "api.error.whatsapp.invalidCode": "Неверный код. Введите 6-значный код.",
+  "api.error.whatsapp.codeExpired": "Код неверен или истёк.",
+  "api.error.whatsapp.invalidAction": "Недопустимое действие.",
+  // API error keys (shared)
+  "api.error.internalServerError": "Внутренняя ошибка сервера",
+
   // Reports
   "reports.title": "Отчёты",
   "reports.subtitle": "Архив ваших ежедневных, еженедельных и ежемесячных отчётов.",

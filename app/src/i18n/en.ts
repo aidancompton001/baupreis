@@ -121,6 +121,27 @@ const en: Record<string, string> = {
   "alerts.error.create": "Error creating rule.",
   "alerts.error.connection": "Connection error. Please try again.",
 
+  // API error keys (alerts)
+  "api.error.alerts.invalidRuleType": "Invalid rule type.",
+  "api.error.alerts.invalidChannel": "Invalid channel.",
+  "api.error.alerts.invalidPriority": "Invalid priority.",
+  "api.error.alerts.invalidTimeWindow": "Invalid time window.",
+  "api.error.alerts.invalidThreshold": "Threshold must be between 0 and 100.",
+  "api.error.alerts.materialNotInPlan": "Material not included in your plan.",
+  "api.error.alerts.materialNotFound": "Material not found.",
+  "api.error.alerts.telegramNotInPlan": "Telegram is not included in your plan.",
+  "api.error.alerts.telegramNotConnected": "Please connect Telegram first under Settings → Telegram.",
+  "api.error.alerts.limitReached": "Alert limit reached. Please upgrade your plan.",
+  "api.error.alerts.idRequired": "Alert ID required.",
+  // API error keys (whatsapp)
+  "api.error.whatsapp.notInPlan": "WhatsApp is available from the Pro plan.",
+  "api.error.whatsapp.invalidPhone": "Invalid phone number. Format: +49...",
+  "api.error.whatsapp.invalidCode": "Invalid code. Please enter a 6-digit code.",
+  "api.error.whatsapp.codeExpired": "Code invalid or expired.",
+  "api.error.whatsapp.invalidAction": "Invalid action.",
+  // API error keys (shared)
+  "api.error.internalServerError": "Internal server error",
+
   // Reports
   "reports.title": "Reports",
   "reports.subtitle": "Archive of your daily, weekly and monthly reports.",

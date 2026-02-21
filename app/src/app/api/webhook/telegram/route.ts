@@ -19,7 +19,16 @@ const WEBHOOK_SECRET = process.env.TELEGRAM_WEBHOOK_SECRET || "";
 export async function POST(req: NextRequest) {
   // 1. Verify secret token
   const received = req.headers.get("x-telegram-bot-api-secret-token") || "";
+  console.log("Telegram webhook received:", {
+    hasSecret: !!received,
+    webhookSecretConfigured: !!WEBHOOK_SECRET,
+  });
+
   if (!verifySecret(received)) {
+    console.warn("Telegram webhook: secret verification failed", {
+      receivedLength: received.length,
+      expectedLength: WEBHOOK_SECRET.length,
+    });
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

@@ -30,7 +30,7 @@ export async function GET() {
     if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
       return NextResponse.json({ error: error.message }, { status: 403 });
     }
-    return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
+    return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }
 }
 
@@ -47,32 +47,32 @@ export async function POST(req: NextRequest) {
     // Input validation
     if (!body.rule_type || !VALID_RULE_TYPES.includes(body.rule_type)) {
       return NextResponse.json(
-        { error: "Ungültiger Regeltyp. Erlaubt: " + VALID_RULE_TYPES.join(", ") },
+        { error: "Ungültiger Regeltyp. Erlaubt: " + VALID_RULE_TYPES.join(", "), errorKey: "api.error.alerts.invalidRuleType" },
         { status: 400 }
       );
     }
     if (!body.channel || !VALID_CHANNELS.includes(body.channel)) {
       return NextResponse.json(
-        { error: "Ungültiger Kanal. Erlaubt: " + VALID_CHANNELS.join(", ") },
+        { error: "Ungültiger Kanal. Erlaubt: " + VALID_CHANNELS.join(", "), errorKey: "api.error.alerts.invalidChannel" },
         { status: 400 }
       );
     }
     if (body.priority && !VALID_PRIORITIES.includes(body.priority)) {
       return NextResponse.json(
-        { error: "Ungültige Priorität. Erlaubt: " + VALID_PRIORITIES.join(", ") },
+        { error: "Ungültige Priorität. Erlaubt: " + VALID_PRIORITIES.join(", "), errorKey: "api.error.alerts.invalidPriority" },
         { status: 400 }
       );
     }
     if (body.time_window && !VALID_TIME_WINDOWS.includes(body.time_window)) {
       return NextResponse.json(
-        { error: "Ungültiges Zeitfenster." },
+        { error: "Ungültiges Zeitfenster.", errorKey: "api.error.alerts.invalidTimeWindow" },
         { status: 400 }
       );
     }
     const thresholdPct = parseFloat(body.threshold_pct);
     if (isNaN(thresholdPct) || thresholdPct <= 0 || thresholdPct > 100) {
       return NextResponse.json(
-        { error: "Schwellenwert muss zwischen 0 und 100 liegen." },
+        { error: "Schwellenwert muss zwischen 0 und 100 liegen.", errorKey: "api.error.alerts.invalidThreshold" },
         { status: 400 }
       );
     }
@@ -86,7 +86,7 @@ export async function POST(req: NextRequest) {
         );
         if (matCheck.rows.length === 0) {
           return NextResponse.json(
-            { error: "Material nicht in Ihrem Plan enthalten." },
+            { error: "Material nicht in Ihrem Plan enthalten.", errorKey: "api.error.alerts.materialNotInPlan" },
             { status: 403 }
           );
         }
@@ -97,7 +97,7 @@ export async function POST(req: NextRequest) {
         );
         if (matExists.rows.length === 0) {
           return NextResponse.json(
-            { error: "Material nicht gefunden." },
+            { error: "Material nicht gefunden.", errorKey: "api.error.alerts.materialNotFound" },
             { status: 400 }
           );
         }
@@ -112,15 +112,15 @@ export async function POST(req: NextRequest) {
     if (needsTelegram) {
       if (!org.features_telegram) {
         return NextResponse.json(
-          { error: "Telegram ist nicht in Ihrem Plan enthalten." },
+          { error: "Telegram ist nicht in Ihrem Plan enthalten.", errorKey: "api.error.alerts.telegramNotInPlan" },
           { status: 403 }
         );
       }
       if (!org.telegram_chat_id) {
         return NextResponse.json(
           {
-            error:
-              "Bitte verbinden Sie zuerst Telegram unter Einstellungen → Telegram.",
+            error: "Bitte verbinden Sie zuerst Telegram unter Einstellungen → Telegram.",
+            errorKey: "api.error.alerts.telegramNotConnected",
           },
           { status: 400 }
         );
@@ -134,7 +134,7 @@ export async function POST(req: NextRequest) {
     );
     if (parseInt(countResult.rows[0].count) >= org.max_alerts) {
       return NextResponse.json(
-        { error: "Alarm-Limit erreicht. Bitte upgraden Sie Ihren Plan." },
+        { error: "Alarm-Limit erreicht. Bitte upgraden Sie Ihren Plan.", errorKey: "api.error.alerts.limitReached" },
         { status: 403 }
       );
     }
@@ -158,7 +158,7 @@ export async function POST(req: NextRequest) {
     if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
       return NextResponse.json({ error: error.message }, { status: 403 });
     }
-    return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
+    return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }
 }
 
@@ -168,7 +168,7 @@ export async function DELETE(req: NextRequest) {
     const ruleId = req.nextUrl.searchParams.get("id");
 
     if (!ruleId) {
-      return NextResponse.json({ error: "Alarm-ID erforderlich" }, { status: 400 });
+      return NextResponse.json({ error: "Alarm-ID erforderlich", errorKey: "api.error.alerts.idRequired" }, { status: 400 });
     }
 
     await pool.query(
@@ -181,6 +181,6 @@ export async function DELETE(req: NextRequest) {
     if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
       return NextResponse.json({ error: error.message }, { status: 403 });
     }
-    return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
+    return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }
 }

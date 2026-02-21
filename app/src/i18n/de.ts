@@ -122,6 +122,27 @@ const de: Record<string, string> = {
   "alerts.error.create": "Fehler beim Erstellen der Regel.",
   "alerts.error.connection": "Verbindungsfehler. Bitte versuchen Sie es erneut.",
 
+  // API error keys (alerts)
+  "api.error.alerts.invalidRuleType": "Ungültiger Regeltyp.",
+  "api.error.alerts.invalidChannel": "Ungültiger Kanal.",
+  "api.error.alerts.invalidPriority": "Ungültige Priorität.",
+  "api.error.alerts.invalidTimeWindow": "Ungültiges Zeitfenster.",
+  "api.error.alerts.invalidThreshold": "Schwellenwert muss zwischen 0 und 100 liegen.",
+  "api.error.alerts.materialNotInPlan": "Material nicht in Ihrem Plan enthalten.",
+  "api.error.alerts.materialNotFound": "Material nicht gefunden.",
+  "api.error.alerts.telegramNotInPlan": "Telegram ist nicht in Ihrem Plan enthalten.",
+  "api.error.alerts.telegramNotConnected": "Bitte verbinden Sie zuerst Telegram unter Einstellungen → Telegram.",
+  "api.error.alerts.limitReached": "Alarm-Limit erreicht. Bitte upgraden Sie Ihren Plan.",
+  "api.error.alerts.idRequired": "Alarm-ID erforderlich.",
+  // API error keys (whatsapp)
+  "api.error.whatsapp.notInPlan": "WhatsApp ist ab dem Pro-Plan verfügbar.",
+  "api.error.whatsapp.invalidPhone": "Ungültige Telefonnummer. Format: +49...",
+  "api.error.whatsapp.invalidCode": "Ungültiger Code. Bitte 6-stelligen Code eingeben.",
+  "api.error.whatsapp.codeExpired": "Code ungültig oder abgelaufen.",
+  "api.error.whatsapp.invalidAction": "Ungültige Aktion.",
+  // API error keys (shared)
+  "api.error.internalServerError": "Interner Serverfehler",
+
   // Reports
   "reports.title": "Berichte",
   "reports.subtitle": "Archiv Ihrer t\u00e4glichen, w\u00f6chentlichen und monatlichen Berichte.",

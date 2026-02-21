@@ -30,7 +30,7 @@ export default function WhatsAppSettingsPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || t("whatsapp.error.send"));
+        setError(data.errorKey ? t(data.errorKey) : (data.error || t("whatsapp.error.send")));
         return;
       }
       setStep("verify");
@@ -53,7 +53,7 @@ export default function WhatsAppSettingsPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || t("whatsapp.error.verify"));
+        setError(data.errorKey ? t(data.errorKey) : (data.error || t("whatsapp.error.verify")));
         return;
       }
       setStep("connected");

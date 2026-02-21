@@ -102,7 +102,7 @@ export default function AlertsPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setFormError(data.error || t("alerts.error.create"));
+        setFormError(data.errorKey ? t(data.errorKey) : (data.error || t("alerts.error.create")));
         return;
       }
       // Refresh rules list

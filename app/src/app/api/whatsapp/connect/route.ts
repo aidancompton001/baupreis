@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     if (!canAccess(org, "telegram")) {
       return NextResponse.json(
-        { error: "WhatsApp ist ab dem Pro-Plan verfügbar." },
+        { error: "WhatsApp ist ab dem Pro-Plan verfügbar.", errorKey: "api.error.whatsapp.notInPlan" },
         { status: 403 }
       );
     }
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
       // Basic phone validation (international format)
       if (!phone || !/^\+\d{10,15}$/.test(phone)) {
         return NextResponse.json(
-          { error: "Ungültige Telefonnummer. Format: +49..." },
+          { error: "Ungültige Telefonnummer. Format: +49...", errorKey: "api.error.whatsapp.invalidPhone" },
           { status: 400 }
         );
       }
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
 
       if (!code || !/^\d{6}$/.test(code)) {
         return NextResponse.json(
-          { error: "Ungültiger Code. Bitte 6-stelligen Code eingeben." },
+          { error: "Ungültiger Code. Bitte 6-stelligen Code eingeben.", errorKey: "api.error.whatsapp.invalidCode" },
           { status: 400 }
         );
       }
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
 
       if (pending.rows.length === 0) {
         return NextResponse.json(
-          { error: "Code ungültig oder abgelaufen." },
+          { error: "Code ungültig oder abgelaufen.", errorKey: "api.error.whatsapp.codeExpired" },
           { status: 400 }
         );
       }
@@ -111,7 +111,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true });
     }
 
-    return NextResponse.json({ error: "Ungültige Aktion." }, { status: 400 });
+    return NextResponse.json({ error: "Ungültige Aktion.", errorKey: "api.error.whatsapp.invalidAction" }, { status: 400 });
   } catch (error: any) {
     if (
       [
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 403 });
     }
     return NextResponse.json(
-      { error: "Interner Serverfehler" },
+      { error: "Interner Serverfehler", errorKey: "api.error.internalServerError" },
       { status: 500 }
     );
   }

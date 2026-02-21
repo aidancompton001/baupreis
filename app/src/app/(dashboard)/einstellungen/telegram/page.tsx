@@ -44,7 +44,7 @@ export default function TelegramPage() {
       const res = await fetch("/api/telegram/connect", { method: "POST" });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setErrorMsg(data.error || t("telegram.error"));
+        setErrorMsg(data.errorKey ? t(data.errorKey) : (data.error || t("telegram.error")));
         setStatus("error");
         return;
       }
