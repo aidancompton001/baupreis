@@ -130,6 +130,13 @@ const en: Record<string, string> = {
   "reports.noReports": "No reports available yet.",
   "reports.noReportsHint": "Reports are generated automatically and sent via email.",
   "reports.read": "Read",
+  "reports.colMaterial": "Material",
+  "reports.colPrice": "Price (EUR)",
+  "reports.colChange": "Change 7d",
+  "reports.colTrend": "Trend",
+  "reports.trendRising": "rising ↑",
+  "reports.trendFalling": "falling ↓",
+  "reports.trendStable": "stable →",
 
   // Forecast
   "forecast.title": "AI Forecasts",

@@ -11,9 +11,11 @@ interface ReportData {
     summary?: string;
     materials?: Array<{
       name: string;
+      name_de?: string;
       price_eur: number;
       unit: string;
       change_pct?: number;
+      change_pct_7d?: number;
       trend?: string;
     }>;
     [key: string]: any;
@@ -124,12 +126,13 @@ export async function generateReportPdf(
           doc.addPage();
         }
         const rowY = doc.y;
-        doc.text(mat.name, col.name, rowY, { width: 190 });
+        doc.text(mat.name_de || mat.name, col.name, rowY, { width: 190 });
         doc.text(formatDeNumber(mat.price_eur), col.price, rowY);
         doc.text(mat.unit || "", col.unit, rowY);
-        if (mat.change_pct !== undefined) {
-          const sign = mat.change_pct > 0 ? "+" : "";
-          doc.text(`${sign}${formatDeNumber(mat.change_pct)}%`, col.change, rowY);
+        const changePct = mat.change_pct_7d ?? mat.change_pct;
+        if (changePct !== undefined && changePct !== null) {
+          const sign = changePct > 0 ? "+" : "";
+          doc.text(`${sign}${formatDeNumber(changePct)}%`, col.change, rowY);
         }
         if (mat.trend) {
           const trendLabel =

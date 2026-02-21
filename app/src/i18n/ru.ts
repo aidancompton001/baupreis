@@ -130,6 +130,13 @@ const ru: Record<string, string> = {
   "reports.noReports": "Отчёты пока отсутствуют.",
   "reports.noReportsHint": "Отчёты создаются автоматически и отправляются по e-mail.",
   "reports.read": "Читать",
+  "reports.colMaterial": "Материал",
+  "reports.colPrice": "Цена (EUR)",
+  "reports.colChange": "Изм. 7д",
+  "reports.colTrend": "Тренд",
+  "reports.trendRising": "растёт ↑",
+  "reports.trendFalling": "падает ↓",
+  "reports.trendStable": "стабильно →",
 
   // Forecast
   "forecast.title": "ИИ-прогнозы",

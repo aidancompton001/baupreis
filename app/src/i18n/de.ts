@@ -131,6 +131,13 @@ const de: Record<string, string> = {
   "reports.noReports": "Noch keine Berichte vorhanden.",
   "reports.noReportsHint": "Berichte werden automatisch erstellt und per E-Mail gesendet.",
   "reports.read": "Lesen",
+  "reports.colMaterial": "Material",
+  "reports.colPrice": "Preis (EUR)",
+  "reports.colChange": "Änderung 7T",
+  "reports.colTrend": "Trend",
+  "reports.trendRising": "steigend ↑",
+  "reports.trendFalling": "fallend ↓",
+  "reports.trendStable": "stabil →",
 
   // Forecast / Prognose
   "forecast.title": "KI-Prognosen",

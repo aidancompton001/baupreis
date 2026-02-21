@@ -60,8 +60,8 @@ export async function GET(req: NextRequest) {
                 minimumFractionDigits: 2,
               })
             : "";
-          const change = mat.change_pct
-            ? parseFloat(mat.change_pct).toLocaleString("de-DE", {
+          const change = (mat.change_pct_7d || mat.change_pct)
+            ? parseFloat(mat.change_pct_7d || mat.change_pct).toLocaleString("de-DE", {
                 minimumFractionDigits: 2,
               })
             : "";

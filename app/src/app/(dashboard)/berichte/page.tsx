@@ -133,8 +133,48 @@ export default function BerichtePage() {
                   __html: DOMPurify.sanitize(selectedReport.content_html),
                 }}
               />
+            ) : selectedReport.content_json?.materials ? (
+              <div>
+                <p className="text-sm text-gray-500 mb-4">
+                  {formatDate(selectedReport.content_json.period?.start || selectedReport.period_start)}
+                  {" – "}
+                  {formatDate(selectedReport.content_json.period?.end || selectedReport.period_end)}
+                </p>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b text-left text-gray-500">
+                        <th className="pb-2 font-medium">{t("reports.colMaterial")}</th>
+                        <th className="pb-2 font-medium text-right">{t("reports.colPrice")}</th>
+                        <th className="pb-2 font-medium text-right">{t("reports.colChange")}</th>
+                        <th className="pb-2 font-medium">{t("reports.colTrend")}</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {selectedReport.content_json.materials.map((mat: any, i: number) => (
+                        <tr key={i}>
+                          <td className="py-2 font-medium">{mat.name_de || mat.name}</td>
+                          <td className="py-2 text-right">
+                            {mat.price_eur ? `€${parseFloat(mat.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}` : "–"}
+                          </td>
+                          <td className="py-2 text-right">
+                            {mat.change_pct_7d != null ? (
+                              <span className={parseFloat(mat.change_pct_7d) > 0 ? "text-red-600" : parseFloat(mat.change_pct_7d) < 0 ? "text-green-600" : "text-gray-500"}>
+                                {parseFloat(mat.change_pct_7d) > 0 ? "+" : ""}{parseFloat(mat.change_pct_7d).toFixed(2)}%
+                              </span>
+                            ) : "–"}
+                          </td>
+                          <td className="py-2">
+                            {mat.trend === "rising" ? t("reports.trendRising") : mat.trend === "falling" ? t("reports.trendFalling") : mat.trend === "stable" ? t("reports.trendStable") : "–"}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             ) : (
-              <pre className="text-sm whitespace-pre-wrap">
+              <pre className="text-sm whitespace-pre-wrap text-gray-600">
                 {JSON.stringify(selectedReport.content_json, null, 2)}
               </pre>
             )}

@@ -39,5 +39,8 @@ ENV NODE_ENV=production
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+# pdfkit is loaded via eval('require') to avoid webpack bundling,
+# so Next.js standalone trace does not include it. Install it explicitly.
+RUN npm install --no-save pdfkit@0.15.2
 EXPOSE 3000
 CMD ["node", "server.js"]
