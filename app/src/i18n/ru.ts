@@ -355,6 +355,7 @@ const ru: Record<string, string> = {
   "upgrade.featureFrom": "{feature} — начиная с плана {plan}",
   "upgrade.defaultDescription": "Перейдите на план {plan}, чтобы использовать {feature}.",
   "upgrade.button": "Перейти на {plan}",
+  "upgrade.processing": "Загрузка…",
 
   // Onboarding
   "onboarding.welcome": "Добро пожаловать в BauPreis AI!",

@@ -98,6 +98,8 @@ CREATE TABLE analysis (
     change_pct_30d  DECIMAL(6,2),
     forecast_json   JSONB NOT NULL,
     explanation_de  TEXT,
+    explanation_en  TEXT,
+    explanation_ru  TEXT,
     recommendation  VARCHAR(50),
     confidence      INTEGER CHECK (confidence BETWEEN 0 AND 100),
     model_version   VARCHAR(50),

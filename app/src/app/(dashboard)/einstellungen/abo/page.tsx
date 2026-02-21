@@ -354,7 +354,7 @@ export default function AboPage() {
                 >
                   {isSubscribing
                     ? t("subscription.activating")
-                    : t("subscription.upgrade")}
+                    : t("upgrade.button", { plan: plan.name })}
                 </button>
               )}
             </div>
