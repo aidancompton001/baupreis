@@ -7,331 +7,685 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>BauPreis AI — Trade Show 2026</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-
+  /* ── Reset & Variables ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --brand: #2563eb;
     --brand-dark: #1e40af;
-    --accent: #f59e0b;
-    --dark: #0f172a;
-    --gray-900: #111827;
-    --gray-700: #374151;
-    --gray-500: #6b7280;
-    --gray-300: #d1d5db;
+    --brand-light: #dbeafe;
+    --green: #16a34a;
+    --red: #dc2626;
+    --orange: #ea580c;
+    --gray-50: #f9fafb;
     --gray-100: #f3f4f6;
-    --white: #ffffff;
-    --red: #ef4444;
-    --green: #22c55e;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --radius: 12px;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html {
     scroll-snap-type: y mandatory;
-    overflow-y: scroll;
     scroll-behavior: smooth;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
-
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--gray-900);
-    background: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     user-select: none;
     -webkit-user-select: none;
+    background: var(--gray-50);
   }
 
-  /* ── Slide ── */
+  /* ── Slide Base ── */
   .slide {
     width: 100vw;
     height: 100vh;
-    padding: 40px 48px;
-    position: relative;
-    overflow: hidden;
+    scroll-snap-align: start;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    scroll-snap-align: start;
+    align-items: center;
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
   }
-
-  /* ── Cover / Dark ── */
+  .slide--white { background: #fff; }
+  .slide--light { background: var(--gray-50); }
+  .slide--dark {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff;
+  }
   .slide--cover {
     background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #2563eb 100%);
-    color: white;
+    color: #fff;
   }
-  .slide--dark {
-    background: var(--dark);
-    color: white;
-  }
-  .slide--dark .section-label { color: var(--accent); }
-  .slide--dark .stat-value { color: white; }
-  .slide--dark p, .slide--dark li { color: rgba(255,255,255,0.8); }
-  .slide--dark .stat-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  .slide--dark .stat-label { color: rgba(255,255,255,0.5); }
-
-  /* ── Accent gradient ── */
   .slide--accent {
-    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-    color: white;
+    background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+    color: #fff;
   }
-  .slide--accent .section-label { color: var(--accent); }
-  .slide--accent p { color: rgba(255,255,255,0.85); }
-  .slide--accent .feature-card {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
+  .slide--gradient {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #7c3aed 100%);
+    color: #fff;
   }
-  .slide--accent .feature-card h3 { color: white; }
-  .slide--accent .feature-card p { color: rgba(255,255,255,0.7); }
 
   /* ── Typography ── */
-  .section-label {
-    font-size: 12px;
+  .slide-label {
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--brand);
     margin-bottom: 8px;
   }
-  .slide h2 {
-    font-size: 36px;
+  .slide--dark .slide-label,
+  .slide--cover .slide-label,
+  .slide--accent .slide-label,
+  .slide--gradient .slide-label { color: rgba(255,255,255,0.5); }
+
+  .slide h1 {
+    font-size: clamp(28px, 4.5vw, 48px);
     font-weight: 800;
     line-height: 1.15;
-    letter-spacing: -0.5px;
-    margin-bottom: 20px;
+    text-align: center;
+    max-width: 800px;
   }
-  .slide h3 {
-    font-size: 17px;
+  .slide h1 span { color: #60a5fa; }
+  .slide h2 {
+    font-size: clamp(22px, 3.5vw, 36px);
     font-weight: 700;
-    margin-bottom: 6px;
+    line-height: 1.2;
+    text-align: center;
+    max-width: 780px;
+    margin-bottom: 24px;
   }
-  .slide p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--gray-700);
+  .slide p.subtitle {
+    font-size: clamp(14px, 2vw, 18px);
+    text-align: center;
+    max-width: 640px;
+    opacity: 0.8;
+    margin-top: 12px;
+    line-height: 1.5;
   }
+  .source {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 16px;
+    text-align: center;
+  }
+  .slide--dark .source,
+  .slide--cover .source,
+  .slide--gradient .source { color: rgba(255,255,255,0.35); }
 
   /* ── Cover ── */
-  .cover-content { position: relative; z-index: 2; }
   .cover-badge {
     display: inline-block;
-    background: rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 100px;
-    padding: 6px 18px;
+    border-radius: 20px;
+    padding: 6px 16px;
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.5px;
-    margin-bottom: 28px;
-    color: white;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
   }
-  .slide--cover h1 {
-    font-size: 52px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 14px;
-    letter-spacing: -1px;
-    color: white;
-  }
-  .slide--cover h1 span { color: var(--accent); }
   .cover-subtitle {
-    font-size: 20px;
-    font-weight: 300;
-    opacity: 0.85;
-    line-height: 1.5;
-    max-width: 620px;
-    margin-bottom: 32px;
-    color: white;
-  }
-  .cover-dots {
-    position: absolute;
-    right: -40px;
-    top: -40px;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
-    z-index: 1;
-  }
-  .cover-dots-2 {
-    position: absolute;
-    right: 60px;
-    bottom: -80px;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
-    z-index: 1;
+    font-size: clamp(14px, 2vw, 18px);
+    opacity: 0.75;
+    max-width: 600px;
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 16px;
+    font-weight: 400;
   }
 
-  /* ── Stats Grid ── */
-  .stats-grid {
+  /* ── Stat Cards ── */
+  .stat-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 16px;
-    margin-top: 20px;
+    max-width: 820px;
+    width: 100%;
+    margin-top: 8px;
   }
   .stat-card {
-    background: var(--gray-100);
-    border-radius: 16px;
-    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align: center;
   }
-  .stat-value {
-    font-size: 42px;
+  .stat-num {
+    font-size: 32px;
     font-weight: 800;
-    color: var(--brand);
+    color: var(--red);
     line-height: 1;
-    margin-bottom: 6px;
   }
-  .stat-value .up { color: var(--red); }
+  .stat-num.brand { color: var(--brand); }
   .stat-label {
     font-size: 13px;
-    font-weight: 500;
-    color: var(--gray-500);
-    line-height: 1.4;
+    color: var(--gray-600);
+    margin-top: 8px;
+    line-height: 1.3;
   }
+  .stat-bottom {
+    background: var(--brand-light);
+    border-radius: var(--radius);
+    padding: 14px 24px;
+    margin-top: 16px;
+    text-align: center;
+    max-width: 820px;
+    width: 100%;
+    font-size: 14px;
+    color: var(--gray-700);
+  }
+  .stat-bottom strong { color: var(--brand-dark); }
 
-  /* ── Feature Cards ── */
-  .feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
+  /* ── Competitor Table ── */
+  .comp-table {
+    width: 100%;
+    max-width: 780px;
+    border-collapse: collapse;
+    margin-top: 8px;
+    font-size: 14px;
   }
-  .feature-card {
-    background: var(--gray-100);
-    border-radius: 16px;
-    padding: 24px 28px;
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
+  .comp-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
   }
-  .feature-icon {
-    font-size: 28px;
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(37,99,235,0.1);
-    border-radius: 12px;
+  .comp-table td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.85);
   }
-  .slide--accent .feature-icon,
-  .slide--dark .feature-icon {
-    background: rgba(255,255,255,0.1);
+  .comp-table tr:last-child td {
+    border-bottom: none;
+    color: #fff;
+    font-weight: 600;
+    background: rgba(37,99,235,0.2);
   }
-  .feature-card h3 { font-size: 16px; margin-bottom: 4px; }
-  .feature-card p { font-size: 13px; line-height: 1.45; }
-
-  /* ── Trust List ── */
-  .trust-list {
-    list-style: none;
-    margin-top: 20px;
-  }
-  .trust-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 22px;
-  }
-  .trust-icon {
-    font-size: 24px;
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.08);
+  .comp-table tr:last-child td:first-child { border-radius: 8px 0 0 8px; }
+  .comp-table tr:last-child td:last-child { border-radius: 0 8px 8px 0; }
+  .check { color: #4ade80; }
+  .cross { color: #f87171; }
+  .comp-note {
+    background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-  }
-  .trust-list li strong {
-    display: block;
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-top: 20px;
+    text-align: center;
+    max-width: 640px;
     font-size: 15px;
-    color: white;
-    margin-bottom: 2px;
   }
-  .trust-list li span {
+  .comp-note strong { color: #60a5fa; }
+
+  /* ── App Mockup ── */
+  .app-mockup {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+    width: 100%;
+    max-width: 880px;
+    max-height: 62vh;
+  }
+  .app-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--gray-200);
     font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.5;
+    color: var(--gray-500);
+  }
+  .app-bar .logo {
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--brand);
+    margin-right: 8px;
+  }
+  .app-bar .nav-item { padding: 6px 0; }
+  .app-bar .nav-item.active {
+    color: var(--brand);
+    font-weight: 600;
+    border-bottom: 2px solid var(--brand);
+  }
+  .app-body { padding: 16px 20px; background: var(--gray-50); }
+
+  /* Index Banner */
+  .index-banner {
+    background: linear-gradient(135deg, var(--brand), var(--brand-dark));
+    border-radius: 10px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .idx-label { font-size: 12px; opacity: 0.8; }
+  .idx-value { font-size: 24px; font-weight: 800; }
+  .idx-change {
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(255,255,255,0.2);
+    padding: 3px 8px;
+    border-radius: 6px;
   }
 
-  /* ── Pricing Grid ── */
+  /* Material Cards */
+  .mat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .mat-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .mat-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--gray-700);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mat-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-top: 2px;
+  }
+  .mat-change {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .mat-change.up { color: var(--green); }
+  .mat-change.down { color: var(--red); }
+  .mat-change.flat { color: var(--gray-400); }
+  .mat-spark { margin-top: 4px; }
+  .mat-spark svg { width: 100%; height: 28px; }
+  .mat-src { font-size: 9px; color: var(--gray-400); margin-top: 2px; }
+
+  /* ── Chart + AI ── */
+  .chart-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 880px;
+  }
+  .chart-main { flex: 1; }
+  .chart-sidebar { width: 260px; flex-shrink: 0; }
+  .chart-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .chart-mat-name { font-size: 18px; font-weight: 700; color: var(--gray-900); }
+  .chart-mat-price { font-size: 24px; font-weight: 800; color: var(--gray-900); }
+  .chart-mat-unit { font-size: 13px; color: var(--gray-500); font-weight: 400; }
+  .chart-changes { display: flex; gap: 16px; margin-bottom: 14px; }
+  .chart-change-item { font-size: 12px; color: var(--gray-500); }
+  .chart-change-item span { font-weight: 700; margin-left: 4px; }
+  .chart-change-item span.up { color: var(--green); }
+  .chart-change-item span.down { color: var(--red); }
+  .chart-svg-wrap {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .chart-svg-wrap svg { width: 100%; height: 180px; }
+  .chart-label-90 { font-size: 10px; color: var(--gray-400); text-align: center; margin-top: 6px; }
+
+  /* AI Card */
+  .ai-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .ai-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: 12px;
+  }
+  .ai-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gray-100);
+    font-size: 13px;
+  }
+  .ai-row:last-of-type { border-bottom: none; }
+  .ai-row-label { color: var(--gray-500); font-weight: 500; }
+  .ai-row-value { color: var(--gray-900); font-weight: 600; text-align: right; max-width: 55%; }
+  .ai-row-value.warn { color: var(--orange); }
+  .ai-conf-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--gray-200);
+    border-radius: 3px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .ai-conf-fill { height: 100%; background: var(--brand); border-radius: 3px; }
+  .ai-explanation {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.5;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  /* ── Forecast Table ── */
+  .forecast-wrap {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    overflow: hidden;
+    width: 100%;
+    max-width: 880px;
+  }
+  .forecast-title-bar {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-200);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--gray-900);
+  }
+  .forecast-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .forecast-tbl th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .forecast-tbl td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+  .mat-name-cell { font-weight: 600; color: var(--gray-900); }
+  .fc-up { color: var(--green); font-weight: 600; }
+  .fc-down { color: var(--red); font-weight: 600; }
+  .fc-flat { color: var(--gray-400); }
+  .conf-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .conf-high { background: #dcfce7; color: var(--green); }
+  .conf-mid { background: #fef9c3; color: #a16207; }
+
+  /* ── Alerts & Reports ── */
+  .split-view {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 880px;
+    align-items: flex-start;
+  }
+  .split-half { flex: 1; }
+  .tg-phone {
+    background: #17212b;
+    border-radius: 20px;
+    padding: 16px;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+  .tg-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 12px;
+  }
+  .tg-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--brand);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 700;
+  }
+  .tg-name { color: #fff; font-weight: 600; font-size: 14px; }
+  .tg-status { color: #6ab2f2; font-size: 11px; }
+  .tg-bubble {
+    background: #182533;
+    border-radius: 12px 12px 12px 4px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .tg-alert-title { font-weight: 700; font-size: 14px; margin: 4px 0; }
+  .tg-time { font-size: 10px; color: rgba(255,255,255,0.4); text-align: right; margin-top: 6px; }
+  .tg-label-text { text-align: center; font-size: 12px; font-weight: 600; color: var(--gray-500); margin-top: 10px; }
+
+  .report-mock {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .report-mock-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--gray-200);
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .report-badges { display: flex; gap: 6px; }
+  .report-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--brand-light);
+    color: var(--brand);
+  }
+  .report-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .report-tbl th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    background: var(--gray-50);
+  }
+  .report-tbl td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-700);
+  }
+  .report-tbl .up { color: var(--green); font-weight: 600; }
+  .report-tbl .down { color: var(--red); font-weight: 600; }
+
+  /* ── Preisgleitklausel ── */
+  .pgl-container {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 820px;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+  .pgl-before, .pgl-after {
+    flex: 1;
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .pgl-before {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .pgl-after {
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+  }
+  .pgl-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  .pgl-list { list-style: none; font-size: 13px; line-height: 1.8; opacity: 0.85; }
+  .pgl-result {
+    background: rgba(74,222,128,0.15);
+    border: 1px solid rgba(74,222,128,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #4ade80;
+  }
+  .pgl-note {
+    font-size: 13px;
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 16px;
+    max-width: 600px;
+  }
+
+  /* ── Advantage Grid ── */
+  .adv-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 780px;
+    width: 100%;
+  }
+  .adv-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 20px;
+  }
+  .adv-icon { font-size: 28px; margin-bottom: 8px; }
+  .adv-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .adv-desc { font-size: 13px; opacity: 0.7; line-height: 1.5; }
+
+  /* ── Trust Grid ── */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 740px;
+    width: 100%;
+  }
+  .trust-card {
+    background: #fff;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .trust-icon { font-size: 28px; flex-shrink: 0; }
+  .trust-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+  .trust-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; margin-top: 4px; }
+
+  /* ── Pricing ── */
   .pricing-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    margin-top: 20px;
+    max-width: 780px;
+    width: 100%;
+    margin-top: 8px;
   }
   .price-card {
-    background: var(--gray-100);
-    border-radius: 16px;
-    padding: 24px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius);
+    padding: 20px 16px;
     text-align: center;
-    position: relative;
+    backdrop-filter: blur(8px);
   }
-  .price-card--popular {
-    background: var(--brand);
-    color: white;
-    transform: scale(1.03);
-    box-shadow: 0 8px 30px rgba(37,99,235,0.3);
+  .price-card.popular {
+    background: rgba(255,255,255,0.18);
+    border: 2px solid rgba(255,255,255,0.4);
+    transform: scale(1.04);
   }
-  .price-card--popular .price-features li { color: rgba(255,255,255,0.85); }
-  .popular-badge {
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent);
-    color: var(--dark);
+  .plan-name { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .plan-popular-badge {
     font-size: 10px;
     font-weight: 700;
-    padding: 3px 12px;
-    border-radius: 100px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    background: #fbbf24;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-left: 6px;
   }
-  .price-name {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-  .price-amount {
-    font-size: 36px;
-    font-weight: 800;
-    margin-bottom: 2px;
-  }
-  .price-period {
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-bottom: 14px;
-  }
-  .price-card--popular .price-period { color: rgba(255,255,255,0.6); }
-  .price-features {
+  .plan-price { font-size: 32px; font-weight: 800; line-height: 1; margin: 4px 0; }
+  .plan-period { font-size: 12px; opacity: 0.6; margin-bottom: 12px; }
+  .plan-features {
     list-style: none;
-    text-align: left;
-  }
-  .price-features li {
     font-size: 12px;
-    padding: 4px 0;
-    color: var(--gray-700);
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    line-height: 2;
+    opacity: 0.85;
+    text-align: left;
+    padding: 0 4px;
   }
-  .price-features li::before {
-    content: "\2713";
-    color: var(--green);
-    font-weight: 700;
-    font-size: 13px;
+  .plan-features li::before { content: "\2713 "; color: #4ade80; font-weight: 700; }
+  .price-value {
+    background: rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    margin-top: 16px;
+    text-align: center;
+    max-width: 640px;
+    font-size: 14px;
+    font-style: italic;
+    opacity: 0.7;
   }
-  .price-card--popular .price-features li::before { color: var(--accent); }
+  .price-cta { text-align: center; margin-top: 12px; font-size: 13px; opacity: 0.7; }
 
   /* ── QR Codes ── */
   .qr-fixed {
@@ -345,199 +699,99 @@
     box-shadow: 0 4px 16px rgba(0,0,0,0.15);
     text-align: center;
   }
-  .qr-fixed img, .qr-fixed svg { width: 64px; height: 64px; display: block; }
-  .qr-fixed span {
-    display: block;
-    font-size: 8px;
-    font-weight: 600;
-    color: var(--gray-500);
-    margin-top: 2px;
-  }
-
-  .qr-row {
-    display: flex;
-    gap: 32px;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 24px;
-  }
-  .qr-block {
-    text-align: center;
-  }
-  .qr-block svg, .qr-block img { width: 120px; height: 120px; }
-  .qr-block.qr-large svg, .qr-block.qr-large img { width: 150px; height: 150px; }
-  .qr-label {
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 6px;
-    color: var(--gray-500);
-  }
+  .qr-fixed img { width: 64px; height: 64px; display: block; }
+  .qr-fixed span { display: block; font-size: 8px; font-weight: 600; color: var(--gray-500); margin-top: 2px; }
+  .qr-row { display: flex; gap: 32px; align-items: flex-start; justify-content: center; margin-top: 20px; }
+  .qr-block { text-align: center; }
+  .qr-block img { width: 110px; height: 110px; }
+  .qr-block.qr-large img { width: 130px; height: 130px; }
+  .qr-label { font-size: 11px; font-weight: 600; margin-top: 6px; color: var(--gray-500); }
   .slide--cover .qr-label,
-  .slide--dark .qr-label { color: rgba(255,255,255,0.5); }
-  .slide--cover .qr-block svg, .slide--cover .qr-block img,
-  .slide--dark .qr-block svg, .slide--dark .qr-block img { background: white; border-radius: 8px; padding: 6px; }
+  .slide--dark .qr-label,
+  .slide--gradient .qr-label { color: rgba(255,255,255,0.5); }
+  .slide--cover .qr-block img,
+  .slide--dark .qr-block img,
+  .slide--gradient .qr-block img { background: white; border-radius: 8px; padding: 6px; }
 
   /* ── Contact Bar ── */
   .contact-bar {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: 16px;
     font-size: 13px;
-    opacity: 0.6;
-    margin-top: 12px;
-  }
-  .slide--cover .contact-bar { color: white; }
-
-  /* ── Footnote ── */
-  .footnote {
-    font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 16px;
-  }
-  .slide--dark .footnote { color: rgba(255,255,255,0.4); }
-
-  /* ── Value Anchor ── */
-  .value-anchor {
-    background: rgba(37,99,235,0.06);
-    border: 1px solid rgba(37,99,235,0.15);
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--brand-dark);
-    text-align: center;
-    margin-top: 16px;
-  }
-
-  /* ── CTA Banner ── */
-  .cta-banner {
-    text-align: center;
-    margin-top: 16px;
-  }
-  .cta-banner p {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--brand);
-  }
-
-  /* ── Dashboard Mockup ── */
-  .dashboard-mockup {
-    background: var(--dark);
-    border-radius: 16px;
-    padding: 20px;
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 12px;
-  }
-  .mock-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 16px;
-  }
-  .mock-card h4 {
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .mock-card .mock-value {
-    font-size: 22px;
-    font-weight: 800;
-    color: white;
-  }
-  .mock-card .mock-change {
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .mock-up { color: var(--red); }
-  .mock-down { color: var(--green); }
-  .mock-chart {
-    grid-column: span 4;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 12px;
-    padding: 16px;
-    height: 120px;
-    display: flex;
-    align-items: flex-end;
-    gap: 3px;
-  }
-  .mock-bar {
-    flex: 1;
-    background: var(--brand);
-    border-radius: 3px 3px 0 0;
+    margin-top: 14px;
     opacity: 0.7;
+    flex-wrap: wrap;
   }
+  .sep { opacity: 0.3; }
 
   /* ── Nav Dots ── */
-  .nav-dots {
+  .slide-nav {
     position: fixed;
-    right: 16px;
+    right: 14px;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 200;
+    z-index: 99;
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
   .nav-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
-    background: rgba(0,0,0,0.15);
+    border: 2px solid rgba(100,100,100,0.3);
+    background: transparent;
     cursor: pointer;
-    transition: all 0.3s;
-    border: none;
     padding: 0;
+    transition: all 0.2s;
   }
   .nav-dot.active {
     background: var(--brand);
-    transform: scale(1.4);
-  }
-  .slide--dark ~ .nav-dots .nav-dot,
-  .slide--cover ~ .nav-dots .nav-dot {
-    background: rgba(255,255,255,0.3);
+    border-color: var(--brand);
+    transform: scale(1.3);
   }
 
-  /* ── Language Switcher ── */
+  /* ── Lang Switch ── */
   .lang-switch {
     position: fixed;
-    left: 16px;
-    top: 16px;
-    z-index: 200;
+    top: 14px;
+    right: 14px;
+    z-index: 99;
     display: flex;
-    gap: 4px;
-    background: rgba(0,0,0,0.08);
+    gap: 6px;
+    background: rgba(0,0,0,0.3);
+    padding: 4px;
     border-radius: 8px;
-    padding: 3px;
+    backdrop-filter: blur(8px);
   }
   .lang-switch a {
-    display: block;
-    padding: 4px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--gray-500);
+    color: rgba(255,255,255,0.6);
     text-decoration: none;
-    border-radius: 6px;
-    transition: all 0.2s;
-  }
-  .lang-switch a.active {
-    background: white;
-    color: var(--gray-900);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  }
-
-  /* ── Subtitle small ── */
-  .sub-small {
     font-size: 12px;
-    color: var(--gray-500);
-    margin-top: 8px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+  .lang-switch a.active { background: rgba(255,255,255,0.2); color: #fff; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .slide { padding: 28px 24px; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .mat-grid { grid-template-columns: repeat(2, 1fr); }
+    .split-view { flex-direction: column; }
+    .chart-container { flex-direction: column; }
+    .chart-sidebar { width: 100%; }
+    .adv-grid, .trust-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .pgl-container { flex-direction: column; }
+  }
+  @media (max-height: 600px) {
+    .slide { padding: 20px 32px; }
+    .slide h1 { font-size: 28px; }
+    .slide h2 { font-size: 22px; margin-bottom: 14px; }
   }
 </style>
 </head>
@@ -552,314 +806,387 @@
 
 <!-- Fixed QR -->
 <div class="qr-fixed" id="qrFixed">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
-    <rect width="41" height="41" fill="#fff"/>
-    <path d="M1 1h7v7H1zm2 2v3h3V3zm9-2h1v1h1v2h-1v1h-2V3h-1V2h1V1h1zm5 0h2v1h-1v1h-1V2h-1V1h1zm5 0h1v2h-1v1h1v1h-2V4h-1V2h1V1h1zm4 0h1v1h1v1h-3V1h1zm4 0h7v7h-7zm2 2v3h3V3zM2 10h1v1H2zm2 0h3v1h1v1h-1v1H5v-1H4v-1h1v-1H4zm7 0h2v1h-1v1h-1zm3 0h1v1h-1zm3 0h2v2h-1v-1h-1zm2 0h1v2h1v-1h1v1h1v-1h1v2h-2v1h1v1h-1v1h-2v-1h-1v1h-1v-2h1v-1h-1v-1h1v-1h-1zm7 0h1v1h-1zm-22 2h1v1H8zm2 0h1v2h1v1h-1v1h1v1h-1v1H9v-1h1v-1H9v-1h1v-1h-1v-1h1zm5 0h1v1h1v1h-1v1h-1v-1h-1v-1h1zm-6 2h1v1H9zm4 0h1v1h-1zm7 0h1v1h1v1h-1v-1h-1zm-19 2h7v7H1zm2 2v3h3v-3zm9-1h1v1h-2v-1h1zm4 0h1v1h1v2h-1v-1h-1v1h-1v1H13v-1h1v-1h-1v-1h2v1h1v-1h1zm4 1h1v1h-1zm2 0h1v1h-1zm4 0h2v1h1v1h-1v2h1v-1h1v2h-2v1h-2v-1h-1v-1h1v-1h-1v-1h1zm-6 1h1v1h1v1h-2v1h-1v-1h-1v-1h1v-1h1zm8 0h1v1h-1zm-16 1h1v1h-1zm2 0h1v1h-1zm8 0h1v1h-1zm6 1h1v1h1v1h-1v1h-2v-1h1zm-15 1h1v1H12zm3 0h1v1h1v1h-1v1h1v1h-3v-1h1v-1h-1v-1h1zm3 0h1v1h-1zm6 0h3v1h-1v1h-2zm-15 2h1v1H9zm2 0h1v1h-1zm2 0h2v1h-1v2h1v1h-2v-1h-1v-2h1zm3 0h1v3h1v-1h1v-1h1v1h1v-1h2v1h-1v1h-1v-1h-1v2h-1v-1h-1v1h-1v1h-2v-1h-1v-2h1v-1h-1v-1h1zm10 0h1v1h1v-1h1v2h-1v1h1v1h-1v1h-1v-2h-1zm3 0h2v1h-2zM1 33h7v7H1zm2 2v3h3v-3zm12-1h1v1h-1v1h1v1h-1v1h-1v-1h-1v-1h1v-1h-1v-1h1zm2 0h1v3h-1zm6 0h1v1h-1zm4 0h1v1h-1zm3 0h1v2h-1v-1h-1v-1h1zm-13 2h1v1h-1zm5 0h1v1h-1zm3 0h1v1h1v1h-3v-1h1zm-4 1h1v1h-1zm2 1h1v1h-1zm2 0h3v1h1v1h-2v-1h-2zm4 0h1v1h-1zm-10 1h2v1h-2zm4 0h1v1h-1z" fill="#000"/>
-  </svg>
+  <img src="" alt="QR" id="qrFixedImg">
   <span>baupreis.ai</span>
 </div>
 
-<!-- ============================================ -->
-<!-- SLIDE 1: HOOK + CONTACTS                     -->
-<!-- ============================================ -->
+<!-- ======== SLIDE 1: COVER ======== -->
 <div class="slide slide--cover" id="slide1">
-  <div class="cover-dots"></div>
-  <div class="cover-dots-2"></div>
-  <div class="cover-content">
-    <div class="cover-badge">Made in Germany &bull; GDPR-compliant &bull; 7 days free</div>
-    <h1>Steel is rising. Copper is falling.<br><span>Do you know?</span></h1>
-    <p class="cover-subtitle">BauPreis AI &mdash; Building material prices in real time. Alerts to your phone. AI forecasts for 16 materials.</p>
-
-    <div class="qr-row">
-      <div class="qr-block">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
-          <rect width="41" height="41" fill="#fff"/>
-          <path d="M1 1h7v7H1zm2 2v3h3V3zm9-2h1v1h1v2h-1v1h-2V3h-1V2h1V1h1zm5 0h2v1h-1v1h-1V2h-1V1h1zm5 0h1v2h-1v1h1v1h-2V4h-1V2h1V1h1zm4 0h1v1h1v1h-3V1h1zm4 0h7v7h-7zm2 2v3h3V3zM2 10h1v1H2zm2 0h3v1h1v1h-1v1H5v-1H4v-1h1v-1H4zm7 0h2v1h-1v1h-1zm3 0h1v1h-1zm3 0h2v2h-1v-1h-1zm2 0h1v2h1v-1h1v1h1v-1h1v2h-2v1h1v1h-1v1h-2v-1h-1v1h-1v-2h1v-1h-1v-1h1v-1h-1zm7 0h1v1h-1zm-22 2h1v1H8zm2 0h1v2h1v1h-1v1h1v1h-1v1H9v-1h1v-1H9v-1h1v-1h-1v-1h1zm5 0h1v1h1v1h-1v1h-1v-1h-1v-1h1zm-6 2h1v1H9zm4 0h1v1h-1zm7 0h1v1h1v1h-1v-1h-1zm-19 2h7v7H1zm2 2v3h3v-3zm9-1h1v1h-2v-1h1zm4 0h1v1h1v2h-1v-1h-1v1h-1v1H13v-1h1v-1h-1v-1h2v1h1v-1h1zm4 1h1v1h-1zm2 0h1v1h-1zm4 0h2v1h1v1h-1v2h1v-1h1v2h-2v1h-2v-1h-1v-1h1v-1h-1v-1h1zm-6 1h1v1h1v1h-2v1h-1v-1h-1v-1h1v-1h1zm8 0h1v1h-1zm-16 1h1v1h-1zm2 0h1v1h-1zm8 0h1v1h-1zm6 1h1v1h1v1h-1v1h-2v-1h1zm-15 1h1v1H12zm3 0h1v1h1v1h-1v1h1v1h-3v-1h1v-1h-1v-1h1zm3 0h1v1h-1zm6 0h3v1h-1v1h-2zm-15 2h1v1H9zm2 0h1v1h-1zm2 0h2v1h-1v2h1v1h-2v-1h-1v-2h1zm3 0h1v3h1v-1h1v-1h1v1h1v-1h2v1h-1v1h-1v-1h-1v2h-1v-1h-1v1h-1v1h-2v-1h-1v-2h1v-1h-1v-1h1zm10 0h1v1h1v-1h1v2h-1v1h1v1h-1v1h-1v-2h-1zm3 0h2v1h-2zM1 33h7v7H1zm2 2v3h3v-3zm12-1h1v1h-1v1h1v1h-1v1h-1v-1h-1v-1h1v-1h-1v-1h1zm2 0h1v3h-1zm6 0h1v1h-1zm4 0h1v1h-1zm3 0h1v2h-1v-1h-1v-1h1zm-13 2h1v1h-1zm5 0h1v1h-1zm3 0h1v1h1v1h-3v-1h1zm-4 1h1v1h-1zm2 1h1v1h-1zm2 0h3v1h1v1h-2v-1h-2zm4 0h1v1h-1zm-10 1h2v1h-2zm4 0h1v1h-1z" fill="#000"/>
-        </svg>
-        <div class="qr-label">Try the product</div>
-      </div>
-      <div class="qr-block">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
-          <rect width="41" height="41" fill="#fff"/>
-          <path d="M1 1h7v7H1zm2 2v3h3V3zm9-2h2v1h1v1h-1v1h-2V3h1V2h-1zm5 0h1v2h1v1h-2V2h-1V1h1zm3 0h1v1h2v1h-1v1h-1V2h-1zm5 0h1v1h1v1h-1v1h-1V2h-1V1h1zm4 0h7v7h-7zm2 2v3h3V3zM1 10h1v1h1v1H1zm4 0h1v2H4v-1h1zm2 0h2v1H7v1h1v1H6v-1h1zm5 0h1v1h-1zm2 0h1v1h2v2h-1v-1h-1v1h-1v-1h-1v-1h1zm4 0h1v2h1v1h1v-2h1v1h1v-1h1v2h-2v1h1v1h-2v-1h-1v-1h-1v1h-1v-2h1zm8 0h1v1h-1zM8 12h1v1H8zm2 0h1v1h1v-1h1v2h-1v1h-1v-1h-1zm5 0h1v1h-1zm-6 2h1v1H9zm4 0h1v1h-1zm6 0h1v1h-1v1h1v1h-1v-1h-1v-1h1zm-18 2h7v7H1zm2 2v3h3v-3zm9-1h1v1h-1zm4 1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h1v1h-2zm3 0h1v2h-1v1h-1v-1h-1v-1h1v-1h1zm-11 1h1v1h-1zm3 1h2v1h-1v1h-1zm6 0h1v1h-1zm-6 1h1v1h-1v1h1v1h-2v-1h-1v-1h1v-1h1zm3 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm-15 1h1v1h-1zm3 0h1v2h-1zm6 1h1v1h-1zm2 0h1v1h-1zm5 0h1v1h-1zM9 28h1v1h1v1h-1v1h-1v-1H8v-1h1zm4 0h2v1h1v1h-1v1h1v1h-1v1h-1v-1h-1v1h-1v-2h1v-1h-1v-1h1zm5 0h1v3h1v-1h1v2h-1v1h-1v-2h-1v1h-1v-1h1zm4 0h1v1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1v1h1v2h-1v-1h-1v-1h1v-1h-1v-1h1zM1 33h7v7H1zm2 2v3h3v-3zm9 0h1v1h-1v1h-1v-1h1zm2 0h1v1h-1zm11 0h1v1h-1v1h-1v-1h1zm5 0h1v1h-1zm-16 1h1v1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1zm2 1h3v1h-1v2h-2v-1h1v-1h-1zm4 0h1v1h-1zm2 0h2v1h1v1h-2v-1h-1zm4 0h1v1h-1zm-9 1h1v1h-1zm6 0h1v1h-1zm-4 1h1v1h-1zm2 0h3v1h-3z" fill="#000"/>
-        </svg>
-        <div class="qr-label">LinkedIn</div>
-      </div>
-    </div>
-
-    <div class="contact-bar">
-      <span>Eduard Morocho Baias</span>
-      <span>&bull;</span>
-      <span>+49 155 636 75 772</span>
-      <span>&bull;</span>
-      <span>pashchenkoh@gmail.com</span>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 2: PAIN                                -->
-<!-- ============================================ -->
-<div class="slide" id="slide2">
-  <div class="section-label">The Problem</div>
-  <h2>Price spikes cost you money.<br>Every day.</h2>
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-value"><span class="up">+77%</span></div>
-      <div class="stat-label">Wood prices 2021<br>in one year</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value"><span class="up">+40%</span></div>
-      <div class="stat-label">Steel prices 2022<br>price explosion</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value"><span class="up">+28%</span></div>
-      <div class="stat-label">Avg. budget overrun<br>McKinsey 2020</div>
-    </div>
-  </div>
-  <p class="footnote">82% of construction companies use no digital tool for price monitoring. &mdash; PwC 2025</p>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 3: PRODUCT DEMO                        -->
-<!-- ============================================ -->
-<div class="slide slide--accent" id="slide3">
-  <div class="section-label" style="color:var(--accent)">The Product</div>
-  <h2>This is what BauPreis AI looks like</h2>
-
-  <div class="dashboard-mockup">
-    <div class="mock-card">
-      <h4>Stahl BSt 500</h4>
-      <div class="mock-value">&euro;847</div>
-      <div class="mock-change mock-up">&uarr; +3.2%</div>
-    </div>
-    <div class="mock-card">
-      <h4>Kupfer</h4>
-      <div class="mock-value">&euro;8.640</div>
-      <div class="mock-change mock-down">&darr; -1.8%</div>
-    </div>
-    <div class="mock-card">
-      <h4>KVH C24</h4>
-      <div class="mock-value">&euro;285</div>
-      <div class="mock-change mock-up">&uarr; +0.9%</div>
-    </div>
-    <div class="mock-card">
-      <h4>Beton C25/30</h4>
-      <div class="mock-value">&euro;92</div>
-      <div class="mock-change" style="color:rgba(255,255,255,0.4)">&rarr; 0.0%</div>
-    </div>
-    <div class="mock-chart">
-      <div class="mock-bar" style="height:45%"></div>
-      <div class="mock-bar" style="height:52%"></div>
-      <div class="mock-bar" style="height:48%"></div>
-      <div class="mock-bar" style="height:55%"></div>
-      <div class="mock-bar" style="height:60%"></div>
-      <div class="mock-bar" style="height:58%"></div>
-      <div class="mock-bar" style="height:65%"></div>
-      <div class="mock-bar" style="height:62%"></div>
-      <div class="mock-bar" style="height:70%"></div>
-      <div class="mock-bar" style="height:68%"></div>
-      <div class="mock-bar" style="height:75%"></div>
-      <div class="mock-bar" style="height:72%"></div>
-      <div class="mock-bar" style="height:78%"></div>
-      <div class="mock-bar" style="height:82%"></div>
-      <div class="mock-bar" style="height:80%"></div>
-      <div class="mock-bar" style="height:85%"></div>
-      <div class="mock-bar" style="height:88%"></div>
-      <div class="mock-bar" style="height:84%"></div>
-      <div class="mock-bar" style="height:90%"></div>
-      <div class="mock-bar" style="height:92%"></div>
-    </div>
-  </div>
-
-  <p style="color:rgba(255,255,255,0.7); font-size:13px; margin-top:12px; text-align:center">16 materials &bull; Updated 4&times; daily &bull; LME, Destatis, market data</p>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 4: 3 KILLER FEATURES                   -->
-<!-- ============================================ -->
-<div class="slide" id="slide4">
-  <div class="section-label">The Solution</div>
-  <h2>What BauPreis AI does for you</h2>
-
-  <div class="feature-list">
-    <div class="feature-card">
-      <div class="feature-icon">&#128202;</div>
-      <div>
-        <h3>Real-time prices for 16 materials</h3>
-        <p>Steel, copper, wood, concrete, insulation, energy &mdash; all at a glance. Updated 4&times; daily.</p>
-      </div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">&#9889;</div>
-      <div>
-        <h3>Alerts to your phone</h3>
-        <p>Telegram &amp; email notifications when your material rises or falls. React instantly.</p>
-      </div>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">&#128203;</div>
-      <div>
-        <h3>Price escalation clause in 30 seconds</h3>
-        <p>VOB/VHB calculated automatically. Instead of 4 hours in Excel. Mandatory for public contracts since 2021.</p>
-      </div>
-    </div>
-  </div>
-
-  <p class="sub-small">+ AI forecasts &bull; AI chat &bull; PDF reports &bull; API access &bull; Team management</p>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 5: TRUST + AI FEAR                     -->
-<!-- ============================================ -->
-<div class="slide slide--dark" id="slide5">
-  <div class="section-label">Trust</div>
-  <h2 style="color:white">German data. German servers.<br>For the German construction industry.</h2>
-
-  <ul class="trust-list">
-    <li>
-      <div class="trust-icon">&#127465;&#127466;</div>
-      <div>
-        <strong>Hetzner N&uuml;rnberg</strong>
-        <span>100% GDPR-compliant. No US cloud. Your data stays in Germany.</span>
-      </div>
-    </li>
-    <li>
-      <div class="trust-icon">&#128202;</div>
-      <div>
-        <strong>3,100+ data points</strong>
-        <span>Real market data from 90 days of history. LME, Destatis, industry sources.</span>
-      </div>
-    </li>
-    <li>
-      <div class="trust-icon">&#128269;</div>
-      <div>
-        <strong>AI with confidence score</strong>
-        <span>Each forecast shows 0&ndash;100% confidence. You decide &mdash; the AI recommends.</span>
-      </div>
-    </li>
-    <li>
-      <div class="trust-icon">&#9889;</div>
-      <div>
-        <strong>Ready to use</strong>
-        <span>Register, choose materials, done. No installation, no training.</span>
-      </div>
-    </li>
-  </ul>
-</div>
-
-<!-- ============================================ -->
-<!-- SLIDE 6: PRICING + CTA                       -->
-<!-- ============================================ -->
-<div class="slide" id="slide6">
-  <div class="section-label">Pricing</div>
-  <h2>From &euro;49/month. 7 days free.</h2>
-
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-name">Basis</div>
-      <div class="price-amount">&euro;49</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>5 materials</li>
-        <li>3 price alerts</li>
-        <li>1 user</li>
-        <li>Email reports</li>
-      </ul>
-    </div>
-    <div class="price-card price-card--popular">
-      <div class="popular-badge">Popular</div>
-      <div class="price-name">Pro</div>
-      <div class="price-amount">&euro;149</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>All 16 materials</li>
-        <li>Unlimited alerts</li>
-        <li>AI forecasts</li>
-        <li>Telegram alerts</li>
-      </ul>
-    </div>
-    <div class="price-card">
-      <div class="price-name">Team</div>
-      <div class="price-amount">&euro;299</div>
-      <div class="price-period">per month</div>
-      <ul class="price-features">
-        <li>Everything in Pro</li>
-        <li>Up to 5 users</li>
-        <li>API access</li>
-        <li>PDF reports</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="value-anchor">
-    &#128161; One single right purchase decision pays for the entire year.
-  </div>
-
-  <div class="cta-banner">
-    <p>7 days free &bull; No credit card &bull; Ready in 30 seconds</p>
-  </div>
-
+  <div class="cover-badge">Made in Germany &bull; GDPR compliant &bull; 7 days free trial</div>
+  <h1>Steel is rising. Copper is falling.<br><span>Do you know?</span></h1>
+  <p class="cover-subtitle">BauPreis AI &mdash; Real-time prices for 16 construction materials. Alerts via Telegram &amp; email. AI forecasts with confidence scores.</p>
   <div class="qr-row">
-    <div class="qr-block qr-large">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
-        <rect width="41" height="41" fill="#fff"/>
-        <path d="M1 1h7v7H1zm2 2v3h3V3zm9-2h1v1h1v2h-1v1h-2V3h-1V2h1V1h1zm5 0h2v1h-1v1h-1V2h-1V1h1zm5 0h1v2h-1v1h1v1h-2V4h-1V2h1V1h1zm4 0h1v1h1v1h-3V1h1zm4 0h7v7h-7zm2 2v3h3V3zM2 10h1v1H2zm2 0h3v1h1v1h-1v1H5v-1H4v-1h1v-1H4zm7 0h2v1h-1v1h-1zm3 0h1v1h-1zm3 0h2v2h-1v-1h-1zm2 0h1v2h1v-1h1v1h1v-1h1v2h-2v1h1v1h-1v1h-2v-1h-1v1h-1v-2h1v-1h-1v-1h1v-1h-1zm7 0h1v1h-1zm-22 2h1v1H8zm2 0h1v2h1v1h-1v1h1v1h-1v1H9v-1h1v-1H9v-1h1v-1h-1v-1h1zm5 0h1v1h1v1h-1v1h-1v-1h-1v-1h1zm-6 2h1v1H9zm4 0h1v1h-1zm7 0h1v1h1v1h-1v-1h-1zm-19 2h7v7H1zm2 2v3h3v-3zm9-1h1v1h-2v-1h1zm4 0h1v1h1v2h-1v-1h-1v1h-1v1H13v-1h1v-1h-1v-1h2v1h1v-1h1zm4 1h1v1h-1zm2 0h1v1h-1zm4 0h2v1h1v1h-1v2h1v-1h1v2h-2v1h-2v-1h-1v-1h1v-1h-1v-1h1zm-6 1h1v1h1v1h-2v1h-1v-1h-1v-1h1v-1h1zm8 0h1v1h-1zm-16 1h1v1h-1zm2 0h1v1h-1zm8 0h1v1h-1zm6 1h1v1h1v1h-1v1h-2v-1h1zm-15 1h1v1H12zm3 0h1v1h1v1h-1v1h1v1h-3v-1h1v-1h-1v-1h1zm3 0h1v1h-1zm6 0h3v1h-1v1h-2zm-15 2h1v1H9zm2 0h1v1h-1zm2 0h2v1h-1v2h1v1h-2v-1h-1v-2h1zm3 0h1v3h1v-1h1v-1h1v1h1v-1h2v1h-1v1h-1v-1h-1v2h-1v-1h-1v1h-1v1h-2v-1h-1v-2h1v-1h-1v-1h1zm10 0h1v1h1v-1h1v2h-1v1h1v1h-1v1h-1v-2h-1zm3 0h2v1h-2zM1 33h7v7H1zm2 2v3h3v-3zm12-1h1v1h-1v1h1v1h-1v1h-1v-1h-1v-1h1v-1h-1v-1h1zm2 0h1v3h-1zm6 0h1v1h-1zm4 0h1v1h-1zm3 0h1v2h-1v-1h-1v-1h1zm-13 2h1v1h-1zm5 0h1v1h-1zm3 0h1v1h1v1h-3v-1h1zm-4 1h1v1h-1zm2 1h1v1h-1zm2 0h3v1h1v1h-2v-1h-2zm4 0h1v1h-1zm-10 1h2v1h-2zm4 0h1v1h-1z" fill="#000"/>
-      </svg>
-      <div class="qr-label">Try free now</div>
-    </div>
-    <div class="qr-block qr-large">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41">
-        <rect width="41" height="41" fill="#fff"/>
-        <path d="M1 1h7v7H1zm2 2v3h3V3zm9-2h2v1h1v1h-1v1h-2V3h1V2h-1zm5 0h1v2h1v1h-2V2h-1V1h1zm3 0h1v1h2v1h-1v1h-1V2h-1zm5 0h1v1h1v1h-1v1h-1V2h-1V1h1zm4 0h7v7h-7zm2 2v3h3V3zM1 10h1v1h1v1H1zm4 0h1v2H4v-1h1zm2 0h2v1H7v1h1v1H6v-1h1zm5 0h1v1h-1zm2 0h1v1h2v2h-1v-1h-1v1h-1v-1h-1v-1h1zm4 0h1v2h1v1h1v-2h1v1h1v-1h1v2h-2v1h1v1h-2v-1h-1v-1h-1v1h-1v-2h1zm8 0h1v1h-1zM8 12h1v1H8zm2 0h1v1h1v-1h1v2h-1v1h-1v-1h-1zm5 0h1v1h-1zm-6 2h1v1H9zm4 0h1v1h-1zm6 0h1v1h-1v1h1v1h-1v-1h-1v-1h1zm-18 2h7v7H1zm2 2v3h3v-3zm9-1h1v1h-1zm4 1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1zm2 0h1v1h-1zm2 0h1v1h1v1h-2zm3 0h1v2h-1v1h-1v-1h-1v-1h1v-1h1zm-11 1h1v1h-1zm3 1h2v1h-1v1h-1zm6 0h1v1h-1zm-6 1h1v1h-1v1h1v1h-2v-1h-1v-1h1v-1h1zm3 0h1v1h-1zm3 0h1v1h-1zm2 0h1v1h-1zm-15 1h1v1h-1zm3 0h1v2h-1zm6 1h1v1h-1zm2 0h1v1h-1zm5 0h1v1h-1zM9 28h1v1h1v1h-1v1h-1v-1H8v-1h1zm4 0h2v1h1v1h-1v1h1v1h-1v1h-1v-1h-1v1h-1v-2h1v-1h-1v-1h1zm5 0h1v3h1v-1h1v2h-1v1h-1v-2h-1v1h-1v-1h1zm4 0h1v1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1v1h1v2h-1v-1h-1v-1h1v-1h-1v-1h1zM1 33h7v7H1zm2 2v3h3v-3zm9 0h1v1h-1v1h-1v-1h1zm2 0h1v1h-1zm11 0h1v1h-1v1h-1v-1h1zm5 0h1v1h-1zm-16 1h1v1h1v1h-1v1h-1v-1h-1v-1h1zm3 0h1v1h-1zm2 1h3v1h-1v2h-2v-1h1v-1h-1zm4 0h1v1h-1zm2 0h2v1h1v1h-2v-1h-1zm4 0h1v1h-1zm-9 1h1v1h-1zm6 0h1v1h-1zm-4 1h1v1h-1zm2 0h3v1h-3z" fill="#000"/>
-      </svg>
-      <div class="qr-label">Connect on LinkedIn</div>
-    </div>
+    <div class="qr-block" data-qr="product"><img src="" alt="QR"><div class="qr-label">Try product</div></div>
+    <div class="qr-block" data-qr="linkedin"><img src="" alt="QR"><div class="qr-label">LinkedIn</div></div>
   </div>
-
-  <div class="contact-bar" style="color: var(--gray-500)">
-    <span>Eduard Morocho Baias</span>
-    <span>&bull;</span>
-    <span>+49 155 636 75 772</span>
-    <span>&bull;</span>
+  <div class="contact-bar">
+    <span>Eduard Morocho Baias</span><span class="sep">&bull;</span>
+    <span>+49 155 636 75 772</span><span class="sep">&bull;</span>
     <span>pashchenkoh@gmail.com</span>
   </div>
 </div>
 
-<!-- ============================================ -->
-<!-- SLIDE 7: BACKUP — Price Escalation Clause    -->
-<!-- ============================================ -->
-<div class="slide slide--dark" id="slide7">
-  <div class="section-label">Bonus</div>
-  <h2 style="color:white">Price escalation clause in 30 seconds<br>instead of 4 hours</h2>
+<!-- ======== SLIDE 2: PROBLEM ======== -->
+<div class="slide slide--white" id="slide2">
+  <p class="slide-label">The Problem</p>
+  <h2>Price spikes cost you money. Every day.</h2>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">+77%</div><div class="stat-label">Timber prices<br>2021</div></div>
+    <div class="stat-card"><div class="stat-num">+40%</div><div class="stat-label">Steel prices<br>2022</div></div>
+    <div class="stat-card"><div class="stat-num">+28%</div><div class="stat-label">avg. budget overrun<br>in construction</div></div>
+    <div class="stat-card"><div class="stat-num brand">82%</div><div class="stat-label">of construction firms lack<br>a digital price tool</div></div>
+  </div>
+  <div class="stat-bottom"><strong>130,000+ construction companies</strong> in Germany have <strong>no digital tool</strong> for material price monitoring.</div>
+  <p class="source">Sources: Destatis, LME, McKinsey Construction Report, PwC Baubranche 2025</p>
+</div>
 
-  <div class="feature-list">
-    <div class="feature-card" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1)">
-      <div class="feature-icon">&#128203;</div>
-      <div>
-        <h3 style="color:white">VOB/VHB Form 225</h3>
-        <p style="color:rgba(255,255,255,0.7)">Automatic calculation of the material price escalation clause with current market data. Choose base and reference date &mdash; result instantly.</p>
-      </div>
+<!-- ======== SLIDE 3: MARKTLÜCKE ======== -->
+<div class="slide slide--dark" id="slide3">
+  <p class="slide-label">Market Gap</p>
+  <h2>Zero competitors. Open field.</h2>
+  <table class="comp-table">
+    <thead><tr><th>Solution</th><th>Real-time</th><th>AI</th><th>Alerts</th><th>Price Escalation</th><th>Price</th></tr></thead>
+    <tbody>
+      <tr><td>BKI / SIRADOS</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>&euro;800/Jahr</td></tr>
+      <tr><td>Mintec / Fastmarkets</td><td class="check">&#10003;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>&euro;40.000/Jahr</td></tr>
+      <tr><td>Excel + Destatis</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>Free (4h/week)</td></tr>
+      <tr><td>PlanRadar / Procore</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td class="cross">&#10007;</td><td>ab &euro;29/Mon.</td></tr>
+      <tr><td>BauPreis AI</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td class="check">&#10003;</td><td>ab &euro;49/Mon.</td></tr>
+    </tbody>
+  </table>
+  <div class="comp-note"><strong>Blue Ocean:</strong> Zero direct competition in real-time AI price analytics for German construction.</div>
+  <p class="source">McKinsey Strategic Framework &bull; HHI-Index ~10.000 &bull; JTBD Customer Research</p>
+</div>
+
+<!-- ======== SLIDE 4: DASHBOARD ======== -->
+<div class="slide slide--light" id="slide4">
+  <p class="slide-label">Product</p>
+  <h2>16 materials. Real-time prices. One glance.</h2>
+  <div class="app-mockup">
+    <div class="app-bar">
+      <span class="logo">BauPreis AI</span>
+      <span class="nav-item active">Materials</span>
+      <span class="nav-item">Forecasts</span>
+      <span class="nav-item">Reports</span>
+      <span class="nav-item">Alerts</span>
+      <span class="nav-item">Settings</span>
     </div>
-    <div class="feature-card" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1)">
-      <div class="feature-icon">&#9889;</div>
-      <div>
-        <h3 style="color:white">Mandatory since 2021</h3>
-        <p style="color:rgba(255,255,255,0.7)">For public contracts, the price escalation clause is mandatory when material share &gt;1%. Our calculator automates the documentation.</p>
+    <div class="app-body">
+      <div class="index-banner">
+        <div><div class="idx-label">BauPreis Index</div><div class="idx-value">995,34</div></div>
+        <div class="idx-change">&#9650; +0,3%</div>
       </div>
-    </div>
-    <div class="feature-card" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1)">
-      <div class="feature-icon">&#128190;</div>
-      <div>
-        <h3 style="color:white">Export &amp; Proof</h3>
-        <p style="color:rgba(255,255,255,0.7)">CSV export for your calculations. Transparent computation for clients and auditors.</p>
+      <div class="mat-grid">
+        <div class="mat-card">
+          <div class="mat-name">Bewehrungsstahl BSt 500</div>
+          <div class="mat-price">842,50 &euro;/t</div>
+          <div class="mat-change down">&#9660; -2,3%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,8 12,10 24,6 36,14 48,18 60,16 72,22 84,28 100,24" fill="none" stroke="#dc2626" stroke-width="2"/></svg></div>
+          <div class="mat-src">LME &bull; Destatis</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Kupfer (Cu)</div>
+          <div class="mat-price">8.421 &euro;/t</div>
+          <div class="mat-change up">&#9650; +1,5%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,30 12,28 24,25 36,22 48,18 60,15 72,12 84,8 100,6" fill="none" stroke="#16a34a" stroke-width="2"/></svg></div>
+          <div class="mat-src">LME</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Bauholz (KVH)</div>
+          <div class="mat-price">385 &euro;/m&sup3;</div>
+          <div class="mat-change down">&#9660; -0,8%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,18 12,20 24,16 36,22 48,20 60,18 72,20 84,22 100,21" fill="none" stroke="#dc2626" stroke-width="2"/></svg></div>
+          <div class="mat-src">Destatis</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Aluminium (Al)</div>
+          <div class="mat-price">2.580 &euro;/t</div>
+          <div class="mat-change up">&#9650; +3,2%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,32 12,28 24,24 36,20 48,16 60,12 72,8 84,6 100,4" fill="none" stroke="#16a34a" stroke-width="2"/></svg></div>
+          <div class="mat-src">LME</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Transportbeton C25/30</div>
+          <div class="mat-price">112,50 &euro;/m&sup3;</div>
+          <div class="mat-change up">&#9650; +0,5%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,22 12,21 24,22 36,20 48,19 60,19 72,18 84,17 100,16" fill="none" stroke="#16a34a" stroke-width="2"/></svg></div>
+          <div class="mat-src">Market data</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Zement CEM I</div>
+          <div class="mat-price">98,20 &euro;/t</div>
+          <div class="mat-change flat">&rarr; 0,0%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,18 12,19 24,17 36,18 48,19 60,18 72,17 84,18 100,18" fill="none" stroke="#9ca3af" stroke-width="2"/></svg></div>
+          <div class="mat-src">Destatis</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Bitumen (Stra&szlig;enbau)</div>
+          <div class="mat-price">420 &euro;/t</div>
+          <div class="mat-change down">&#9660; -1,1%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,8 12,10 24,14 36,16 48,18 60,22 72,24 84,28 100,30" fill="none" stroke="#dc2626" stroke-width="2"/></svg></div>
+          <div class="mat-src">Market data</div>
+        </div>
+        <div class="mat-card">
+          <div class="mat-name">Zink</div>
+          <div class="mat-price">2.840 &euro;/t</div>
+          <div class="mat-change up">&#9650; +2,8%</div>
+          <div class="mat-spark"><svg viewBox="0 0 100 35" preserveAspectRatio="none"><polyline points="0,30 12,26 24,24 36,20 48,16 60,14 72,10 84,8 100,6" fill="none" stroke="#16a34a" stroke-width="2"/></svg></div>
+          <div class="mat-src">LME</div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Nav Dots -->
-<nav class="nav-dots" id="navDots">
+<!-- ======== SLIDE 5: PRICE CHART + AI ======== -->
+<div class="slide slide--light" id="slide5">
+  <p class="slide-label">Product</p>
+  <h2>Price History &amp; AI Analysis</h2>
+  <div class="chart-container">
+    <div class="chart-main">
+      <div class="chart-header-bar">
+        <div>
+          <div class="chart-mat-name">Bewehrungsstahl BSt 500</div>
+          <div class="chart-changes">
+            <div class="chart-change-item">Week: <span class="down">-2,3%</span></div>
+            <div class="chart-change-item">Month: <span class="up">+1,8%</span></div>
+          </div>
+        </div>
+        <div><div class="chart-mat-price">842,50 &euro;<span class="chart-mat-unit">/t</span></div></div>
+      </div>
+      <div class="chart-svg-wrap">
+        <svg viewBox="0 0 600 180" preserveAspectRatio="none">
+          <line x1="0" y1="36" x2="600" y2="36" stroke="#e5e7eb" stroke-width="1"/>
+          <line x1="0" y1="72" x2="600" y2="72" stroke="#e5e7eb" stroke-width="1"/>
+          <line x1="0" y1="108" x2="600" y2="108" stroke="#e5e7eb" stroke-width="1"/>
+          <line x1="0" y1="144" x2="600" y2="144" stroke="#e5e7eb" stroke-width="1"/>
+          <text x="4" y="34" fill="#9ca3af" font-size="10">900</text>
+          <text x="4" y="70" fill="#9ca3af" font-size="10">875</text>
+          <text x="4" y="106" fill="#9ca3af" font-size="10">850</text>
+          <text x="4" y="142" fill="#9ca3af" font-size="10">825</text>
+          <text x="4" y="176" fill="#9ca3af" font-size="10">800</text>
+          <polygon points="40,65 70,58 100,70 135,82 170,78 200,90 235,95 270,88 305,100 340,110 375,105 410,98 445,108 480,115 515,105 550,95 580,100 580,176 40,176" fill="url(#areaGrad)" opacity="0.3"/>
+          <polyline points="40,65 70,58 100,70 135,82 170,78 200,90 235,95 270,88 305,100 340,110 375,105 410,98 445,108 480,115 515,105 550,95 580,100" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="580" cy="100" r="4" fill="#2563eb"/>
+          <defs><linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2563eb" stop-opacity="0.3"/><stop offset="100%" stop-color="#2563eb" stop-opacity="0.02"/></linearGradient></defs>
+        </svg>
+        <div class="chart-label-90">Price history 90 days &mdash; LME, Destatis, Market data</div>
+      </div>
+    </div>
+    <div class="chart-sidebar">
+      <div class="ai-card">
+        <div class="ai-card-title">&#129302; AI Analysis</div>
+        <div class="ai-row"><span class="ai-row-label">Trend</span><span class="ai-row-value">Sideways / slightly upward</span></div>
+        <div class="ai-row"><span class="ai-row-label">Recommendation</span><span class="ai-row-value warn">Delay purchase</span></div>
+        <div class="ai-row"><span class="ai-row-label">Confidence</span><span class="ai-row-value">78%</span></div>
+        <div class="ai-conf-bar"><div class="ai-conf-fill" style="width:78%"></div></div>
+        <div class="ai-explanation">Reinforcing steel shows sideways movement with slight upward tendency. Based on LME futures and seasonal patterns: delay larger orders by 2&ndash;3 weeks. Probability of decline: 62%.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SLIDE 6: KI-PROGNOSEN ======== -->
+<div class="slide slide--light" id="slide6">
+  <p class="slide-label">Product</p>
+  <h2>AI Forecasts for All Materials</h2>
+  <div class="forecast-wrap">
+    <div class="forecast-title-bar">&#128202; Forecasts &mdash; Claude AI (Sonnet 4.5)</div>
+    <table class="forecast-tbl">
+      <thead><tr><th>Material</th><th>Current Price</th><th>7 Days</th><th>14 Days</th><th>30 Days</th><th>Confidence</th></tr></thead>
+      <tbody>
+        <tr><td class="mat-name-cell">Bewehrungsstahl BSt 500</td><td>842,50 &euro;/t</td><td class="fc-down">&#9660; -1,2%</td><td class="fc-down">&#9660; -2,1%</td><td class="fc-up">&#9650; +0,8%</td><td><span class="conf-badge conf-high">78%</span></td></tr>
+        <tr><td class="mat-name-cell">Kupfer (Cu)</td><td>8.421 &euro;/t</td><td class="fc-up">&#9650; +2,3%</td><td class="fc-up">&#9650; +3,5%</td><td class="fc-up">&#9650; +5,1%</td><td><span class="conf-badge conf-high">82%</span></td></tr>
+        <tr><td class="mat-name-cell">Bauholz (KVH)</td><td>385 &euro;/m&sup3;</td><td class="fc-down">&#9660; -0,5%</td><td class="fc-up">&#9650; +1,2%</td><td class="fc-up">&#9650; +2,8%</td><td><span class="conf-badge conf-mid">71%</span></td></tr>
+        <tr><td class="mat-name-cell">Aluminium (Al)</td><td>2.580 &euro;/t</td><td class="fc-up">&#9650; +1,8%</td><td class="fc-up">&#9650; +2,4%</td><td class="fc-up">&#9650; +4,2%</td><td><span class="conf-badge conf-high">85%</span></td></tr>
+        <tr><td class="mat-name-cell">Transportbeton C25/30</td><td>112,50 &euro;/m&sup3;</td><td class="fc-flat">&rarr; 0,0%</td><td class="fc-up">&#9650; +0,3%</td><td class="fc-up">&#9650; +0,8%</td><td><span class="conf-badge conf-mid">65%</span></td></tr>
+        <tr><td class="mat-name-cell">Zement CEM I</td><td>98,20 &euro;/t</td><td class="fc-flat">&rarr; 0,0%</td><td class="fc-down">&#9660; -0,4%</td><td class="fc-down">&#9660; -1,2%</td><td><span class="conf-badge conf-mid">68%</span></td></tr>
+        <tr><td class="mat-name-cell">Bitumen</td><td>420 &euro;/t</td><td class="fc-down">&#9660; -0,8%</td><td class="fc-down">&#9660; -1,5%</td><td class="fc-down">&#9660; -2,3%</td><td><span class="conf-badge conf-mid">72%</span></td></tr>
+        <tr><td class="mat-name-cell">Zink</td><td>2.840 &euro;/t</td><td class="fc-up">&#9650; +1,4%</td><td class="fc-up">&#9650; +2,8%</td><td class="fc-up">&#9650; +3,9%</td><td><span class="conf-badge conf-high">79%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source">3,100+ data points &bull; LME futures, seasonal patterns &bull; 4&times; updated daily</p>
+</div>
+
+<!-- ======== SLIDE 7: ALARME + BERICHTE ======== -->
+<div class="slide slide--white" id="slide7">
+  <p class="slide-label">Product</p>
+  <h2>Alerts to your phone. Reports in one click.</h2>
+  <div class="split-view">
+    <div class="split-half">
+      <div class="tg-phone">
+        <div class="tg-header">
+          <div class="tg-avatar">B</div>
+          <div><div class="tg-name">BauPreis AI Bot</div><div class="tg-status">online</div></div>
+        </div>
+        <div class="tg-bubble">
+          <div style="font-size:16px">&#9888;&#65039;</div>
+          <div class="tg-alert-title">Price Alert: Kupfer (Cu)</div>
+          <div>Copper rose by <strong style="color:#4ade80">+5,3%</strong> to <strong>8.421 &euro;/t</strong>.</div>
+          <div style="margin-top:6px">Your threshold: &plusmn;3%</div>
+          <div style="margin-top:6px">&#128202; <u>Go to Dashboard</u></div>
+          <div class="tg-time">18:42 &#10003;&#10003;</div>
+        </div>
+        <div class="tg-bubble">
+          <div style="font-size:16px">&#128201;</div>
+          <div class="tg-alert-title">Price Alert: Bauholz</div>
+          <div>Timber dropped by <strong style="color:#f87171">-3,8%</strong> to <strong>385 &euro;/m&sup3;</strong>.</div>
+          <div style="margin-top:6px">&#128161; AI: <em>Buy now (74%)</em></div>
+          <div class="tg-time">18:42 &#10003;&#10003;</div>
+        </div>
+      </div>
+      <div class="tg-label-text">Telegram &amp; Email Alerts</div>
+    </div>
+    <div class="split-half">
+      <div class="report-mock">
+        <div class="report-mock-header">
+          <span>Weekly Report 17.&ndash;23.02.2026</span>
+          <div class="report-badges"><span class="report-badge">CSV</span><span class="report-badge">PDF</span></div>
+        </div>
+        <table class="report-tbl">
+          <thead><tr><th>Material</th><th>Price</th><th>1W</th><th>1M</th><th>Trend</th></tr></thead>
+          <tbody>
+            <tr><td>Bewehrungsstahl</td><td>842,50 &euro;</td><td class="down">-2,3%</td><td class="up">+1,8%</td><td>&#8594;</td></tr>
+            <tr><td>Kupfer</td><td>8.421 &euro;</td><td class="up">+1,5%</td><td class="up">+4,2%</td><td>&#8593;</td></tr>
+            <tr><td>Bauholz</td><td>385 &euro;</td><td class="down">-0,8%</td><td class="down">-2,1%</td><td>&#8595;</td></tr>
+            <tr><td>Aluminium</td><td>2.580 &euro;</td><td class="up">+3,2%</td><td class="up">+5,8%</td><td>&#8593;</td></tr>
+            <tr><td>Transportbeton</td><td>112,50 &euro;</td><td class="up">+0,5%</td><td class="up">+1,2%</td><td>&#8594;</td></tr>
+            <tr><td>Zement</td><td>98,20 &euro;</td><td>0,0%</td><td class="down">-0,4%</td><td>&#8594;</td></tr>
+            <tr><td>Bitumen</td><td>420 &euro;</td><td class="down">-1,1%</td><td class="down">-3,5%</td><td>&#8595;</td></tr>
+            <tr><td>Zink</td><td>2.840 &euro;</td><td class="up">+2,8%</td><td class="up">+6,1%</td><td>&#8593;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tg-label-text">Automatic Reports (Weekly/Monthly)</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SLIDE 8: PREISGLEITKLAUSEL ======== -->
+<div class="slide slide--accent" id="slide8">
+  <p class="slide-label">Unique Feature</p>
+  <h2>Price Escalation Clause in 30 Seconds</h2>
+  <p class="subtitle">instead of 4 hours of manual Excel calculation</p>
+  <div class="pgl-container">
+    <div class="pgl-before">
+      <div class="pgl-title">&#10060; Before: Manual</div>
+      <ul class="pgl-list">
+        <li>&#8227; Search Destatis indices (6-8 week delay)</li>
+        <li>&#8227; Calculate VOB/B &sect;2 para. 5 manually</li>
+        <li>&#8227; Apply VHB 230 price escalation clause</li>
+        <li>&#8227; Maintain &amp; verify Excel spreadsheet</li>
+        <li>&#8227; Draft supplementary claim</li>
+      </ul>
+      <div class="pgl-result" style="background:rgba(248,113,113,0.15);border-color:rgba(248,113,113,0.3);color:#fca5a5">~4 hours per calculation</div>
+    </div>
+    <div class="pgl-after">
+      <div class="pgl-title">&#10004;&#65039; BauPreis AI: Automatic</div>
+      <ul class="pgl-list">
+        <li>&#8227; Select material &amp; time period</li>
+        <li>&#8227; Calculation type: VOB or VHB</li>
+        <li>&#8227; View result instantly</li>
+        <li>&#8227; PDF export for client</li>
+        <li>&#8227; Audit-ready documentation</li>
+      </ul>
+      <div class="pgl-result">30 seconds &mdash; done.</div>
+    </div>
+  </div>
+  <p class="pgl-note">Mandatory for public contracts since 2021. Our calculator automates VOB/B &amp; VHB 230.</p>
+</div>
+
+<!-- ======== SLIDE 9: WARUM BAUPREIS AI ======== -->
+<div class="slide slide--dark" id="slide9">
+  <p class="slide-label">Advantages</p>
+  <h2>Why BauPreis AI?</h2>
+  <div class="adv-grid">
+    <div class="adv-card">
+      <div class="adv-icon">&#128176;</div>
+      <div class="adv-title">70&times; cheaper than enterprise</div>
+      <div class="adv-desc">Mintec costs &euro;40,000/year. We start at &euro;588/year. Same LME data, plus AI forecasts and alerts.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">&#128202;</div>
+      <div class="adv-title">6 of 8 workflow steps covered</div>
+      <div class="adv-desc">From price search to reporting &mdash; instead of 1-3 steps like BKI or Destatis.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">&#9889;</div>
+      <div class="adv-title">From days to minutes</div>
+      <div class="adv-desc">Site managers get instant price alerts via Telegram &mdash; not after days of manual research.</div>
+    </div>
+    <div class="adv-card">
+      <div class="adv-icon">&#128221;</div>
+      <div class="adv-title">Complements Excel</div>
+      <div class="adv-desc">No retraining needed. BauPreis delivers the data &mdash; your calculation processes stay the same.</div>
+    </div>
+  </div>
+  <p class="source">JTBD Job Map Analyse &bull; McKinsey Strategic Framework &bull; 4 Kundensegmente evaluiert</p>
+</div>
+
+<!-- ======== SLIDE 10: VERTRAUEN ======== -->
+<div class="slide slide--white" id="slide10">
+  <p class="slide-label">Trust &amp; Security</p>
+  <h2>German data. German servers.<br>Built for German construction.</h2>
+  <div class="trust-grid">
+    <div class="trust-card">
+      <div class="trust-icon">&#127465;&#127466;</div>
+      <div><div class="trust-title">Hetzner N&uuml;rnberg</div><div class="trust-desc">100% GDPR compliant. No US cloud. Your data never leaves Germany.</div></div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#128202;</div>
+      <div><div class="trust-title">3,100+ data points</div><div class="trust-desc">LME, Destatis, trade sources. 90-day history. Updated 4&times; daily.</div></div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#128300;</div>
+      <div><div class="trust-title">AI with confidence score</div><div class="trust-desc">Every forecast shows 0&ndash;100% confidence. AI recommends &mdash; you decide.</div></div>
+    </div>
+    <div class="trust-card">
+      <div class="trust-icon">&#9889;</div>
+      <div><div class="trust-title">Ready instantly</div><div class="trust-desc">Register, select materials, done. No installation. PWA for any device.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ======== SLIDE 11: PRICING + CTA ======== -->
+<div class="slide slide--gradient" id="slide11">
+  <p class="slide-label">Pricing</p>
+  <h2>From &euro;49/month. 7 days free.</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="plan-name">Basis</div>
+      <div class="plan-price">&euro;49</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-features"><li>5 materials</li><li>3 alerts</li><li>1 user</li><li>E-Mail-Alerts</li></ul>
+    </div>
+    <div class="price-card popular">
+      <div class="plan-name">Pro <span class="plan-popular-badge">Popular</span></div>
+      <div class="plan-price">&euro;149</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-features"><li>All 16 materials</li><li>Unlimited alerts</li><li>AI forecasts</li><li>Telegram &amp; E-Mail</li></ul>
+    </div>
+    <div class="price-card">
+      <div class="plan-name">Team</div>
+      <div class="plan-price">&euro;299</div>
+      <div class="plan-period">per month</div>
+      <ul class="plan-features"><li>5 users</li><li>API access</li><li>PDF reports</li><li>Dedicated support</li></ul>
+    </div>
+  </div>
+  <div class="price-value">&ldquo;One correct purchasing decision pays for the annual subscription.&rdquo;</div>
+  <div class="qr-row">
+    <div class="qr-block qr-large" data-qr="product"><img src="" alt="QR"><div class="qr-label">Try free now</div></div>
+    <div class="qr-block qr-large" data-qr="linkedin"><img src="" alt="QR"><div class="qr-label">Connect on LinkedIn</div></div>
+  </div>
+  <div class="contact-bar">
+    <span>Eduard Morocho Baias</span><span class="sep">&bull;</span>
+    <span>+49 155 636 75 772</span><span class="sep">&bull;</span>
+    <span>pashchenkoh@gmail.com</span>
+  </div>
+  <p class="price-cta">7 days free &bull; No credit card &bull; Ready in 30 seconds</p>
+</div>
+
+<!-- Nav dots -->
+<nav class="slide-nav">
   <button class="nav-dot active" onclick="goSlide(1)"></button>
   <button class="nav-dot" onclick="goSlide(2)"></button>
   <button class="nav-dot" onclick="goSlide(3)"></button>
@@ -867,64 +1194,40 @@
   <button class="nav-dot" onclick="goSlide(5)"></button>
   <button class="nav-dot" onclick="goSlide(6)"></button>
   <button class="nav-dot" onclick="goSlide(7)"></button>
+  <button class="nav-dot" onclick="goSlide(8)"></button>
+  <button class="nav-dot" onclick="goSlide(9)"></button>
+  <button class="nav-dot" onclick="goSlide(10)"></button>
+  <button class="nav-dot" onclick="goSlide(11)"></button>
 </nav>
 
 <script>
 function goSlide(n) {
   document.getElementById('slide' + n).scrollIntoView({ behavior: 'smooth' });
 }
-
-// Update nav dots on scroll
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.nav-dot');
-const qrFixed = document.getElementById('qrFixed');
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
+var slides = document.querySelectorAll('.slide');
+var dots = document.querySelectorAll('.nav-dot');
+var qrFixed = document.getElementById('qrFixed');
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
     if (entry.isIntersecting) {
-      const idx = Array.from(slides).indexOf(entry.target);
-      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-      // Hide fixed QR on slides 1 and 6 (they have their own QR rows)
-      if (idx === 0 || idx === 5) {
-        qrFixed.style.display = 'none';
-      } else {
-        qrFixed.style.display = 'block';
-      }
+      var idx = Array.from(slides).indexOf(entry.target);
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+      qrFixed.style.display = (idx === 0 || idx === 10) ? 'none' : 'block';
     }
   });
 }, { threshold: 0.6 });
+slides.forEach(function(s) { observer.observe(s); });
 
-slides.forEach(s => observer.observe(s));
-
-// Replace placeholder SVG QR codes with real ones from API
+// Load real QR codes
 (function() {
-  var productQR = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent('https://baupreis.ais152.com');
-  var linkedinQR = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent('https://www.linkedin.com/in/eduard-baias/');
-
-  // Fixed QR (product only)
-  var fixedSvg = document.querySelector('#qrFixed svg');
-  if (fixedSvg) {
-    var img = document.createElement('img');
-    img.src = productQR;
-    img.alt = 'QR BauPreis AI';
-    fixedSvg.replaceWith(img);
-  }
-
-  // QR rows on slides 1 and 6: first block = product, second = linkedin
-  document.querySelectorAll('.qr-row').forEach(function(row) {
-    var blocks = row.querySelectorAll('.qr-block');
-    blocks.forEach(function(block, i) {
-      var svg = block.querySelector('svg');
-      if (svg) {
-        var img = document.createElement('img');
-        img.src = (i === 0) ? productQR : linkedinQR;
-        img.alt = 'QR Code';
-        svg.replaceWith(img);
-      }
-    });
+  var pQR = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent('https://baupreis.ais152.com');
+  var lQR = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=' + encodeURIComponent('https://www.linkedin.com/in/eduard-baias/');
+  document.getElementById('qrFixedImg').src = pQR;
+  document.querySelectorAll('[data-qr]').forEach(function(b) {
+    var img = b.querySelector('img');
+    if (img) img.src = (b.getAttribute('data-qr') === 'product') ? pQR : lQR;
   });
 })();
 </script>
-
 </body>
 </html>
