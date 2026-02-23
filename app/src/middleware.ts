@@ -2,6 +2,10 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
+const isClerkConfigured =
+  clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
+
 const isPublicRoute = createRouteMatcher([
   "/",
   "/sign-in(.*)",
@@ -10,7 +14,9 @@ const isPublicRoute = createRouteMatcher([
   "/api/v1/(.*)",
   "/api/cron/(.*)",
   "/api/index/calculate",
+  "/api/contact",
   "/preise",
+  "/kontakt",
   "/ueber-uns",
   "/datenschutz",
   "/impressum",
@@ -33,17 +39,7 @@ function detectLocale(req: NextRequest): string | null {
   return "de";
 }
 
-export default clerkMiddleware(async (auth, request) => {
-  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  const isConfigured =
-    clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-
-  if (isConfigured && !isPublicRoute(request)) {
-    auth().protect();
-  }
-
-  // Set locale cookie via request headers so Clerk's internal
-  // response (with Set-Cookie for __session, __client_uat) is preserved.
+function setLocaleCookie(request: NextRequest) {
   const locale = detectLocale(request);
   if (locale) {
     const response = NextResponse.next({
@@ -57,7 +53,24 @@ export default clerkMiddleware(async (auth, request) => {
     });
     return response;
   }
-});
+  return NextResponse.next();
+}
+
+// When Clerk is not configured, use a plain middleware that only sets locale
+function plainMiddleware(request: NextRequest) {
+  return setLocaleCookie(request);
+}
+
+const clerkMw = isClerkConfigured
+  ? clerkMiddleware(async (auth, request) => {
+      if (!isPublicRoute(request)) {
+        auth().protect();
+      }
+      return setLocaleCookie(request);
+    })
+  : plainMiddleware;
+
+export default clerkMw;
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
