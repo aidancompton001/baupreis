@@ -35,6 +35,7 @@ const en: Record<string, string> = {
   "nav.signIn": "Sign In",
   "nav.freeTrial": "Try Free",
   "nav.menuOpen": "Open menu",
+  "nav.contact": "Contact",
 
   "loading.message": "BauPreis AI is loading...",
 
@@ -539,6 +540,27 @@ const en: Record<string, string> = {
   "blog.subheading": "Market analyses, trends and tips for construction material procurement.",
   "blog.placeholder1": "Posts will be published soon.",
   "blog.placeholder2": "Register to never miss an update.",
+
+  // Contact Page
+  "contact.title": "Contact \u2014 BauPreis AI",
+  "contact.heading": "Contact",
+  "contact.subtitle": "Have questions? Write to us \u2014 we\u2019ll get back to you as soon as possible.",
+  "contact.emailLabel": "Email for direct inquiries:",
+  "contact.name": "Name",
+  "contact.namePlaceholder": "Your full name",
+  "contact.email": "Email",
+  "contact.emailPlaceholder": "your@email.com",
+  "contact.message": "Message",
+  "contact.messagePlaceholder": "Your message to us...",
+  "contact.send": "Send Message",
+  "contact.sending": "Sending...",
+  "contact.success": "Message sent successfully! We\u2019ll get back to you shortly.",
+  "contact.error": "Error sending message.",
+  "contact.error.nameRequired": "Please enter your name.",
+  "contact.error.invalidEmail": "Please enter a valid email address.",
+  "contact.error.messageRequired": "Please enter a message.",
+  "contact.error.messageTooLong": "Message is too long (max. 5000 characters).",
+  "contact.error.sendFailed": "Could not send email. Please try again later.",
 
   // Cookie Consent
   "cookie.title": "This website uses cookies",

@@ -15,9 +15,9 @@ export interface OrgData {
   features_pdf_reports: boolean;
   telegram_chat_id: string | null;
   whatsapp_phone: string | null;
-  paddle_subscription_id: string | null;
-  paddle_customer_id: string | null;
-  paddle_status: string | null;
+  stripe_subscription_id: string | null;
+  stripe_customer_id: string | null;
+  stripe_status: string | null;
   trial_ends_at: string | null;
   is_active: boolean;
   created_at: string;

@@ -94,7 +94,7 @@ export default function BillingPage() {
   const plan = org?.plan || "trial";
   const badgeColor = PLAN_BADGE_COLORS[plan] || PLAN_BADGE_COLORS.trial;
   const isTrial = plan === "trial";
-  const hasSubscription = !!org?.paddle_subscription_id;
+  const hasSubscription = !!org?.stripe_subscription_id;
 
   return (
     <div className="space-y-6">
@@ -163,9 +163,9 @@ export default function BillingPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">Paddle</p>
+                <p className="text-sm font-medium text-gray-900">Stripe</p>
                 <p className="text-xs text-gray-500">
-                  ID: ...{org.paddle_subscription_id!.slice(-6)}
+                  ID: ...{org.stripe_subscription_id!.slice(-6)}
                 </p>
               </div>
             </div>

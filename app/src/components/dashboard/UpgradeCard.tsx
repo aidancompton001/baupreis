@@ -4,16 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleContext";
 import { useOrg } from "@/lib/hooks/useOrg";
-import { usePaddle } from "@/hooks/usePaddle";
 
 const PRICE_IDS: Record<string, { monthly: string; yearly: string }> = {
   pro: {
-    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_MONTHLY || "",
-    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_YEARLY || "",
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_YEARLY || "",
   },
   team: {
-    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_MONTHLY || "",
-    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_YEARLY || "",
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEAM_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEAM_YEARLY || "",
   },
 };
 
@@ -32,30 +31,35 @@ export default function UpgradeCard({
 }: UpgradeCardProps) {
   const { t } = useLocale();
   const { org } = useOrg();
-  const paddle = usePaddle();
   const [loading, setLoading] = useState(false);
 
   const planKey = requiredPlan.toLowerCase();
   const priceIds = PRICE_IDS[planKey];
-  const canCheckout = paddle && priceIds?.monthly;
+  const canCheckout = !!priceIds?.monthly;
 
-  function handleCheckout() {
-    if (!paddle || !priceIds) return;
-
+  async function handleCheckout() {
+    if (!priceIds) return;
     setLoading(true);
 
-    paddle.Checkout.open({
-      items: [{ priceId: priceIds.monthly, quantity: 1 }],
-      customData: { orgId: org?.id },
-      settings: {
-        locale: "de",
-        successUrl: `${window.location.origin}/einstellungen/abo?success=1`,
-        displayMode: "overlay",
-        theme: "light",
-      },
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId: priceIds.monthly,
+          orgId: org?.id,
+        }),
+      });
+      const data = await res.json();
 
-    setTimeout(() => setLoading(false), 2000);
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setLoading(false);
+      }
+    } catch {
+      setLoading(false);
+    }
   }
 
   return (

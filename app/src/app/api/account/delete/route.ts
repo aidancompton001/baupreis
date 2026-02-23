@@ -24,13 +24,13 @@ export async function POST(request: Request) {
       );
     }
 
-    // Cancel Paddle subscription if active
-    if (org.paddle_subscription_id) {
+    // Cancel Stripe subscription if active
+    if (org.stripe_subscription_id) {
       try {
-        const { cancelSubscription } = await import("@/lib/paddle");
-        await cancelSubscription(org.paddle_subscription_id, "immediately");
+        const { cancelSubscription } = await import("@/lib/stripe");
+        await cancelSubscription(org.stripe_subscription_id, true);
       } catch {
-        // Continue even if Paddle cancellation fails
+        // Continue even if Stripe cancellation fails
       }
     }
 

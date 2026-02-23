@@ -25,6 +25,12 @@ export default function MarketingHeader() {
             {t("nav.aboutUs")}
           </Link>
           <Link
+            href="/kontakt"
+            className="text-gray-600 hover:text-gray-900"
+          >
+            {t("nav.contact")}
+          </Link>
+          <Link
             href="/sign-in"
             className="text-gray-600 hover:text-gray-900"
           >

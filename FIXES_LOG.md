@@ -217,16 +217,46 @@
 
 ---
 
-## Оставшиеся задачи (не ошибки)
+## Третий раунд — Фиксы 2026-02-18
 
-- [ ] `npm install` — зависимости не установлены
-- [ ] Placeholder-иконки для PWA (icon-192.png, icon-512.png)
-- [ ] favicon.ico, robots.txt, sitemap.xml
-- [ ] Общий файл TypeScript-интерфейсов (`types/`)
-- [x] Error boundaries (`error.tsx`, `loading.tsx`) — ГОТОВО
-- [ ] Извлечение переиспользуемых компонентов (навигация, карточки)
-- [ ] Установка shadcn/ui компонентов
-- [ ] Реализация графиков (recharts)
-- [ ] blog/[slug]/page.tsx — динамический маршрут для статей
-- [ ] Настройка n8n workflows (0% — нужно 6 воркфлоу)
-- [ ] Развёртывание на сервере (Hetzner, DNS, SSL)
+### FIX-01: Middleware перезаписывал Clerk session cookies
+- **Файл:** `app/src/middleware.ts`
+- **Проблема:** `const response = NextResponse.next()` создавал новый response на КАЖДЫЙ запрос, перезаписывая Set-Cookie заголовки Clerk (`__session`, `__client_uat`). Сессия терялась при закрытии вкладки.
+- **Исправление:** Возврат custom response только когда нужно установить locale cookie. В остальных случаях clerkMiddleware управляет response сам.
+- **Влияние:** Потеря сессии при закрытии/открытии вкладки.
+
+### FIX-02: send-alerts не проверял features_telegram
+- **Файл:** `app/src/app/api/cron/send-alerts/route.ts`
+- **Проблема:** Строка 170 проверяла только `rule.telegram_chat_id`, но не `features_telegram`. Пользователь Basis мог получать Telegram-алерты после даунгрейда с Pro.
+- **Исправление:** Добавлен `o.features_telegram` в SELECT и `&& rule.features_telegram` в условие отправки.
+- **Влияние:** Нарушение тарифных ограничений.
+
+### FIX-03: alerts API не проверял подключение Telegram
+- **Файл:** `app/src/app/api/alerts/route.ts`
+- **Проблема:** Можно было создать алерт с каналом "telegram"/"both"/"all" даже без подключенного бота или без фичи в плане.
+- **Исправление:** Валидация: если канал включает telegram → проверка `features_telegram` + `telegram_chat_id`.
+- **Влияние:** Алерт создавался, но никогда не отправлялся.
+
+### FIX-04: Telegram bot — полная интеграция
+- **Файлы:** Создано 2 файла, переписано 2 файла
+- **Проблема:** Telegram подключение было сломано: не было webhook-эндпоинта, код генерировался несуществующим n8n workflow, UX требовал ручного копирования кода.
+- **Исправление:**
+  - `/api/webhook/telegram/route.ts` — вебхук с timing-safe secret verification
+  - `/api/telegram/connect/route.ts` — deep link генерация + disconnect
+  - `/api/telegram/status/route.ts` — polling для фронтенда
+  - Страница Telegram — one-click deep link, автоматический polling, disconnect
+  - i18n (de/en/ru) — новые ключи
+  - init.sql — `org_id` вместо `chat_id` в `telegram_pending_connections`
+
+### FIX-05: TELEGRAM_WEBHOOK_SECRET не в docker-compose
+- **Файл:** `docker-compose.yml`
+- **Проблема:** Env var добавлен в `.env`, но не передавался в контейнер. Webhook отклонял все запросы (403).
+- **Исправление:** Добавлен `- TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}` в environment.
+
+| # | Описание | Файл(ы) | Статус |
+|---|----------|----------|--------|
+| FIX-01 | Middleware убивал Clerk cookies | middleware.ts | Исправлено |
+| FIX-02 | send-alerts без features_telegram | send-alerts/route.ts | Исправлено |
+| FIX-03 | alerts API без валидации telegram | alerts/route.ts | Исправлено |
+| FIX-04 | Telegram bot — полная интеграция | 6 файлов | Исправлено |
+| FIX-05 | Docker env var не передавался | docker-compose.yml | Исправлено |

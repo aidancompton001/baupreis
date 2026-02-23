@@ -56,6 +56,13 @@ export default function MobileNav() {
                 {t("nav.aboutUs")}
               </Link>
               <Link
+                href="/kontakt"
+                onClick={() => setOpen(false)}
+                className="text-lg text-gray-700 hover:text-brand-600 py-2 border-b"
+              >
+                {t("nav.contact")}
+              </Link>
+              <Link
                 href="/sign-in"
                 onClick={() => setOpen(false)}
                 className="text-lg text-gray-700 hover:text-brand-600 py-2 border-b"

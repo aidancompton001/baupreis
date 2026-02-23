@@ -35,6 +35,7 @@ const de: Record<string, string> = {
   "nav.signIn": "Anmelden",
   "nav.freeTrial": "Kostenlos testen",
   "nav.menuOpen": "Men\u00fc \u00f6ffnen",
+  "nav.contact": "Kontakt",
 
   // Loading
   "loading.message": "BauPreis AI wird geladen...",
@@ -543,6 +544,27 @@ const de: Record<string, string> = {
   "blog.subheading": "Marktanalysen, Trends und Tipps f\u00fcr den Baustoffeinkauf.",
   "blog.placeholder1": "Beitr\u00e4ge werden in K\u00fcrze ver\u00f6ffentlicht.",
   "blog.placeholder2": "Registrieren Sie sich, um keine Updates zu verpassen.",
+
+  // Contact Page
+  "contact.title": "Kontakt \u2014 BauPreis AI",
+  "contact.heading": "Kontakt",
+  "contact.subtitle": "Haben Sie Fragen? Schreiben Sie uns \u2014 wir melden uns schnellstm\u00f6glich.",
+  "contact.emailLabel": "E-Mail f\u00fcr direkte Anfragen:",
+  "contact.name": "Name",
+  "contact.namePlaceholder": "Ihr vollst\u00e4ndiger Name",
+  "contact.email": "E-Mail",
+  "contact.emailPlaceholder": "ihre@email.de",
+  "contact.message": "Nachricht",
+  "contact.messagePlaceholder": "Ihre Nachricht an uns...",
+  "contact.send": "Nachricht senden",
+  "contact.sending": "Wird gesendet...",
+  "contact.success": "Nachricht erfolgreich gesendet! Wir melden uns in K\u00fcrze.",
+  "contact.error": "Fehler beim Senden der Nachricht.",
+  "contact.error.nameRequired": "Bitte geben Sie Ihren Namen ein.",
+  "contact.error.invalidEmail": "Bitte geben Sie eine g\u00fcltige E-Mail-Adresse ein.",
+  "contact.error.messageRequired": "Bitte geben Sie eine Nachricht ein.",
+  "contact.error.messageTooLong": "Die Nachricht ist zu lang (max. 5000 Zeichen).",
+  "contact.error.sendFailed": "E-Mail konnte nicht gesendet werden. Bitte versuchen Sie es sp\u00e4ter erneut.",
 
   // Cookie Consent
   "cookie.title": "Diese Website verwendet Cookies",

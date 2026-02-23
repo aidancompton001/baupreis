@@ -35,6 +35,7 @@ const ru: Record<string, string> = {
   "nav.signIn": "Войти",
   "nav.freeTrial": "Попробовать бесплатно",
   "nav.menuOpen": "Открыть меню",
+  "nav.contact": "Контакт",
 
   "loading.message": "BauPreis AI загружается...",
 
@@ -542,6 +543,27 @@ const ru: Record<string, string> = {
   "blog.subheading": "Рыночная аналитика, тренды и советы по закупке стройматериалов.",
   "blog.placeholder1": "Публикации скоро появятся.",
   "blog.placeholder2": "Зарегистрируйтесь, чтобы не пропустить обновления.",
+
+  // Contact Page
+  "contact.title": "Контакт — BauPreis AI",
+  "contact.heading": "Контакт",
+  "contact.subtitle": "Есть вопросы? Напишите нам — мы ответим как можно скорее.",
+  "contact.emailLabel": "Email для прямых запросов:",
+  "contact.name": "Имя",
+  "contact.namePlaceholder": "Ваше полное имя",
+  "contact.email": "Email",
+  "contact.emailPlaceholder": "ваш@email.com",
+  "contact.message": "Сообщение",
+  "contact.messagePlaceholder": "Ваше сообщение...",
+  "contact.send": "Отправить сообщение",
+  "contact.sending": "Отправка...",
+  "contact.success": "Сообщение успешно отправлено! Мы свяжемся с вами в ближайшее время.",
+  "contact.error": "Ошибка при отправке сообщения.",
+  "contact.error.nameRequired": "Пожалуйста, введите ваше имя.",
+  "contact.error.invalidEmail": "Пожалуйста, введите корректный email.",
+  "contact.error.messageRequired": "Пожалуйста, введите сообщение.",
+  "contact.error.messageTooLong": "Сообщение слишком длинное (макс. 5000 символов).",
+  "contact.error.sendFailed": "Не удалось отправить email. Попробуйте позже.",
 
   // Cookie Consent
   "cookie.title": "Этот сайт использует файлы cookie",

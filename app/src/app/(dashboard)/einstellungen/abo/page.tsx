@@ -3,20 +3,19 @@
 import { useEffect, useState, useCallback } from "react";
 import { PLAN_PRICES } from "@/lib/plans";
 import { useLocale } from "@/i18n/LocaleContext";
-import { usePaddle } from "@/hooks/usePaddle";
 
 const PRICE_IDS: Record<string, { monthly: string; yearly: string }> = {
   basis: {
-    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_BASIS_MONTHLY || "",
-    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_BASIS_YEARLY || "",
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_BASIS_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_BASIS_YEARLY || "",
   },
   pro: {
-    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_MONTHLY || "",
-    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_PRO_YEARLY || "",
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_PRO_YEARLY || "",
   },
   team: {
-    monthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_MONTHLY || "",
-    yearly: process.env.NEXT_PUBLIC_PADDLE_PRICE_TEAM_YEARLY || "",
+    monthly: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEAM_MONTHLY || "",
+    yearly: process.env.NEXT_PUBLIC_STRIPE_PRICE_TEAM_YEARLY || "",
   },
 };
 
@@ -68,7 +67,6 @@ const PLANS = [
 
 export default function AboPage() {
   const { t, dateFmtLocale } = useLocale();
-  const paddle = usePaddle();
   const [org, setOrg] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [yearly, setYearly] = useState(false);
@@ -92,7 +90,7 @@ export default function AboPage() {
       .catch(() => setLoading(false));
   }, []);
 
-  // Check for success param (after Paddle checkout redirect)
+  // Check for success param (after Stripe checkout redirect)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get("success") === "1") {
@@ -102,12 +100,7 @@ export default function AboPage() {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function handleSubscribe(planId: string) {
-    if (!paddle) {
-      setErrorMessage("Paddle nicht geladen. Bitte Seite neu laden.");
-      return;
-    }
-
+  async function handleSubscribe(planId: string) {
     const priceIds = PRICE_IDS[planId];
     const priceId = yearly ? priceIds?.yearly : priceIds?.monthly;
 
@@ -119,22 +112,28 @@ export default function AboPage() {
     setSubscribing(planId);
     setErrorMessage(null);
 
-    paddle.Checkout.open({
-      items: [{ priceId, quantity: 1 }],
-      customData: { orgId: org?.id },
-      settings: {
-        locale: "de",
-        successUrl: `${window.location.origin}/einstellungen/abo?success=1`,
-        displayMode: "overlay",
-        theme: "light",
-      },
-      customer: {
-        email: org?.email || undefined,
-      },
-    });
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId,
+          orgId: org?.id,
+          email: org?.email || undefined,
+        }),
+      });
+      const data = await res.json();
 
-    // Paddle overlay handles its own UI, reset subscribing state
-    setTimeout(() => setSubscribing(null), 2000);
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        setErrorMessage(data.error || "Fehler beim Checkout.");
+        setSubscribing(null);
+      }
+    } catch {
+      setErrorMessage("Netzwerkfehler. Bitte versuchen Sie es erneut.");
+      setSubscribing(null);
+    }
   }
 
   async function handleManageBilling() {
@@ -203,7 +202,7 @@ export default function AboPage() {
                 })}
               </p>
             )}
-            {currentPlan === "basis" && !org?.paddle_subscription_id && org?.trial_ends_at && (
+            {currentPlan === "basis" && !org?.stripe_subscription_id && org?.trial_ends_at && (
               <div className="mt-1">
                 <p className="text-sm text-red-600 font-medium">
                   {t("trial.expired")}
@@ -214,7 +213,7 @@ export default function AboPage() {
               </div>
             )}
           </div>
-          {org?.paddle_subscription_id && (
+          {org?.stripe_subscription_id && (
             <button
               onClick={handleManageBilling}
               className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition text-sm"

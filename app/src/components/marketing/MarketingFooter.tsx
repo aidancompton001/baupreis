@@ -25,6 +25,9 @@ export default function MarketingFooter() {
           <Link href="/agb" className="hover:text-gray-900">
             {t("landing.footerAgb")}
           </Link>
+          <Link href="/kontakt" className="hover:text-gray-900">
+            {t("nav.contact")}
+          </Link>
           <button
             onClick={() => (window as any).__openCookieSettings?.()}
             className="hover:text-gray-900 cursor-pointer"

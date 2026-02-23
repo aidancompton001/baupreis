@@ -12,10 +12,10 @@ CREATE TABLE organizations (
     slug                    VARCHAR(100) UNIQUE NOT NULL,
     plan                    VARCHAR(20) DEFAULT 'trial',
     -- plan: 'trial', 'basis', 'pro', 'team', 'cancelled'
-    paddle_customer_id      VARCHAR(100),
-    paddle_subscription_id  VARCHAR(100),
-    paddle_price_id         VARCHAR(100),
-    paddle_status           VARCHAR(20) DEFAULT 'none',
+    stripe_customer_id      VARCHAR(100),
+    stripe_subscription_id  VARCHAR(100),
+    stripe_price_id         VARCHAR(100),
+    stripe_status           VARCHAR(20) DEFAULT 'none',
     max_materials           INTEGER DEFAULT 5,
     max_users               INTEGER DEFAULT 1,
     max_alerts              INTEGER DEFAULT 3,
@@ -36,7 +36,7 @@ CREATE TABLE organizations (
 );
 
 CREATE INDEX idx_org_slug ON organizations(slug);
-CREATE INDEX idx_org_paddle ON organizations(paddle_subscription_id);
+CREATE INDEX idx_org_stripe ON organizations(stripe_subscription_id);
 
 -- ============ USERS ============
 CREATE TABLE users (
