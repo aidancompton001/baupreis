@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
     const messages: Array<{ role: string; content: string }> = body.messages;
+    const locale: string = body.locale || "de";
 
     if (!Array.isArray(messages) || messages.length === 0) {
       return NextResponse.json(
@@ -110,6 +111,13 @@ export async function POST(req: NextRequest) {
       analysisContext += `- ${row.name_de}: Trend ${trend}, 7T ${row.change_pct_7d > 0 ? "+" : ""}${row.change_pct_7d}%, 30T ${row.change_pct_30d > 0 ? "+" : ""}${row.change_pct_30d}%, Empfehlung: ${rec}\n`;
     }
 
+    const langMap: Record<string, string> = {
+      de: "Deutsch",
+      en: "English",
+      ru: "Русский",
+    };
+    const replyLang = langMap[locale] || "Deutsch";
+
     const systemPrompt = `Du bist BauPreis AI, ein KI-Assistent für Baustoffpreise in Deutschland.
 Du hilfst Einkäufern und Geschäftsführern in der Baubranche bei Fragen zu Materialpreisen, Trends und Einkaufsstrategien.
 
@@ -117,7 +125,7 @@ ${priceContext}
 ${analysisContext}
 
 Regeln:
-- Antworte IMMER auf Deutsch.
+- Antworte IMMER auf ${replyLang}. Egal in welcher Sprache der Nutzer schreibt — deine Antwort muss auf ${replyLang} sein.
 - Beziehe dich auf die realen Preisdaten oben.
 - Wenn du keine Daten zu einem Material hast, sage das ehrlich.
 - Gib keine Finanzberatung — nur Marktinformationen und Einschätzungen.
