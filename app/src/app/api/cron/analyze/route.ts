@@ -223,7 +223,7 @@ Regeln:
     });
 
     const response = await client.messages.create({
-      model: "claude-3-5-sonnet-20241022",
+      model: "claude-sonnet-4-5-20250514",
       max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: "user", content: priceTable }],

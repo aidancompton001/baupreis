@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.39",
+    "@anthropic-ai/sdk": "^0.78.0",
     "@clerk/nextjs": "^5",
     "@paddle/paddle-node-sdk": "^3.6.0",
     "@stripe/stripe-js": "^8.8.0",
