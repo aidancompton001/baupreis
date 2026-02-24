@@ -177,23 +177,11 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // 3. Build batch prompt with all materials (Claude API path)
-    let priceTable = "Preisdaten der letzten 90 Tage:\n\n";
-    for (const [code, data] of Array.from(materialPrices)) {
-      priceTable += `## ${data.name_de} (${code}, ${data.unit})\n`;
-      // Include last 10 data points per material to keep prompt size manageable
-      const recent = data.prices.slice(0, 10);
-      for (const p of recent) {
-        const date = new Date(p.timestamp).toLocaleDateString("de-DE");
-        priceTable += `- ${date}: €${p.price_eur.toLocaleString("de-DE", { minimumFractionDigits: 2 })} (${p.source})\n`;
-      }
-      priceTable += "\n";
-    }
-
+    // 3. Build system prompt (Claude API path)
     const systemPrompt = `Du bist ein Analyst für Baustoffpreise in Deutschland.
 Analysiere die folgenden Preisdaten und gib für JEDES Material eine Einschätzung.
 
-Antworte NUR mit validem JSON — kein Markdown, kein erklärende Text, nur das JSON-Array.
+Antworte NUR mit validem JSON — kein Markdown, kein Text, nur das JSON-Array.
 
 Format:
 [
@@ -204,36 +192,33 @@ Format:
     "change_pct_30d": number,
     "recommendation": "buy_now" | "wait" | "watch",
     "confidence": number (0-100),
-    "explanation_de": "2-3 Sätze auf Deutsch",
-    "explanation_en": "2-3 sentences in English",
-    "explanation_ru": "2-3 предложения на русском",
+    "explanation_de": "1 Satz auf Deutsch",
+    "explanation_en": "1 sentence in English",
+    "explanation_ru": "1 предложение на русском",
     "forecast_json": { "7d": number, "30d": number, "90d": number }
   }
 ]
 
 Regeln:
-- forecast_json enthält prognostizierte PREISE (EUR), nicht Prozent
+- forecast_json = prognostizierte PREISE (EUR), nicht Prozent
 - confidence: 80+ nur bei klarem Trend mit vielen Datenpunkten
 - Sei konservativ bei Prognosen
-- Wenn zu wenig Daten: confidence < 40, recommendation = "watch"`;
+- Wenn zu wenig Daten: confidence < 40, recommendation = "watch"
+- Halte Erklärungen KURZ (max 1 Satz pro Sprache)`;
 
-    // 4. Call Claude API (non-streaming, batch)
     const client = new Anthropic({
       apiKey: process.env.ANTHROPIC_API_KEY,
     });
 
-    const response = await client.messages.create({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 8192,
-      system: systemPrompt,
-      messages: [{ role: "user", content: priceTable }],
-    });
+    // 4. Split materials into batches of 8 (fits in 4096 output tokens)
+    const allMaterials = Array.from(materialPrices);
+    const BATCH_SIZE = 8;
+    const batches: typeof allMaterials[] = [];
+    for (let i = 0; i < allMaterials.length; i += BATCH_SIZE) {
+      batches.push(allMaterials.slice(i, i + BATCH_SIZE));
+    }
 
-    // 5. Parse response
-    const content =
-      response.content[0].type === "text" ? response.content[0].text : "";
-
-    let analyses: Array<{
+    type AnalysisItem = {
       code: string;
       trend: string;
       change_pct_7d: number;
@@ -244,23 +229,48 @@ Regeln:
       explanation_en: string;
       explanation_ru: string;
       forecast_json: { "7d": number; "30d": number; "90d": number };
-    }>;
+    };
 
-    try {
-      // Extract JSON array from response (handles markdown code blocks)
-      const arrayMatch = content.match(/\[[\s\S]*\]/);
-      const jsonStr = arrayMatch ? arrayMatch[0] : content.trim();
-      analyses = JSON.parse(jsonStr);
-    } catch (parseErr) {
-      errors.push(`JSON parse error: ${content.substring(0, 200)}`);
-      return NextResponse.json(
-        { ok: false, analyzed: 0, errors },
-        { status: 500 }
-      );
+    const analyses: AnalysisItem[] = [];
+
+    for (let b = 0; b < batches.length; b++) {
+      let priceTable = "Preisdaten der letzten 90 Tage:\n\n";
+      for (const [code, data] of batches[b]) {
+        priceTable += `## ${data.name_de} (${code}, ${data.unit})\n`;
+        const recent = data.prices.slice(0, 10);
+        for (const p of recent) {
+          const date = new Date(p.timestamp).toLocaleDateString("de-DE");
+          priceTable += `- ${date}: €${p.price_eur.toLocaleString("de-DE", { minimumFractionDigits: 2 })} (${p.source})\n`;
+        }
+        priceTable += "\n";
+      }
+
+      try {
+        const response = await client.messages.create({
+          model: "claude-3-haiku-20240307",
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: "user", content: priceTable }],
+        });
+
+        const content =
+          response.content[0].type === "text" ? response.content[0].text : "";
+
+        const arrayMatch = content.match(/\[[\s\S]*\]/);
+        const jsonStr = arrayMatch ? arrayMatch[0] : content.trim();
+        const batchResult: AnalysisItem[] = JSON.parse(jsonStr);
+
+        if (Array.isArray(batchResult)) {
+          analyses.push(...batchResult);
+        } else {
+          errors.push(`Batch ${b + 1}: response is not an array`);
+        }
+      } catch (batchErr: any) {
+        errors.push(`Batch ${b + 1}: ${batchErr.message?.substring(0, 150)}`);
+      }
     }
 
-    if (!Array.isArray(analyses)) {
-      errors.push("Response is not an array");
+    if (analyses.length === 0) {
       return NextResponse.json(
         { ok: false, analyzed: 0, errors },
         { status: 500 }
@@ -269,9 +279,9 @@ Regeln:
 
     // 6. Insert analysis for each material
     const now = new Date().toISOString();
-    const modelVersion = "claude-sonnet-4-5-20250929";
-    const promptTokens = response.usage?.input_tokens || 0;
-    const completionTokens = response.usage?.output_tokens || 0;
+    const modelVersion = "claude-3-haiku-20240307";
+    const promptTokens = 0;
+    const completionTokens = 0;
 
     for (const a of analyses) {
       const materialData = materialPrices.get(a.code);
