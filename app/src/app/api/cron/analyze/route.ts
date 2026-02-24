@@ -248,7 +248,7 @@ Regeln:
 
     try {
       // Handle potential markdown code blocks in response
-      const jsonStr = content.replace(/```json?\s*\n?/g, "").replace(/```\s*$/g, "").trim();
+      const jsonStr = content.replace(/```json?\s*\n?/g, "").replace(/\n?```\s*$/g, "").trim();
       analyses = JSON.parse(jsonStr);
     } catch (parseErr) {
       errors.push(`JSON parse error: ${content.substring(0, 200)}`);
