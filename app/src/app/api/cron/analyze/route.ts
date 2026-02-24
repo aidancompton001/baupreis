@@ -223,7 +223,7 @@ Regeln:
     });
 
     const response = await client.messages.create({
-      model: "claude-sonnet-4-5-20250929",
+      model: "claude-sonnet-4-5-20250514",
       max_tokens: 4096,
       system: systemPrompt,
       messages: [{ role: "user", content: priceTable }],
@@ -247,8 +247,9 @@ Regeln:
     }>;
 
     try {
-      // Handle potential markdown code blocks in response
-      const jsonStr = content.replace(/```json?\s*\n?/g, "").replace(/\n?```\s*$/g, "").trim();
+      // Extract JSON array from response (handles markdown code blocks)
+      const arrayMatch = content.match(/\[[\s\S]*\]/);
+      const jsonStr = arrayMatch ? arrayMatch[0] : content.trim();
       analyses = JSON.parse(jsonStr);
     } catch (parseErr) {
       errors.push(`JSON parse error: ${content.substring(0, 200)}`);
