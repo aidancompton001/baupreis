@@ -1,23 +1,39 @@
 import pool from "./db";
+import { getSession } from "./session";
 
-const DEV_USER_ID = "dev_local_user";
-const DEV_SLUG = "dev-local";
-
-function isClerkConfigured(): boolean {
+export function isClerkConfigured(): boolean {
   const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
   return key.startsWith("pk_live_") || key.startsWith("pk_test_");
 }
 
 function getClerkUserId(): string | null {
-  if (!isClerkConfigured()) {
-    return DEV_USER_ID;
+  // 1. Try local session cookie first (email-based auth)
+  const session = getSession();
+  if (session) return session.uid;
+
+  // 2. Try Clerk if configured
+  if (isClerkConfigured()) {
+    const { auth } = require("@clerk/nextjs/server");
+    const { userId } = auth();
+    return userId;
   }
-  const { auth } = require("@clerk/nextjs/server");
-  const { userId } = auth();
-  return userId;
+
+  // 3. No auth — return null (will redirect to sign-in)
+  return null;
 }
 
 export async function getOrg() {
+  // Try local session first — it has org_id directly
+  const session = getSession();
+  if (session) {
+    const result = await pool.query(
+      `SELECT o.* FROM organizations o
+       WHERE o.id = $1 AND o.is_active = true`,
+      [session.oid]
+    );
+    if (result.rows[0]) return result.rows[0];
+  }
+
   const userId = getClerkUserId();
   if (!userId) return null;
 
@@ -30,13 +46,12 @@ export async function getOrg() {
 
   if (result.rows[0]) return result.rows[0];
 
-  // Dev mode: auto-create org + user
-  if (!isClerkConfigured()) {
-    return await devAutoCreateOrg();
+  // Clerk mode: auto-create org for authenticated user (no webhook needed)
+  if (isClerkConfigured()) {
+    return await autoCreateOrgForClerkUser(userId);
   }
 
-  // Clerk mode: auto-create org for authenticated user (no webhook needed)
-  return await autoCreateOrgForClerkUser(userId);
+  return null;
 }
 
 /** Auto-create org for a Clerk-authenticated user on first access. */
@@ -106,43 +121,6 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
     throw e;
   } finally {
     client.release();
-  }
-}
-
-/** In dev mode, create org + user + org_materials automatically. */
-async function devAutoCreateOrg() {
-  const dbClient = await pool.connect();
-  try {
-    await dbClient.query("BEGIN");
-
-    const orgResult = await dbClient.query(
-      `INSERT INTO organizations (name, slug, plan, max_materials, max_users, max_alerts,
-        features_telegram, features_forecast, features_api, features_pdf_reports)
-       VALUES ($1, $2, 'pro', 99, 1, 999, true, true, false, false)
-       RETURNING *`,
-      ["Dev User GmbH", DEV_SLUG]
-    );
-    const org = orgResult.rows[0];
-
-    await dbClient.query(
-      `INSERT INTO users (org_id, clerk_user_id, email, name, role)
-       VALUES ($1, $2, $3, $4, 'owner')`,
-      [org.id, DEV_USER_ID, "dev@localhost", "Dev User"]
-    );
-
-    await dbClient.query(
-      `INSERT INTO org_materials (org_id, material_id)
-       SELECT $1, id FROM materials WHERE is_active = true`,
-      [org.id]
-    );
-
-    await dbClient.query("COMMIT");
-    return org;
-  } catch (e) {
-    await dbClient.query("ROLLBACK");
-    throw e;
-  } finally {
-    dbClient.release();
   }
 }
 

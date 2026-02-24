@@ -4,24 +4,17 @@ import DashboardNav from "@/components/layout/DashboardNav";
 import TrialBanner from "@/components/dashboard/TrialBanner";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import UserAvatarClient from "@/components/layout/UserAvatarClient";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-function DevUserBadge() {
-  return (
-    <div className="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center text-sm font-bold">
-      D
-    </div>
-  );
-}
-
 function UserAvatar() {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
   const hasValidClerkKey = clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
   if (!hasValidClerkKey) {
-    return <DevUserBadge />;
+    return <LogoutButton />;
   }
   return <UserAvatarClient />;
 }
