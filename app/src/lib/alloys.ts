@@ -639,6 +639,51 @@ function getFormAdjustment(form: ProductForm): number {
   return adjustments[form] || 1.0;
 }
 
+/** Calculate price for a custom user-defined composition */
+export function calculateCustomPrice(
+  composition: Record<string, number>,
+  name: string,
+  productForm: ProductForm = "blech",
+  weightKg: number = 1000
+): PriceResult | null {
+  // Build a virtual alloy
+  const customAlloy: Alloy = {
+    code: "custom",
+    werkstoffNr: "custom",
+    din: name,
+    category: "copper_alloy",
+    nameDE: name,
+    nameEN: name,
+    nameRU: name,
+    composition,
+    pricingMethod: "weighted",
+    processingMultiplier: { min: 1.2, max: 1.8, default: 1.4 },
+    standard: "Benutzerdefiniert",
+  };
+
+  // Use the weighted calculation
+  const { total: metallwert, breakdown } = calcMetallwert(customAlloy);
+  const formAdjust = getFormAdjustment(productForm);
+  const { min, max, default: def } = customAlloy.processingMultiplier;
+  const adjMin = min * formAdjust;
+  const adjMax = max * formAdjust;
+  const adjDef = def * formAdjust;
+
+  return {
+    alloy: customAlloy,
+    productForm,
+    weightKg,
+    metallwert,
+    elementBreakdown: breakdown,
+    processingMultiplier: adjDef,
+    totalPerTonneMin: Math.round(metallwert * adjMin),
+    totalPerTonneMax: Math.round(metallwert * adjMax),
+    totalPerTonneDefault: Math.round(metallwert * adjDef),
+    totalForWeight: Math.round((Math.round(metallwert * adjDef) / 1000) * weightKg),
+    disclaimer: "custom",
+  };
+}
+
 /** Get all alloys grouped by category */
 export function getAlloysByCategory(): Record<AlloyCategory, Alloy[]> {
   const grouped: Record<AlloyCategory, Alloy[]> = {

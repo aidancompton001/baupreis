@@ -6,6 +6,7 @@ import {
   BASE_METALS,
   LAST_PRICE_UPDATE,
   calculateAlloyPrice,
+  calculateCustomPrice,
   getAlloysByCategory,
   CATEGORY_LABELS,
   DEFAULT_FORMS,
@@ -96,25 +97,27 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const { alloyCode, productForm = "blech", weightKg = 1000 } = body;
+    const { alloyCode, customComposition, customName, productForm = "blech", weightKg = 1000 } = body;
 
-    if (!alloyCode || typeof alloyCode !== "string") {
+    if (!alloyCode && !customComposition) {
       return NextResponse.json(
-        { error: "alloyCode ist erforderlich." },
+        { error: "alloyCode oder customComposition ist erforderlich." },
         { status: 400 }
       );
     }
 
     const validForms = ["blech", "stabstahl", "blankstahl", "rohr_geschweisst", "rohr_nahtlos", "profil", "draht", "guss"];
     const form = validForms.includes(productForm) ? productForm : "blech";
-
     const weight = Math.max(1, Math.min(1_000_000, Number(weightKg) || 1000));
 
-    const result = calculateAlloyPrice(
-      alloyCode,
-      form as ProductForm,
-      weight
-    );
+    let result;
+
+    if (customComposition && typeof customComposition === "object") {
+      // Calculate from custom composition
+      result = calculateCustomPrice(customComposition, customName || "Eigene Legierung", form as ProductForm, weight);
+    } else {
+      result = calculateAlloyPrice(alloyCode, form as ProductForm, weight);
+    }
 
     if (!result) {
       return NextResponse.json(
