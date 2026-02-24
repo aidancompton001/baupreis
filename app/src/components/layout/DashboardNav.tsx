@@ -16,6 +16,7 @@ const navItems: Array<{
   { href: "/prognose", labelKey: "nav.forecasts", icon: "🤖", plan: "Pro" },
   { href: "/chat", labelKey: "nav.chat", icon: "💬", plan: "Pro" },
   { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: "📐", plan: "Pro" },
+  { href: "/legierungsrechner", labelKey: "nav.alloyCalc", icon: "⚗️", plan: "Pro" },
   { href: "/alerts", labelKey: "nav.alerts", icon: "🔔" },
   { href: "/berichte", labelKey: "nav.reports", icon: "📄" },
   { href: "/einstellungen", labelKey: "nav.settings", icon: "⚙️" },

@@ -662,6 +662,33 @@ const en: Record<string, string> = {
   "account.security.deleteDesc": "Deleting your account will permanently remove all your data.",
   "account.security.deleteLink": "Go to delete account",
   "account.security.devMode": "Security settings are not available in development mode.",
+
+  // Alloy Calculator
+  "nav.alloyCalc": "Alloy Calculator",
+  "alloy.title": "Alloy Calculator",
+  "alloy.subtitle": "Calculate the material value of alloys based on current metal prices.",
+  "alloy.category": "Category",
+  "alloy.grade": "Alloy / Grade",
+  "alloy.productForm": "Product Form",
+  "alloy.weight": "Weight",
+  "alloy.lzSystem": "Alloy Surcharge System (Stainless Steel)",
+  "alloy.basispreis": "Base Price",
+  "alloy.metallwert": "Metal Value",
+  "alloy.publishedValue": "Published value",
+  "alloy.scrapBased": "Scrap-based Calculation",
+  "alloy.scrapPrice": "Scrap Price",
+  "alloy.multiplier": "Processing Factor",
+  "alloy.estimatedPrice": "Estimated Price",
+  "alloy.composition": "Composition & Price Contribution",
+  "alloy.element": "Element",
+  "alloy.share": "Share",
+  "alloy.metalPrice": "Metal Price",
+  "alloy.contribution": "Contribution",
+  "alloy.disclaimerTitle": "Price Disclaimer",
+  "alloy.disclaimerText": "Calculated prices are estimates based on current exchange prices and typical processing surcharges. Actual market prices may vary by ±20–40% depending on supplier, order volume, product form and market conditions. Not financial advice.",
+  "alloy.lastUpdate": "Last price update",
+  "alloy.upgradeFeature": "Alloy Calculator",
+  "alloy.upgradeDescription": "Calculate the material value of 15 alloys using the alloy surcharge system.",
 };
 
 export default en;

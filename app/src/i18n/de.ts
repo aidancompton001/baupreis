@@ -666,6 +666,33 @@ const de: Record<string, string> = {
   "account.security.deleteDesc": "Durch das Löschen Ihres Kontos werden alle Daten unwiderruflich entfernt.",
   "account.security.deleteLink": "Zum Konto löschen",
   "account.security.devMode": "Sicherheitseinstellungen sind im Entwicklungsmodus nicht verfügbar.",
+
+  // Alloy Calculator (Legierungsrechner)
+  "nav.alloyCalc": "Legierungsrechner",
+  "alloy.title": "Legierungsrechner",
+  "alloy.subtitle": "Berechnen Sie den Materialwert von Legierungen basierend auf aktuellen Metallpreisen.",
+  "alloy.category": "Kategorie",
+  "alloy.grade": "Legierung / Sorte",
+  "alloy.productForm": "Produktform",
+  "alloy.weight": "Gewicht",
+  "alloy.lzSystem": "Legierungszuschlag-System (Edelstahl)",
+  "alloy.basispreis": "Basispreis",
+  "alloy.metallwert": "Metallwert",
+  "alloy.publishedValue": "Veröffentlichter Wert",
+  "alloy.scrapBased": "Schrottbasierte Kalkulation",
+  "alloy.scrapPrice": "Schrottpreis",
+  "alloy.multiplier": "Verarbeitungsfaktor",
+  "alloy.estimatedPrice": "Geschätzter Preis",
+  "alloy.composition": "Zusammensetzung & Preisbeitrag",
+  "alloy.element": "Element",
+  "alloy.share": "Anteil",
+  "alloy.metalPrice": "Metallpreis",
+  "alloy.contribution": "Beitrag",
+  "alloy.disclaimerTitle": "Hinweis zu Preisangaben",
+  "alloy.disclaimerText": "Die berechneten Preise sind Richtwerte basierend auf aktuellen Börsenpreisen und typischen Verarbeitungsaufschlägen. Tatsächliche Marktpreise können je nach Lieferant, Bestellmenge, Produktform und Marktlage um ±20–40% abweichen. Keine Finanzberatung.",
+  "alloy.lastUpdate": "Letzte Preisaktualisierung",
+  "alloy.upgradeFeature": "Legierungsrechner",
+  "alloy.upgradeDescription": "Berechnen Sie den Materialwert von 15 Legierungen mit dem Legierungszuschlag-System.",
 };
 
 export default de;

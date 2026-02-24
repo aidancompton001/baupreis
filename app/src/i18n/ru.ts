@@ -665,6 +665,33 @@ const ru: Record<string, string> = {
   "account.security.deleteDesc": "Удаление аккаунта безвозвратно удалит все ваши данные.",
   "account.security.deleteLink": "Перейти к удалению аккаунта",
   "account.security.devMode": "Настройки безопасности недоступны в режиме разработки.",
+
+  // Калькулятор сплавов
+  "nav.alloyCalc": "Калькулятор сплавов",
+  "alloy.title": "Калькулятор сплавов",
+  "alloy.subtitle": "Рассчитайте стоимость материала сплавов на основе актуальных биржевых цен.",
+  "alloy.category": "Категория",
+  "alloy.grade": "Сплав / Марка",
+  "alloy.productForm": "Форма продукта",
+  "alloy.weight": "Вес",
+  "alloy.lzSystem": "Система Legierungszuschlag (нержавеющая сталь)",
+  "alloy.basispreis": "Базовая цена",
+  "alloy.metallwert": "Стоимость металла",
+  "alloy.publishedValue": "Опубликованное значение",
+  "alloy.scrapBased": "Расчёт на основе лома",
+  "alloy.scrapPrice": "Цена лома",
+  "alloy.multiplier": "Коэффициент обработки",
+  "alloy.estimatedPrice": "Оценочная цена",
+  "alloy.composition": "Состав и ценовой вклад",
+  "alloy.element": "Элемент",
+  "alloy.share": "Доля",
+  "alloy.metalPrice": "Цена металла",
+  "alloy.contribution": "Вклад",
+  "alloy.disclaimerTitle": "Примечание о ценах",
+  "alloy.disclaimerText": "Рассчитанные цены являются ориентировочными и основаны на текущих биржевых ценах и типичных надбавках за переработку. Фактические рыночные цены могут отличаться на ±20–40% в зависимости от поставщика, объёма заказа, формы продукта и конъюнктуры рынка. Не является финансовой консультацией.",
+  "alloy.lastUpdate": "Последнее обновление цен",
+  "alloy.upgradeFeature": "Калькулятор сплавов",
+  "alloy.upgradeDescription": "Рассчитывайте стоимость 15 сплавов с использованием системы Legierungszuschlag.",
 };
 
 export default ru;
