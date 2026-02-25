@@ -102,7 +102,12 @@ function plainMiddleware(request: NextRequest) {
 const clerkMw = isClerkConfigured
   ? clerkMiddleware(async (auth, request) => {
       if (!isPublicRoute(request)) {
-        auth().protect();
+        const session = auth();
+        if (!session.userId) {
+          const signInUrl = new URL("/sign-in", request.url);
+          signInUrl.searchParams.set("redirect", request.nextUrl.pathname);
+          return NextResponse.redirect(signInUrl);
+        }
       }
       return setLocaleCookie(request);
     })
