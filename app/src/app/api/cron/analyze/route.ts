@@ -232,6 +232,8 @@ Regeln:
     };
 
     const analyses: AnalysisItem[] = [];
+    let totalPromptTokens = 0;
+    let totalCompletionTokens = 0;
 
     for (let b = 0; b < batches.length; b++) {
       let priceTable = "Preisdaten der letzten 90 Tage:\n\n";
@@ -256,14 +258,22 @@ Regeln:
         const content =
           response.content[0].type === "text" ? response.content[0].text : "";
 
-        const arrayMatch = content.match(/\[[\s\S]*\]/);
-        const jsonStr = arrayMatch ? arrayMatch[0] : content.trim();
+        // Strip markdown code fences (Haiku sometimes wraps JSON in ```json ... ```)
+        const cleaned = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
+        const arrayMatch = cleaned.match(/\[[\s\S]*\]/);
+        const jsonStr = arrayMatch ? arrayMatch[0] : cleaned;
         const batchResult: AnalysisItem[] = JSON.parse(jsonStr);
 
         if (Array.isArray(batchResult)) {
           analyses.push(...batchResult);
         } else {
           errors.push(`Batch ${b + 1}: response is not an array`);
+        }
+
+        // Track token usage
+        if (response.usage) {
+          totalPromptTokens += response.usage.input_tokens || 0;
+          totalCompletionTokens += response.usage.output_tokens || 0;
         }
       } catch (batchErr: any) {
         errors.push(`Batch ${b + 1}: ${batchErr.message?.substring(0, 150)}`);
@@ -280,8 +290,8 @@ Regeln:
     // 6. Insert analysis for each material
     const now = new Date().toISOString();
     const modelVersion = "claude-3-haiku-20240307";
-    const promptTokens = 0;
-    const completionTokens = 0;
+    const promptTokens = totalPromptTokens;
+    const completionTokens = totalCompletionTokens;
 
     for (const a of analyses) {
       const materialData = materialPrices.get(a.code);
