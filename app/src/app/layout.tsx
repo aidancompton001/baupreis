@@ -97,6 +97,92 @@ function Shell({
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
+
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "SoftwareApplication",
+                  name: "BauPreis AI",
+                  applicationCategory: "BusinessApplication",
+                  operatingSystem: "Web",
+                  description:
+                    "AI-gestützte Preisprognosen für Baumaterialien in Deutschland. Echtzeit-Monitoring von Stahl, Kupfer, Holz und mehr.",
+                  url: "https://baupreis.ais152.com",
+                  offers: [
+                    {
+                      "@type": "Offer",
+                      name: "Basis",
+                      price: "49.00",
+                      priceCurrency: "EUR",
+                      priceSpecification: {
+                        "@type": "UnitPriceSpecification",
+                        price: "49.00",
+                        priceCurrency: "EUR",
+                        billingDuration: "P1M",
+                      },
+                      description:
+                        "5 Materialien, 1 Nutzer, 3 Alarme, E-Mail-Benachrichtigungen",
+                    },
+                    {
+                      "@type": "Offer",
+                      name: "Pro",
+                      price: "149.00",
+                      priceCurrency: "EUR",
+                      priceSpecification: {
+                        "@type": "UnitPriceSpecification",
+                        price: "149.00",
+                        priceCurrency: "EUR",
+                        billingDuration: "P1M",
+                      },
+                      description:
+                        "Alle Materialien, KI-Prognosen, Telegram-Alarme, unbegrenzte Alarme",
+                    },
+                    {
+                      "@type": "Offer",
+                      name: "Team",
+                      price: "299.00",
+                      priceCurrency: "EUR",
+                      priceSpecification: {
+                        "@type": "UnitPriceSpecification",
+                        price: "299.00",
+                        priceCurrency: "EUR",
+                        billingDuration: "P1M",
+                      },
+                      description:
+                        "5 Nutzer, API-Zugang, PDF-Berichte, alle Pro-Features",
+                    },
+                  ],
+                },
+                {
+                  "@type": "Organization",
+                  name: "BauPreis AI",
+                  url: "https://baupreis.ais152.com",
+                  logo: "https://baupreis.ais152.com/icon-512.png",
+                },
+                {
+                  "@type": "WebSite",
+                  name: "BauPreis AI",
+                  url: "https://baupreis.ais152.com",
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate:
+                        "https://baupreis.ais152.com/dashboard/materials?q={search_term_string}",
+                    },
+                    "query-input": "required name=search_term_string",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+
         <LocaleProvider initialLocale={locale}>
           {children}
           <CookieConsent />
