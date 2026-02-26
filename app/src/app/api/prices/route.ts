@@ -29,12 +29,17 @@ export async function GET(req: NextRequest) {
     params.push(days);
 
     const query = `
-      SELECT p.timestamp, p.price_eur, p.source, m.name_de, m.unit, m.code
+      SELECT
+        date_trunc('day', p.timestamp) as timestamp,
+        ROUND(AVG(p.price_eur)::numeric, 2) as price_eur,
+        (array_agg(p.source ORDER BY p.timestamp DESC))[1] as source,
+        m.name_de, m.unit, m.code
       FROM prices p
       JOIN materials m ON p.material_id = m.id
       WHERE ${materialCondition} ${orgFilter}
         AND p.timestamp > NOW() - make_interval(days => $${paramIdx}::int)
-      ORDER BY p.timestamp DESC
+      GROUP BY date_trunc('day', p.timestamp), m.name_de, m.unit, m.code
+      ORDER BY timestamp DESC
     `;
 
     const result = await pool.query(query, params);
