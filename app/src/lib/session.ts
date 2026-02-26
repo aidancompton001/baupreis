@@ -2,9 +2,12 @@ import { cookies } from "next/headers";
 import * as crypto from "crypto";
 
 const SESSION_COOKIE = "baupreis_session";
-const SESSION_SECRET = process.env.SESSION_SECRET || process.env.CRON_SECRET;
-if (!SESSION_SECRET) {
-  throw new Error("SESSION_SECRET or CRON_SECRET environment variable is required");
+function getSessionSecret(): string {
+  const secret = process.env.SESSION_SECRET || process.env.CRON_SECRET;
+  if (!secret) {
+    throw new Error("SESSION_SECRET or CRON_SECRET environment variable is required");
+  }
+  return secret;
 }
 
 /**
@@ -19,7 +22,7 @@ export function createSessionToken(userId: string, orgId: string): string {
   });
   const payloadB64 = Buffer.from(payload).toString("base64url");
   const hmac = crypto
-    .createHmac("sha256", SESSION_SECRET)
+    .createHmac("sha256", getSessionSecret())
     .update(payloadB64)
     .digest("base64url");
   return `${payloadB64}.${hmac}`;
@@ -36,7 +39,7 @@ export function verifySessionToken(
   const [payloadB64, sig] = parts;
 
   const expected = crypto
-    .createHmac("sha256", SESSION_SECRET)
+    .createHmac("sha256", getSessionSecret())
     .update(payloadB64)
     .digest("base64url");
 
