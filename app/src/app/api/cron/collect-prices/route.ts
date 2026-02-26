@@ -1,9 +1,7 @@
 import { requireCronAuth } from "@/lib/cron-auth";
 import {
   fetchMetalsPrices,
-  fetchDestatisPrices,
-  fetchDestatisSteelPrices,
-  fetchDestatisWoodPrices,
+  fetchEurostatPrices,
   fetchTankerkoenigDiesel,
   fetchSMARDElectricity,
   getSyntheticPrices,
@@ -15,17 +13,15 @@ import { NextRequest, NextResponse } from "next/server";
  * POST /api/cron/collect-prices
  * Crontab: every 6 hours
  *
- * Collects prices from 7 sources in parallel:
+ * Collects prices from 5 sources in parallel:
  * 1. metals.dev — LME metals (copper, aluminum, zinc, nickel)
- * 2. Destatis 61261-0002 — construction indices (concrete, cement, insulation EPS/XPS/MW)
- * 3. Destatis 61241-0004 — steel indices (rebar, beams)
- * 4. Destatis 61231-0001 — wood indices (KVH, BSH, OSB)
- * 5. Tankerkoenig — diesel prices (Bundeskartellamt MTS-K)
- * 6. SMARD.de — electricity spot prices (Bundesnetzagentur)
- * 7. Synthetic — fallback for any material without API source (should be 0)
+ * 2. Eurostat — Producer price indices for DE (steel, wood, concrete, insulation)
+ * 3. Tankerkoenig — diesel prices (Bundeskartellamt MTS-K)
+ * 4. SMARD.de — electricity spot prices (Bundesnetzagentur)
+ * 5. Synthetic — fallback (should be empty, all 16 materials covered)
  *
  * Partial failure: if one source fails, others continue.
- * Priority: real API > destatis index > synthetic fallback.
+ * Priority: real API > eurostat index > synthetic fallback.
  */
 export async function POST(req: NextRequest) {
   try {
@@ -50,12 +46,10 @@ export async function POST(req: NextRequest) {
 
     const emptyMap = () => new Map<string, { price_eur: number; source: string }>();
 
-    // 2. Fetch prices from all 7 sources in parallel
+    // 2. Fetch prices from all 5 sources in parallel
     const [
       metalsPrices,
-      destatisPrices,
-      steelPrices,
-      woodPrices,
+      eurostatPrices,
       dieselPrices,
       electricityPrices,
       syntheticPrices,
@@ -64,16 +58,8 @@ export async function POST(req: NextRequest) {
         errors.push(`metals.dev: ${err.message}`);
         return emptyMap();
       }),
-      fetchDestatisPrices().catch((err) => {
-        errors.push(`destatis-construction: ${err.message}`);
-        return emptyMap();
-      }),
-      fetchDestatisSteelPrices().catch((err) => {
-        errors.push(`destatis-steel: ${err.message}`);
-        return emptyMap();
-      }),
-      fetchDestatisWoodPrices().catch((err) => {
-        errors.push(`destatis-wood: ${err.message}`);
+      fetchEurostatPrices().catch((err) => {
+        errors.push(`eurostat: ${err.message}`);
         return emptyMap();
       }),
       fetchTankerkoenigDiesel().catch((err) => {
@@ -90,9 +76,7 @@ export async function POST(req: NextRequest) {
     // 3. Merge: real API sources override synthetic (priority order: lowest first)
     const allPrices = new Map<string, { price_eur: number; source: string }>();
     syntheticPrices.forEach((point, code) => allPrices.set(code, point));
-    woodPrices.forEach((point, code) => allPrices.set(code, point));
-    steelPrices.forEach((point, code) => allPrices.set(code, point));
-    destatisPrices.forEach((point, code) => allPrices.set(code, point));
+    eurostatPrices.forEach((point, code) => allPrices.set(code, point));
     dieselPrices.forEach((point, code) => allPrices.set(code, point));
     electricityPrices.forEach((point, code) => allPrices.set(code, point));
     metalsPrices.forEach((point, code) => allPrices.set(code, point));
@@ -125,9 +109,7 @@ export async function POST(req: NextRequest) {
       skipped,
       sources: {
         metals_dev: metalsPrices.size,
-        destatis_construction: destatisPrices.size,
-        destatis_steel: steelPrices.size,
-        destatis_wood: woodPrices.size,
+        eurostat: eurostatPrices.size,
         tankerkoenig: dieselPrices.size,
         smard: electricityPrices.size,
         synthetic: syntheticPrices.size,

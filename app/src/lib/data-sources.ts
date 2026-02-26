@@ -2,10 +2,9 @@
  * External data source clients for price collection.
  *
  * 1. metals.dev — LME metal prices (copper, aluminum, zinc, nickel)
- *    Docs: https://www.metals.dev/docs
- *
- * 2. Destatis GENESIS — German construction price indices
- *    Docs: https://www-genesis.destatis.de/genesisWS/rest/2020
+ * 2. Eurostat — Producer price indices for DE (steel C24, wood C16, construction C23)
+ * 3. SMARD.de — Electricity spot prices (Bundesnetzagentur)
+ * 4. Tankerkoenig — Diesel prices (Bundeskartellamt MTS-K)
  */
 
 export interface PricePoint {
@@ -76,293 +75,108 @@ export async function fetchMetalsPrices(): Promise<Map<string, PricePoint>> {
 }
 
 /**
- * Fetch construction price indices from Destatis GENESIS API.
- * Table 61261-0002: Preisindizes für Bauwerke (construction price indices).
+ * Fetch producer price indices from Eurostat API for Germany.
+ * Replaces Destatis GENESIS (which is often on maintenance).
  *
- * API: GET https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile
- * Returns CSV with quarterly index values.
+ * Three NACE sectors cover all construction materials:
+ * - C24: Basic metals (steel rebar, beams)
+ * - C16: Wood products (KVH, BSH, OSB)
+ * - C23: Non-metallic minerals (concrete, cement, insulation)
  *
- * We convert indices to approximate EUR prices using base prices.
- * Data is quarterly — we only get new data every ~3 months.
- *
- * On failure: returns empty Map (partial failure).
+ * Free API, no key required, JSON format, monthly data.
+ * Index base: 2015=100 (I15).
  */
-export async function fetchDestatisPrices(): Promise<Map<string, PricePoint>> {
-  const result = new Map<string, PricePoint>();
-  const username = process.env.DESTATIS_USER;
-  const password = process.env.DESTATIS_PASSWORD;
 
-  if (!username || !password) {
-    console.warn("[data-sources] DESTATIS credentials not configured, skipping");
-    return result;
-  }
+interface EurostatSector {
+  nace: string;
+  materials: Array<{ code: string; base_eur: number }>;
+}
 
+const EUROSTAT_SECTORS: EurostatSector[] = [
+  {
+    nace: "C24", // Basic metals → steel
+    materials: [
+      { code: "steel_rebar", base_eur: 540 },  // 2015 base price EUR/t
+      { code: "steel_beam", base_eur: 780 },
+    ],
+  },
+  {
+    nace: "C16", // Wood products
+    materials: [
+      { code: "wood_kvh", base_eur: 220 },      // 2015 base EUR/m³
+      { code: "wood_bsh", base_eur: 310 },
+      { code: "wood_osb", base_eur: 7.8 },      // EUR/m²
+    ],
+  },
+  {
+    nace: "C23", // Non-metallic minerals → concrete, cement, insulation
+    materials: [
+      { code: "concrete_c25", base_eur: 72 },   // 2015 base EUR/m³
+      { code: "cement_cem2", base_eur: 78 },     // EUR/t
+      { code: "insulation_eps", base_eur: 32 },  // EUR/m²
+      { code: "insulation_xps", base_eur: 40 },
+      { code: "insulation_mw", base_eur: 27 },
+    ],
+  },
+];
+
+async function fetchEurostatIndex(nace: string): Promise<number | null> {
   try {
-    const currentYear = new Date().getFullYear();
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15_000);
 
-    const url = new URL(
-      "https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
-    );
-    url.searchParams.set("username", username);
-    url.searchParams.set("password", password);
-    url.searchParams.set("name", "61261-0002");
-    url.searchParams.set("area", "free");
-    url.searchParams.set("compress", "false");
-    url.searchParams.set("startyear", String(currentYear - 1));
-    url.searchParams.set("endyear", String(currentYear));
-    url.searchParams.set("language", "de");
-    url.searchParams.set("format", "ffcsv");
-
-    const res = await fetch(url.toString(), { signal: controller.signal });
+    const url = `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/sts_inppd_m?format=JSON&geo=DE&nace_r2=${nace}&s_adj=NSA&unit=I15&lang=EN`;
+    const res = await fetch(url, { signal: controller.signal });
     clearTimeout(timeout);
 
     if (!res.ok) {
-      throw new Error(`Destatis GENESIS returned ${res.status}`);
+      throw new Error(`Eurostat ${nace} returned ${res.status}`);
     }
 
-    const csvText = await res.text();
-    const parsedIndices = parseDestatisCSV(csvText);
+    const data = await res.json();
+    const values = data.value as Record<string, number>;
 
-    // Base prices (2020=100) for converting index to EUR
-    // Sources: BKI Baupreise, industry averages
-    const basePrices: Record<string, { base_eur: number; code: string }> = {
-      Transportbeton: { base_eur: 85, code: "concrete_c25" },
-      Zement: { base_eur: 95, code: "cement_cem2" },
-      "Dämmstoffe": { base_eur: 42, code: "insulation_eps" },
-    };
+    // Find the latest non-null value (highest index key)
+    const sortedKeys = Object.keys(values)
+      .map(Number)
+      .sort((a, b) => a - b);
 
-    for (const [keyword, config] of Object.entries(basePrices)) {
-      const index = parsedIndices.get(keyword);
-      if (index && index > 0) {
-        result.set(config.code, {
-          price_eur: Math.round((config.base_eur * index) / 100 * 100) / 100,
-          source: "destatis",
-        });
-      }
-    }
+    if (sortedKeys.length === 0) return null;
 
-    // XPS and Mineralwolle derived from the same Dämmstoffe index
-    const daemmIndex = parsedIndices.get("Dämmstoffe");
-    if (daemmIndex && daemmIndex > 0) {
-      // XPS base 2020: ~52 EUR/m² (premium over EPS)
-      result.set("insulation_xps", {
-        price_eur: Math.round((52 * daemmIndex) / 100 * 100) / 100,
-        source: "destatis",
-      });
-      // Mineralwolle base 2020: ~35 EUR/m²
-      result.set("insulation_mw", {
-        price_eur: Math.round((35 * daemmIndex) / 100 * 100) / 100,
-        source: "destatis",
-      });
-    }
+    const lastKey = sortedKeys[sortedKeys.length - 1];
+    return values[String(lastKey)] ?? null;
   } catch (err: any) {
-    console.error("[data-sources] Destatis fetch failed:", err.message);
+    console.error(`[data-sources] Eurostat ${nace} fetch failed:`, err.message);
+    return null;
   }
-
-  return result;
 }
 
-/**
- * Parse Destatis GENESIS FFCSV format.
- * Returns Map<keyword, latest_index_value>.
- *
- * FFCSV format: semicolon-separated, header rows start with metadata,
- * data rows contain the index values.
- */
-function parseDestatisCSV(csv: string): Map<string, number> {
-  const indices = new Map<string, number>();
-
-  const lines = csv.split("\n");
-
-  for (const line of lines) {
-    // Skip empty lines and metadata/header lines
-    if (!line.trim() || line.startsWith('"')) continue;
-
-    const parts = line.split(";");
-    if (parts.length < 4) continue;
-
-    // Look for rows with index values (numeric in last column)
-    const lastValue = parts[parts.length - 1]?.trim().replace(",", ".");
-    const numValue = parseFloat(lastValue);
-
-    if (isNaN(numValue)) continue;
-
-    // Match keywords in the row description
-    const rowText = parts.join(" ").toLowerCase();
-    if (rowText.includes("transportbeton")) {
-      indices.set("Transportbeton", numValue);
-    } else if (rowText.includes("zement") && !rowText.includes("faser")) {
-      indices.set("Zement", numValue);
-    } else if (
-      rowText.includes("dämmstoff") ||
-      rowText.includes("dämmstoffe")
-    ) {
-      indices.set("Dämmstoffe", numValue);
-    }
-  }
-
-  return indices;
-}
-
-/**
- * Fetch steel price indices from Destatis GENESIS table 61241-0004.
- * Erzeugerpreisindex for Betonstahl (rebar) and Formstahl (beams).
- * Free API, guest access (GAST/GAST).
- *
- * Returns index-based EUR prices using 2020 base prices.
- */
-export async function fetchDestatisSteelPrices(): Promise<Map<string, PricePoint>> {
+/** Fetch all construction material indices from Eurostat. Covers steel, wood, concrete, insulation. */
+export async function fetchEurostatPrices(): Promise<Map<string, PricePoint>> {
   const result = new Map<string, PricePoint>();
 
-  try {
-    const currentYear = new Date().getFullYear();
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15_000);
+  // Fetch all 3 sectors in parallel
+  const indices = await Promise.all(
+    EUROSTAT_SECTORS.map(async (sector) => ({
+      nace: sector.nace,
+      index: await fetchEurostatIndex(sector.nace),
+      materials: sector.materials,
+    }))
+  );
 
-    const url = new URL(
-      "https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
-    );
-    url.searchParams.set("username", process.env.DESTATIS_USER || "GAST");
-    url.searchParams.set("password", process.env.DESTATIS_PASSWORD || "GAST");
-    url.searchParams.set("name", "61241-0004");
-    url.searchParams.set("area", "all");
-    url.searchParams.set("compress", "false");
-    url.searchParams.set("startyear", String(currentYear - 1));
-    url.searchParams.set("endyear", String(currentYear));
-    url.searchParams.set("language", "de");
-    url.searchParams.set("format", "ffcsv");
-
-    const res = await fetch(url.toString(), { signal: controller.signal });
-    clearTimeout(timeout);
-
-    if (!res.ok) {
-      throw new Error(`Destatis steel returned ${res.status}`);
+  for (const { nace, index, materials } of indices) {
+    if (!index || index <= 0) {
+      console.warn(`[data-sources] Eurostat ${nace}: no index data`);
+      continue;
     }
 
-    const csvText = await res.text();
-    const indices = parseSteelCSV(csvText);
-
-    // Base prices (2020=100) for index→EUR conversion
-    const basePrices: Record<string, { base_eur: number; code: string }> = {
-      betonstahl: { base_eur: 620, code: "steel_rebar" },
-      formstahl: { base_eur: 900, code: "steel_beam" },
-    };
-
-    for (const [keyword, config] of Object.entries(basePrices)) {
-      const index = indices.get(keyword);
-      if (index && index > 0) {
-        result.set(config.code, {
-          price_eur: Math.round((config.base_eur * index) / 100 * 100) / 100,
-          source: "destatis",
-        });
-      }
-    }
-  } catch (err: any) {
-    console.error("[data-sources] Destatis steel fetch failed:", err.message);
-  }
-
-  return result;
-}
-
-/** Parse Destatis 61241-0004 CSV for steel keywords. */
-function parseSteelCSV(csv: string): Map<string, number> {
-  const indices = new Map<string, number>();
-  const lines = csv.split("\n");
-
-  for (const line of lines) {
-    if (!line.trim() || line.startsWith('"')) continue;
-    const parts = line.split(";");
-    if (parts.length < 4) continue;
-
-    const lastValue = parts[parts.length - 1]?.trim().replace(",", ".");
-    const numValue = parseFloat(lastValue);
-    if (isNaN(numValue)) continue;
-
-    const rowText = parts.join(" ").toLowerCase();
-    if (rowText.includes("betonstahl") || rowText.includes("betonstahlmatten")) {
-      indices.set("betonstahl", numValue);
-    } else if (rowText.includes("formstahl") || rowText.includes("profilstahl")) {
-      indices.set("formstahl", numValue);
-    }
-  }
-
-  return indices;
-}
-
-/**
- * Fetch wood/timber price indices from Destatis GENESIS table 61231-0001.
- * Erzeugerpreisindex Holzeinschlag — upstream timber prices.
- * Free API, guest access.
- */
-export async function fetchDestatisWoodPrices(): Promise<Map<string, PricePoint>> {
-  const result = new Map<string, PricePoint>();
-
-  try {
-    const currentYear = new Date().getFullYear();
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15_000);
-
-    const url = new URL(
-      "https://www-genesis.destatis.de/genesisWS/rest/2020/data/tablefile"
-    );
-    url.searchParams.set("username", process.env.DESTATIS_USER || "GAST");
-    url.searchParams.set("password", process.env.DESTATIS_PASSWORD || "GAST");
-    url.searchParams.set("name", "61231-0001");
-    url.searchParams.set("area", "all");
-    url.searchParams.set("compress", "false");
-    url.searchParams.set("startyear", String(currentYear - 1));
-    url.searchParams.set("endyear", String(currentYear));
-    url.searchParams.set("language", "de");
-    url.searchParams.set("format", "ffcsv");
-
-    const res = await fetch(url.toString(), { signal: controller.signal });
-    clearTimeout(timeout);
-
-    if (!res.ok) {
-      throw new Error(`Destatis wood returned ${res.status}`);
-    }
-
-    const csvText = await res.text();
-    const lines = csvText.split("\n");
-    let latestIndex = 0;
-
-    // Find the latest Nadelstammholz (conifer timber) index — proxy for KVH/BSH
-    for (const line of lines) {
-      if (!line.trim() || line.startsWith('"')) continue;
-      const parts = line.split(";");
-      if (parts.length < 4) continue;
-
-      const lastValue = parts[parts.length - 1]?.trim().replace(",", ".");
-      const numValue = parseFloat(lastValue);
-      if (isNaN(numValue)) continue;
-
-      const rowText = parts.join(" ").toLowerCase();
-      if (rowText.includes("nadelstammholz") || rowText.includes("fichtenstammholz")) {
-        latestIndex = numValue;
-      }
-    }
-
-    if (latestIndex > 0) {
-      // KVH base 2020: ~280 EUR/m³
-      result.set("wood_kvh", {
-        price_eur: Math.round((280 * latestIndex) / 100 * 100) / 100,
-        source: "destatis",
-      });
-      // BSH base 2020: ~400 EUR/m³ (higher due to lamination process)
-      result.set("wood_bsh", {
-        price_eur: Math.round((400 * latestIndex) / 100 * 100) / 100,
-        source: "destatis",
-      });
-      // OSB correlates with timber index, base 2020: ~10.50 EUR/m²
-      result.set("wood_osb", {
-        price_eur: Math.round((10.5 * latestIndex) / 100 * 100) / 100,
-        source: "destatis",
+    for (const mat of materials) {
+      const price = (mat.base_eur * index) / 100;
+      result.set(mat.code, {
+        price_eur: Math.round(price * 100) / 100,
+        source: "eurostat",
       });
     }
-  } catch (err: any) {
-    console.error("[data-sources] Destatis wood fetch failed:", err.message);
   }
 
   return result;
