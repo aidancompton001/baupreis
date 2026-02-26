@@ -17,6 +17,7 @@ const isPublicRoute = createRouteMatcher([
   "/api/cron/(.*)",
   "/api/index/calculate",
   "/api/contact",
+  "/api/health",
   "/api/auth/(.*)",
   "/preise",
   "/kontakt",
@@ -77,6 +78,7 @@ function plainMiddleware(request: NextRequest) {
     pathname.startsWith("/api/cron/") ||
     pathname.startsWith("/api/auth/") ||
     pathname.startsWith("/api/contact") ||
+    pathname === "/api/health" ||
     pathname.startsWith("/api/index/") ||
     pathname === "/preise" ||
     pathname === "/kontakt" ||
