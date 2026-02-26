@@ -188,7 +188,7 @@ export default function LandingPage() {
             <div className="border rounded-2xl p-8 hover:shadow-lg transition">
               <h3 className="text-xl font-semibold mb-2">{t("landing.planBasis")}</h3>
               <p className="text-4xl font-bold mb-1">
-                €1<span className="text-lg text-gray-500">{t("landing.perMonth")}</span>
+                €49<span className="text-lg text-gray-500">{t("landing.perMonth")}</span>
               </p>
               <p className="text-sm text-gray-500 mb-6">{t("landing.basisYearly")}</p>
               <ul className="text-left space-y-3 mb-8 text-gray-600">

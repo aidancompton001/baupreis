@@ -427,8 +427,8 @@ export default function PreisgleitklauselPage() {
           </div>
 
           {/* Detail Table */}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
+            <table className="w-full text-sm min-w-[500px]">
               <thead>
                 <tr className="border-b text-left text-gray-500">
                   <th className="pb-2 font-medium">{t("escalation.tableMaterial")}</th>

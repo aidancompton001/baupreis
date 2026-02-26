@@ -2,6 +2,7 @@ import { requireCronAuth } from "@/lib/cron-auth";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { computeBaseline } from "@/lib/forecast-baseline";
 
 /**
  * POST /api/cron/analyze
@@ -85,11 +86,12 @@ export async function POST(req: NextRequest) {
       anthropicKey.length > 10;
 
     if (!hasValidApiKey) {
-      // Generate deterministic synthetic analysis from price data
+      // Generate statistical baseline analysis from price data
       const now = new Date().toISOString();
       for (const [code, data] of Array.from(materialPrices)) {
         const prices = data.prices;
         const latestPrice = prices[0]?.price_eur || 0;
+        const baseline = computeBaseline(prices);
 
         const oldPrice =
           prices.length > 1
@@ -102,7 +104,7 @@ export async function POST(req: NextRequest) {
         const change30d = change7d * 1.8;
 
         const trend =
-          change7d > 0.5 ? "rising" : change7d < -0.5 ? "falling" : "stable";
+          baseline.regression.slope > 0.01 ? "rising" : baseline.regression.slope < -0.01 ? "falling" : "stable";
         const recommendation =
           trend === "rising"
             ? "buy_now"
@@ -110,12 +112,9 @@ export async function POST(req: NextRequest) {
               ? "wait"
               : "watch";
 
-        const forecast7d =
-          Math.round(latestPrice * (1 + (change7d / 100) * 0.5) * 100) / 100;
-        const forecast30d =
-          Math.round(latestPrice * (1 + (change30d / 100) * 0.3) * 100) / 100;
-        const forecast90d =
-          Math.round(latestPrice * (1 + (change30d / 100) * 0.5) * 100) / 100;
+        const forecast7d = baseline.forecast7d || latestPrice;
+        const forecast30d = baseline.forecast30d || latestPrice;
+        const forecast90d = baseline.forecast90d || latestPrice;
 
         const explanationsDe: Record<string, string> = {
           rising: `${data.name_de}: Preise steigen leicht. Kaufempfehlung vor weiteren Erhöhungen.`,
@@ -156,8 +155,8 @@ export async function POST(req: NextRequest) {
               explanationsEn[trend],
               explanationsRu[trend],
               recommendation,
-              35,
-              "synthetic",
+              baseline.confidence,
+              "statistical-baseline",
               0,
               0,
             ]
@@ -238,7 +237,10 @@ Regeln:
     for (let b = 0; b < batches.length; b++) {
       let priceTable = "Preisdaten der letzten 90 Tage:\n\n";
       for (const [code, data] of batches[b]) {
+        const baseline = computeBaseline(data.prices);
         priceTable += `## ${data.name_de} (${code}, ${data.unit})\n`;
+        priceTable += `Statistischer Baseline: MA7=€${baseline.ma7}, MA30=€${baseline.ma30}, Regression slope=${baseline.regression.slope}/Tag, R²=${baseline.regression.r2}\n`;
+        priceTable += `Baseline-Prognose: 7d=€${baseline.forecast7d}, 30d=€${baseline.forecast30d}, 90d=€${baseline.forecast90d}\n`;
         const recent = data.prices.slice(0, 10);
         for (const p of recent) {
           const date = new Date(p.timestamp).toLocaleDateString("de-DE");

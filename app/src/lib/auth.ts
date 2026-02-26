@@ -88,13 +88,13 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
       return check.rows[0];
     }
 
-    // Create org with Trial plan (7 days, full access)
+    // Create org with Trial plan (7 days, Pro-level access)
     const orgResult = await client.query(
       `INSERT INTO organizations (name, slug, plan, trial_ends_at,
         max_materials, max_users, max_alerts,
         features_telegram, features_forecast, features_api, features_pdf_reports)
        VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
-        99, 5, 999, true, true, true, true)
+        99, 1, 999, true, true, false, false)
        RETURNING *`,
       [name, slug]
     );

@@ -1,5 +1,6 @@
 import { requireOrg, canAccess } from "@/lib/auth";
 import { checkRateLimit } from "@/lib/rate-limit";
+import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import {
   ALLOYS,
@@ -14,6 +15,37 @@ import {
   type ProductForm,
   type AlloyCategory,
 } from "@/lib/alloys";
+
+// Map DB material codes to alloy element symbols
+const MATERIAL_TO_ELEMENT: Record<string, string> = {
+  copper: "Cu",
+  aluminum: "Al",
+  zinc: "Zn",
+  nickel: "Ni",
+};
+
+/** Fetch latest prices from DB and update BASE_METALS in-place */
+async function refreshMetalPrices() {
+  try {
+    const result = await pool.query(
+      `SELECT DISTINCT ON (m.code) m.code, p.price_eur
+       FROM prices p JOIN materials m ON p.material_id = m.id
+       WHERE m.code IN ('copper', 'aluminum', 'zinc', 'nickel')
+         AND p.timestamp > NOW() - INTERVAL '7 days'
+       ORDER BY m.code, p.timestamp DESC`
+    );
+    for (const row of result.rows) {
+      const element = MATERIAL_TO_ELEMENT[row.code];
+      if (element && BASE_METALS[element]) {
+        BASE_METALS[element].priceEurPerTonne = parseFloat(row.price_eur);
+        BASE_METALS[element].lastVerified = new Date().toISOString().slice(0, 10);
+        BASE_METALS[element].source = "DB live";
+      }
+    }
+  } catch {
+    // Fallback to static BASE_METALS — no-op
+  }
+}
 
 /** GET: List all alloys with categories */
 export async function GET() {
@@ -109,6 +141,9 @@ export async function POST(req: NextRequest) {
     const validForms = ["blech", "stabstahl", "blankstahl", "rohr_geschweisst", "rohr_nahtlos", "profil", "draht", "guss"];
     const form = validForms.includes(productForm) ? productForm : "blech";
     const weight = Math.max(1, Math.min(1_000_000, Number(weightKg) || 1000));
+
+    // Refresh metal prices from DB before calculation
+    await refreshMetalPrices();
 
     let result;
 

@@ -1,12 +1,12 @@
 export const PLAN_LIMITS = {
   trial: {
     materials: 99,
-    users: 5,
+    users: 1,
     alerts: 999,
     telegram: true,
     forecast: true,
-    api: true,
-    pdf: true,
+    api: false,
+    pdf: false,
   },
   basis: {
     materials: 5,

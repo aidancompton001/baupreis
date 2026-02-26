@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "@clerk/nextjs": "^5",
-    "@paddle/paddle-node-sdk": "^3.6.0",
     "@stripe/stripe-js": "^8.8.0",
     "class-variance-authority": "^0.7",
     "clsx": "^2",
@@ -34,8 +35,14 @@
     "@types/node": "^20",
     "@types/pg": "^8",
     "@types/react": "^18",
+    "@vitejs/plugin-react": "^5.1.4",
     "autoprefixer": "^10",
+    "eslint": "^9.39.3",
+    "eslint-config-next": "^16.1.6",
+    "eslint-config-prettier": "^10.1.8",
     "postcss": "^8",
-    "typescript": "^5"
+    "prettier": "^3.8.1",
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   }
 }

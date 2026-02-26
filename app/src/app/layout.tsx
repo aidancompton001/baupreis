@@ -24,17 +24,34 @@ export async function generateMetadata(): Promise<Metadata> {
   const dict = getTranslations(locale);
 
   return {
-    title: dict["meta.title"],
+    title: {
+      default: dict["meta.title"],
+      template: "%s | BauPreis AI",
+    },
     description: dict["meta.description"],
+    keywords: ["Baustoffpreise", "Baupreise", "KI Prognosen", "Stahl", "Kupfer", "Baumaterial", "Deutschland", "B2B SaaS"],
     openGraph: {
       title: dict["meta.ogTitle"],
       description: dict["meta.ogDescription"],
-      url: "https://baupreis.ai",
+      url: "https://baupreis.ais152.com",
       siteName: "BauPreis AI",
       locale: OG_LOCALE_MAP[locale],
       type: "website",
     },
-    metadataBase: new URL("https://baupreis.ai"),
+    twitter: {
+      card: "summary_large_image",
+      title: dict["meta.ogTitle"],
+      description: dict["meta.ogDescription"],
+    },
+    alternates: {
+      canonical: "https://baupreis.ais152.com",
+      languages: {
+        "de-DE": "https://baupreis.ais152.com",
+        "en-US": "https://baupreis.ais152.com",
+        "ru-RU": "https://baupreis.ais152.com",
+      },
+    },
+    metadataBase: new URL("https://baupreis.ais152.com"),
   };
 }
 

@@ -2,9 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { createSessionToken, SESSION_COOKIE } from "@/lib/session";
 import { randomUUID } from "crypto";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (!checkRateLimit(`auth:register:${ip}`, 5, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Registrierungsversuche. Bitte warten Sie eine Minute." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const email = (body.email || "").trim().toLowerCase();
     const name = (body.name || "").trim();
@@ -53,13 +62,13 @@ export async function POST(req: NextRequest) {
     try {
       await client.query("BEGIN");
 
-      // Create org with Trial plan (7 days, full access like pro)
+      // Create org with Trial plan (7 days, Pro-level access)
       const orgResult = await client.query(
         `INSERT INTO organizations (name, slug, plan, trial_ends_at,
           max_materials, max_users, max_alerts,
           features_telegram, features_forecast, features_api, features_pdf_reports)
          VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
-          99, 5, 999, true, true, true, true)
+          99, 1, 999, true, true, false, false)
          RETURNING *`,
         [orgName, slug]
       );

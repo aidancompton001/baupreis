@@ -1,9 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "@/lib/db";
 import { createSessionToken, SESSION_COOKIE } from "@/lib/session";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (!checkRateLimit(`auth:login:${ip}`, 10, 60_000)) {
+      return NextResponse.json(
+        { error: "Zu viele Anmeldeversuche. Bitte warten Sie eine Minute." },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const email = (body.email || "").trim().toLowerCase();
 

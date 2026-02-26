@@ -2,8 +2,10 @@ import { cookies } from "next/headers";
 import * as crypto from "crypto";
 
 const SESSION_COOKIE = "baupreis_session";
-const SESSION_SECRET =
-  process.env.SESSION_SECRET || process.env.CRON_SECRET || "baupreis-dev-session-secret-2026";
+const SESSION_SECRET = process.env.SESSION_SECRET || process.env.CRON_SECRET;
+if (!SESSION_SECRET) {
+  throw new Error("SESSION_SECRET or CRON_SECRET environment variable is required");
+}
 
 /**
  * Create a signed session token: base64(payload).base64(hmac)
