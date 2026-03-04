@@ -97,8 +97,8 @@ export async function POST(req: NextRequest) {
           [materialId, now, point.price_eur, point.source]
         );
         collected++;
-      } catch (err: any) {
-        errors.push(`Insert ${code}: ${err.message}`);
+      } catch (err: unknown) {
+        errors.push(`Insert ${code}: ${err instanceof Error ? err.message : String(err)}`);
         skipped++;
       }
     }
@@ -116,11 +116,11 @@ export async function POST(req: NextRequest) {
       },
       errors: errors.length > 0 ? errors : undefined,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       {
         ok: false,
-        error: error.message || "Collection failed",
+        error: error instanceof Error ? error.message : "Collection failed",
         collected,
         skipped,
         errors,

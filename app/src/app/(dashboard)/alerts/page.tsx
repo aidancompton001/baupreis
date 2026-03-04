@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { formatDate } from "@/lib/utils";
 import { SkeletonListRow } from "@/components/dashboard/Skeleton";
 import { useLocale } from "@/i18n/LocaleContext";
+import type { AlertRule, AlertSent, MaterialOption } from "@/types";
 
 export default function AlertsPage() {
   const { t } = useLocale();
@@ -36,9 +37,9 @@ export default function AlertsPage() {
     "7d": t("alerts.timeWindow.7d"),
     "30d": t("alerts.timeWindow.30d"),
   };
-  const [rules, setRules] = useState<any[]>([]);
-  const [sent, setSent] = useState<any[]>([]);
-  const [materials, setMaterials] = useState<any[]>([]);
+  const [rules, setRules] = useState<AlertRule[]>([]);
+  const [sent, setSent] = useState<AlertSent[]>([]);
+  const [materials, setMaterials] = useState<MaterialOption[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [formError, setFormError] = useState("");
@@ -63,7 +64,7 @@ export default function AlertsPage() {
         setSent(alertData.sent || []);
         // Extract unique materials from price data
         const seen = new Set();
-        const mats: any[] = [];
+        const mats: MaterialOption[] = [];
         if (Array.isArray(priceData)) {
           for (const p of priceData) {
             if (!seen.has(p.code)) {

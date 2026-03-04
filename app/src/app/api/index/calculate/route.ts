@@ -49,9 +49,9 @@ export async function POST(req: NextRequest) {
       index_value: result.index_value,
       change_pct_30d: result.change_pct_30d,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { error: error.message || "Calculation failed" },
+      { error: error instanceof Error ? error.message : "Calculation failed" },
       { status: 500 }
     );
   }

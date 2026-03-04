@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 
     const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "";
 
-    const sessionParams: any = {
+    const sessionParams: Record<string, unknown> = {
       mode: "subscription",
       line_items: [{ price: priceId, quantity: 1 }],
       success_url: `${origin}/einstellungen/abo?success=1`,
@@ -50,8 +50,8 @@ export async function POST(req: NextRequest) {
     const session = await getStripe().checkout.sessions.create(sessionParams);
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
-    console.error("[Checkout] Error:", error.message);
+  } catch (error: unknown) {
+    console.error("[Checkout] Error:", error instanceof Error ? error.message : String(error));
     return NextResponse.json(
       { error: "Fehler beim Erstellen der Checkout-Sitzung" },
       { status: 500 }

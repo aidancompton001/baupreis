@@ -23,9 +23,9 @@ export async function GET() {
     );
 
     return NextResponse.json(result.rows);
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
@@ -73,9 +73,9 @@ export async function POST(req: NextRequest) {
 
     // Return full key ONCE — never shown again
     return NextResponse.json({ key: raw, prefix }, { status: 201 });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
@@ -98,9 +98,9 @@ export async function DELETE(req: NextRequest) {
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }

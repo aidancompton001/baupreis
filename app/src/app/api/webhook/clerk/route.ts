@@ -12,20 +12,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing svix headers" }, { status: 400 });
   }
 
-  let evt: any;
+  let evt: { type: string; data: Record<string, unknown> };
   try {
     const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET!);
     evt = wh.verify(payload, {
       "svix-id": svixId,
       "svix-timestamp": svixTimestamp,
       "svix-signature": svixSignature,
-    }) as any;
+    }) as { type: string; data: Record<string, unknown> };
   } catch {
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
   if (evt.type === "user.created") {
-    const { id, email_addresses, first_name, last_name } = evt.data;
+    const { id, email_addresses, first_name, last_name } = evt.data as {
+      id: string;
+      email_addresses: Array<{ email_address: string }>;
+      first_name?: string;
+      last_name?: string;
+    };
     const email = email_addresses[0]?.email_address;
     const name = [first_name, last_name].filter(Boolean).join(" ");
 

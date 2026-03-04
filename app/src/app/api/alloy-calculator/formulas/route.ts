@@ -24,9 +24,9 @@ export async function GET() {
     );
 
     return NextResponse.json({ formulas: result.rows });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Pro-Plan erforderlich." }, { status: 403 });
     }
 
-    let body: any;
+    let body: Record<string, unknown>;
     try {
       body = await req.json();
     } catch {
@@ -102,9 +102,9 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({ formula: result.rows[0] }, { status: 201 });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
@@ -127,9 +127,9 @@ export async function DELETE(req: NextRequest) {
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }

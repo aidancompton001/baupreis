@@ -121,13 +121,13 @@ export async function POST(req: NextRequest) {
              ORDER BY m.code, a.timestamp DESC`
           );
 
-          const analysisMap = new Map<string, any>();
+          const analysisMap = new Map<string, Record<string, unknown>>();
           for (const row of analysisResult.rows) {
             analysisMap.set(row.code, row);
           }
 
           // Build content_json
-          const materials = pricesResult.rows.map((row: any) => {
+          const materials = pricesResult.rows.map((row: Record<string, string>) => {
             const analysis = analysisMap.get(row.code);
             return {
               name_de: row.name_de,
@@ -137,10 +137,10 @@ export async function POST(req: NextRequest) {
               timestamp: row.timestamp,
               trend: analysis?.trend || null,
               change_pct_7d: analysis?.change_pct_7d
-                ? parseFloat(analysis.change_pct_7d)
+                ? parseFloat(String(analysis.change_pct_7d))
                 : null,
               change_pct_30d: analysis?.change_pct_30d
-                ? parseFloat(analysis.change_pct_30d)
+                ? parseFloat(String(analysis.change_pct_30d))
                 : null,
               recommendation: analysis?.recommendation || null,
               explanation_de: analysis?.explanation_de || null,
@@ -161,8 +161,8 @@ export async function POST(req: NextRequest) {
           );
 
           reportsGenerated++;
-        } catch (err: any) {
-          errors.push(`Report ${rt.type} for org ${org.id}: ${err.message}`);
+        } catch (err: unknown) {
+          errors.push(`Report ${rt.type} for org ${org.id}: ${err instanceof Error ? err.message : String(err)}`);
         }
       }
     }
@@ -174,11 +174,11 @@ export async function POST(req: NextRequest) {
       types: reportTypes.map((r) => r.type),
       errors: errors.length > 0 ? errors : undefined,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       {
         ok: false,
-        error: error.message || "Report generation failed",
+        error: error instanceof Error ? error.message : "Report generation failed",
         reports: reportsGenerated,
         errors,
       },

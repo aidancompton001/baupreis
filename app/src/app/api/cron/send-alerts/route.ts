@@ -179,8 +179,8 @@ export async function POST(req: NextRequest) {
             errors.push(`${ch} for rule ${rule.rule_id}: ${result.error}`);
             deliveryStatus = "partial";
           }
-        } catch (err: any) {
-          errors.push(`${ch} for rule ${rule.rule_id}: ${err.message}`);
+        } catch (err: unknown) {
+          errors.push(`${ch} for rule ${rule.rule_id}: ${err instanceof Error ? err.message : String(err)}`);
           deliveryStatus = "failed";
         }
       }
@@ -207,9 +207,9 @@ export async function POST(req: NextRequest) {
       sent,
       errors: errors.length > 0 ? errors : undefined,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { ok: false, error: error.message || "Alert processing failed", checked, sent, errors },
+      { ok: false, error: error instanceof Error ? error.message : "Alert processing failed", checked, sent, errors },
       { status: 500 }
     );
   }

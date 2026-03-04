@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
 
     // Fetch current prices and analysis for org's materials as context
     let orgFilter = "";
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIdx = 1;
 
     if (org.plan === "basis" || org.plan === "trial") {
@@ -182,13 +182,9 @@ Regeln:
         Connection: "keep-alive",
       },
     });
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

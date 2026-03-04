@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
     );
 
     // Build element analyses map
-    const elementAnalyses = new Map<string, any>();
+    const elementAnalyses = new Map<string, Record<string, unknown>>();
     for (const row of analysisResult.rows) {
       elementAnalyses.set(row.material_code, row);
     }
@@ -102,7 +102,7 @@ export async function GET(req: NextRequest) {
       elementTrends.push({
         element,
         fraction,
-        trend: analysis.trend,
+        trend: String(analysis.trend || ""),
         change7d,
         change30d,
         confidence,
@@ -181,9 +181,9 @@ Antworte NUR mit JSON:
       elementTrends,
       timestamp: analysisResult.rows[0]?.timestamp || null,
     });
-  } catch (error: any) {
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }

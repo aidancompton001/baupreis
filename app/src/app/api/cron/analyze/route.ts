@@ -162,8 +162,8 @@ export async function POST(req: NextRequest) {
             ]
           );
           analyzed++;
-        } catch (err: any) {
-          errors.push(`Synthetic insert ${code}: ${err.message}`);
+        } catch (err: unknown) {
+          errors.push(`Synthetic insert ${code}: ${err instanceof Error ? err.message : String(err)}`);
         }
       }
 
@@ -277,8 +277,8 @@ Regeln:
           totalPromptTokens += response.usage.input_tokens || 0;
           totalCompletionTokens += response.usage.output_tokens || 0;
         }
-      } catch (batchErr: any) {
-        errors.push(`Batch ${b + 1}: ${batchErr.message?.substring(0, 150)}`);
+      } catch (batchErr: unknown) {
+        errors.push(`Batch ${b + 1}: ${batchErr instanceof Error ? batchErr.message.substring(0, 150) : String(batchErr)}`);
       }
     }
 
@@ -328,8 +328,8 @@ Regeln:
           ]
         );
         analyzed++;
-      } catch (err: any) {
-        errors.push(`Insert analysis ${a.code}: ${err.message}`);
+      } catch (err: unknown) {
+        errors.push(`Insert analysis ${a.code}: ${err instanceof Error ? err.message : String(err)}`);
       }
     }
 
@@ -343,9 +343,9 @@ Regeln:
       },
       errors: errors.length > 0 ? errors : undefined,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { ok: false, error: error.message || "Analysis failed", analyzed, errors },
+      { ok: false, error: error instanceof Error ? error.message : "Analysis failed", analyzed, errors },
       { status: 500 }
     );
   }

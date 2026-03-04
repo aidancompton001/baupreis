@@ -86,9 +86,9 @@ export async function POST(req: NextRequest) {
 
         await client.query("COMMIT");
         downgraded++;
-      } catch (err: any) {
+      } catch (err: unknown) {
         await client.query("ROLLBACK");
-        errors.push(`Org ${orgId}: ${err.message}`);
+        errors.push(`Org ${orgId}: ${err instanceof Error ? err.message : String(err)}`);
       } finally {
         client.release();
       }
@@ -100,9 +100,9 @@ export async function POST(req: NextRequest) {
       total_expired: expired.rows.length,
       errors: errors.length > 0 ? errors : undefined,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
-      { ok: false, error: error.message || "Downgrade failed", downgraded, errors },
+      { ok: false, error: error instanceof Error ? error.message : "Downgrade failed", downgraded, errors },
       { status: 500 }
     );
   }

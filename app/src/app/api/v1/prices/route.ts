@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
     const limit = Math.min(parseInt(searchParams.get("limit") || "100"), 1000);
 
     const conditions = ["p.timestamp > NOW() - ($1 || ' days')::INTERVAL"];
-    const params: any[] = [days];
+    const params: (string | number)[] = [days];
     let paramIdx = 2;
 
     if (material) {
@@ -46,12 +46,12 @@ export async function GET(req: NextRequest) {
       data: result.rows,
       meta: { count: result.rows.length, days, material: material || "all" },
     });
-  } catch (error: any) {
-    if (error.message === "Invalid API key") {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Invalid API key") {
       return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
     }
-    if (error.message === "API access not included in plan") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error instanceof Error && error.message === "API access not included in plan") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

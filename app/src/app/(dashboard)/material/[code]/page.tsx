@@ -37,9 +37,9 @@ interface Analysis {
   explanation_en?: string;
   explanation_ru?: string;
   recommendation: string;
-  forecast_json: any;
+  forecast_json: Record<string, number> | null;
   confidence: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function MaterialDetailPage() {

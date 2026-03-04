@@ -29,7 +29,7 @@ export default function MarketingFooter() {
             {t("nav.contact")}
           </Link>
           <button
-            onClick={() => (window as any).__openCookieSettings?.()}
+            onClick={() => window.__openCookieSettings?.()}
             className="hover:text-gray-900 cursor-pointer"
           >
             {t("cookie.settings")}

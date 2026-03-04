@@ -13,6 +13,90 @@
 
 ---
 
+### S008 — 2026-02-27 — TASK-007: Audit remediation sprint (11 fixes)
+
+**Роли:** #9 EM (координация), #4 Backend, #3 Frontend, #7 SRE
+**Статус:** завершено
+
+**Что сделано:**
+- Полный аудит 4 агентами → 6 Critical + 10 High → после верификации 4C + 7H (3 false positive)
+- **Stream A (Security):** CRON_SECRET hardened, SESSION_SECRET отделён от CRON, Chat SQL regex→clean params, threshold_pct per rule_type
+- **Stream B (Quality):** 19 console.*→logger в API, email→constants.ts (71 хардкод), i18n auth pages (de/en/ru), TypeScript any→types в lib/
+- **Stream C (Infra):** pdfkit eval→serverExternalPackages, миграции 002-006 renumbered, Docker resource limits, HOSTNAME=0.0.0.0, healthcheck→127.0.0.1
+- Build: 0 errors, 52 pages compiled
+
+**Артефакты:** 20+ файлов, `docker-compose.yml`, `migrations/`, `app/src/lib/`, `app/src/app/api/`, `app/src/i18n/`
+**Следующее:** деплой на сервер, генерация SESSION_SECRET, smoke test
+
+---
+
+### S007 — 2026-02-27 — CLAUDE.md усилен протоколом из RMS-проекта
+
+**Роли:** #9 EM, #1 Product Architect
+**Статус:** завершено
+
+**Что сделано:**
+- Диагностика: почему протокол нарушался в BauPreis, но работал в RMS
+- Корень: BauPreis CLAUDE.md декларировал правила без примеров; RMS показывал конкретные образцы
+- Добавлены: ASCII-диаграмма пайплайна, 2 шаблона ТС (полный + лёгкий S), определения S/M/L/XL
+- Добавлены: 3 примера ТЗ (S, M, XL) адаптированных под BauPreis
+- Добавлены: таблица особых случаев, правила исполнения, Шаг 4 Верификация
+- DEVLOG: полный формат записи, таблица правил, маркер, «когда читать»
+- Починка сайта: HOSTNAME=0.0.0.0 + health check 127.0.0.1 (IPv6 баг Alpine)
+
+**Артефакты:** `CLAUDE.md`, `DEVLOG.md`
+**Следующие шаги:** Зарегистрировать Tankerkoenig API ключ (diesel = 16/16)
+
+---
+
+### S006 — 2026-02-26 — TASK-005/006: DATA QUALITY + REAL PRICE SOURCES
+
+**Роли:** #5 Data Pipeline, #9 EM | **Статус:** завершено
+
+**TASK-005 — Data Quality:**
+- Backfill 365 дней исторических данных (4240 записей, SQL PL/pgSQL)
+- Price API: daily AVG aggregation вместо raw rows
+- Удалены synthetic/historical записи (6922 шт.)
+
+**TASK-006 — Replace Synthetic Data:**
+- Исследование: 12+ источников по 4 категориям (сталь, дерево, энергия, изоляция)
+- Документ: docs/MATERIAL_DATA_SOURCES.md — полный реестр источников
+- Destatis GENESIS API сломан (HTML вместо CSV) → мигрировали на Eurostat
+- **Eurostat sts_inppd_m** — 10 материалов (C24 сталь, C16 дерево, C23 бетон/изоляция)
+- **SMARD.de** — электричество (Bundesnetzagentur, без ключа)
+- **Tankerkoenig** — дизель (регистрация ключа временно закрыта)
+- Результат: **15/16 реальных данных**, 0 synthetic. Только diesel ждёт API-ключ.
+
+**Решения:** Eurostat > Destatis (стабильнее, JSON, без credentials)
+**Файлы:** data-sources.ts, collect-prices/route.ts, docs/MATERIAL_DATA_SOURCES.md
+**Следующий шаг:** Зарегистрировать Tankerkoenig ключ → дизель = 16/16
+
+---
+
+
+
+**Роли:** #9 EM (ТЗ), #3 Frontend, #8 QA, #11 UX Research | **Статус:** завершено
+
+**Деплой TASK-003 → production:**
+- Build fix: getSessionSecret() вместо const SESSION_SECRET (TS type narrowing)
+- Middleware fix: /api/health добавлен в public routes (Clerk 307 redirect)
+- Production: health OK, 78 pages, 0 errors
+
+**TASK-004 Gap Sprint (4 задачи, формализованные ТЗ):**
+- 004-01: OG Image — opengraph-image.tsx + twitter-image.tsx (1200x630)
+- 004-02: JSON-LD — SoftwareApplication + Organization + WebSite в layout.tsx
+- 004-03: E2E тесты — 6 Playwright specs (landing, nav, auth, health, seo, i18n) + CI
+- 004-04: Focus Group — 10 персон, общая оценка **5.2/10**, 16 рекомендаций
+
+**Ключевой вывод:** продукт лучше маркетинга. Топ-5 проблем: нет скриншотов, фичи невидимы, trust deficit (gmail), pricing mismatch, no plan in sign-up.
+
+**Файлы:** TASK-004-GAP-SPRINT.md, FOCUS_GROUP_REPORT.md, opengraph/twitter-image.tsx, e2e/*.spec.ts
+**Следующие шаги:** Sprint по 16 рекомендациям Focus Group (trust, features, pricing, content)
+
+> DEVLOG updated: S005
+
+---
+
 ### S004 — 2026-02-26 — TASK-003: MEGA-SPRINT 5.1→9.9 (3 спринта, 18 задач)
 
 **Роли:** все специалисты | **Статус:** завершено

@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const params: any[] = [dateStr];
+    const params: (string | number)[] = [dateStr];
     let paramIdx = 2;
 
     let materialFilter = "";
@@ -73,13 +73,9 @@ export async function GET(req: NextRequest) {
     const result = await pool.query(query, params);
 
     return NextResponse.json(result.rows);
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

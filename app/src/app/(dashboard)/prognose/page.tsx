@@ -6,18 +6,19 @@ import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
 import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 import { SkeletonPrognoseCard } from "@/components/dashboard/Skeleton";
+import type { AnalysisRow } from "@/types";
 
 export default function PrognosePage() {
   const { org, loading: orgLoading } = useOrg();
   const { t, locale, dateFmtLocale } = useLocale();
-  const [analysis, setAnalysis] = useState<any[]>([]);
+  const [analysis, setAnalysis] = useState<AnalysisRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/analysis")
       .then((r) => r.json())
-      .then((data) => {
-        setAnalysis(data.filter((a: any) => a.forecast_json));
+      .then((data: AnalysisRow[]) => {
+        setAnalysis(data.filter((a) => a.forecast_json));
         setLoading(false);
       })
       .catch(() => setLoading(false));

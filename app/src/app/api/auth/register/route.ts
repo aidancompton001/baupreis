@@ -110,10 +110,10 @@ export async function POST(req: NextRequest) {
     } finally {
       client.release();
     }
-  } catch (err: any) {
-    console.error("Registration error:", err);
+  } catch (err: unknown) {
+    console.error("Registration error:", err instanceof Error ? err.message : String(err));
     // Unique constraint on email/slug
-    if (err.code === "23505") {
+    if (typeof err === "object" && err !== null && "code" in err && (err as { code: string }).code === "23505") {
       return NextResponse.json(
         { error: "Diese E-Mail-Adresse wird bereits verwendet." },
         { status: 409 }

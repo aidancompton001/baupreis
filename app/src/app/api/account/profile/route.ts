@@ -23,8 +23,8 @@ export async function GET() {
       billingZip: org.billing_zip || "",
       billingCountry: org.billing_country || "",
     });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
   }
 }
 
@@ -77,7 +77,7 @@ export async function PATCH(request: Request) {
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
   }
 }

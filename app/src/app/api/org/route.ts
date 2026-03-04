@@ -40,7 +40,7 @@ export async function GET() {
     }
 
     return NextResponse.json(result.rows[0]);
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
 }
@@ -100,7 +100,7 @@ export async function POST(req: NextRequest) {
       { error: "Unbekannte Aktion" },
       { status: 400 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
 }
@@ -126,7 +126,7 @@ export async function PATCH(req: NextRequest) {
     );
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
 }

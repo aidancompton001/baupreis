@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
     const days =
       Number.isFinite(daysRaw) && daysRaw > 0 && daysRaw <= 365 ? daysRaw : 30;
 
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIdx = 1;
 
     let materialCondition = "1=1";
@@ -57,7 +57,7 @@ export async function GET(req: NextRequest) {
     // Build CSV with German formatting: semicolon delimiter, UTF-8 BOM
     const BOM = "\uFEFF";
     const header = "Datum;Material;Code;Preis (EUR);Einheit;Quelle";
-    const rows = result.rows.map((row: any) => {
+    const rows = result.rows.map((row: Record<string, string>) => {
       const date = formatDeDate(new Date(row.timestamp));
       const name = row.name_de.replace(/;/g, ",");
       const price = formatDeNumber(parseFloat(row.price_eur));
@@ -78,13 +78,9 @@ export async function GET(req: NextRequest) {
         "Content-Disposition": `attachment; filename="${filename}"`,
       },
     });
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

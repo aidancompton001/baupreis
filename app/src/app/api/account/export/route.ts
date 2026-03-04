@@ -51,7 +51,7 @@ export async function POST() {
     };
 
     return NextResponse.json(exportData);
-  } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
   }
 }

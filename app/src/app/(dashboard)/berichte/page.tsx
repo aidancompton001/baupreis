@@ -7,13 +7,14 @@ import { SkeletonListRow } from "@/components/dashboard/Skeleton";
 import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 import PlanBadge from "@/components/dashboard/PlanBadge";
+import type { Report, ReportMaterial } from "@/types";
 
 export default function BerichtePage() {
   const { org } = useOrg();
   const { t } = useLocale();
-  const [reports, setReports] = useState<any[]>([]);
+  const [reports, setReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedReport, setSelectedReport] = useState<any>(null);
+  const [selectedReport, setSelectedReport] = useState<Report | null>(null);
 
   useEffect(() => {
     fetch("/api/reports")
@@ -151,7 +152,7 @@ export default function BerichtePage() {
                       </tr>
                     </thead>
                     <tbody className="divide-y">
-                      {selectedReport.content_json.materials.map((mat: any, i: number) => (
+                      {selectedReport.content_json.materials.map((mat: ReportMaterial, i: number) => (
                         <tr key={i}>
                           <td className="py-2 font-medium">{mat.name_de || mat.name}</td>
                           <td className="py-2 text-right">

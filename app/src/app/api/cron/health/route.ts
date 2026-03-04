@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
   try {
     await pool.query("SELECT 1");
     checks.db = true;
-  } catch (err: any) {
-    errors.push(`DB: ${err.message}`);
+  } catch (err: unknown) {
+    errors.push(`DB: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   // Check 2: Data freshness — latest price should be within 24 hours
@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
     } else {
       checks.fresh_data = true;
     }
-  } catch (err: any) {
-    errors.push(`Freshness check: ${err.message}`);
+  } catch (err: unknown) {
+    errors.push(`Freshness check: ${err instanceof Error ? err.message : String(err)}`);
   }
 
   const allOk = Object.values(checks).every(Boolean);

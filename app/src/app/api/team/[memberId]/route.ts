@@ -53,9 +53,9 @@ export async function PATCH(
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (error.message === "Insufficient permissions") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Insufficient permissions") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },
@@ -105,9 +105,9 @@ export async function DELETE(
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (error.message === "Insufficient permissions") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Insufficient permissions") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

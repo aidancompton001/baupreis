@@ -108,8 +108,8 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    console.error("Telegram webhook error:", error.message);
+  } catch (error: unknown) {
+    console.error("Telegram webhook error:", error instanceof Error ? error.message : String(error));
     // Always return 200 to prevent Telegram retries
     return NextResponse.json({ ok: true });
   }

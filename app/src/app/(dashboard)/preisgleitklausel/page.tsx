@@ -89,16 +89,17 @@ export default function PreisgleitklauselPage() {
     setCalculated(false);
   }
 
-  function updateMaterial(idx: number, field: string, value: any) {
+  function updateMaterial(idx: number, field: string, value: string | number) {
     setMaterials(
       materials.map((m, i) => {
         if (i !== idx) return m;
         if (field === "code") {
-          const opt = MATERIAL_OPTIONS.find((o) => o.code === value);
+          const codeStr = String(value);
+          const opt = MATERIAL_OPTIONS.find((o) => o.code === codeStr);
           return {
             ...m,
-            code: value,
-            label: opt?.label || value,
+            code: codeStr,
+            label: opt?.label || codeStr,
             basePrice: null,
             currentPrice: null,
           };
@@ -157,8 +158,8 @@ export default function PreisgleitklauselPage() {
         }))
       );
       setCalculated(true);
-    } catch (err: any) {
-      setError(err.message || t("escalation.errorLoading"));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t("escalation.errorLoading"));
     } finally {
       setLoading(false);
     }

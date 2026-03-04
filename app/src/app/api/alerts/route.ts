@@ -26,9 +26,9 @@ export async function GET() {
     );
 
     return NextResponse.json({ rules: rules.rows, sent: sent.rows });
-  } catch (error: any) {
-    if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }
@@ -154,9 +154,9 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }
@@ -177,9 +177,9 @@ export async function DELETE(req: NextRequest) {
     );
 
     return NextResponse.json({ success: true });
-  } catch (error: any) {
-    if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler", errorKey: "api.error.internalServerError" }, { status: 500 });
   }

@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
   let event;
   try {
     event = constructWebhookEvent(rawBody, signature, secret);
-  } catch (err: any) {
-    console.error("[Stripe Webhook] Signature verification failed:", err.message);
+  } catch (err: unknown) {
+    console.error("[Stripe Webhook] Signature verification failed:", err instanceof Error ? err.message : String(err));
     return NextResponse.json({ error: "Invalid signature" }, { status: 400 });
   }
 
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
   switch (event.type) {
     // Checkout completed — new subscription
     case "checkout.session.completed": {
-      const session = event.data.object as any;
+      const session = event.data.object as { metadata?: Record<string, string>; subscription: string; customer: string };
       const orgId = session.metadata?.orgId;
       const subscriptionId = session.subscription;
       const customerId = session.customer;
@@ -74,7 +74,7 @@ export async function POST(req: NextRequest) {
 
     // Subscription updated — plan change, renewal
     case "customer.subscription.updated": {
-      const subscription = event.data.object as any;
+      const subscription = event.data.object as { id: string; status: string; items?: { data?: Array<{ price?: { id: string } }> } };
       const subscriptionId = subscription.id;
       const status = subscription.status;
       const priceId = subscription.items?.data?.[0]?.price?.id;
@@ -120,7 +120,7 @@ export async function POST(req: NextRequest) {
 
     // Subscription canceled
     case "customer.subscription.deleted": {
-      const subscription = event.data.object as any;
+      const subscription = event.data.object as { id: string; status: string; items?: { data?: Array<{ price?: { id: string } }> } };
       await pool.query(
         `UPDATE organizations SET plan = 'cancelled', stripe_status = 'canceled', updated_at = NOW()
          WHERE stripe_subscription_id = $1`,
@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
 
     // Payment failed
     case "invoice.payment_failed": {
-      const invoice = event.data.object as any;
+      const invoice = event.data.object as unknown as { subscription: string | null };
       const subscriptionId = invoice.subscription;
       if (subscriptionId) {
         await pool.query(

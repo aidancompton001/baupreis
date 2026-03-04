@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     const category = searchParams.get("category");
 
     const conditions = ["m.is_active = true"];
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIdx = 1;
 
     if (category) {
@@ -40,12 +40,12 @@ export async function GET(req: NextRequest) {
       data: result.rows,
       meta: { count: result.rows.length, category: category || "all" },
     });
-  } catch (error: any) {
-    if (error.message === "Invalid API key") {
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Invalid API key") {
       return NextResponse.json({ error: "Invalid API key" }, { status: 401 });
     }
-    if (error.message === "API access not included in plan") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error instanceof Error && error.message === "API access not included in plan") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }

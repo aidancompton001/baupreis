@@ -99,8 +99,8 @@ export default function ChatPage() {
           }
         }
       }
-    } catch (err: any) {
-      setError(err.message || t("chat.errorGeneric"));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t("chat.errorGeneric"));
       // Remove empty assistant message on error
       setMessages((prev) => {
         if (prev[prev.length - 1]?.content === "") {

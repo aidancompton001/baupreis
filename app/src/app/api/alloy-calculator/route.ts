@@ -86,13 +86,9 @@ export async function GET() {
       metalCount: Object.keys(BASE_METALS).length,
       alloyCount: ALLOYS.length,
     });
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },
@@ -120,7 +116,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let body: any;
+    let body: { alloyCode?: string; customComposition?: Record<string, number>; customName?: string; productForm?: string; weightKg?: number };
     try {
       body = await req.json();
     } catch {
@@ -151,7 +147,7 @@ export async function POST(req: NextRequest) {
       // Calculate from custom composition
       result = calculateCustomPrice(customComposition, customName || "Eigene Legierung", form as ProductForm, weight);
     } else {
-      result = calculateAlloyPrice(alloyCode, form as ProductForm, weight);
+      result = calculateAlloyPrice(alloyCode!, form as ProductForm, weight);
     }
 
     if (!result) {
@@ -194,13 +190,9 @@ export async function POST(req: NextRequest) {
       disclaimer: result.disclaimer,
       lastPriceUpdate: LAST_PRICE_UPDATE,
     });
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

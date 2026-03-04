@@ -29,12 +29,12 @@ export async function GET() {
       invites: invites.rows,
       max_users: org.max_users,
     });
-  } catch (error: any) {
-    if (error.message === "Insufficient permissions") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Insufficient permissions") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
@@ -107,12 +107,12 @@ export async function POST(req: NextRequest) {
     const inviteUrl = `${process.env.NEXT_PUBLIC_APP_URL || ""}/sign-up?invite=${token}`;
 
     return NextResponse.json({ ok: true, inviteUrl }, { status: 201 });
-  } catch (error: any) {
-    if (error.message === "Insufficient permissions") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && error.message === "Insufficient permissions") {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
-    if (["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }

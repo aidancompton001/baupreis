@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
     const org = await requireOrg();
     const material = req.nextUrl.searchParams.get("material");
 
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIdx = 1;
 
     let materialCondition = "";
@@ -48,15 +48,15 @@ export async function GET(req: NextRequest) {
     const result = await pool.query(query, params);
 
     const hasForecast = canAccess(org, "forecast");
-    const rows = result.rows.map((row: any) => ({
+    const rows = result.rows.map((row: Record<string, string>) => ({
       ...row,
       forecast_json: hasForecast ? row.forecast_json : null,
     }));
 
     return NextResponse.json(rows);
-  } catch (error: any) {
-    if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }

@@ -74,7 +74,7 @@ export default function DataPage() {
   };
 
   const handleOpenCookieSettings = () => {
-    (window as any).__openCookieSettings?.();
+    window.__openCookieSettings?.();
   };
 
   return (

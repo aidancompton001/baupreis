@@ -14,13 +14,9 @@ export async function GET() {
       connected: !!org.telegram_chat_id,
       chatId: org.telegram_chat_id || null,
     });
-  } catch (error: any) {
-    if (
-      error.message === "No organization found" ||
-      error.message === "Trial expired" ||
-      error.message === "Subscription cancelled"
-    ) {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json(
       { error: "Interner Serverfehler" },

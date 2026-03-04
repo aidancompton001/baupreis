@@ -6,6 +6,7 @@ import { useLocale } from "@/i18n/LocaleContext";
 import UpgradeCard from "@/components/dashboard/UpgradeCard";
 import TrialFeatureBanner from "@/components/dashboard/TrialFeatureBanner";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
+import type { AlloyAiAnalysis, AlloyElementTrend, AlloyHistoryDataPoint } from "@/types";
 
 interface CategoryData {
   id: string;
@@ -84,7 +85,7 @@ export default function LegierungsrechnerPage() {
   const [historyData, setHistoryData] = useState<Array<{ date: string; price: number }>>([]);
   const [historyDays, setHistoryDays] = useState(90);
   const [historyLoading, setHistoryLoading] = useState(false);
-  const [aiAnalysis, setAiAnalysis] = useState<any>(null);
+  const [aiAnalysis, setAiAnalysis] = useState<AlloyAiAnalysis | null>(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"catalog" | "custom">("catalog");
   const [customName, setCustomName] = useState("");
@@ -148,8 +149,8 @@ export default function LegierungsrechnerPage() {
 
       const data: CalcResult = await res.json();
       setResult(data);
-    } catch (err: any) {
-      setError(err.message || t("common.connectionError"));
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t("common.connectionError"));
       setResult(null);
     } finally {
       setLoading(false);
@@ -164,7 +165,7 @@ export default function LegierungsrechnerPage() {
       if (res.ok) {
         const data = await res.json();
         setHistoryData(
-          (data.dataPoints || []).map((p: any) => ({
+          (data.dataPoints || []).map((p: AlloyHistoryDataPoint) => ({
             date: new Date(p.date).toLocaleDateString(locale === "en" ? "en-GB" : locale === "ru" ? "ru-RU" : "de-DE", { day: "2-digit", month: "2-digit" }),
             price: p.price,
           }))
@@ -256,8 +257,8 @@ export default function LegierungsrechnerPage() {
       }
       const data: CalcResult = await res.json();
       setCustomResult(data);
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : t("common.connectionError"));
       setCustomResult(null);
     }
     setCustomLoading(false);
@@ -747,9 +748,9 @@ export default function LegierungsrechnerPage() {
                   {locale === "en" ? aiAnalysis.insight.en : locale === "ru" ? aiAnalysis.insight.ru : aiAnalysis.insight.de}
                 </div>
               )}
-              {aiAnalysis.elementTrends?.length > 0 && (
+              {(aiAnalysis.elementTrends?.length ?? 0) > 0 && (
                 <div className="mt-3 text-xs text-gray-500">
-                  {aiAnalysis.elementTrends.map((et: any) => (
+                  {aiAnalysis.elementTrends!.map((et: AlloyElementTrend) => (
                     <span key={et.element} className="inline-flex items-center gap-1 mr-3">
                       <span className="font-medium">{et.element}</span>
                       <span className={et.change7d > 0 ? "text-green-600" : et.change7d < 0 ? "text-red-600" : ""}>

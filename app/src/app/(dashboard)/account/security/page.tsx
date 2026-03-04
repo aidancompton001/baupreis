@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleContext";
+import type { ClerkInstance, ClerkSession } from "@/types";
 
 /** Check whether Clerk is configured (live or test key). */
 function isClerkConfigured(): boolean {
@@ -46,11 +47,10 @@ function useClerkData(): {
         // We cannot call hooks outside React components, so we rely on
         // the Clerk global instance instead (window.Clerk).
         // Give Clerk a moment to initialise on the client.
-        const waitForClerk = (): Promise<any> =>
+        const waitForClerk = (): Promise<ClerkInstance> =>
           new Promise((resolve) => {
             const check = () => {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              const c = (window as any).Clerk;
+              const c = window.Clerk;
               if (c && c.user) {
                 resolve(c);
               } else {
@@ -72,8 +72,8 @@ function useClerkData(): {
           (user?.totpEnabled ?? false);
 
         // Build sessions list — Clerk exposes activeSessions on the client
-        const activeSessions: any[] = clerkInstance.client?.activeSessions ?? [];
-        const sessions: SessionInfo[] = activeSessions.map((s: any) => {
+        const activeSessions: ClerkSession[] = clerkInstance.client?.activeSessions ?? [];
+        const sessions: SessionInfo[] = activeSessions.map((s: ClerkSession) => {
           const la = s.lastActiveAt
             ? new Date(s.lastActiveAt).toISOString()
             : new Date().toISOString();
@@ -167,8 +167,7 @@ export default function SecurityPage() {
             <button
               onClick={() => {
                 // Open Clerk's user profile / manage account page
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                const clerk = (window as any).Clerk;
+                const clerk = window.Clerk;
                 if (clerk?.openUserProfile) {
                   clerk.openUserProfile();
                 } else {
@@ -209,8 +208,7 @@ export default function SecurityPage() {
               </span>
               <button
                 onClick={() => {
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  const clerk = (window as any).Clerk;
+                  const clerk = window.Clerk;
                   if (clerk?.openUserProfile) {
                     clerk.openUserProfile();
                   } else {

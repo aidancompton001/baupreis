@@ -47,8 +47,8 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error: any) {
-    console.error("[Billing Portal] Error:", error.message);
+  } catch (error: unknown) {
+    console.error("[Billing Portal] Error:", error instanceof Error ? error.message : String(error));
     return NextResponse.json(
       { error: "Interner Serverfehler" },
       { status: 500 }

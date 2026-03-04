@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     const daysRaw = parseInt(req.nextUrl.searchParams.get("days") || "30");
     const days = Number.isFinite(daysRaw) && daysRaw > 0 && daysRaw <= 365 ? daysRaw : 30;
 
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     let paramIdx = 1;
 
     let materialCondition = "1=1";
@@ -44,9 +44,9 @@ export async function GET(req: NextRequest) {
 
     const result = await pool.query(query, params);
     return NextResponse.json(result.rows);
-  } catch (error: any) {
-    if (error.message === "No organization found" || error.message === "Trial expired" || error.message === "Subscription cancelled") {
-      return NextResponse.json({ error: error.message }, { status: 403 });
+  } catch (error: unknown) {
+    if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
+      return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });
     }
     return NextResponse.json({ error: "Interner Serverfehler" }, { status: 500 });
   }
