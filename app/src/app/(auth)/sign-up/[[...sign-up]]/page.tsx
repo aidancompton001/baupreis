@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import ClerkSignUp from "@/components/auth/ClerkSignUp";
 
 function LocalSignUp() {
   const router = useRouter();
@@ -153,11 +152,5 @@ function LocalSignUp() {
 }
 
 export default function SignUpPage() {
-  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  const hasValidClerkKey =
-    clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-  if (!hasValidClerkKey) {
-    return <LocalSignUp />;
-  }
-  return <ClerkSignUp />;
+  return <LocalSignUp />;
 }

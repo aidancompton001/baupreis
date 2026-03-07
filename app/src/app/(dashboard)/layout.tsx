@@ -3,21 +3,11 @@ import Link from "next/link";
 import DashboardNav from "@/components/layout/DashboardNav";
 import TrialBanner from "@/components/dashboard/TrialBanner";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
-import UserAvatarClient from "@/components/layout/UserAvatarClient";
 import LogoutButton from "@/components/auth/LogoutButton";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
-
-function UserAvatar() {
-  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  const hasValidClerkKey = clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-  if (!hasValidClerkKey) {
-    return <LogoutButton />;
-  }
-  return <UserAvatarClient />;
-}
 
 export default function DashboardLayout({
   children,
@@ -34,7 +24,7 @@ export default function DashboardLayout({
           </Link>
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
-            <UserAvatar />
+            <LogoutButton />
           </div>
         </div>
       </header>

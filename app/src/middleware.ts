@@ -1,33 +1,7 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const SESSION_COOKIE = "baupreis_session";
-
-const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-const isClerkConfigured =
-  clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-
-const isPublicRoute = createRouteMatcher([
-  "/",
-  "/sign-in(.*)",
-  "/sign-up(.*)",
-  "/api/webhook/(.*)",
-  "/api/v1/(.*)",
-  "/api/cron/(.*)",
-  "/api/index/calculate",
-  "/api/contact",
-  "/api/health",
-  "/api/auth/(.*)",
-  "/preise",
-  "/kontakt",
-  "/ueber-uns",
-  "/datenschutz",
-  "/impressum",
-  "/agb",
-  "/blog",
-  "/blog/(.*)",
-]);
 
 /**
  * Detect locale for FIRST visit only (no cookie yet).
@@ -101,21 +75,7 @@ function plainMiddleware(request: NextRequest) {
   return setLocaleCookie(request);
 }
 
-const clerkMw = isClerkConfigured
-  ? clerkMiddleware(async (auth, request) => {
-      if (!isPublicRoute(request)) {
-        const session = auth();
-        if (!session.userId) {
-          const signInUrl = new URL("/sign-in", request.url);
-          signInUrl.searchParams.set("redirect", request.nextUrl.pathname);
-          return NextResponse.redirect(signInUrl);
-        }
-      }
-      return setLocaleCookie(request);
-    })
-  : plainMiddleware;
-
-export default clerkMw;
+export default plainMiddleware;
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],

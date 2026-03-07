@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
-import ClerkProviderWrapper from "@/components/auth/ClerkProviderWrapper";
 import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
@@ -201,17 +200,5 @@ export default function RootLayout({
   const cookieStore = cookies();
   const locale = (cookieStore.get("locale")?.value || "de") as Locale;
 
-  // Skip ClerkProvider if keys are not configured (placeholder or missing)
-  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  const hasValidClerkKey = clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-  if (!hasValidClerkKey) {
-    return <Shell locale={locale}>{children}</Shell>;
-  }
-
-  // Production: wrap in ClerkProvider
-  return (
-    <ClerkProviderWrapper>
-      <Shell locale={locale}>{children}</Shell>
-    </ClerkProviderWrapper>
-  );
+  return <Shell locale={locale}>{children}</Shell>;
 }

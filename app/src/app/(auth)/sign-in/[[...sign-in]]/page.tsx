@@ -3,7 +3,6 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import ClerkSignIn from "@/components/auth/ClerkSignIn";
 
 function LocalSignIn() {
   const router = useRouter();
@@ -105,15 +104,9 @@ function LocalSignIn() {
 }
 
 export default function SignInPage() {
-  const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  const hasValidClerkKey =
-    clerkKey.startsWith("pk_live_") || clerkKey.startsWith("pk_test_");
-  if (!hasValidClerkKey) {
-    return (
-      <Suspense>
-        <LocalSignIn />
-      </Suspense>
-    );
-  }
-  return <ClerkSignIn />;
+  return (
+    <Suspense>
+      <LocalSignIn />
+    </Suspense>
+  );
 }
