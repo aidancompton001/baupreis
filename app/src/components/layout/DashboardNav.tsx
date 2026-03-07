@@ -42,7 +42,7 @@ export default function DashboardNav() {
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden md:block w-64 fixed left-0 top-16 bottom-0 bg-white border-r overflow-y-auto">
+      <aside className="hidden md:block w-64 fixed left-0 top-16 bottom-0 sidebar-glass overflow-y-auto">
         <nav className="p-4 space-y-1">
           {navItems.map((item) => {
             const active = isActive(item.href);
@@ -50,10 +50,10 @@ export default function DashboardNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg transition ${
+                className={`sidebar-item ${
                   active
-                    ? "bg-brand-50 text-brand-600 font-medium"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "sidebar-item-active"
+                    : "sidebar-item-inactive"
                 }`}
               >
                 <span>{item.icon}</span>

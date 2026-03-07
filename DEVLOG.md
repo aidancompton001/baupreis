@@ -13,6 +13,66 @@
 
 ---
 
+### S011 — 2026-03-07 — Premium visual upgrade: 6 dashboard pages
+
+**Роли:** #3 Frontend Engineer
+**Статус:** завершено
+
+**Что сделано:**
+- Alerts: hover-эффекты на карточках, ring badges, glassmorphism modal, eyebrow label
+- Prognose: gradient left border на карточках, gradient confidence bar, hover/shadow transitions
+- Chat: gradient user messages, enhanced starter chips с hover/-translate-y, subtle bg gradient
+- Preisgleitklausel: полный визуальный overhaul — rounded-2xl, gradient result cards, focus shadows
+- Berichte: grid layout вместо list, report cards с icon/gradient accent/hover, glassmorphism modal
+- Legierungsrechner: rounded-2xl cards, gradient result section, hover transitions на всех блоках
+
+**Артефакты:** `alerts/page.tsx`, `prognose/page.tsx`, `chat/page.tsx`, `preisgleitklausel/page.tsx`, `berichte/page.tsx`, `legierungsrechner/page.tsx`
+
+---
+
+### S010 — 2026-03-07 — Обновление методологии до MainCore V4.3
+
+**Роли:** #8 Chief of Staff Engineering
+**Статус:** завершено
+
+**Что сделано:**
+- CLAUDE.md: +9 секций V4.3 (Auto-Validation, DoD, Session Context, Restrictions, ADR, Contract-First, Chaos Testing, Complexity Budget, Agent Metrics)
+- Failure Scenarios + Validation в шаблон ТС, Бюджет итераций в таблицу сложности
+- Создан STATUS.md, METRICS.md, docs/adr/ (3 ретроспективных ADR)
+- Реестр рисков #1-#14 добавлен в CLAUDE.md
+- docker-compose.yml: восстановлены HOSTNAME, SESSION_SECRET, CONTACT_EMAIL, healthcheck
+
+**Артефакты:** `CLAUDE.md`, `STATUS.md`, `METRICS.md`, `docs/adr/ADR-001..003`, `docker-compose.yml`
+
+**Следующие шаги:** IHK Businessplan до 11 марта, деплой docker fix
+
+---
+
+### S009 — 2026-03-04 — Premium landing + Team plans + IHK analysis
+
+**Роли:** #9 EM, #3 Frontend, #4 Backend, #12 Business Analyst
+**Статус:** завершено
+
+**Что сделано:**
+- **Premium landing page:** `page.tsx` полностью переписан (562 строк) — showcase-стиль с IntersectionObserver анимациями, browser-frame mockups, 14 секций. i18n: 151 ключей `landing2.*` (de/en/ru)
+- **Showcase HTML:** `presentation/showcase-en.html` (1776 строк) — standalone презентация с реальными скриншотами дашборда
+- **Team plans для тестеров:** 4 юзера (clicksuckers, morochobayas, pashchenkoh, aidancompton001) → plan=team, все feature flags включены в PostgreSQL
+- **IHK webinar анализ:** Checkliste + Handout (88 стр.) проанализированы, gap analysis vs BUSINESSPLAN.md → 5 пробелов (Business Model Canvas, Finanzplan Excel, "Auf einen Blick", Lieferanten, Annahmen)
+- **IHK шаблоны:** Textteil (11 секций) + Finanzteil (7 Excel sheets) — структура сравнена с нашим бизнес-планом
+- **docker-compose.yml:** восстановлены HOSTNAME=0.0.0.0, SESSION_SECRET, CONTACT_EMAIL, healthcheck→127.0.0.1
+
+**Ключевые решения:**
+- `landing2.*` prefix для i18n (не конфликтует с `landing.*`)
+- Feature flags отдельно от plan field (Stripe webhook нормально ставит, ручная смена — нет)
+
+**Артефакты:** `app/src/app/page.tsx`, `app/src/i18n/{de,en,ru}.ts`, `app/src/app/globals.css`, `presentation/showcase-en.html`, `app/public/img/`, `docker-compose.yml`
+
+**Следующие шаги:**
+- IHK: заполнить Finanzplan Excel, Business Model Canvas, "Auf einen Blick" до 11 марта (встреча с Berater)
+- Деплой docker-compose.yml fix на сервер
+
+---
+
 ### S008 — 2026-02-27 — TASK-007: Audit remediation sprint (11 fixes)
 
 **Роли:** #9 EM (координация), #4 Backend, #3 Frontend, #7 SRE

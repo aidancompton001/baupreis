@@ -152,32 +152,33 @@ export default function AlertsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-8">
         <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">Monitoring</p>
           <h1 className="text-2xl font-bold text-gray-900">{t("alerts.title")}</h1>
-          <p className="text-gray-600">
+          <p className="text-gray-500 mt-1">
             {t("alerts.subtitle")}
           </p>
         </div>
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
-          className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition text-sm font-medium"
+          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
         >
           {t("alerts.addButton")}
         </button>
       </div>
 
       {/* Active Rules */}
-      <div className="bg-white rounded-xl border mb-6">
-        <div className="p-4 border-b">
-          <h2 className="font-semibold">{t("alerts.activeRules", { count: rules.length })}</h2>
+      <div className="bg-white rounded-2xl border shadow-sm mb-6 overflow-hidden">
+        <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
+          <h2 className="font-semibold text-gray-800">{t("alerts.activeRules", { count: rules.length })}</h2>
         </div>
         {rules.length > 0 ? (
           <div className="divide-y">
             {rules.map((rule) => (
               <div
                 key={rule.id}
-                className="p-4 flex items-center justify-between"
+                className="p-4 flex items-center justify-between hover:bg-gray-50/50 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-sm"
               >
                 <div>
                   <p className="font-medium">
@@ -193,10 +194,10 @@ export default function AlertsPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span
-                    className={`text-xs px-2 py-1 rounded-full ${
+                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${
                       rule.is_active
-                        ? "bg-green-100 text-green-700"
-                        : "bg-gray-100 text-gray-500"
+                        ? "bg-green-100 text-green-700 ring-1 ring-green-200"
+                        : "bg-gray-100 text-gray-500 ring-1 ring-gray-200"
                     }`}
                   >
                     {rule.is_active ? t("alerts.active") : t("alerts.inactive")}
@@ -236,14 +237,14 @@ export default function AlertsPage() {
       </div>
 
       {/* Sent Alerts Log */}
-      <div className="bg-white rounded-xl border">
-        <div className="p-4 border-b">
-          <h2 className="font-semibold">{t("alerts.sentAlarms")}</h2>
+      <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+        <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
+          <h2 className="font-semibold text-gray-800">{t("alerts.sentAlarms")}</h2>
         </div>
         {sent.length > 0 ? (
           <div className="divide-y">
             {sent.map((alert) => (
-              <div key={alert.id} className="p-4">
+              <div key={alert.id} className="p-4 hover:bg-gray-50/50 transition-colors duration-200">
                 <div className="flex items-start justify-between">
                   <div>
                     <p className="font-medium text-sm">
@@ -270,8 +271,8 @@ export default function AlertsPage() {
 
       {/* Create Alert Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold">{t("alerts.modal.title")}</h2>
               <button

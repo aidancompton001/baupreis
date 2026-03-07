@@ -67,9 +67,10 @@ export default function PrognosePage() {
 
   return (
     <div>
-      <div className="mb-6">
+      <div className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">AI-Powered</p>
         <h1 className="text-2xl font-bold text-gray-900">{t("forecast.title")}</h1>
-        <p className="text-gray-600">
+        <p className="text-gray-500 mt-1">
           {t("forecast.subtitle")}
         </p>
       </div>
@@ -79,19 +80,20 @@ export default function PrognosePage() {
       {analysis.length > 0 ? (
         <div className="space-y-4">
           {analysis.map((item) => (
-            <div key={item.code} className="bg-white rounded-xl border p-6">
+            <div key={item.code} className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-500 to-brand-700 rounded-l-2xl" />
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="font-semibold text-lg">{item.name_de}</h3>
                   <p className="text-sm text-gray-500">{item.unit}</p>
                 </div>
                 <span
-                  className={`text-sm font-medium px-3 py-1 rounded-full ${
+                  className={`text-sm font-medium px-3 py-1.5 rounded-full ring-1 ${
                     item.recommendation === "buy_now"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-green-100 text-green-700 ring-green-200"
                       : item.recommendation === "wait"
-                        ? "bg-yellow-100 text-yellow-700"
-                        : "bg-gray-100 text-gray-700"
+                        ? "bg-yellow-100 text-yellow-700 ring-yellow-200"
+                        : "bg-gray-100 text-gray-700 ring-gray-200"
                   }`}
                 >
                   {item.recommendation === "buy_now"
@@ -109,7 +111,7 @@ export default function PrognosePage() {
               )}
 
               {item.forecast_json && (
-                <div className="grid grid-cols-3 gap-4 text-sm bg-gray-50 rounded-lg p-4">
+                <div className="grid grid-cols-3 gap-4 text-sm bg-gradient-to-r from-gray-50 to-gray-100/50 rounded-xl p-4">
                   <div>
                     <p className="text-gray-500 mb-1">{t("material.days", { count: 7 })}</p>
                     <p className="font-semibold text-green-600">
@@ -133,9 +135,9 @@ export default function PrognosePage() {
 
               {item.confidence && (
                 <div className="mt-4 flex items-center gap-2">
-                  <div className="flex-1 bg-gray-200 rounded-full h-2">
+                  <div className="flex-1 bg-gray-200 rounded-full h-2.5">
                     <div
-                      className="bg-brand-600 h-2 rounded-full"
+                      className="bg-gradient-to-r from-brand-500 to-brand-700 h-2.5 rounded-full transition-all duration-500"
                       style={{ width: `${item.confidence}%` }}
                     />
                   </div>
@@ -148,7 +150,7 @@ export default function PrognosePage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white rounded-xl border">
+        <div className="text-center py-12 bg-white rounded-2xl border shadow-sm">
           <p className="text-gray-500 text-lg">
             {t("forecast.noData")}
           </p>

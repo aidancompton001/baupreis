@@ -129,7 +129,7 @@ export default function SecurityPage() {
   // Dev mode — Clerk not configured
   if (!clerkConfigured) {
     return (
-      <div className="bg-white rounded-xl border p-8 text-center text-gray-500">
+      <div className="bg-white rounded-2xl border border-gray-200 p-8 text-center text-gray-500">
         <p>{t("account.security.devMode")}</p>
       </div>
     );
@@ -147,9 +147,9 @@ export default function SecurityPage() {
   const sessions = clerkData?.sessions ?? [];
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="space-y-6 max-w-2xl mx-auto">
       {/* Section 1: Access */}
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <span>{"🔐"}</span>
           <span>{t("account.security.access")}</span>
@@ -177,7 +177,7 @@ export default function SecurityPage() {
                   );
                 }
               }}
-              className="px-4 py-2 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
+              className="px-6 py-2.5 text-sm font-medium rounded-xl border border-gray-200 text-gray-700 hover:bg-gray-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             >
               {t("account.security.manageAccount")}
             </button>
@@ -230,7 +230,7 @@ export default function SecurityPage() {
       </div>
 
       {/* Section 2: Active Sessions */}
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.security.sessions")}
         </h2>
@@ -240,7 +240,7 @@ export default function SecurityPage() {
             {sessions.map((session) => (
               <div
                 key={session.id}
-                className="flex items-center justify-between p-3 rounded-lg border border-gray-100 bg-gray-50"
+                className="flex items-center justify-between p-4 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-all duration-300"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg">
@@ -290,7 +290,7 @@ export default function SecurityPage() {
       </div>
 
       {/* Section 3: Danger Zone */}
-      <div className="bg-red-50 rounded-xl border border-red-200 p-6">
+      <div className="bg-red-50 rounded-2xl border border-red-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-red-800 mb-2 flex items-center gap-2">
           <span>{"⚠️"}</span>
           <span>{t("account.security.dangerZone")}</span>
@@ -300,7 +300,7 @@ export default function SecurityPage() {
         </p>
         <Link
           href="/account/data"
-          className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border border-red-300 text-red-700 bg-white hover:bg-red-50 transition"
+          className="inline-flex items-center px-6 py-2.5 text-sm font-medium rounded-xl border border-red-300 text-red-700 bg-white hover:bg-red-50 shadow-sm hover:-translate-y-0.5 transition-all duration-300"
         >
           {t("account.security.deleteLink")}
         </Link>

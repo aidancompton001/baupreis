@@ -83,8 +83,8 @@ export default function MaterialDetailPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{materialName}</h1>
-        <p className="text-gray-600">{unit}</p>
+        <h1 className="text-2xl font-bold gradient-text">{materialName}</h1>
+        <p className="text-gray-500 text-sm mt-1">{unit}</p>
       </div>
 
       {/* Period Selector + CSV Export */}
@@ -93,10 +93,10 @@ export default function MaterialDetailPage() {
           <button
             key={d}
             onClick={() => setDays(d)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               days === d
-                ? "bg-brand-600 text-white"
-                : "bg-white border text-gray-600 hover:bg-gray-50"
+                ? "bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-md"
+                : "bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md"
             }`}
           >
             {t("material.days", { count: d })}
@@ -105,15 +105,18 @@ export default function MaterialDetailPage() {
         <a
           href={`/api/export/prices?material=${code}&days=${days}`}
           download
-          className="ml-auto px-4 py-2 rounded-lg text-sm font-medium bg-white border text-gray-600 hover:bg-gray-50 transition"
+          className="ml-auto px-4 py-2 rounded-xl text-sm font-medium bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
         >
           {t("material.csvExport")}
         </a>
       </div>
 
       {/* Price Stats */}
+      <div className="mb-3">
+        <span className="eyebrow">{t("material.currentPrice")}</span>
+      </div>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl border p-4">
+        <div className="dash-card p-4 dash-appear dash-delay-1">
           <p className="text-sm text-gray-500">{t("material.currentPrice")}</p>
           <p className="text-2xl font-bold">
             {latestPrice
@@ -121,7 +124,7 @@ export default function MaterialDetailPage() {
               : "—"}
           </p>
         </div>
-        <div className="bg-white rounded-xl border p-4">
+        <div className="dash-card p-4 dash-appear dash-delay-2">
           <p className="text-sm text-gray-500">{t("material.minimum")} ({days}T)</p>
           <p className="text-2xl font-bold text-green-600">
             {minPrice
@@ -131,7 +134,7 @@ export default function MaterialDetailPage() {
               : "—"}
           </p>
         </div>
-        <div className="bg-white rounded-xl border p-4">
+        <div className="dash-card p-4 dash-appear dash-delay-3">
           <p className="text-sm text-gray-500">{t("material.maximum")} ({days}T)</p>
           <p className="text-2xl font-bold text-red-600">
             {maxPrice
@@ -144,7 +147,7 @@ export default function MaterialDetailPage() {
       </div>
 
       {/* Price Chart */}
-      <div className="bg-white rounded-xl border p-6 mb-6">
+      <div className="dash-card p-6 mb-6 dash-appear dash-delay-4">
         <h2 className="font-semibold mb-4">{t("material.priceChart")}</h2>
         {prices.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
@@ -233,7 +236,7 @@ export default function MaterialDetailPage() {
 
       {/* AI Analysis */}
       {analysis && (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="dash-card p-6 dash-appear dash-delay-5">
           <h2 className="font-semibold mb-4">{t("material.aiAnalysis")}</h2>
           <div className="space-y-4">
             <div className="flex items-center gap-4">

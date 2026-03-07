@@ -87,22 +87,22 @@ export default function DashboardPage() {
     <div>
       <div className="mb-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">{t("dashboard.title")}</h1>
-          <p className="text-gray-600">
+          <h1 className="text-2xl font-bold gradient-text">{t("dashboard.title")}</h1>
+          <p className="text-gray-500 text-sm mt-1">
             {t("dashboard.subtitle")}
           </p>
         </div>
         <a
           href="/api/export/prices?days=30"
           download
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-white border text-gray-600 hover:bg-gray-50 transition whitespace-nowrap"
+          className="px-4 py-2 rounded-xl text-sm font-medium bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
         >
           {t("dashboard.csvExport")}
         </a>
       </div>
 
       {indexData && (
-        <div className="mb-6 bg-gradient-to-r from-brand-600 to-brand-700 rounded-xl p-6 text-white">
+        <div className="mb-6 bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-700 rounded-2xl p-6 text-white shadow-[0_4px_20px_rgba(99,102,241,0.25)] dash-appear">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-brand-100 text-sm font-medium">{t("dashboard.indexLabel")}</p>
@@ -139,14 +139,18 @@ export default function DashboardPage() {
         </div>
       )}
 
+      <div className="mb-4">
+        <span className="eyebrow">{t("dashboard.indexLabel")}</span>
+      </div>
+
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {analysis.map((item) => {
+        {analysis.map((item, idx) => {
           const latestPrice = priceMap.get(item.code);
           return (
             <Link
               key={item.code}
               href={`/material/${item.code}`}
-              className="bg-white rounded-xl border p-4 hover:shadow-md transition"
+              className={`dash-card p-4 dash-appear dash-delay-${Math.min(idx + 1, 8)}`}
             >
               <div className="flex items-start justify-between mb-2">
                 <h3 className="font-medium text-sm text-gray-900 leading-tight">
@@ -219,7 +223,7 @@ export default function DashboardPage() {
       </div>
 
       {analysis.length === 0 && !loading && (
-        <div className="text-center py-12 bg-white rounded-xl border">
+        <div className="text-center py-12 dash-card">
           <p className="text-gray-500 text-lg">
             {t("dashboard.noData")}
           </p>

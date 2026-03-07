@@ -118,9 +118,9 @@ export default function TeamPage() {
       <div>
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
-          <p className="text-gray-600">{t("team.subtitle")}</p>
+          <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
-        <div className="bg-white rounded-xl border p-8 animate-pulse">
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/3"></div>
         </div>
@@ -133,7 +133,7 @@ export default function TeamPage() {
       <div>
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
-          <p className="text-gray-600">{t("team.subtitle")}</p>
+          <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
         <UpgradeCard feature={t("team.title")} requiredPlan="Team" icon="👥" />
       </div>
@@ -147,7 +147,7 @@ export default function TeamPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
-        <p className="text-gray-600">
+        <p className="text-gray-500 text-sm mt-1">
           {pendingCount > 0
             ? t("team.statsPending", { active: activeCount, max: maxUsers, pending: pendingCount })
             : t("team.stats", { active: activeCount, max: maxUsers })}
@@ -157,20 +157,20 @@ export default function TeamPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Team" />}
 
       {/* Invite form */}
-      <div className="bg-white rounded-xl border p-6 mb-6">
-        <h2 className="font-semibold mb-3">{t("team.inviteSection")}</h2>
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
+        <h2 className="font-semibold text-gray-900 mb-3">{t("team.inviteSection")}</h2>
         <div className="flex gap-3">
           <input
             type="email"
             value={inviteEmail}
             onChange={(e) => setInviteEmail(e.target.value)}
             placeholder={t("team.inviteEmail")}
-            className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="flex-1 rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
           />
           <select
             value={inviteRole}
             onChange={(e) => setInviteRole(e.target.value)}
-            className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+            className="rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
           >
             <option value="member">{t("team.roles.member")}</option>
             <option value="admin">{t("team.roles.admin")}</option>
@@ -178,7 +178,7 @@ export default function TeamPage() {
           <button
             onClick={handleInvite}
             disabled={inviting || !inviteEmail.trim()}
-            className="px-4 py-2 rounded-lg bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 disabled:opacity-50 transition"
+            className="px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50 transition-all duration-300"
           >
             {inviting ? t("team.inviting") : t("team.inviteButton")}
           </button>
@@ -188,13 +188,13 @@ export default function TeamPage() {
       </div>
 
       {/* Members list */}
-      <div className="bg-white rounded-xl border mb-6">
-        <div className="p-4 border-b">
-          <h2 className="font-semibold">{t("team.membersSection")}</h2>
+      <div className="bg-white rounded-2xl border border-gray-200 mb-6 hover:shadow-md transition-all duration-300">
+        <div className="p-5 border-b border-gray-100">
+          <h2 className="font-semibold text-gray-900">{t("team.membersSection")}</h2>
         </div>
         <div className="divide-y">
           {members.filter((m) => m.is_active).map((member) => (
-            <div key={member.id} className="p-4 flex items-center justify-between">
+            <div key={member.id} className="p-4 flex items-center justify-between hover:bg-gray-50/50 transition-all duration-300">
               <div>
                 <p className="font-medium">{member.name || member.email}</p>
                 {member.name && (
@@ -217,7 +217,7 @@ export default function TeamPage() {
                     <select
                       value={member.role}
                       onChange={(e) => handleChangeRole(member.id, e.target.value)}
-                      className="text-xs border rounded px-1.5 py-1"
+                      className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-brand-500 transition-all duration-300"
                     >
                       <option value="member">{t("team.roles.member")}</option>
                       <option value="admin">{t("team.roles.admin")}</option>
@@ -238,13 +238,13 @@ export default function TeamPage() {
 
       {/* Pending invites */}
       {invites.length > 0 && (
-        <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b">
-            <h2 className="font-semibold">{t("team.pendingSection")}</h2>
+        <div className="bg-white rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-300">
+          <div className="p-5 border-b border-gray-100">
+            <h2 className="font-semibold text-gray-900">{t("team.pendingSection")}</h2>
           </div>
           <div className="divide-y">
             {invites.map((invite) => (
-              <div key={invite.id} className="p-4 flex items-center justify-between">
+              <div key={invite.id} className="p-4 flex items-center justify-between hover:bg-gray-50/50 transition-all duration-300">
                 <div>
                   <p className="font-medium">{invite.email}</p>
                   <p className="text-xs text-gray-400">

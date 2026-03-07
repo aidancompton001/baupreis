@@ -19,7 +19,7 @@ export default function EinstellungenPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">{t("settings.title")}</h1>
-        <p className="text-gray-600">
+        <p className="text-gray-500 text-sm mt-1">
           {t("settings.subtitle")}
         </p>
       </div>
@@ -29,11 +29,11 @@ export default function EinstellungenPage() {
           <Link
             key={item.href}
             href={item.href}
-            className="bg-white rounded-xl border p-6 hover:shadow-md transition"
+            className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
           >
-            <span className="text-3xl">{item.icon}</span>
-            <h3 className="font-semibold mt-3">{t(item.titleKey)}</h3>
-            <p className="text-sm text-gray-500 mt-1">{t(item.descKey)}</p>
+            <span className="text-3xl block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
+            <h3 className="font-semibold text-gray-900 mt-3">{t(item.titleKey)}</h3>
+            <p className="text-sm text-gray-500 mt-1 leading-relaxed">{t(item.descKey)}</p>
           </Link>
         ))}
       </div>

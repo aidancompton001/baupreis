@@ -25,11 +25,11 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-indigo-50/30">
       {/* Top Navigation */}
-      <header className="fixed top-0 w-full bg-white border-b z-50 h-16">
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-gray-100 z-50 h-16">
         <div className="h-full px-4 flex items-center justify-between">
-          <Link href="/dashboard" className="text-xl font-bold text-brand-600">
+          <Link href="/dashboard" className="text-xl font-bold gradient-text">
             BauPreis AI
           </Link>
           <div className="flex items-center gap-4">

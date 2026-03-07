@@ -112,7 +112,7 @@ export default function TelegramPage() {
           <h1 className="text-2xl font-bold text-gray-900">
             {t("telegram.title")}
           </h1>
-          <p className="text-gray-600">{t("telegram.subtitle")}</p>
+          <p className="text-gray-500 text-sm mt-1">{t("telegram.subtitle")}</p>
         </div>
         <div className="mt-8">
           <UpgradeCard
@@ -132,12 +132,12 @@ export default function TelegramPage() {
         <h1 className="text-2xl font-bold text-gray-900">
           {t("telegram.title")}
         </h1>
-        <p className="text-gray-600">{t("telegram.subtitle")}</p>
+        <p className="text-gray-500 text-sm mt-1">{t("telegram.subtitle")}</p>
       </div>
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
-      <div className="bg-white rounded-xl border p-6 max-w-lg">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 max-w-lg hover:shadow-md transition-all duration-300">
         {connected ? (
           <>
             <div className="flex items-center gap-3 mb-4">
@@ -186,7 +186,7 @@ export default function TelegramPage() {
               <button
                 onClick={handleConnect}
                 disabled={status === "generating"}
-                className="bg-[#0088cc] text-white px-6 py-2.5 rounded-lg hover:bg-[#0077b5] transition text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+                className="bg-[#0088cc] text-white px-6 py-2.5 rounded-xl hover:bg-[#0077b5] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 flex items-center gap-2"
               >
                 <svg
                   className="w-5 h-5"

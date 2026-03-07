@@ -107,7 +107,7 @@ export default function MaterialienPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">{t("materials.title")}</h1>
-        <p className="text-gray-600">
+        <p className="text-gray-500 text-sm mt-1">
           {t("materials.subtitle")}
         </p>
         {isLimited && (
@@ -130,12 +130,12 @@ export default function MaterialienPage() {
                   key={m.id}
                   onClick={() => toggleMaterial(m.id)}
                   disabled={disabled}
-                  className={`text-left p-4 rounded-xl border-2 transition ${
+                  className={`text-left p-4 rounded-2xl border-2 transition-all duration-300 ${
                     m.selected
-                      ? "border-brand-500 bg-brand-50"
+                      ? "border-brand-500 bg-brand-50 shadow-sm"
                       : disabled
                       ? "border-gray-100 bg-gray-50 opacity-50 cursor-not-allowed"
-                      : "border-gray-200 bg-white hover:border-brand-300"
+                      : "border-gray-200 bg-white hover:border-brand-300 hover:shadow-md hover:-translate-y-0.5"
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -166,7 +166,7 @@ export default function MaterialienPage() {
 
       {message && (
         <div
-          className={`mb-4 text-sm p-3 rounded-lg ${
+          className={`mb-4 text-sm p-3 rounded-xl ${
             isError
               ? "bg-red-50 text-red-700"
               : "bg-green-50 text-green-700"
@@ -179,7 +179,7 @@ export default function MaterialienPage() {
       <button
         onClick={save}
         disabled={saving}
-        className="bg-brand-600 text-white px-6 py-2.5 rounded-lg hover:bg-brand-700 transition font-medium disabled:opacity-50"
+        className="bg-brand-600 text-white px-6 py-2.5 rounded-xl hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-medium disabled:opacity-50"
       >
         {saving ? t("materials.saving") : t("materials.save")}
       </button>

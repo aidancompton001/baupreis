@@ -355,15 +355,16 @@ export default function LegierungsrechnerPage() {
 
   return (
     <div>
-      <div className="mb-6">
+      <div className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">Calculator</p>
         <h1 className="text-2xl font-bold text-gray-900">{t("alloy.title")}</h1>
-        <p className="text-gray-600">{t("alloy.subtitle")}</p>
+        <p className="text-gray-500 mt-1">{t("alloy.subtitle")}</p>
       </div>
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       {/* Tabs */}
-      <div className="flex gap-1 mb-4 bg-gray-100 rounded-lg p-1 w-fit">
+      <div className="flex gap-1 mb-4 bg-gray-100 rounded-xl p-1 w-fit shadow-sm">
         <button
           onClick={() => setActiveTab("catalog")}
           className={`px-4 py-2 text-sm font-medium rounded-md transition ${
@@ -384,7 +385,7 @@ export default function LegierungsrechnerPage() {
 
       {/* Custom Formula Constructor */}
       {activeTab === "custom" && (
-        <div className="bg-white rounded-xl border p-6 mb-6">
+        <div className="bg-white rounded-2xl border shadow-sm p-6 mb-6">
           <div className="mb-4">
             <label htmlFor="custom-name" className="block text-sm font-medium text-gray-700 mb-1">{t("alloy.formulaName")}</label>
             <input
@@ -468,7 +469,7 @@ export default function LegierungsrechnerPage() {
 
           {/* Custom Result */}
           {customResult && !customLoading && (
-            <div className="mt-4 bg-blue-50 rounded-lg p-4">
+            <div className="mt-4 bg-gradient-to-br from-brand-50 to-blue-50 rounded-xl p-4 border border-brand-100 shadow-sm">
               <div className="text-2xl font-bold text-brand-600">
                 {fmtEur(customResult.price.perTonneMin)} — {fmtEur(customResult.price.perTonneMax)} <span className="text-sm font-normal text-gray-500">EUR/t</span>
               </div>
@@ -494,7 +495,7 @@ export default function LegierungsrechnerPage() {
       )}
 
       {/* Catalog Calculator Controls */}
-      <div className={`bg-white rounded-xl border p-6 mb-6 ${activeTab !== "catalog" ? "hidden" : ""}`}>
+      <div className={`bg-white rounded-2xl border shadow-sm p-6 mb-6 ${activeTab !== "catalog" ? "hidden" : ""}`}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Category */}
           <div>
@@ -592,7 +593,7 @@ export default function LegierungsrechnerPage() {
       {result && !loading && (
         <div className="space-y-6">
           {/* Price Card */}
-          <div className="bg-white rounded-xl border p-6">
+          <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-md transition-shadow duration-300">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900">
@@ -602,7 +603,7 @@ export default function LegierungsrechnerPage() {
                   {result.alloy.din}{result.alloy.aisi ? ` / AISI ${result.alloy.aisi}` : ""} — {result.alloy.standard}
                 </p>
               </div>
-              <div className="text-right">
+              <div className="text-right bg-gradient-to-br from-brand-50 to-white rounded-xl p-4 border border-brand-100">
                 <div className="text-3xl font-bold text-brand-600">
                   {fmtEur(result.price.perTonneMin)} — {fmtEur(result.price.perTonneMax)} <span className="text-lg font-normal text-gray-500">EUR/t</span>
                 </div>
@@ -711,7 +712,7 @@ export default function LegierungsrechnerPage() {
 
           {/* AI Trend Analysis */}
           {aiAnalysis?.hasAnalysis && !aiLoading && (
-            <div className="bg-white rounded-xl border p-6">
+            <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-md transition-shadow duration-300">
               <h3 className="text-sm font-semibold text-gray-700 mb-3">{t("alloy.aiAnalysis")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4">
                 <div className="bg-gray-50 rounded-lg p-3 text-center">
@@ -771,7 +772,7 @@ export default function LegierungsrechnerPage() {
 
           {/* Price History Chart */}
           {historyData.length > 2 && (
-            <div className="bg-white rounded-xl border p-6">
+            <div className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-md transition-shadow duration-300">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-semibold text-gray-700">{t("alloy.priceHistory")}</h3>
                 <div className="flex gap-1">
@@ -844,7 +845,7 @@ export default function LegierungsrechnerPage() {
           )}
 
           {/* Disclaimer */}
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 shadow-sm">
             <div className="flex gap-3">
               <span className="text-amber-600 text-lg shrink-0">&#x26A0;</span>
               <div className="text-sm text-amber-800">

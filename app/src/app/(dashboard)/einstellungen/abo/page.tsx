@@ -168,12 +168,12 @@ export default function AboPage() {
 
       {/* Success / Error messages */}
       {successMessage && (
-        <div className="bg-green-50 border border-green-200 text-green-800 rounded-lg p-4 mb-6">
+        <div className="bg-green-50 border border-green-200 text-green-800 rounded-xl p-4 mb-6">
           {successMessage}
         </div>
       )}
       {errorMessage && (
-        <div className="bg-red-50 border border-red-200 text-red-800 rounded-lg p-4 mb-6">
+        <div className="bg-red-50 border border-red-200 text-red-800 rounded-xl p-4 mb-6">
           {errorMessage}
           <button
             onClick={() => setErrorMessage(null)}
@@ -185,7 +185,7 @@ export default function AboPage() {
       )}
 
       {/* Current plan info */}
-      <div className="bg-white rounded-xl border p-6 mb-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
         <div className="flex items-start justify-between">
           <div>
             <h2 className="font-semibold text-lg">
@@ -216,7 +216,7 @@ export default function AboPage() {
           {org?.stripe_subscription_id && (
             <button
               onClick={handleManageBilling}
-              className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition text-sm"
+              className="bg-brand-600 text-white px-6 py-2.5 rounded-xl hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
             >
               {t("subscription.manage")}
             </button>
@@ -255,19 +255,19 @@ export default function AboPage() {
 
       {/* Billing period toggle */}
       <div className="flex justify-center mb-8">
-        <div className="bg-gray-100 rounded-lg p-1 inline-flex">
+        <div className="bg-gray-100 rounded-xl p-1 inline-flex">
           <button
             onClick={() => setYearly(false)}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-              !yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
+            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+              !yearly ? "bg-white shadow-sm text-gray-900" : "text-gray-600 hover:text-gray-900"
             }`}
           >
             {t("pricing.monthly")}
           </button>
           <button
             onClick={() => setYearly(true)}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition ${
-              yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
+            className={`px-5 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+              yearly ? "bg-white shadow-sm text-gray-900" : "text-gray-600 hover:text-gray-900"
             }`}
           >
             {t("pricing.yearly")}
@@ -287,10 +287,10 @@ export default function AboPage() {
           return (
             <div
               key={plan.id}
-              className={`rounded-2xl p-6 ${
+              className={`rounded-2xl p-6 transition-all duration-300 ${
                 plan.popular
-                  ? "border-2 border-brand-600 shadow-lg relative"
-                  : "border hover:shadow-lg transition"
+                  ? "border-2 border-brand-600 shadow-lg hover:shadow-xl relative"
+                  : "border border-gray-200 hover:shadow-lg hover:-translate-y-1"
               }`}
             >
               {plan.popular && (
@@ -335,7 +335,7 @@ export default function AboPage() {
               {isCurrentPlan ? (
                 <button
                   disabled
-                  className="w-full py-2.5 rounded-lg text-sm font-semibold bg-gray-100 text-gray-400 cursor-not-allowed"
+                  className="w-full py-2.5 rounded-xl text-sm font-semibold bg-gray-100 text-gray-400 cursor-not-allowed"
                 >
                   {t("subscription.currentPlanBadge")}
                 </button>
@@ -343,12 +343,12 @@ export default function AboPage() {
                 <button
                   onClick={() => handleSubscribe(plan.id)}
                   disabled={!!subscribing}
-                  className={`w-full py-2.5 rounded-lg text-sm font-semibold transition ${
+                  className={`w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
                     isSubscribing
                       ? "bg-gray-200 text-gray-500 cursor-wait"
                       : plan.popular
-                        ? "bg-brand-600 text-white hover:bg-brand-700"
-                        : "border border-brand-600 text-brand-600 hover:bg-brand-50"
+                        ? "bg-brand-600 text-white hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5"
+                        : "border border-brand-600 text-brand-600 hover:bg-brand-50 hover:-translate-y-0.5"
                   }`}
                 >
                   {isSubscribing

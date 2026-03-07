@@ -99,7 +99,7 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       {/* Section 1: Aktueller Plan */}
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.currentPlan")}
         </h2>
@@ -107,14 +107,14 @@ export default function BillingPage() {
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
             <span
-              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold ${badgeColor}`}
+              className={`inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold ${badgeColor}`}
             >
               {plan.charAt(0).toUpperCase() + plan.slice(1)}
             </span>
           </div>
           <Link
             href="/einstellungen/abo"
-            className="bg-brand-600 text-white px-4 py-2 rounded-lg hover:bg-brand-700 transition text-sm font-medium"
+            className="bg-brand-600 text-white px-6 py-2.5 rounded-xl hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
           >
             {t("account.billing.changePlan")}
           </Link>
@@ -139,7 +139,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 2: Zahlungsmethode */}
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.paymentMethod")}
         </h2>
@@ -147,7 +147,7 @@ export default function BillingPage() {
         {hasSubscription ? (
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
-              <div className="bg-blue-50 rounded-lg p-2">
+              <div className="bg-blue-50 rounded-xl p-2.5">
                 <svg
                   className="w-6 h-6 text-blue-600"
                   fill="none"
@@ -172,7 +172,7 @@ export default function BillingPage() {
             <button
               onClick={handleManageBilling}
               disabled={manageLoading}
-              className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition text-sm font-medium disabled:opacity-50 disabled:cursor-wait"
+              className="border border-gray-200 text-gray-700 px-6 py-2.5 rounded-xl hover:bg-gray-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-wait"
             >
               {manageLoading
                 ? t("common.loading")
@@ -187,7 +187,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 3: Rechnungen */}
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.invoices")}
         </h2>
@@ -198,7 +198,7 @@ export default function BillingPage() {
 
       {/* Section 4: Vertrag widerrufen */}
       {hasSubscription && (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             {t("account.billing.cancelSection")}
           </h2>
@@ -209,7 +209,7 @@ export default function BillingPage() {
           <button
             onClick={handleCancelSubscription}
             disabled={cancelLoading}
-            className="border-2 border-red-500 text-red-600 px-4 py-2 rounded-lg hover:bg-red-50 transition text-sm font-semibold disabled:opacity-50 disabled:cursor-wait"
+            className="border-2 border-red-500 text-red-600 px-6 py-2.5 rounded-xl hover:bg-red-50 shadow-sm hover:-translate-y-0.5 transition-all duration-300 text-sm font-semibold disabled:opacity-50 disabled:cursor-wait"
           >
             {cancelLoading
               ? t("common.loading")
@@ -218,7 +218,7 @@ export default function BillingPage() {
 
           {cancelMessage && (
             <div
-              className={`mt-4 p-3 rounded-lg text-sm ${
+              className={`mt-4 p-3 rounded-xl text-sm ${
                 cancelMessage.type === "success"
                   ? "bg-green-50 text-green-700 border border-green-200"
                   : "bg-red-50 text-red-700 border border-red-200"

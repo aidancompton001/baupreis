@@ -241,19 +241,20 @@ export default function PreisgleitklauselPage() {
 
   return (
     <div>
-      <div className="mb-6">
+      <div className="mb-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">VHB 225</p>
         <h1 className="text-2xl font-bold text-gray-900">
           {t("escalation.title")}
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-500 mt-1">
           {t("escalation.subtitle")}
         </p>
       </div>
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
-      <div className="bg-white rounded-xl border p-6 mb-6">
-        <h2 className="font-semibold mb-4">{t("escalation.contractData")}</h2>
+      <div className="bg-white rounded-2xl border shadow-sm p-6 mb-6">
+        <h2 className="font-semibold mb-4 text-gray-800">{t("escalation.contractData")}</h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div>
@@ -267,11 +268,11 @@ export default function PreisgleitklauselPage() {
                 setBaseAmount(e.target.value);
                 setCalculated(false);
               }}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 mb-1">
               {t("escalation.contractDate")}
             </label>
             <input
@@ -281,11 +282,11 @@ export default function PreisgleitklauselPage() {
                 setBaseDate(e.target.value);
                 setCalculated(false);
               }}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 mb-1">
               {t("escalation.calculationDate")}
             </label>
             <input
@@ -295,11 +296,11 @@ export default function PreisgleitklauselPage() {
                 setCurrentDate(e.target.value);
                 setCalculated(false);
               }}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200"
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-600 mb-1">
+            <label className="block text-sm font-medium text-gray-600 mb-1">
               {t("escalation.fixedShare")}
             </label>
             <input
@@ -312,19 +313,19 @@ export default function PreisgleitklauselPage() {
                 setFestanteil(e.target.value);
                 setCalculated(false);
               }}
-              className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full border rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200"
             />
           </div>
         </div>
 
-        <h2 className="font-semibold mb-3">{t("escalation.materialShares")}</h2>
+        <h2 className="font-semibold mb-3 text-gray-800">{t("escalation.materialShares")}</h2>
         <div className="space-y-3 mb-4">
           {materials.map((m, idx) => (
-            <div key={idx} className="flex items-center gap-3">
+            <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50/50 border border-gray-100 hover:border-gray-200 transition-colors duration-200">
               <select
                 value={m.code}
                 onChange={(e) => updateMaterial(idx, "code", e.target.value)}
-                className="flex-1 border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="flex-1 border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
               >
                 {MATERIAL_OPTIONS.map((opt) => (
                   <option key={opt.code} value={opt.code}>
@@ -343,12 +344,12 @@ export default function PreisgleitklauselPage() {
                     updateMaterial(idx, "share", parseFloat(e.target.value) || 0)
                   }
                   placeholder={t("escalation.share")}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full border rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white"
                 />
               </div>
               <button
                 onClick={() => removeMaterial(idx)}
-                className="text-gray-400 hover:text-red-500 text-lg px-2"
+                className="text-gray-400 hover:text-red-500 text-lg px-2 transition-colors duration-200"
                 title={t("escalation.remove")}
               >
                 &times;
@@ -382,7 +383,7 @@ export default function PreisgleitklauselPage() {
         <button
           onClick={calculate}
           disabled={loading || !baseDate || !currentDate}
-          className="bg-brand-600 text-white px-6 py-2 rounded-lg hover:bg-brand-700 transition text-sm font-medium disabled:opacity-50"
+          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-6 py-2.5 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50"
         >
           {loading ? t("escalation.calculating") : t("escalation.calculate")}
         </button>
@@ -390,12 +391,12 @@ export default function PreisgleitklauselPage() {
 
       {/* Results */}
       {calculated && allPricesAvailable && (
-        <div className="bg-white rounded-xl border p-6">
+        <div className="bg-white rounded-2xl border shadow-sm p-6">
           <div className="flex items-start justify-between mb-4">
-            <h2 className="font-semibold">{t("escalation.result")}</h2>
+            <h2 className="font-semibold text-gray-800">{t("escalation.result")}</h2>
             <button
               onClick={exportCsv}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-white border text-gray-600 hover:bg-gray-50 transition"
+              className="px-4 py-2 rounded-xl text-sm font-medium bg-white border text-gray-600 hover:bg-gray-50 hover:shadow-sm transition-all duration-200"
             >
               {t("escalation.resultExport")}
             </button>
@@ -403,18 +404,18 @@ export default function PreisgleitklauselPage() {
 
           {/* Summary Cards */}
           <div className="grid sm:grid-cols-3 gap-4 mb-6">
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-gray-500">{t("escalation.resultBaseAmount")}</p>
-              <p className="text-xl font-bold">€{formatEur(base)}</p>
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-xl p-4 border border-gray-100">
+              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultBaseAmount")}</p>
+              <p className="text-xl font-bold text-gray-900">{"\u20AC"}{formatEur(base)}</p>
             </div>
-            <div className="bg-gray-50 rounded-lg p-4">
-              <p className="text-sm text-gray-500">{t("escalation.resultAdjustedAmount")}</p>
-              <p className="text-xl font-bold">€{formatEur(adjustedAmount)}</p>
+            <div className="bg-gradient-to-br from-brand-50 to-brand-100/30 rounded-xl p-4 border border-brand-100">
+              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultAdjustedAmount")}</p>
+              <p className="text-xl font-bold text-brand-700">{"\u20AC"}{formatEur(adjustedAmount)}</p>
             </div>
             <div
-              className={`rounded-lg p-4 ${difference > 0 ? "bg-red-50" : difference < 0 ? "bg-green-50" : "bg-gray-50"}`}
+              className={`rounded-xl p-4 border ${difference > 0 ? "bg-gradient-to-br from-red-50 to-red-100/30 border-red-100" : difference < 0 ? "bg-gradient-to-br from-green-50 to-green-100/30 border-green-100" : "bg-gradient-to-br from-gray-50 to-gray-100/50 border-gray-100"}`}
             >
-              <p className="text-sm text-gray-500">{t("escalation.resultDifference")}</p>
+              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultDifference")}</p>
               <p
                 className={`text-xl font-bold ${difference > 0 ? "text-red-600" : difference < 0 ? "text-green-600" : ""}`}
               >
@@ -493,7 +494,7 @@ export default function PreisgleitklauselPage() {
       )}
 
       {calculated && !allPricesAvailable && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 text-center shadow-sm">
           <p className="text-yellow-700">
             {t("escalation.missingPriceData")}
           </p>
