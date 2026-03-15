@@ -2,41 +2,45 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { useLocale } from "@/i18n/LocaleContext";
 
-const TOUR_STEPS = [
-  {
-    title: "Willkommen bei BauPreis AI!",
-    description: "Hier sehen Sie Ihre Materialpreise auf einen Blick. Jede Karte zeigt den aktuellen Preis und die Entwicklung.",
-    selector: "[data-tour='dashboard-grid']",
-  },
-  {
-    title: "BauPreis Index",
-    description: "Der BauPreis Index zeigt die Gesamtentwicklung aller Baumaterialpreise als einen Wert.",
-    selector: "[data-tour='baupreis-index']",
-  },
-  {
-    title: "Preisprognosen",
-    description: "KI-gestützte Prognosen helfen Ihnen, Preisentwicklungen vorherzusagen und besser einzukaufen.",
-    selector: "[data-tour='nav-prognose']",
-  },
-  {
-    title: "Preisalarme",
-    description: "Legen Sie Schwellenwerte fest und werden Sie per E-Mail oder Telegram benachrichtigt.",
-    selector: "[data-tour='nav-alerts']",
-  },
-  {
-    title: "Berichte",
-    description: "Erstellen Sie PDF- und CSV-Berichte für Ihre Projekte und Kollegen.",
-    selector: "[data-tour='nav-berichte']",
-  },
-  {
-    title: "Einstellungen",
-    description: "Hier können Sie Materialien auswählen, Ihr Abo verwalten und Integrationen einrichten.",
-    selector: "[data-tour='nav-einstellungen']",
-  },
-];
+function getTourSteps(t: (key: string) => string) {
+  return [
+    {
+      title: t("onboarding.welcome"),
+      description: t("tour.step1.description"),
+      selector: "[data-tour='dashboard-grid']",
+    },
+    {
+      title: t("tour.step2.title"),
+      description: t("tour.step2.description"),
+      selector: "[data-tour='baupreis-index']",
+    },
+    {
+      title: t("tour.step3.title"),
+      description: t("tour.step3.description"),
+      selector: "[data-tour='nav-prognose']",
+    },
+    {
+      title: t("tour.step4.title"),
+      description: t("tour.step4.description"),
+      selector: "[data-tour='nav-alerts']",
+    },
+    {
+      title: t("tour.step5.title"),
+      description: t("tour.step5.description"),
+      selector: "[data-tour='nav-berichte']",
+    },
+    {
+      title: t("tour.step6.title"),
+      description: t("tour.step6.description"),
+      selector: "[data-tour='nav-einstellungen']",
+    },
+  ];
+}
 
 export default function WelcomeTour() {
+  const { t } = useLocale();
   const [step, setStep] = useState(0);
   const [show, setShow] = useState(false);
   const [pos, setPos] = useState<{ top: number; left: number; below: boolean }>({ top: 0, left: 0, below: true });
@@ -52,8 +56,10 @@ export default function WelcomeTour() {
       .catch(() => {});
   }, []);
 
+  const tourSteps = getTourSteps(t);
+
   const updatePosition = useCallback((stepIdx: number) => {
-    const sel = TOUR_STEPS[stepIdx]?.selector;
+    const sel = tourSteps[stepIdx]?.selector;
     if (!sel) return;
     const el = document.querySelector(sel);
     if (!el) return;
@@ -64,7 +70,7 @@ export default function WelcomeTour() {
       left: Math.max(16, Math.min(rect.left, window.innerWidth - 340)),
       below,
     });
-  }, []);
+  }, [tourSteps]);
 
   useEffect(() => {
     if (show) updatePosition(step);
@@ -81,8 +87,8 @@ export default function WelcomeTour() {
 
   if (!show) return null;
 
-  const current = TOUR_STEPS[step];
-  const isLast = step === TOUR_STEPS.length - 1;
+  const current = tourSteps[step];
+  const isLast = step === tourSteps.length - 1;
 
   return createPortal(
     <>
@@ -100,7 +106,7 @@ export default function WelcomeTour() {
       >
         <div className="flex items-center justify-between mb-2">
           <h3 className="font-semibold text-gray-900 text-sm">{current.title}</h3>
-          <span className="text-xs text-gray-400">{step + 1} / {TOUR_STEPS.length}</span>
+          <span className="text-xs text-gray-400">{step + 1} / {tourSteps.length}</span>
         </div>
         <p className="text-sm text-gray-600 mb-4">{current.description}</p>
         <div className="flex items-center justify-between">
@@ -108,13 +114,13 @@ export default function WelcomeTour() {
             onClick={finish}
             className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
           >
-            Überspringen
+            {t("common.skip")}
           </button>
           <button
             onClick={() => isLast ? finish() : setStep((s) => s + 1)}
             className="bg-brand-600 text-white text-sm font-medium px-4 py-1.5 rounded-lg hover:bg-brand-700 transition-colors"
           >
-            {isLast ? "Fertig" : "Weiter"}
+            {isLast ? t("common.done") : t("common.next")}
           </button>
         </div>
       </div>

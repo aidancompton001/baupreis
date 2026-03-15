@@ -21,6 +21,8 @@ const ru: Record<string, string> = {
   "common.tryAgain": "Пожалуйста, попробуйте снова.",
   "common.connectionError": "Ошибка соединения.",
   "common.networkError": "Ошибка сети.",
+  "common.skip": "Пропустить",
+  "common.done": "Готово",
 
   // Navigation
   "nav.overview": "Обзор",
@@ -901,6 +903,19 @@ const ru: Record<string, string> = {
 
   "landing2.footerTagline": "Интеллектуальный мониторинг цен на стройматериалы",
   "landing2.footerLocation": "Разработано в Мюнхене, Германия",
+
+  // Welcome Tour
+  "tour.step1.description": "Здесь вы видите цены ваших материалов в одном месте. Каждая карточка показывает текущую цену и динамику.",
+  "tour.step2.title": "Индекс BauPreis",
+  "tour.step2.description": "Индекс BauPreis показывает общую динамику всех цен на стройматериалы в виде единого взвешенного значения.",
+  "tour.step3.title": "ИИ-прогнозы",
+  "tour.step3.description": "Прогнозы на основе ИИ помогают предсказывать изменения цен и принимать более выгодные решения по закупкам.",
+  "tour.step4.title": "Ценовые оповещения",
+  "tour.step4.description": "Установите пороговые значения и получайте уведомления по электронной почте или Telegram.",
+  "tour.step5.title": "Отчёты",
+  "tour.step5.description": "Создавайте PDF- и CSV-отчёты для ваших проектов и коллег.",
+  "tour.step6.title": "Настройки",
+  "tour.step6.description": "Здесь можно выбрать материалы, управлять подпиской и настроить интеграции.",
 };
 
 export default ru;

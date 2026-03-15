@@ -21,6 +21,8 @@ const en: Record<string, string> = {
   "common.tryAgain": "Please try again.",
   "common.connectionError": "Connection error.",
   "common.networkError": "Network error.",
+  "common.skip": "Skip",
+  "common.done": "Done",
 
   // Navigation
   "nav.overview": "Overview",
@@ -898,6 +900,19 @@ const en: Record<string, string> = {
 
   "landing2.footerTagline": "Intelligent Construction Material Price Monitoring",
   "landing2.footerLocation": "Built in Munich, Germany",
+
+  // Welcome Tour
+  "tour.step1.description": "Here you see your material prices at a glance. Each card shows the current price and trend.",
+  "tour.step2.title": "BauPreis Index",
+  "tour.step2.description": "The BauPreis Index shows the overall development of all construction material prices as a single weighted composite value.",
+  "tour.step3.title": "AI Forecasts",
+  "tour.step3.description": "AI-powered forecasts help you predict price trends and make smarter purchasing decisions.",
+  "tour.step4.title": "Price Alerts",
+  "tour.step4.description": "Set thresholds and get notified via email or Telegram when prices change.",
+  "tour.step5.title": "Reports",
+  "tour.step5.description": "Create PDF and CSV reports for your projects and colleagues.",
+  "tour.step6.title": "Settings",
+  "tour.step6.description": "Here you can select materials, manage your subscription, and set up integrations.",
 };
 
 export default en;

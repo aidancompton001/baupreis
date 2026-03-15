@@ -21,6 +21,8 @@ const de: Record<string, string> = {
   "common.tryAgain": "Bitte versuchen Sie es erneut.",
   "common.connectionError": "Verbindungsfehler.",
   "common.networkError": "Netzwerkfehler.",
+  "common.skip": "Überspringen",
+  "common.done": "Fertig",
 
   // Navigation
   "nav.overview": "\u00dcbersicht",
@@ -902,6 +904,19 @@ const de: Record<string, string> = {
 
   "landing2.footerTagline": "Intelligentes Monitoring von Baustoffpreisen",
   "landing2.footerLocation": "Entwickelt in M\u00fcnchen, Deutschland",
+
+  // Welcome Tour
+  "tour.step1.description": "Hier sehen Sie Ihre Materialpreise auf einen Blick. Jede Karte zeigt den aktuellen Preis und die Entwicklung.",
+  "tour.step2.title": "BauPreis Index",
+  "tour.step2.description": "Der BauPreis Index zeigt die Gesamtentwicklung aller Baumaterialpreise als einen gewichteten Composite-Wert.",
+  "tour.step3.title": "KI-Prognosen",
+  "tour.step3.description": "KI-gestützte Prognosen helfen Ihnen, Preisentwicklungen vorherzusagen und besser einzukaufen.",
+  "tour.step4.title": "Preisalarme",
+  "tour.step4.description": "Legen Sie Schwellenwerte fest und werden Sie per E-Mail oder Telegram benachrichtigt.",
+  "tour.step5.title": "Berichte",
+  "tour.step5.description": "Erstellen Sie PDF- und CSV-Berichte für Ihre Projekte und Kollegen.",
+  "tour.step6.title": "Einstellungen",
+  "tour.step6.description": "Hier können Sie Materialien auswählen, Ihr Abo verwalten und Integrationen einrichten.",
 };
 
 export default de;
