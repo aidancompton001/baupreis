@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLocale } from "@/i18n/LocaleContext";
 
 const settingsItems = [
@@ -14,6 +16,22 @@ const settingsItems = [
 
 export default function EinstellungenPage() {
   const { t } = useLocale();
+  const router = useRouter();
+  const [restarting, setRestarting] = useState(false);
+
+  async function handleRestartTour() {
+    setRestarting(true);
+    try {
+      await fetch("/api/user/preferences", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tour_completed: false }),
+      });
+    } catch {
+      // silently ignore network errors
+    }
+    router.push("/dashboard");
+  }
 
   return (
     <div>
@@ -36,6 +54,23 @@ export default function EinstellungenPage() {
             <p className="text-sm text-gray-500 mt-1 leading-relaxed">{t(item.descKey)}</p>
           </Link>
         ))}
+      </div>
+
+      {/* Product Tour restart */}
+      <div className="mt-8 pt-6 border-t border-gray-100">
+        <div className="flex items-center justify-between">
+          <div>
+            <h3 className="font-semibold text-gray-900">{t("settings.tour.title")}</h3>
+            <p className="text-sm text-gray-500 mt-0.5">{t("settings.tour.desc")}</p>
+          </div>
+          <button
+            onClick={handleRestartTour}
+            disabled={restarting}
+            className="shrink-0 ml-4 px-4 py-2 text-sm font-medium text-brand-600 border border-brand-200 rounded-lg hover:bg-brand-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {restarting ? "..." : t("settings.tour.restart")}
+          </button>
+        </div>
       </div>
     </div>
   );

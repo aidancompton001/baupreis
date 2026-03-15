@@ -241,8 +241,11 @@ const de: Record<string, string> = {
   "settings.telegram.desc": "Telegram-Bot verbinden f\u00fcr Preisalarme.",
   "settings.whatsapp.title": "WhatsApp",
   "settings.whatsapp.desc": "WhatsApp-Benachrichtigungen f\u00fcr Preisalarme.",
-  "settings.api.title": "API-Schl\u00fcssel",
+  "settings.api.title": "API-Schlüssel",
   "settings.api.desc": "Externen API-Zugang verwalten (Team-Plan).",
+  "settings.tour.title": "Produkttour",
+  "settings.tour.desc": "Geführte Einführung in BauPreis AI erneut starten.",
+  "settings.tour.restart": "Tour neu starten",
 
   // Settings / Materials
   "materials.title": "Materialien",

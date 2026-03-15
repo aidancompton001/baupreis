@@ -242,6 +242,9 @@ const ru: Record<string, string> = {
   "settings.whatsapp.desc": "WhatsApp-уведомления о ценах.",
   "settings.api.title": "API-ключи",
   "settings.api.desc": "Управление внешним API-доступом (план Team).",
+  "settings.tour.title": "Тур по продукту",
+  "settings.tour.desc": "Повторно запустить знакомство с BauPreis AI.",
+  "settings.tour.restart": "Запустить тур",
 
   // Materials Settings
   "materials.title": "Материалы",
