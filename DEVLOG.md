@@ -13,6 +13,395 @@
 
 ---
 
+### S029 — 2026-03-15 — Hotfix: белый экран /sign-in, пересборка сервера
+
+**Роли:** #7 SRE
+**Статус:** завершено
+
+**Что сделано:**
+- Диагностирован белый экран на baupreis.ais152.com/sign-in
+- Root cause: контейнер не пересобирался 3+ дня → стали Next.js Server Action хэши → браузерный кеш не совпадал → React crash
+- Логи показали: "Failed to find Server Action 'x'" и metals.dev 400
+- Выполнено: `docker compose up -d --build` → контейнер пересоздан → сайт 200 OK
+
+**Артефакты:** нет (infra-only action)
+
+**Следующие шаги:**
+- Настроить автоматический rebuild по расписанию (или webhook) чтобы предотвратить повтор
+- UX Overhaul: интеграция HelpIcon + кнопка Tour в /einstellungen
+
+---
+
+### S028 — 2026-03-14 — UX Overhaul: ТС v4.0 исполнение (Волны 1–5 COMPLETE)
+
+**Роли:** #3 Frontend, #4 Backend, #2 UX
+**Статус:** завершено
+
+**Что сделано:**
+- **Wave 1 (bugfixes):** max_materials 99→999, CATEGORY_LABELS mismatch (metals→metal, +steel), onboarding dynamic limits
+- **Wave 2 (API):** analysis API +category в SQL, /api/user/preferences (GET/PATCH), migration 005_user_preferences
+- **Wave 3 (UI):** Custom Tooltip, HelpIcon, CategoryIcon (6 SVG), DashboardNav rewrite (Lucide icons + data-tour)
+- **Wave 4 (dashboard):** Dashboard grouped by 6 categories, color-coded borders, CATEGORY_ORDER sorting
+- **Wave 5 (content):** 22 tooltip i18n keys (DE/EN/RU) — BauPreis Index, LME, Preisgleitklausel, Legierungsrechner, trends, recommendations, categories
+- **Fix:** @types/react-dom declaration, removed stale @ts-expect-error in MobileNav
+- **Build:** 0 errors, compiled successfully
+
+**Артефакты:** `de.ts/en.ts/ru.ts` (+22 tooltip keys), `CategoryIcon.tsx`, `WelcomeTour.tsx`, `Tooltip.tsx`, `HelpIcon.tsx`, `DashboardNav.tsx`, `dashboard/page.tsx`, `preferences/route.ts`, `005_user_preferences.sql`, `react-dom.d.ts`
+
+**Следующие шаги:**
+- Интеграция HelpIcon в dashboard/settings pages у конкретных элементов
+- Кнопка «Tour neu starten» в /einstellungen
+
+---
+
+### S027 — 2026-03-14 — UX Overhaul: Фидбек тестировщика → ТС v4.0 (3 раунда Landa)
+
+**Роли:** #9 EM, #11 UX Research, #1 PA, #2 UX, #14 Landa (3 раунда аудита), #3/#4 (предварительно)
+**Статус:** завершено — CEO утвердил, исполнено в S028
+
+**Что сделано:**
+
+- Фидбек тестировщика (стройка/закупки): «сырой, нужны объяснялки, иконки, почему 99 материалов»
+- Глубокий аудит: 4 параллельных исследования кода (categories, max_materials, UI components, analysis API)
+- 3 раунда Landa: ТС v1→FAIL → v2→FAIL → v3→CONDITIONAL PASS → **v4.0 READY**
+
+**Критичные находки Landa:**
+
+- CATEGORY_LABELS: `metals`≠`metal` (plural/singular mismatch), `steel` отсутствует
+- shadcn/ui **не установлен** (директория пуста) — tooltip будет custom на Tailwind
+- Analysis API не возвращает category — нужен data contract change
+- Onboarding hardcodes maxMaterials=5
+- Clerk webhook даёт Team features trial'у (зафиксировано, вне скоупа)
+
+**Ключевые решения v4:**
+
+- Custom Tooltip (без shadcn/ui init — не ломать кастомную архитектуру)
+- users.preferences JSONB + новый endpoint /api/user/preferences
+- 9 подзадач, 5 волн исполнения
+
+**Артефакты:** ТС v4.0 в чате, memory files обновлены
+
+---
+
+### S026 — 2026-03-13 — GTM Outreach: 5 Branchenverbände + Email-Signatur + CORRESPONDENCE.md
+
+**Роли:** #1 PA (стратегия, письма), #15 Draganov (оценка каналов)
+**Статус:** завершено
+
+**Что сделано:**
+- Анализ письма IHK (Kullnigg): вежливый отказ с 4 рекомендациями (Verbände, Messen, HWK, Standortportal)
+- Ответ IHK отправлен: спасибо + 2 уточняющих вопроса (конкретные Verbände, Messeübersicht)
+- Найдены 5 Branchenverbände Bau в München/Bayern (research)
+- Составлены и отправлены 3 outreach-письма: Bauindustrieverband, LBB, Bauinnung München
+- 2 черновика готовы: BIV Bayern, HWK München
+- STARTUP PROFI: Erstgespräch с Patrick Schäfer проведён, ждём контракт, старт 23.03
+- Создана профессиональная email-подпись (HTML, фирменный стиль #C8FF00): `docs/email-signature.html`
+- Создан `docs/CORRESPONDENCE.md` — реестр всех переписок (10 контактов, статусы, хронология)
+
+**Ключевые решения:**
+- GTM-стратегия: Branchenverbände = главный канал выхода на ЦА (1.300+ компаний через один контакт)
+- Email-подпись: двойной бренд (BauPreis AI + AiS152)
+
+**Артефакты:** `docs/email-signature.html`, `docs/CORRESPONDENCE.md`
+
+**Следующие шаги:**
+- Отправить письма BIV Bayern + HWK München
+- Ждать ответы от 5 контактов
+- При ответах — обновить CORRESPONDENCE.md
+
+---
+
+### S025 — 2026-03-12 — Gründerfragebogen STARTUP PROFI отправлен
+
+**Роли:** #12 BA (Dr. Michael Brandt)
+**Статус:** завершено
+
+**Что сделано:**
+- Заполнен и отправлен Gründerfragebogen на startup-profi.de
+- AVGS Nr. 843E328369-1 загружен (4 фото, переснять в лучшем качестве если попросят)
+- Исправлена ошибка: Berufserfahrung = `bis zwei Jahre` (IT only), не `mehr als zehn Jahre`
+- Schulabschluss = Hochschulabschluss, Berufsausbildung = Master/Diplom (Tourismusmanagement)
+- Kategorie = IT, Telekommunikation / digitales Geschäftsmodell
+- Coachingbeginn = 23.03.2026, Gründungszeitpunkt = 01.04.2026
+- Datenschutzerklärung подтверждена, форма отправлена
+
+**Результат:**
+- Подтверждение получено от notifications@cognitoforms.com
+- Patrick Schäfer (Patrick@startup-profi.com) ответил: старт 23.03.2026 возможен при подаче AVGS до 13.03.2026
+- Ответное письмо отправлено, запрошен Erstgespräch-терmin
+
+**Следующие шаги:**
+- Ждать звонка/письма от STARTUP PROFI (в течение 2 дней)
+- Erstgespräch с Patrick Schäfer — согласовать дату
+- Дедлайн AVGS: 10.04.2026
+
+---
+
+### S024 — 2026-03-12 — STARTUP PROFI найден / Письмо готово
+
+**Роли:** #12 Dr. Michael Brandt (BA), #13 Dr. Petra Hoffmann (Legal)
+**Статус:** завершено (ожидание ответа от провайдера)
+
+**Что сделано:**
+- Найден AZAV-аккредитованный провайдер: **STARTUP PROFI GmbH**, München
+- AZAV-сертификат: M-23-23802-5 (проверено в официальном реестре KURSNET)
+- Адрес: Maximilianstraße 35, München — в зоне действия AVGS (только München)
+- Modul 4 (Businessplan + Einstiegsgeld §16b) + Modul 7 (Tragfähigkeitsprüfung) — подходят
+- Подготовлено письмо: info@startup-profi.de — ссылка на AVGS Nr. 843E328369-1
+
+**Следующие шаги:**
+- Eduard отправляет письмо на info@startup-profi.de
+- Ждать ответа (дедлайн AVGS: 10.04.2026)
+- После подтверждения — заполнить Trägerbestätigung (стр. 4 AVGS)
+
+---
+
+### S023 — 2026-03-12 — УВОЛЬНЕНИЕ #12 и #13 / Конфликт AVGS-AktivSenioren
+
+**Роли:** #9 EM (Viktor Hartmann)
+**Статус:** завершено / критический инцидент
+
+**Что произошло:**
+- Jobcenter (I. Schulz) сообщил: AktivSenioren не является AVGS-аккредитованным провайдером
+- #12 Dr. Müller рекомендовал AktivSenioren с пометкой "AVGS? prüfen" но не верифицировал до отправки
+- #13 Dr. Fischer со-подписала документ без проверки
+- Результат: Jobcenter отказал в оплате AktivSenioren через AVGS, Auftrag 26628 завис
+- **#12 Dr. Stefan Müller — ГОЛОВА ОТРЕЗАНА. #13 Dr. Anna Fischer — ГОЛОВА ОТРЕЗАНА.**
+- TEAM.md обновлён — позиции #12 и #13 открыты
+
+**Что сделать следующим:**
+- Ответить Jobcenter (I. Schulz) через портал: запросить список AVGS-аккредитованных провайдеров
+- Дедлайн AVGS: 10.04.2026
+- Нанять новых #12 BA и #13 Legal по стандарту TEAM.md
+
+---
+
+### S022 — 2026-03-11 — GründerRegio M отказ + AktivSenioren 130€ подтверждён
+
+**Роли:** #12 BA, #13 Legal
+**Статус:** завершено
+
+**Что сделано:**
+- GründerRegio M (Bettina Wenzel): отказ — не сертифицированы для AVGS
+- Рекомендовали: salutavita.de (Verena Weihbrecht) — резерв
+- AktivSenioren Bayern подтвердили: 130€ оплачивает Jobcenter напрямую, счёт не придёт
+- Businessplan PDF готов: `docs/businessplan/Businessplan — BauPreis AI SaaS.pdf`
+
+**Следующие шаги:**
+- Ждать коуча от AktivSenioren (Auftrag 26628)
+- При звонке — спич готов, businessplan PDF отправить по запросу
+
+---
+
+### S021 — 2026-03-11 — AVGS-письмо отправлено, сессия закрыта
+
+**Роли:** #12 BA, #13 Legal
+**Статус:** завершено
+
+**Что сделано:**
+- Письмо про AVGS Nr. 843E328369-1 отправлено на info@aktivsenioren.de
+- Уточнено: 130€ должен оплатить Jobcenter, не клиент
+
+**Следующие шаги:**
+- Ждать ответа AktivSenioren (коуч свяжется по телефону или email)
+- При ответе от GründerRegio M — сравнить условия
+
+---
+
+### S020 — 2026-03-11 — AktivSenioren Bayern: Auftragsbestätigung получена
+
+**Роли:** #12 BA, #13 Legal
+**Статус:** завершено
+
+**Что сделано:**
+- Получена Auftragsbestätigung Nr. 26628
+- PDF сохранён: `docs/businessplan/aktivsenioren/26628_Auftrag.pdf`
+- Подготовлено письмо на info@aktivsenioren.de про AVGS Nr. 843E328369-1
+
+**Следующие шаги:**
+- Отправить письмо про AVGS на info@aktivsenioren.de
+- Если придёт ответ от GründerRegio M — сравнить условия, выбрать лучший
+
+---
+
+### S019 — 2026-03-11 — AktivSenioren Bayern: заявка подана успешно
+
+**Роли:** #12 BA, #13 Legal
+**Статус:** завершено
+
+**Что сделано:**
+- Заявка на сайте aktivsenioren.de/auftrag успешно отправлена
+- Выбрано: Existenzgründung + темы: Business/Finanzplanung, Tragfähigkeitsbescheinigung, Digitalisierung, Geschäftsmodell-Analyse, Vertrieb
+- Регион: München und Umland
+- Ждать Auftragsbestätigung + счёт на ebaias.muc@gmail.com
+- При получении счёта — уточнить оплату через AVGS Nr. 843E328369-1
+
+**Следующие шаги:**
+- Ждать письмо от AktivSenioren (Auftragsbestätigung)
+- При счёте — написать про AVGS, не платить самому
+
+---
+
+### S018 — 2026-03-11 — AktivSenioren Bayern ответили: AVGS подтверждён
+
+**Роли:** #12 BA, #13 Legal
+**Статус:** завершено
+
+**Что сделано:**
+- AktivSenioren Bayern (Roswitha Heiß) ответили через 6 минут на письмо
+- Подтвердили: принимают AVGS, 130€ оплачивает Jobcenter
+- Следующий шаг: создать заявку на aktivsenioren.de/auftrag/unterstuetzung-beauftragen
+- Указать AVGS Nr. 843E328369-1, gültig bis 10.04.2026
+
+**Артефакты:** `docs/businessplan/IHK_FACHKUNDIGE_STELLE.md` (обновлён)
+
+**Следующие шаги:**
+- Подать заявку на сайте AktivSenioren Bayern с данными AVGS
+- Ждать подтверждения начала коучинга (до 10.04.2026)
+
+---
+
+### S017 — 2026-03-11 — Legal: AVGS-Gutschein Jobcenter + письма Träger
+
+**Роли:** #13 Legal (анализ, письма), #12 BA (финансовый анализ)
+**Статус:** завершено
+
+**Что сделано:**
+- Проанализирована переписка с IHK München — отказ по SGB II (IHK работает только с ALG I)
+- Jobcenter München-Giesing выдал **AVGS-Gutschein Nr. 843E328369** (11.03–10.04.2026)
+- Содержание AVGS: Gründungscoaching + Businessplan-Prüfung + Tragfähigkeitsbescheinigung — **бесплатно**
+- Составлены и отправлены письма в AktivSenioren Bayern + GründerRegio M
+- Создан документ `docs/businessplan/IHK_FACHKUNDIGE_STELLE.md`
+
+**Ключевые решения:**
+- AVGS покрывает Tragfähigkeitsbescheinigung (0 € вместо 130–199 €) + коучинг по бизнес-плану
+- Срок: маршрут должен начаться до 10.04.2026
+
+**Артефакты:** `docs/businessplan/IHK_FACHKUNDIGE_STELLE.md`, `docs/businessplan/jobcenter/` (4 фото)
+
+**Следующие шаги:**
+- Ждать ответа от AktivSenioren / GründerRegio M
+- При подтверждении: передать Businessplan PDF + Trägerbestätigungsformular
+
+---
+
+### S016 — 2026-03-11 — Fix: AI Chat не работал (Caddy SSE + API key rotation)
+
+**Роли:** #7 SRE (ротация ключа, деплой, Caddy), #4 Backend (диагностика), #8 QA (верификация)
+**Статус:** завершено
+
+**Что сделано:**
+- Ротация ANTHROPIC_API_KEY: `sk-ant-api03-0Jc...cwAA` → `sk-ant-api03-m1vc...QAA`
+- Обновлён `CREDENTIALS.md` + `/root/baupreis/.env` на сервере
+- **Корневая причина AI Chat:** Caddy отсутствовал `flush_interval -1` для `/api/chat*` → SSE-стрим буферизировался, браузер видел только spinner, ответ никогда не доходил
+- Добавлен `@sse { path /api/chat* }` блок с `flush_interval -1` в `/etc/caddy/Caddyfile`
+- Caddy перезагружен (`caddy reload`), конфиг валиден
+
+**Ключевые решения:**
+- `docker compose restart` НЕ перечитывает `.env` → нужен `--force-recreate`
+- SSE через Caddy требует явного `flush_interval -1`, иначе стрим буферизируется
+
+**Артефакты:** `CREDENTIALS.md`, `/root/baupreis/.env`, `/etc/caddy/Caddyfile`
+
+**Следующие шаги:**
+- Нанять нового #7 SRE (текущий уволен за неполное выполнение деплоя)
+- IHK Excel Finanzplan
+
+---
+
+### S015 — 2026-03-10 — Feat: 5 выставок в бизнес-план + полный пересчёт Kapitalbedarfsplan
+
+**Роли:** #12 BA (формализация, расчёт), #14 Landa (аудит), #9 EM (координация)
+**Статус:** завершено
+
+**Что сделано:**
+- Добавлены 5 выставок: DACH+HOLZ (850€), digitalBAU Köln (500€), ARCHITECT@WORK München (42€), Construction Summit Hamburg (560€), Zukunft Bau Stuttgart (105€)
+- Создан `scripts/calc_exhibitions.py` — детальный расчёт бюджетов (вход, проезд, проживание, питание, печатные материалы)
+- Kapitalbedarfsplan пересчитан: A.Grundkosten 771 + B.Marketing 3.587 + C.Infrastruktur 1.142 = **5.500 €**
+- Finanzierungsplan: Überdeckung +3.084 € (Eigenkapital 200 + Einstiegsgeld 3.384 + Investitionszuschuss 5.000 = 8.584)
+- Обновлён `scripts/verify_businessplan.py` — **0 ошибок, 0 предупреждений**
+- Пропагация во все 8 файлов: businessplan/ + gewerbe/ × {DE.md, DE.html, RU.md, RU.html}
+- Исправлены остатки старых значений: 4.500→5.500 в risk-секциях, 905→5.500 в gewerbe
+- Исправлена gewerbe/BUSINESSPLAN_RU.html: старая плоская структура → правильная A/B/C
+
+**Ключевые решения:**
+- Kapitalbedarf 5.500 € > max. Investitionszuschuss (5.000 €) — обосновывает полный грант § 16c
+
+**Артефакты:** `scripts/calc_exhibitions.py`, `scripts/verify_businessplan.py`, 8 файлов BUSINESSPLAN, `SPEECH_JOBCENTER.html`
+
+**Следующие шаги:**
+- IHK Excel Finanzplan
+
+---
+
+### S014 — 2026-03-10 — Fix: выставки перенесены с Monat 7-12 на Monat 1-3
+
+**Роли:** #12 BA (формализация), #9 EM (координация)
+**Статус:** завершено
+
+**Что сделано:**
+- Коллизия: ARCHITECT@WORK = April 2026 = Month 2, но в маркетинге выставки были в Monat 7-12. Исправлено
+- Добавлено «Bereits durchgeführt» (DACH+HOLZ Köln Feb.2026) перед Monat 1-3
+- Monat 1-3: +ARCHITECT@WORK München. Monat 4-6: +Google Ads (с расчётом CPC). Monat 7-12: «Skalierung + weitere Messen»
+- Бюджет: Messen M1-6 = 30€ (было 0€), Gesamt M1-6 = ~50€, M7-12 = ~100-150€
+- Paddle-Checkout → Stripe-Checkout в Vertriebsprozess
+- Пропагация во все 8 файлов: businessplan/ + gewerbe/ × {DE.md, DE.html, RU.md, RU.html}
+- verify_businessplan.py: 0 ошибок, 0 предупреждений
+
+**Артефакты:** 4 MD + 4 HTML в `docs/businessplan/` и `docs/gewerbe/`
+
+**Следующие шаги:**
+- IHK Excel Finanzplan
+- Draganov: замена Paddle→Stripe в финансовых расчётах (отдельная задача)
+
+---
+
+### S013 — 2026-03-10 — Hotfix: дата приезда 2022→Feb.2025 + Telegram→WhatsApp
+
+**Роли:** #14 Landa (аудит), #9 EM (координация), #12 BA (верификация)
+**Статус:** завершено
+
+**Что сделано:**
+- КРИТИЧЕСКИЙ HOTFIX: Werdegang в бизнес-плане указывал «2022–2023 Ankunft in Deutschland» — ЛОЖЬ. Исправлено на «Feb. 2025» во всех 8 файлах (businessplan + gewerbe, MD + HTML + RU)
+- Перестроен таймлайн: Videoproduktion 2020→2024, Programmierung 2022→2024 (Украина), Ankunft Feb. 2025
+- LEBENSLAUF: «Eigene Projekte, München» для 01.2024 → «Remote / München»
+- Telegram→WhatsApp: исправлено в gewerbe/ (BUSINESSPLAN DE/RU MD/HTML) + обоих LEBENSLAUF
+- Полная верификация команды для JobCenter 11.03: verify_businessplan.py 0 ошибок, #14 кросс-проверка 4 документов — 0 расхождений
+
+**Ключевые решения:**
+- Источник ошибки: галлюцинация при генерации бизнес-плана, НЕ из резюме
+
+**Артефакты:** 10 файлов в `docs/businessplan/` и `docs/gewerbe/`
+
+**Следующие шаги:**
+- Устранить коллизию выставок в маркетинг-плане (Messen в Monat 7-12, но ARCHITECT@WORK = April = Month 2)
+
+---
+
+### S012 — 2026-03-07 — Fix: Clerk → LocalSignIn (auth fix)
+
+**Роли:** #7 SRE, #4 Backend Engineer
+**Статус:** завершено
+
+**Что сделано:**
+- Clerk CDN не грузился → /sign-in показывал blank screen
+- Переключили sign-in/sign-up на LocalSignIn (email + baupreis_session cookie)
+- Удалили ClerkProviderWrapper из root layout (нет загрузки Clerk JS)
+- Middleware → plainMiddleware (проверка baupreis_session cookie)
+- Dashboard layout → LogoutButton вместо Clerk UserButton
+- Деплой: --no-cache build, оба контейнера healthy
+
+**Ключевые решения:**
+- Clerk отключен на уровне UI/middleware — ADR-002 требует пересмотра
+
+**Артефакты:** `sign-in/page.tsx`, `sign-up/page.tsx`, `middleware.ts`, `layout.tsx`, `(dashboard)/layout.tsx`
+
+**Следующие шаги:**
+- Проверить логин в браузере CEO (Ctrl+Shift+R)
+- Решить: удалить Clerk полностью или оставить webhook для будущего
+
+---
+
 ### S011 — 2026-03-07 — Premium visual upgrade: 6 dashboard pages
 
 **Роли:** #3 Frontend Engineer

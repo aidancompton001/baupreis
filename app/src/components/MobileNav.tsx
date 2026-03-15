@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-// @ts-expect-error — @types/react-dom not installed
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleContext";

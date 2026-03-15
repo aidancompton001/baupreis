@@ -5,22 +5,34 @@ import { usePathname } from "next/navigation";
 import { useLocale } from "@/i18n/LocaleContext";
 import { useOrg } from "@/lib/hooks/useOrg";
 import PlanBadge from "@/components/dashboard/PlanBadge";
+import {
+  BarChart3,
+  Bot,
+  MessageSquare,
+  Ruler,
+  FlaskConical,
+  Bell,
+  FileText,
+  Settings,
+  User,
+} from "lucide-react";
 
 const navItems: Array<{
   href: string;
   labelKey: string;
-  icon: string;
+  icon: React.ReactNode;
+  dataTour?: string;
   plan?: "Pro" | "Team";
 }> = [
-  { href: "/dashboard", labelKey: "nav.overview", icon: "📊" },
-  { href: "/prognose", labelKey: "nav.forecasts", icon: "🤖", plan: "Pro" },
-  { href: "/chat", labelKey: "nav.chat", icon: "💬", plan: "Pro" },
-  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: "📐", plan: "Pro" },
-  { href: "/legierungsrechner", labelKey: "nav.alloyCalc", icon: "⚗️", plan: "Pro" },
-  { href: "/alerts", labelKey: "nav.alerts", icon: "🔔" },
-  { href: "/berichte", labelKey: "nav.reports", icon: "📄" },
-  { href: "/einstellungen", labelKey: "nav.settings", icon: "⚙️" },
-  { href: "/account", labelKey: "nav.account", icon: "👤" },
+  { href: "/dashboard", labelKey: "nav.overview", icon: <BarChart3 size={18} /> },
+  { href: "/prognose", labelKey: "nav.forecasts", icon: <Bot size={18} />, dataTour: "nav-prognose", plan: "Pro" },
+  { href: "/chat", labelKey: "nav.chat", icon: <MessageSquare size={18} />, plan: "Pro" },
+  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: <Ruler size={18} />, plan: "Pro" },
+  { href: "/legierungsrechner", labelKey: "nav.alloyCalc", icon: <FlaskConical size={18} />, plan: "Pro" },
+  { href: "/alerts", labelKey: "nav.alerts", icon: <Bell size={18} />, dataTour: "nav-alerts" },
+  { href: "/berichte", labelKey: "nav.reports", icon: <FileText size={18} />, dataTour: "nav-berichte" },
+  { href: "/einstellungen", labelKey: "nav.settings", icon: <Settings size={18} />, dataTour: "nav-einstellungen" },
+  { href: "/account", labelKey: "nav.account", icon: <User size={18} /> },
 ];
 
 // Mobile: show only core 5 items (Chat + Gleitklausel accessible via desktop sidebar)
@@ -50,13 +62,14 @@ export default function DashboardNav() {
               <Link
                 key={item.href}
                 href={item.href}
+                data-tour={item.dataTour}
                 className={`sidebar-item ${
                   active
                     ? "sidebar-item-active"
                     : "sidebar-item-inactive"
                 }`}
               >
-                <span>{item.icon}</span>
+                {item.icon}
                 <span>{t(item.labelKey)}</span>
                 {isTrial && item.plan && <PlanBadge plan={item.plan} />}
               </Link>
@@ -65,7 +78,7 @@ export default function DashboardNav() {
         </nav>
       </aside>
 
-      {/* Mobile Bottom Nav — ALL 5 ITEMS */}
+      {/* Mobile Bottom Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-50">
         <div className="flex justify-around py-2">
           {mobileNavItems.map((item) => {
@@ -80,7 +93,7 @@ export default function DashboardNav() {
                     : "text-gray-600 hover:text-brand-600"
                 }`}
               >
-                <span className="text-base">{item.icon}</span>
+                <span className="mb-0.5">{item.icon}</span>
                 <span className="truncate max-w-[60px]">{t(item.labelKey)}</span>
               </Link>
             );

@@ -10,11 +10,13 @@ import {
 } from "@/lib/utils";
 import { SkeletonDashboardGrid } from "@/components/dashboard/Skeleton";
 import { useLocale } from "@/i18n/LocaleContext";
+import CategoryIcon from "@/components/dashboard/CategoryIcon";
 
 interface AnalysisItem {
   code: string;
   name_de: string;
   unit: string;
+  category: string;
   trend: string;
   change_pct_7d: number;
   change_pct_30d: number;
@@ -36,6 +38,26 @@ interface IndexData {
   change_pct_1d: number | null;
   change_pct_30d: number | null;
 }
+
+const CATEGORY_COLORS: Record<string, string> = {
+  steel: "text-slate-600",
+  metal: "text-blue-600",
+  concrete: "text-stone-600",
+  wood: "text-amber-600",
+  insulation: "text-rose-600",
+  energy: "text-orange-600",
+};
+
+const CATEGORY_BORDER: Record<string, string> = {
+  steel: "border-l-slate-400",
+  metal: "border-l-blue-400",
+  concrete: "border-l-stone-400",
+  wood: "border-l-amber-400",
+  insulation: "border-l-rose-400",
+  energy: "border-l-orange-400",
+};
+
+const CATEGORY_ORDER = ["steel", "metal", "concrete", "wood", "insulation", "energy"];
 
 export default function DashboardPage() {
   const { t } = useLocale();
@@ -68,6 +90,19 @@ export default function DashboardPage() {
       })
       .catch(() => setLoading(false));
   }, []);
+
+  // Group analysis by category
+  const grouped = analysis.reduce(
+    (acc, item) => {
+      const cat = item.category || "other";
+      if (!acc[cat]) acc[cat] = [];
+      acc[cat].push(item);
+      return acc;
+    },
+    {} as Record<string, AnalysisItem[]>
+  );
+
+  const sortedCategories = CATEGORY_ORDER.filter((c) => grouped[c]?.length > 0);
 
   if (loading) {
     return (
@@ -102,7 +137,7 @@ export default function DashboardPage() {
       </div>
 
       {indexData && (
-        <div className="mb-6 bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-700 rounded-2xl p-6 text-white shadow-[0_4px_20px_rgba(99,102,241,0.25)] dash-appear">
+        <div data-tour="baupreis-index" className="mb-6 bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-700 rounded-2xl p-6 text-white shadow-[0_4px_20px_rgba(99,102,241,0.25)] dash-appear">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-brand-100 text-sm font-medium">{t("dashboard.indexLabel")}</p>
@@ -139,85 +174,99 @@ export default function DashboardPage() {
         </div>
       )}
 
-      <div className="mb-4">
-        <span className="eyebrow">{t("dashboard.indexLabel")}</span>
-      </div>
+      <div data-tour="dashboard-grid">
+        {sortedCategories.map((category) => {
+          const items = grouped[category];
+          const colorClass = CATEGORY_COLORS[category] || "text-gray-600";
+          const borderClass = CATEGORY_BORDER[category] || "border-l-gray-300";
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {analysis.map((item, idx) => {
-          const latestPrice = priceMap.get(item.code);
           return (
-            <Link
-              key={item.code}
-              href={`/material/${item.code}`}
-              className={`dash-card p-4 dash-appear dash-delay-${Math.min(idx + 1, 8)}`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-medium text-sm text-gray-900 leading-tight">
-                  {item.name_de}
-                </h3>
-                <span className={`text-lg ${getTrendColor(item.trend)}`}>
-                  {getTrendArrow(item.trend)}
-                </span>
+            <div key={category} className="mb-6">
+              <div className={`flex items-center gap-2 mb-3 ${colorClass}`}>
+                <CategoryIcon category={category} size={18} />
+                <h2 className="font-semibold text-sm uppercase tracking-wide">
+                  {t(`materials.category.${category}`)}
+                </h2>
               </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {items.map((item, idx) => {
+                  const latestPrice = priceMap.get(item.code);
+                  return (
+                    <Link
+                      key={item.code}
+                      href={`/material/${item.code}`}
+                      className={`dash-card p-4 border-l-4 ${borderClass} dash-appear dash-delay-${Math.min(idx + 1, 8)}`}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <h3 className="font-medium text-sm text-gray-900 leading-tight">
+                          {item.name_de}
+                        </h3>
+                        <span className={`text-lg ${getTrendColor(item.trend)}`}>
+                          {getTrendArrow(item.trend)}
+                        </span>
+                      </div>
 
-              {latestPrice && (
-                <p className="text-lg font-bold text-gray-900 mb-2">
-                  {formatPrice(latestPrice.price_eur, latestPrice.unit)}
-                </p>
-              )}
+                      {latestPrice && (
+                        <p className="text-lg font-bold text-gray-900 mb-2">
+                          {formatPrice(latestPrice.price_eur, latestPrice.unit)}
+                        </p>
+                      )}
 
-              <div className="space-y-1">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">{t("dashboard.days7")}</span>
-                  <span
-                    className={
-                      item.change_pct_7d > 0
-                        ? "text-red-600"
-                        : item.change_pct_7d < 0
-                          ? "text-green-600"
-                          : "text-gray-600"
-                    }
-                  >
-                    {formatPercent(item.change_pct_7d)}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-500">{t("dashboard.days30")}</span>
-                  <span
-                    className={
-                      item.change_pct_30d > 0
-                        ? "text-red-600"
-                        : item.change_pct_30d < 0
-                          ? "text-green-600"
-                          : "text-gray-600"
-                    }
-                  >
-                    {formatPercent(item.change_pct_30d)}
-                  </span>
-                </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-500">{t("dashboard.days7")}</span>
+                          <span
+                            className={
+                              item.change_pct_7d > 0
+                                ? "text-red-600"
+                                : item.change_pct_7d < 0
+                                  ? "text-green-600"
+                                  : "text-gray-600"
+                            }
+                          >
+                            {formatPercent(item.change_pct_7d)}
+                          </span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-500">{t("dashboard.days30")}</span>
+                          <span
+                            className={
+                              item.change_pct_30d > 0
+                                ? "text-red-600"
+                                : item.change_pct_30d < 0
+                                  ? "text-green-600"
+                                  : "text-gray-600"
+                            }
+                          >
+                            {formatPercent(item.change_pct_30d)}
+                          </span>
+                        </div>
+                      </div>
+
+                      {item.recommendation && (
+                        <div className="mt-3 pt-3 border-t">
+                          <span
+                            className={`text-xs font-medium px-2 py-1 rounded-full ${
+                              item.recommendation === "buy_now"
+                                ? "bg-green-100 text-green-700"
+                                : item.recommendation === "wait"
+                                  ? "bg-yellow-100 text-yellow-700"
+                                  : "bg-gray-100 text-gray-700"
+                            }`}
+                          >
+                            {item.recommendation === "buy_now"
+                              ? t("dashboard.buyNow")
+                              : item.recommendation === "wait"
+                                ? t("dashboard.wait")
+                                : t("dashboard.observe")}
+                          </span>
+                        </div>
+                      )}
+                    </Link>
+                  );
+                })}
               </div>
-
-              {item.recommendation && (
-                <div className="mt-3 pt-3 border-t">
-                  <span
-                    className={`text-xs font-medium px-2 py-1 rounded-full ${
-                      item.recommendation === "buy_now"
-                        ? "bg-green-100 text-green-700"
-                        : item.recommendation === "wait"
-                          ? "bg-yellow-100 text-yellow-700"
-                          : "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {item.recommendation === "buy_now"
-                      ? t("dashboard.buyNow")
-                      : item.recommendation === "wait"
-                        ? t("dashboard.wait")
-                        : t("dashboard.observe")}
-                  </span>
-                </div>
-              )}
-            </Link>
+            </div>
           );
         })}
       </div>

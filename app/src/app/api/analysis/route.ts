@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     let query: string;
     if (material) {
       query = `
-        SELECT a.*, m.name_de, m.code, m.unit
+        SELECT a.*, m.name_de, m.code, m.unit, m.category
         FROM analysis a
         JOIN materials m ON a.material_id = m.id
         WHERE 1=1 ${materialCondition} ${orgFilter}
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       `;
     } else {
       query = `
-        SELECT DISTINCT ON (a.material_id) a.*, m.name_de, m.code, m.unit
+        SELECT DISTINCT ON (a.material_id) a.*, m.name_de, m.code, m.unit, m.category
         FROM analysis a
         JOIN materials m ON a.material_id = m.id
         WHERE 1=1 ${materialCondition} ${orgFilter}

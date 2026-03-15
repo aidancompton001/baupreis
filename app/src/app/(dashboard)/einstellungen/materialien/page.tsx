@@ -16,7 +16,8 @@ export default function MaterialienPage() {
   const { t } = useLocale();
 
   const CATEGORY_LABELS: Record<string, string> = {
-    metals: t("materials.category.metals"),
+    steel: t("materials.category.steel"),
+    metal: t("materials.category.metal"),
     wood: t("materials.category.wood"),
     concrete: t("materials.category.concrete"),
     insulation: t("materials.category.insulation"),
@@ -44,7 +45,7 @@ export default function MaterialienPage() {
   }, []);
 
   const selectedCount = materials.filter((m) => m.selected).length;
-  const isLimited = plan === "basis" || plan === "trial";
+  const isLimited = plan === "basis";
 
   function toggleMaterial(id: string) {
     setMaterials((prev) =>
@@ -186,7 +187,7 @@ export default function MaterialienPage() {
 
       {isLimited && (
         <p className="mt-4 text-sm text-gray-500">
-          {t("materials.planLimit", { plan: plan === "trial" ? "Trial" : "Basis", max: maxMaterials })}{" "}
+          {t("materials.planLimit", { plan: "Basis", max: maxMaterials })}{" "}
           <a href="/einstellungen/abo" className="text-brand-600 hover:underline">
             {t("materials.upgrade")}
           </a>

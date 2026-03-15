@@ -4,19 +4,17 @@ CREDENTIALS.md
 
 # docker volumes
 postgres_data/
-n8n_data/
-traefik_letsencrypt/
-
-# local files
-local-files/
 
 # OS
 .DS_Store
 Thumbs.db
+desktop.ini
 
 # IDE
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # Node
 node_modules/
@@ -25,8 +23,8 @@ node_modules/
 *.tar
 *.tar.gz
 
-# Windows artifacts
-nul
+# Binary / generated
+*.pdf
 
 # Claude local
 .claude/

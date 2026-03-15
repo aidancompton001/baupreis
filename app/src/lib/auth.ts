@@ -94,7 +94,7 @@ async function autoCreateOrgForClerkUser(clerkUserId: string) {
         max_materials, max_users, max_alerts,
         features_telegram, features_forecast, features_api, features_pdf_reports)
        VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
-        99, 1, 999, true, true, false, false)
+        999, 1, 999, true, true, false, false)
        RETURNING *`,
       [name, slug]
     );

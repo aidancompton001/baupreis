@@ -20,10 +20,12 @@ export default function OnboardingPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
-  const maxMaterials = 5;
+  const [maxMaterials, setMaxMaterials] = useState(16);
+  const showLimit = maxMaterials < 100;
 
   const CATEGORY_LABELS: Record<string, string> = {
-    metals: t("materials.category.metals"),
+    steel: t("materials.category.steel"),
+    metal: t("materials.category.metal"),
     wood: t("materials.category.wood"),
     concrete: t("materials.category.concrete"),
     insulation: t("materials.category.insulation"),
@@ -36,6 +38,7 @@ export default function OnboardingPage() {
       .then((r) => r.json())
       .then((data) => {
         if (data.materials) setMaterials(data.materials);
+        if (data.max_materials) setMaxMaterials(data.max_materials);
       })
       .catch(() => {});
   }, []);
@@ -43,7 +46,7 @@ export default function OnboardingPage() {
   function toggleMaterial(id: string) {
     setSelectedIds((prev) => {
       if (prev.includes(id)) return prev.filter((x) => x !== id);
-      if (prev.length >= maxMaterials) return prev;
+      if (showLimit && prev.length >= maxMaterials) return prev;
       return [...prev, id];
     });
   }
@@ -148,11 +151,15 @@ export default function OnboardingPage() {
                 {t("onboarding.chooseMaterials")}
               </h1>
               <p className="text-gray-600">
-                {t("onboarding.chooseMaterialsHint", { max: maxMaterials })}
+                {showLimit
+                  ? t("onboarding.chooseMaterialsHint", { max: maxMaterials })
+                  : t("onboarding.chooseMaterials")}
               </p>
-              <div className="mt-3 inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-sm font-medium px-3 py-1.5 rounded-full">
-                {t("onboarding.selectedOf", { selected: selectedIds.length, max: maxMaterials })}
-              </div>
+              {showLimit && (
+                <div className="mt-3 inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-sm font-medium px-3 py-1.5 rounded-full">
+                  {t("onboarding.selectedOf", { selected: selectedIds.length, max: maxMaterials })}
+                </div>
+              )}
             </div>
 
             {Object.entries(grouped).map(([category, mats]) => (
@@ -164,7 +171,7 @@ export default function OnboardingPage() {
                   {mats.map((m) => {
                     const isSelected = selectedIds.includes(m.id);
                     const disabled =
-                      !isSelected && selectedIds.length >= maxMaterials;
+                      showLimit && !isSelected && selectedIds.length >= maxMaterials;
                     return (
                       <button
                         key={m.id}

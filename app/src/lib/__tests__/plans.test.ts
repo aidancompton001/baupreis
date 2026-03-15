@@ -4,7 +4,7 @@ import { PLAN_LIMITS, PLAN_PRICES, applyPlanToOrg } from "../plans";
 describe("PLAN_LIMITS", () => {
   it("trial has Pro-level access (not Team)", () => {
     const trial = PLAN_LIMITS.trial;
-    expect(trial.materials).toBe(99);
+    expect(trial.materials).toBe(999);
     expect(trial.users).toBe(1);
     expect(trial.alerts).toBe(999);
     expect(trial.telegram).toBe(true);
@@ -26,7 +26,7 @@ describe("PLAN_LIMITS", () => {
 
   it("pro has telegram and forecast but no api/pdf", () => {
     const pro = PLAN_LIMITS.pro;
-    expect(pro.materials).toBe(99);
+    expect(pro.materials).toBe(999);
     expect(pro.telegram).toBe(true);
     expect(pro.forecast).toBe(true);
     expect(pro.api).toBe(false);
@@ -35,7 +35,7 @@ describe("PLAN_LIMITS", () => {
 
   it("team has all features", () => {
     const team = PLAN_LIMITS.team;
-    expect(team.materials).toBe(99);
+    expect(team.materials).toBe(999);
     expect(team.users).toBe(5);
     expect(team.alerts).toBe(999);
     expect(team.telegram).toBe(true);
@@ -66,7 +66,7 @@ describe("applyPlanToOrg", () => {
   it("returns correct trial org fields", () => {
     const result = applyPlanToOrg("trial");
     expect(result.plan).toBe("trial");
-    expect(result.max_materials).toBe(99);
+    expect(result.max_materials).toBe(999);
     expect(result.max_users).toBe(1);
     expect(result.features_telegram).toBe(true);
     expect(result.features_forecast).toBe(true);

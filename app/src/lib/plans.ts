@@ -1,6 +1,6 @@
 export const PLAN_LIMITS = {
   trial: {
-    materials: 99,
+    materials: 999,
     users: 1,
     alerts: 999,
     telegram: true,
@@ -18,7 +18,7 @@ export const PLAN_LIMITS = {
     pdf: false,
   },
   pro: {
-    materials: 99,
+    materials: 999,
     users: 1,
     alerts: 999,
     telegram: true,
@@ -27,7 +27,7 @@ export const PLAN_LIMITS = {
     pdf: false,
   },
   team: {
-    materials: 99,
+    materials: 999,
     users: 5,
     alerts: 999,
     telegram: true,
