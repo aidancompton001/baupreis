@@ -177,6 +177,59 @@ function Shell({
                     "query-input": "required name=search_term_string",
                   },
                 },
+                {
+                  "@type": "FAQPage",
+                  mainEntity: [
+                    {
+                      "@type": "Question",
+                      name: "Woher kommen die Preisdaten?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Wir beziehen unsere Daten von offiziellen Quellen: LME (London Metal Exchange) über Metals.Dev API, Destatis (Statistisches Bundesamt) und direkte Marktdaten.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Wie genau sind die KI-Prognosen?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Unsere KI analysiert historische Daten, Markttrends und externe Faktoren. Jede Prognose enthält einen Konfidenzwert (0–100%), damit Sie die Zuverlässigkeit einschätzen können.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Kann ich den Plan jederzeit wechseln?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Ja, Sie können jederzeit upgraden oder downgraden. Bei Upgrades wird der Restbetrag angerechnet.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Wie funktionieren die Telegram-Alarme?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Verbinden Sie Ihren Telegram-Account in den Einstellungen. Danach erhalten Sie Preisalarme direkt als Telegram-Nachricht.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Ist mein Unternehmen DSGVO-konform geschützt?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Ja. Alle Daten werden auf Hetzner-Servern in Nürnberg (Deutschland) gespeichert. Wir verarbeiten nur die nötigsten Daten.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Welche Materialien werden überwacht?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Aktuell 16 Materialien: Stahl (Bewehrungsstahl, Träger), Kupfer, Aluminium, Zink, Nickel, Beton, Zement, Holz (KVH, BSH, OSB), Dämmstoffe (EPS, XPS, Mineralwolle), Diesel und Industriestrom.",
+                      },
+                    },
+                  ],
+                },
               ],
             }),
           }}

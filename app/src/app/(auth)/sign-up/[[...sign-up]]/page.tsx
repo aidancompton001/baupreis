@@ -49,7 +49,7 @@ function LocalSignUp() {
             Kostenlos registrieren
           </h1>
           <p className="text-gray-500 mt-2">
-            7 Tage kostenlos testen. Keine Kreditkarte erforderlich.
+            14 Tage kostenlos testen. Keine Kreditkarte erforderlich.
           </p>
         </div>
 

@@ -13,6 +13,61 @@
 
 ---
 
+### S031 — 2026-03-18 — SEO Phase 1+2: metadata, trial fix, schemas
+
+**Роли:** #3 Frontend (SEO), #14 Landa (верификация аудита)
+**Статус:** завершено
+
+**Что сделано:**
+- Trial period унифицирован: 7→14 Tage во всех 3 языках (27 мест) + sign-up page
+- "Ab €1/Monat" → "Ab €49/Monat" во всех языках (5 мест)
+- Уникальные Title/Description для 7 маркетинг-страниц (de/en/ru = 42 новых i18n-ключа)
+- FAQPage Schema JSON-LD (6 Q&A) в root layout
+- BreadcrumbList Schema для маркетинг-страниц
+- Оптимизация root Title (keyword-first, ≤60 символов) и Description (конкретика: 16 Baustoffe)
+- 51 SEO-тест написан и пройден (vitest). Все 72 теста проекта зелёные.
+- SEO-аудит из docx разобран, перекрёстно верифицирован с кодом
+
+**Ключевые решения:**
+- Trial = 14 Tage (из бизнес-плана, строка 247/295/378)
+- Client pages split: page.tsx → ServerWrapper + ClientComponent (для generateMetadata)
+- "7 Tage" в dashboard/alerts/tooltip НЕ тронуты (это фильтры, не trial)
+
+**Артефакты:** `de.ts`, `en.ts`, `ru.ts`, `layout.tsx`, 7 marketing pages, `BreadcrumbSchema.tsx`, `seo.test.ts`
+
+**Следующие шаги:**
+- Коммит + деплой
+- Hreflang (Phase 3 — архитектурное решение: URL-based i18n)
+- GTM tag coverage (4 страницы)
+- Блог-контент (8 статей по keyword-стратегии)
+
+---
+
+### S030 — 2026-03-18 — Обновление методологии до V7.0 (MainCore)
+
+**Роли:** #8 Chief of Staff
+**Статус:** завершено
+
+**Что сделано:**
+- CLAUDE.md переписан по CLAUDE_TEMPLATE V7.0: компактный формат, все BauPreis-данные заполнены
+- TEAM.md переписан по TEAM_TEMPLATE V7.0: 8 специалистов вместо 15, детальные профили
+- Команда оптимизирована: #4/#5/#6/#10 объединены в #5 Backend, #9 EM → #8 Chief of Staff, #11/#12/#13/#15 удалены
+- #14 Hans Landa сохранён без изменений (untouchable)
+- Реестр увольнений перенесён полностью (6 записей)
+- STATUS.md обновлён
+
+**Ключевые решения:**
+- V7.0 = компактнее + сильнее: меньше ролей, больше ответственности на каждого
+- Backend (#5) объединяет API, Data, AI, Payments — соответствует реальной архитектуре (один Next.js monolith)
+
+**Артефакты:** `CLAUDE.md`, `TEAM.md`, `DEVLOG.md`, `STATUS.md`
+
+**Следующие шаги:**
+- Верификация: агенты работают по новой методологии
+- При необходимости — добавить роли #9, #10 по решению #1 + CEO
+
+---
+
 ### S029 — 2026-03-15 — Hotfix: белый экран /sign-in, пересборка сервера
 
 **Роли:** #7 SRE

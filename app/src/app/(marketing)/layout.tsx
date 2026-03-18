@@ -1,5 +1,6 @@
 import MarketingHeader from "@/components/marketing/MarketingHeader";
 import MarketingFooter from "@/components/marketing/MarketingFooter";
+import BreadcrumbSchema from "@/components/marketing/BreadcrumbSchema";
 
 export default function MarketingLayout({
   children,
@@ -8,6 +9,7 @@ export default function MarketingLayout({
 }) {
   return (
     <>
+      <BreadcrumbSchema />
       <MarketingHeader />
       {children}
       <MarketingFooter />
