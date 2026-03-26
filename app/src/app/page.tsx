@@ -2,8 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import MobileNav from "@/components/MobileNav";
-import LanguageSwitcher from "@/i18n/LanguageSwitcher";
+/* MobileNav and LanguageSwitcher moved to UnifiedHeader */
 import { useLocale } from "@/i18n/LocaleContext";
 
 /* ── SVG icons ── */
@@ -58,28 +57,10 @@ export default function LandingPage() {
 
   return (
     <main ref={mainRef} className="min-h-screen overflow-x-hidden">
-      {/* ═══ NAVIGATION ═══ */}
-      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b-[3px] border-brand-600 z-50">
-        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
-          <Link href="/">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" height={32} className="h-8 w-auto" />
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/preise" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.pricing")}</Link>
-            <Link href="/ueber-uns" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.aboutUs")}</Link>
-            <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.signIn")}</Link>
-            <Link href="/sign-up" className="bg-brand-600 text-white px-5 py-2.5 rounded-none text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]">
-              {t("nav.freeTrial")}
-            </Link>
-            <LanguageSwitcher />
-          </div>
-          <MobileNav />
-        </div>
-      </nav>
+      {/* Navigation is now UnifiedHeader in root layout */}
 
       {/* ═══ HERO — 2 Columns ═══ */}
-      <section data-hero className="min-h-screen flex items-center pt-20 pb-16 px-6 relative overflow-hidden bg-white">
+      <section data-hero className="min-h-screen flex items-center pt-16 pb-16 px-6 relative overflow-hidden bg-white">
         {/* Background geometric shapes */}
         <div className="absolute -top-[100px] -right-[100px] w-[400px] h-[400px] rounded-full pointer-events-none bg-brand-600 opacity-[0.06]" />
         <div className="absolute bottom-[80px] -left-[60px] w-[200px] h-[200px] rounded-full pointer-events-none bg-bauhaus-yellow opacity-[0.12]" />

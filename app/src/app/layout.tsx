@@ -5,6 +5,7 @@ import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
 import ServiceWorkerRegister from "@/components/ServiceWorkerRegister";
 import CookieConsent from "@/components/CookieConsent";
+import UnifiedHeader from "@/components/layout/UnifiedHeader";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
@@ -247,6 +248,7 @@ function Shell({
         />
 
         <LocaleProvider initialLocale={locale}>
+          <UnifiedHeader />
           {children}
           <CookieConsent />
           <ServiceWorkerRegister />

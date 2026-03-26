@@ -9,6 +9,24 @@
 
 ---
 
+### [S025] — 2026-03-26 — T010: Unified Navigation (сайт + dashboard = единое целое)
+
+**Роли:** #1 Markus Lehmann — PA, #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review
+**Статус:** завершено
+
+**Что сделано:**
+- UnifiedHeader: единый чёрный header для всего сайта (лого-иконка, tabs, аккаунт, язык)
+- DashboardSubNav: горизонтальные sub-tabs вместо sidebar
+- AccountDropdown: аватар → dropdown (Einstellungen, Abo, Account, Abmelden)
+- LanguageDropdown: стильный (DE ▼) вместо <select>
+- Sidebar УДАЛЁН, MarketingHeader УДАЛЁН, inline nav из landing УДАЛЁН
+- Жёлтые KPI блоки на dashboard (как в макапе)
+- Landa Review: auth detection cookie, /onboarding exclusion, data-tour, click-outside
+
+**Артефакты:** UnifiedHeader.tsx, DashboardSubNav.tsx, AccountDropdown.tsx, LanguageDropdown.tsx
+
+---
+
 ### [S024] — 2026-03-26 — T008: Официальные логотипы на сайте
 
 **Роли:** #2 Lena Hoffmann — UX/UI

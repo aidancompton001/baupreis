@@ -1,6 +1,7 @@
-import MarketingHeader from "@/components/marketing/MarketingHeader";
 import MarketingFooter from "@/components/marketing/MarketingFooter";
 import BreadcrumbSchema from "@/components/marketing/BreadcrumbSchema";
+
+/* MarketingHeader REMOVED — UnifiedHeader is now in root layout */
 
 export default function MarketingLayout({
   children,
@@ -8,11 +9,10 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
+    <div className="pt-14">
       <BreadcrumbSchema />
-      <MarketingHeader />
       {children}
       <MarketingFooter />
-    </>
+    </div>
   );
 }

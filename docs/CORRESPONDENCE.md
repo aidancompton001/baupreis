@@ -113,6 +113,9 @@
 
 | Дата | Направление | Суть |
 |------|-------------|------|
+| 2026-03-26 10:19 | ВХОДЯЩЕЕ | Auftragsbestätigung Nr. 26628 erneut zugesandt (Petra Kuther). Berater "bereits übernommen". ABER: "JobCenter hat mitgeteilt, dass es Beratungskosten nicht übernimmt. Nicht berechtigt, auf AVGS abzurechnen." Beratung erst nach Kostendeckungsbeitrag. Rechnung folgt separat |
+| 2026-03-26 10:20 | ВХОДЯЩЕЕ | **Rechnung Nr. 26628-00**: Gründungsberatung 130,00 EUR (0% MwSt). "Wir bitten um umgehende Begleichung." IBAN: DE77 7015 0000 1003 4646 56 (Stadtsparkasse München) |
+| 2026-03-26 | ИСХОДЯЩЕЕ | **Stornierung**: Auftrag basierte auf AVGS-Kostenübernahme, die nie gegeben war. Keine Beratung stattgefunden. Bitte Auftrag stornieren + Rechnung aufheben |
 | 2026-03-12 | ЗАКРЫТИЕ | Jobcenter (I. Schulz): AktivSenioren НЕ AVGS-аккредитованы. Оплата через AVGS невозможна. Auftrag 26628 недействителен |
 | 2026-03-11 | ВХОДЯЩЕЕ | Auftragsbestatigung Nr. 26628 получена. PDF: `docs/businessplan/aktivsenioren/26628_Auftrag.pdf` |
 | 2026-03-11 | ИСХОДЯЩЕЕ | Письмо про AVGS Nr. 843E328369-1: уточнение что 130 EUR оплачивает Jobcenter, не клиент |
@@ -223,6 +226,7 @@
 
 | Дата | Направление | Суть |
 |------|-------------|------|
+| 2026-03-25 10:33 | ВХОДЯЩЕЕ | Ana Schneider: **Teams-Einladung gesendet**. Termin: Fr 10.04.2026 14:00-14:30 CEST. Link: teams.microsoft.com/meet/35909813231552, Passcode: zJ3en6R2. "Ich freue mich auf den Austausch" |
 | 2026-03-24 | ИСХОДЯЩЕЕ | Bestatigung Termin 10.04 14:00 Online. Kurze Demo BauPreis angeboten + Frage nach Digitalisierungsangeboten der HWK. Frage nach bevorzugtem Online-Tool |
 | 2026-03-24 11:02 | ВХОДЯЩЕЕ | Ana Schneider (Innovationsberatung): gerne nach Osterferien austauschen. Vorher keine Termine. Vorschlag: **Freitag 10.04.2026 um 14:00 Uhr, 30 Min Online-Gesprach** |
 | 2026-03-13 19:24 | ИСХОДЯЩЕЕ | Auf Empfehlung der IHK Munchen: BauPreis AI — Uberwachung Baustoffpreise + KI-Prognosen, speziell fur Baugewerbe. 2 вопроса: (1) Beratungsangebote/Digitalisierungsprogramme? (2) Veranstaltungen Digitalisierung im Bauhandwerk? |
