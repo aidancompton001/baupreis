@@ -123,15 +123,15 @@ export default function DashboardPage() {
     <div>
       <div className="mb-6 flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold gradient-text">{t("dashboard.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <h1 className="text-2xl font-bold text-[#1A1A1A] font-oswald uppercase">{t("dashboard.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">
             {t("dashboard.subtitle")}
           </p>
         </div>
         <a
           href="/api/export/prices?days=30"
           download
-          className="px-4 py-2 rounded-none text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
+          className="px-4 py-2 rounded-none text-sm font-medium font-grotesk uppercase tracking-wide bg-white border-2 border-[#1A1A1A] text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
         >
           {t("dashboard.csvExport")}
         </a>
@@ -141,15 +141,15 @@ export default function DashboardPage() {
         <div data-tour="baupreis-index" className="mb-6 bg-[#1A1A1A] rounded-none p-6 text-white shadow-[6px_6px_0_#C1292E] dash-appear">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm font-medium">{t("dashboard.indexLabel")}</p>
-              <p className="text-3xl font-bold mt-1">
+              <p className="text-[#1A1A1A]/50 text-sm font-medium font-grotesk uppercase tracking-wide">{t("dashboard.indexLabel")}</p>
+              <p className="text-3xl font-bold mt-1 font-oswald">
                 {parseFloat(String(indexData.index_value)).toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
             </div>
             <div className="text-right">
               {indexData.change_pct_30d !== null && (
                 <div>
-                  <p className="text-gray-400 text-xs">{t("dashboard.days30")}</p>
+                  <p className="text-[#1A1A1A]/50 text-xs font-grotesk uppercase tracking-wide">{t("dashboard.days30")}</p>
                   <p className={`text-lg font-semibold ${
                     indexData.change_pct_30d > 0 ? "text-brand-200" : indexData.change_pct_30d < 0 ? "text-[#F5C518]" : "text-white"
                   }`}>
@@ -159,7 +159,7 @@ export default function DashboardPage() {
               )}
               {indexData.change_pct_1d !== null && (
                 <div className="mt-1">
-                  <p className="text-gray-400 text-xs">{t("dashboard.today")}</p>
+                  <p className="text-[#1A1A1A]/50 text-xs font-grotesk uppercase tracking-wide">{t("dashboard.today")}</p>
                   <p className={`text-sm font-medium ${
                     indexData.change_pct_1d > 0 ? "text-brand-200" : indexData.change_pct_1d < 0 ? "text-[#F5C518]" : "text-white"
                   }`}>
@@ -169,7 +169,7 @@ export default function DashboardPage() {
               )}
             </div>
           </div>
-          <p className="text-gray-500 text-xs mt-3">
+          <p className="text-[#1A1A1A]/60 text-xs mt-3">
             {t("dashboard.indexDescription")}
           </p>
         </div>
@@ -185,7 +185,7 @@ export default function DashboardPage() {
             <div key={category} className="mb-6">
               <div className={`flex items-center gap-2 mb-3 ${colorClass}`}>
                 <CategoryIcon category={category} size={18} />
-                <h2 className="font-semibold text-sm uppercase tracking-wide">
+                <h2 className="font-semibold text-sm uppercase tracking-wide font-grotesk">
                   {t(`materials.category.${category}`)}
                 </h2>
               </div>
@@ -209,7 +209,7 @@ export default function DashboardPage() {
 
                       {latestPrice && (
                         <div className="mb-2">
-                          <p className="text-lg font-bold text-gray-900">
+                          <p className="text-lg font-bold text-gray-900 font-oswald">
                             {formatPrice(latestPrice.price_eur, latestPrice.unit)}
                           </p>
                           {latestPrice.source === "synthetic" && (
@@ -222,7 +222,7 @@ export default function DashboardPage() {
 
                       <div className="space-y-1">
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500">{t("dashboard.days7")}</span>
+                          <span className="text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("dashboard.days7")}</span>
                           <span
                             className={
                               item.change_pct_7d > 0
@@ -236,7 +236,7 @@ export default function DashboardPage() {
                           </span>
                         </div>
                         <div className="flex justify-between text-sm">
-                          <span className="text-gray-500">{t("dashboard.days30")}</span>
+                          <span className="text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("dashboard.days30")}</span>
                           <span
                             className={
                               item.change_pct_30d > 0
@@ -281,10 +281,10 @@ export default function DashboardPage() {
 
       {analysis.length === 0 && !loading && (
         <div className="text-center py-12 dash-card">
-          <p className="text-gray-500 text-lg">
+          <p className="text-[#1A1A1A]/60 text-lg">
             {t("dashboard.noData")}
           </p>
-          <p className="text-gray-400 mt-2">
+          <p className="text-[#1A1A1A]/50 mt-2">
             {t("dashboard.noDataHint")}
           </p>
         </div>

@@ -83,8 +83,8 @@ export default function MaterialDetailPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold gradient-text">{materialName}</h1>
-        <p className="text-gray-500 text-sm mt-1">{unit}</p>
+        <h1 className="text-2xl font-bold text-[#1A1A1A] font-oswald uppercase">{materialName}</h1>
+        <p className="text-[#1A1A1A]/60 text-sm mt-1">{unit}</p>
       </div>
 
       {/* Period Selector + CSV Export */}
@@ -105,7 +105,7 @@ export default function MaterialDetailPage() {
         <a
           href={`/api/export/prices?material=${code}&days=${days}`}
           download
-          className="ml-auto px-4 py-2 rounded-none text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
+          className="ml-auto px-4 py-2 rounded-none text-sm font-medium font-grotesk uppercase tracking-wide bg-white border-2 border-[#1A1A1A] text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
         >
           {t("material.csvExport")}
         </a>
@@ -117,16 +117,16 @@ export default function MaterialDetailPage() {
       </div>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
         <div className="dash-card p-4 dash-appear dash-delay-1">
-          <p className="text-sm text-gray-500">{t("material.currentPrice")}</p>
-          <p className="text-2xl font-bold">
+          <p className="text-sm text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.currentPrice")}</p>
+          <p className="text-2xl font-bold font-oswald">
             {latestPrice
               ? `€${latestPrice.toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}`
               : "—"}
           </p>
         </div>
         <div className="dash-card p-4 dash-appear dash-delay-2">
-          <p className="text-sm text-gray-500">{t("material.minimum")} ({days}T)</p>
-          <p className="text-2xl font-bold text-[#F5C518]">
+          <p className="text-sm text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.minimum")} ({days}T)</p>
+          <p className="text-2xl font-bold text-[#F5C518] font-oswald">
             {minPrice
               ? `€${minPrice.toLocaleString(dateFmtLocale, {
                   minimumFractionDigits: 2,
@@ -135,8 +135,8 @@ export default function MaterialDetailPage() {
           </p>
         </div>
         <div className="dash-card p-4 dash-appear dash-delay-3">
-          <p className="text-sm text-gray-500">{t("material.maximum")} ({days}T)</p>
-          <p className="text-2xl font-bold text-brand-600">
+          <p className="text-sm text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.maximum")} ({days}T)</p>
+          <p className="text-2xl font-bold text-brand-600 font-oswald">
             {maxPrice
               ? `€${maxPrice.toLocaleString(dateFmtLocale, {
                   minimumFractionDigits: 2,
@@ -148,7 +148,7 @@ export default function MaterialDetailPage() {
 
       {/* Price Chart */}
       <div className="dash-card p-6 mb-6 dash-appear dash-delay-4">
-        <h2 className="font-semibold mb-4">{t("material.priceChart")}</h2>
+        <h2 className="font-grotesk uppercase tracking-wide font-bold mb-4">{t("material.priceChart")}</h2>
         {prices.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
@@ -168,19 +168,19 @@ export default function MaterialDetailPage() {
             >
               <defs>
                 <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#2563eb" stopOpacity={0.15} />
-                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#C1292E" stopOpacity={0.15} />
+                  <stop offset="95%" stopColor="#C1292E" stopOpacity={0} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                tick={{ fontSize: 12, fill: "#1A1A1A" }}
                 tickLine={false}
                 axisLine={{ stroke: "#e5e7eb" }}
               />
               <YAxis
-                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                tick={{ fontSize: 12, fill: "#1A1A1A" }}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(v) => `€${v.toLocaleString(dateFmtLocale)}`}
@@ -188,8 +188,8 @@ export default function MaterialDetailPage() {
               />
               <Tooltip
                 contentStyle={{
-                  borderRadius: "8px",
-                  border: "1px solid #e5e7eb",
+                  borderRadius: "0",
+                  border: "2px solid #1A1A1A",
                   boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                 }}
                 formatter={(value: number) => [
@@ -203,7 +203,7 @@ export default function MaterialDetailPage() {
               {minPrice > 0 && (
                 <ReferenceLine
                   y={minPrice}
-                  stroke="#16a34a"
+                  stroke="#F5C518"
                   strokeDasharray="3 3"
                   strokeOpacity={0.5}
                 />
@@ -211,7 +211,7 @@ export default function MaterialDetailPage() {
               {maxPrice > 0 && (
                 <ReferenceLine
                   y={maxPrice}
-                  stroke="#dc2626"
+                  stroke="#C1292E"
                   strokeDasharray="3 3"
                   strokeOpacity={0.5}
                 />
@@ -219,16 +219,16 @@ export default function MaterialDetailPage() {
               <Area
                 type="monotone"
                 dataKey="price"
-                stroke="#2563eb"
+                stroke="#C1292E"
                 strokeWidth={2}
                 fill="url(#priceGradient)"
                 dot={false}
-                activeDot={{ r: 5, fill: "#2563eb", strokeWidth: 2, stroke: "#fff" }}
+                activeDot={{ r: 5, fill: "#C1292E", strokeWidth: 2, stroke: "#fff" }}
               />
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-64 flex items-center justify-center text-gray-400">
+          <div className="h-64 flex items-center justify-center text-[#1A1A1A]/50">
             {t("material.noChartData")}
           </div>
         )}
@@ -237,7 +237,7 @@ export default function MaterialDetailPage() {
       {/* AI Analysis */}
       {analysis && (
         <div className="dash-card p-6 dash-appear dash-delay-5">
-          <h2 className="font-semibold mb-4">{t("material.aiAnalysis")}</h2>
+          <h2 className="font-grotesk uppercase tracking-wide font-bold mb-4">{t("material.aiAnalysis")}</h2>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <span className={`text-2xl ${getTrendColor(analysis.trend)}`}>
@@ -252,7 +252,7 @@ export default function MaterialDetailPage() {
                     ? t("material.falling")
                     : t("material.stable")}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">
                   7T: {formatPercent(analysis.change_pct_7d)} | 30T:{" "}
                   {formatPercent(analysis.change_pct_30d)}
                 </p>
@@ -284,7 +284,7 @@ export default function MaterialDetailPage() {
                     : t("material.observe")}
                 </span>
                 {analysis.confidence && (
-                  <span className="ml-3 text-sm text-gray-500">
+                  <span className="ml-3 text-sm text-[#1A1A1A]/60">
                     {t("material.confidence")}: {analysis.confidence}%
                   </span>
                 )}
@@ -299,20 +299,20 @@ export default function MaterialDetailPage() {
                 </h3>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
-                    <p className="text-gray-500">{t("material.days", { count: 7 })}</p>
-                    <p className="font-medium">
+                    <p className="text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.days", { count: 7 })}</p>
+                    <p className="font-medium font-oswald">
                       €{Number(analysis.forecast_json["7d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">{t("material.days", { count: 30 })}</p>
-                    <p className="font-medium">
+                    <p className="text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.days", { count: 30 })}</p>
+                    <p className="font-medium font-oswald">
                       €{Number(analysis.forecast_json["30d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">{t("material.days", { count: 90 })}</p>
-                    <p className="font-medium">
+                    <p className="text-[#1A1A1A]/60 font-grotesk uppercase tracking-wide">{t("material.days", { count: 90 })}</p>
+                    <p className="font-medium font-oswald">
                       €{Number(analysis.forecast_json["90d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>

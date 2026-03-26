@@ -6,16 +6,16 @@ import { useLocale } from "@/i18n/LocaleContext";
 import { useOrg } from "@/lib/hooks/useOrg";
 import PlanBadge from "@/components/dashboard/PlanBadge";
 import {
-  BarChart3,
-  Bot,
-  MessageSquare,
-  Ruler,
-  FlaskConical,
-  Bell,
-  FileText,
-  Settings,
-  User,
-} from "lucide-react";
+  IconDashboard,
+  IconForecasts,
+  IconChat,
+  IconEscalation,
+  IconAlloy,
+  IconAlerts,
+  IconReports,
+  IconSettings,
+  IconAccount,
+} from "@/components/icons/BauhausIcons";
 
 const navItems: Array<{
   href: string;
@@ -24,15 +24,15 @@ const navItems: Array<{
   dataTour?: string;
   plan?: "Pro" | "Team";
 }> = [
-  { href: "/dashboard", labelKey: "nav.overview", icon: <BarChart3 size={18} /> },
-  { href: "/prognose", labelKey: "nav.forecasts", icon: <Bot size={18} />, dataTour: "nav-prognose", plan: "Pro" },
-  { href: "/chat", labelKey: "nav.chat", icon: <MessageSquare size={18} />, plan: "Pro" },
-  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: <Ruler size={18} />, plan: "Pro" },
-  { href: "/legierungsrechner", labelKey: "nav.alloyCalc", icon: <FlaskConical size={18} />, plan: "Pro" },
-  { href: "/alerts", labelKey: "nav.alerts", icon: <Bell size={18} />, dataTour: "nav-alerts" },
-  { href: "/berichte", labelKey: "nav.reports", icon: <FileText size={18} />, dataTour: "nav-berichte" },
-  { href: "/einstellungen", labelKey: "nav.settings", icon: <Settings size={18} />, dataTour: "nav-einstellungen" },
-  { href: "/account", labelKey: "nav.account", icon: <User size={18} /> },
+  { href: "/dashboard", labelKey: "nav.overview", icon: <IconDashboard size={20} /> },
+  { href: "/prognose", labelKey: "nav.forecasts", icon: <IconForecasts size={20} />, dataTour: "nav-prognose", plan: "Pro" },
+  { href: "/chat", labelKey: "nav.chat", icon: <IconChat size={20} />, plan: "Pro" },
+  { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: <IconEscalation size={20} />, plan: "Pro" },
+  { href: "/legierungsrechner", labelKey: "nav.alloyCalc", icon: <IconAlloy size={20} />, plan: "Pro" },
+  { href: "/alerts", labelKey: "nav.alerts", icon: <IconAlerts size={20} />, dataTour: "nav-alerts" },
+  { href: "/berichte", labelKey: "nav.reports", icon: <IconReports size={20} />, dataTour: "nav-berichte" },
+  { href: "/einstellungen", labelKey: "nav.settings", icon: <IconSettings size={20} />, dataTour: "nav-einstellungen" },
+  { href: "/account", labelKey: "nav.account", icon: <IconAccount size={20} /> },
 ];
 
 // Mobile: show only core 5 items (Chat + Gleitklausel accessible via desktop sidebar)
@@ -70,7 +70,7 @@ export default function DashboardNav() {
                 }`}
               >
                 {item.icon}
-                <span>{t(item.labelKey)}</span>
+                <span className="font-grotesk text-xs uppercase tracking-wide font-semibold">{t(item.labelKey)}</span>
                 {isTrial && item.plan && <PlanBadge plan={item.plan} />}
               </Link>
             );
@@ -78,8 +78,8 @@ export default function DashboardNav() {
         </nav>
       </aside>
 
-      {/* Mobile Bottom Nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t z-50">
+      {/* Mobile Bottom Nav — BLACK bg like mockup */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#1A1A1A] border-t-2 border-brand-600 z-50 pb-6">
         <div className="flex justify-around py-2">
           {mobileNavItems.map((item) => {
             const active = isActive(item.href);
@@ -87,10 +87,10 @@ export default function DashboardNav() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center text-[10px] px-1 ${
+                className={`flex flex-col items-center text-[9px] font-grotesk uppercase tracking-wide px-1 ${
                   active
-                    ? "text-brand-600 font-medium"
-                    : "text-gray-600 hover:text-brand-600"
+                    ? "text-brand-500 font-semibold"
+                    : "text-white/60 hover:text-white"
                 }`}
               >
                 <span className="mb-0.5">{item.icon}</span>

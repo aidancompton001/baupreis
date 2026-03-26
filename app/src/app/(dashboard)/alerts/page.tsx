@@ -133,7 +133,7 @@ export default function AlertsPage() {
       <div>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">{t("alerts.title")}</h1>
+            <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("alerts.title")}</h1>
             <p className="text-gray-600">{t("alerts.subtitle")}</p>
           </div>
           <div className="bg-gray-200 rounded-none animate-pulse h-10 w-28" />
@@ -154,9 +154,9 @@ export default function AlertsPage() {
     <div>
       <div className="flex items-center justify-between mb-8">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">Monitoring</p>
-          <h1 className="text-2xl font-bold text-gray-900">{t("alerts.title")}</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-xs font-semibold font-grotesk uppercase tracking-wide text-brand-600 mb-1">Monitoring</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("alerts.title")}</h1>
+          <p className="text-[#1A1A1A]/60 mt-1">
             {t("alerts.subtitle")}
           </p>
         </div>
@@ -274,7 +274,7 @@ export default function AlertsPage() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-none max-w-lg w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold">{t("alerts.modal.title")}</h2>
+              <h2 className="text-xl font-semibold font-oswald uppercase">{t("alerts.modal.title")}</h2>
               <button
                 onClick={() => setShowForm(false)}
                 className="text-gray-400 hover:text-gray-600 text-2xl"

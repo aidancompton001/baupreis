@@ -338,7 +338,7 @@ export default function LegierungsrechnerPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("alloy.title")}</h1>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("alloy.title")}</h1>
           <p className="text-gray-600">{t("alloy.subtitle")}</p>
         </div>
         <div className="mt-8">
@@ -356,9 +356,9 @@ export default function LegierungsrechnerPage() {
   return (
     <div>
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">Calculator</p>
-        <h1 className="text-2xl font-bold text-gray-900">{t("alloy.title")}</h1>
-        <p className="text-gray-500 mt-1">{t("alloy.subtitle")}</p>
+        <p className="text-xs font-semibold font-grotesk uppercase tracking-wide text-brand-600 mb-1">Calculator</p>
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("alloy.title")}</h1>
+        <p className="text-[#1A1A1A]/60 mt-1">{t("alloy.subtitle")}</p>
       </div>
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
@@ -471,7 +471,7 @@ export default function LegierungsrechnerPage() {
           {customResult && !customLoading && (
             <div className="mt-4 bg-gradient-to-br from-brand-50 to-[#F5C518]/10 rounded-none p-4 border border-brand-100 shadow-sm">
               <div className="text-2xl font-bold text-brand-600">
-                {fmtEur(customResult.price.perTonneMin)} — {fmtEur(customResult.price.perTonneMax)} <span className="text-sm font-normal text-gray-500">EUR/t</span>
+                {fmtEur(customResult.price.perTonneMin)} — {fmtEur(customResult.price.perTonneMax)} <span className="text-sm font-normal text-[#1A1A1A]/60">EUR/t</span>
               </div>
               <div className="text-sm text-gray-600 mt-1">{t("alloy.metallwert")}: {fmtEur(customResult.metallwert)} EUR/t</div>
             </div>
@@ -596,20 +596,20 @@ export default function LegierungsrechnerPage() {
           <div className="bg-white rounded-none border shadow-sm p-6 hover:shadow-md transition-shadow duration-300">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">
+                <h2 className="text-xl font-bold font-oswald uppercase text-gray-900">
                   {getAlloyName(result.alloy)}
                 </h2>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#1A1A1A]/60">
                   {result.alloy.din}{result.alloy.aisi ? ` / AISI ${result.alloy.aisi}` : ""} — {result.alloy.standard}
                 </p>
               </div>
               <div className="text-right bg-gradient-to-br from-brand-50 to-white rounded-none p-4 border border-brand-100">
                 <div className="text-3xl font-bold text-brand-600">
-                  {fmtEur(result.price.perTonneMin)} — {fmtEur(result.price.perTonneMax)} <span className="text-lg font-normal text-gray-500">EUR/t</span>
+                  {fmtEur(result.price.perTonneMin)} — {fmtEur(result.price.perTonneMax)} <span className="text-lg font-normal text-[#1A1A1A]/60">EUR/t</span>
                 </div>
                 {result.weightKg !== 1000 && (
                   <div className="text-lg text-gray-700 mt-1">
-                    {fmtEur(result.price.forWeight)} EUR <span className="text-sm text-gray-500">/ {result.weightKg.toLocaleString("de-DE")} kg</span>
+                    {fmtEur(result.price.forWeight)} EUR <span className="text-sm text-[#1A1A1A]/60">/ {result.weightKg.toLocaleString("de-DE")} kg</span>
                   </div>
                 )}
                 <button
@@ -800,43 +800,43 @@ export default function LegierungsrechnerPage() {
                   <AreaChart data={historyData}>
                     <defs>
                       <linearGradient id="alloyGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2563eb" stopOpacity={0.15} />
-                        <stop offset="95%" stopColor="#2563eb" stopOpacity={0} />
+                        <stop offset="5%" stopColor="#1A1A1A" stopOpacity={0.15} />
+                        <stop offset="95%" stopColor="#1A1A1A" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#9ca3af" }} tickLine={false} axisLine={{ stroke: "#e5e7eb" }} />
+                    <XAxis dataKey="date" tick={{ fontSize: 11, fill: "#1A1A1A" }} tickLine={false} axisLine={{ stroke: "#e5e7eb" }} />
                     <YAxis
                       tickFormatter={(v: number) => `€${v.toLocaleString("de-DE")}`}
-                      tick={{ fontSize: 11, fill: "#9ca3af" }}
+                      tick={{ fontSize: 11, fill: "#1A1A1A" }}
                       tickLine={false}
                       axisLine={{ stroke: "#e5e7eb" }}
                       domain={["auto", "auto"]}
                     />
                     <Tooltip
-                      contentStyle={{ borderRadius: "8px", border: "1px solid #e5e7eb", fontSize: "12px" }}
+                      contentStyle={{ borderRadius: "0", border: "1px solid #e5e7eb", fontSize: "12px" }}
                       formatter={(v: number) => [`€${v.toLocaleString("de-DE")}`, t("alloy.metallwert")]}
                     />
                     <ReferenceLine
                       y={Math.min(...historyData.map((d) => d.price))}
-                      stroke="#16a34a"
+                      stroke="#F5C518"
                       strokeDasharray="3 3"
                       strokeOpacity={0.5}
                     />
                     <ReferenceLine
                       y={Math.max(...historyData.map((d) => d.price))}
-                      stroke="#dc2626"
+                      stroke="#C1292E"
                       strokeDasharray="3 3"
                       strokeOpacity={0.5}
                     />
                     <Area
                       type="monotone"
                       dataKey="price"
-                      stroke="#2563eb"
+                      stroke="#1A1A1A"
                       strokeWidth={2}
                       fill="url(#alloyGradient)"
                       dot={false}
-                      activeDot={{ r: 5, fill: "#2563eb", strokeWidth: 2, stroke: "#fff" }}
+                      activeDot={{ r: 5, fill: "#1A1A1A", strokeWidth: 2, stroke: "#fff" }}
                     />
                   </AreaChart>
                 </ResponsiveContainer>

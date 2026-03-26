@@ -86,8 +86,8 @@ export default function WhatsAppSettingsPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("whatsapp.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("whatsapp.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("whatsapp.subtitle")}</p>
         </div>
         <div className="bg-white rounded-none border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
@@ -101,8 +101,8 @@ export default function WhatsAppSettingsPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("whatsapp.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("whatsapp.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("whatsapp.subtitle")}</p>
         </div>
         <UpgradeCard feature={t("whatsapp.upgradeFeature")} requiredPlan="Pro" icon="📱" />
       </div>
@@ -113,8 +113,8 @@ export default function WhatsAppSettingsPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("whatsapp.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("whatsapp.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("whatsapp.subtitle")}</p>
         </div>
         {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
         <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">

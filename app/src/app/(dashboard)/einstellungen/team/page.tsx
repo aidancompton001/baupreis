@@ -117,8 +117,8 @@ export default function TeamPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("team.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
         <div className="bg-white rounded-none border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
@@ -132,8 +132,8 @@ export default function TeamPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
-          <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("team.title")}</h1>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
         <UpgradeCard feature={t("team.title")} requiredPlan="Team" icon="👥" />
       </div>

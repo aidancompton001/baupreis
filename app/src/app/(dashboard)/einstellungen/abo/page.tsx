@@ -161,7 +161,7 @@ export default function AboPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
           {t("subscription.title")}
         </h1>
       </div>
@@ -225,17 +225,17 @@ export default function AboPage() {
 
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[#1A1A1A]/60">
               {t("subscription.materials")}
             </p>
             <p className="font-semibold">{org?.max_materials || 5}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">{t("subscription.users")}</p>
+            <p className="text-sm text-[#1A1A1A]/60">{t("subscription.users")}</p>
             <p className="font-semibold">{org?.max_users || 1}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">{t("subscription.alerts")}</p>
+            <p className="text-sm text-[#1A1A1A]/60">{t("subscription.alerts")}</p>
             <p className="font-semibold">
               {org?.max_alerts >= 999
                 ? t("common.unlimited")
@@ -243,7 +243,7 @@ export default function AboPage() {
             </p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[#1A1A1A]/60">
               {t("subscription.telegram")}
             </p>
             <p className="font-semibold">
@@ -302,7 +302,7 @@ export default function AboPage() {
               <h3 className="text-lg font-semibold">{plan.name}</h3>
               <p className="text-3xl font-bold mt-2">
                 &euro;{price}
-                <span className="text-sm text-gray-500 font-normal">
+                <span className="text-sm text-[#1A1A1A]/60 font-normal">
                   {yearly ? t("pricing.perYear") : t("pricing.perMonth")}
                 </span>
               </p>

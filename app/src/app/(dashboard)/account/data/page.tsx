@@ -81,7 +81,7 @@ export default function DataPage() {
     <div className="space-y-6">
       {/* Export */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-2">
           <span className="mr-2">&#128229;</span>
           {t("account.data.exportTitle")}
         </h2>
@@ -120,7 +120,7 @@ export default function DataPage() {
 
       {/* Consents */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4">
           <span className="mr-2">&#128203;</span>
           {t("account.data.consentsTitle")}
         </h2>
@@ -132,7 +132,7 @@ export default function DataPage() {
                 {t("account.data.privacyPolicy")}
               </p>
               {consentDate && (
-                <p className="text-xs text-gray-500">{consentDate}</p>
+                <p className="text-xs text-[#1A1A1A]/60">{consentDate}</p>
               )}
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function DataPage() {
                 {t("account.data.termsOfService")}
               </p>
               {consentDate && (
-                <p className="text-xs text-gray-500">{consentDate}</p>
+                <p className="text-xs text-[#1A1A1A]/60">{consentDate}</p>
               )}
             </div>
           </div>
@@ -156,7 +156,7 @@ export default function DataPage() {
                 {t("account.data.marketingEmails")}
               </p>
               {consentDate && (
-                <p className="text-xs text-gray-500">{consentDate}</p>
+                <p className="text-xs text-[#1A1A1A]/60">{consentDate}</p>
               )}
             </div>
             <button className="text-sm text-red-600 hover:text-red-700 font-medium transition-all duration-300">
@@ -168,7 +168,7 @@ export default function DataPage() {
 
       {/* Cookie Settings */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-2">
           <span className="mr-2">&#127850;</span>
           {t("account.data.cookieTitle")}
         </h2>
@@ -185,7 +185,7 @@ export default function DataPage() {
 
       {/* Delete Account */}
       <div className="bg-red-50 rounded-none border border-red-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-red-800 mb-2">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-red-800 mb-2">
           <span className="mr-2">&#9888;&#65039;</span>
           {t("account.data.deleteAccount")}
         </h2>

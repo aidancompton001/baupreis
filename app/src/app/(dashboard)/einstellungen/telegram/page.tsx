@@ -109,10 +109,10 @@ export default function TelegramPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
             {t("telegram.title")}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">{t("telegram.subtitle")}</p>
+          <p className="text-[#1A1A1A]/60 text-sm mt-1">{t("telegram.subtitle")}</p>
         </div>
         <div className="mt-8">
           <UpgradeCard

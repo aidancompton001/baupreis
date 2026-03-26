@@ -72,12 +72,12 @@ body {
 }
 
 .dash-card {
-  @apply bg-white border-2 border-gray-200
+  @apply bg-white border-2 border-[#1A1A1A]
          transition-all duration-200 ease-out;
 }
 .dash-card:hover {
-  @apply -translate-y-1 border-gray-400;
-  box-shadow: 4px 4px 0 #E5E7EB;
+  @apply -translate-y-1 border-[#C1292E];
+  box-shadow: 4px 4px 0 #C1292E;
 }
 
 .dash-appear {
@@ -103,7 +103,7 @@ body {
 
 /* Sidebar — Bauhaus Bold */
 .sidebar-glass {
-  @apply bg-white border-r-2 border-gray-200;
+  @apply bg-white border-r-2 border-[#1A1A1A];
 }
 
 .sidebar-item {

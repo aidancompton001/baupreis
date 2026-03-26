@@ -36,8 +36,8 @@ export default function EinstellungenPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{t("settings.title")}</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("settings.title")}</h1>
+        <p className="text-[#1A1A1A]/60 text-sm mt-1">
           {t("settings.subtitle")}
         </p>
       </div>
@@ -51,7 +51,7 @@ export default function EinstellungenPage() {
           >
             <span className="text-3xl block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
             <h3 className="font-semibold text-gray-900 mt-3">{t(item.titleKey)}</h3>
-            <p className="text-sm text-gray-500 mt-1 leading-relaxed">{t(item.descKey)}</p>
+            <p className="text-sm text-[#1A1A1A]/60 mt-1 leading-relaxed">{t(item.descKey)}</p>
           </Link>
         ))}
       </div>
@@ -61,7 +61,7 @@ export default function EinstellungenPage() {
         <div className="flex items-center justify-between">
           <div>
             <h3 className="font-semibold text-gray-900">{t("settings.tour.title")}</h3>
-            <p className="text-sm text-gray-500 mt-0.5">{t("settings.tour.desc")}</p>
+            <p className="text-sm text-[#1A1A1A]/60 mt-0.5">{t("settings.tour.desc")}</p>
           </div>
           <button
             onClick={handleRestartTour}

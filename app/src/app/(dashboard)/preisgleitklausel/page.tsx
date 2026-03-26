@@ -220,7 +220,7 @@ export default function PreisgleitklauselPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
             {t("escalation.title")}
           </h1>
           <p className="text-gray-600">
@@ -242,11 +242,11 @@ export default function PreisgleitklauselPage() {
   return (
     <div>
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">VHB 225</p>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <p className="text-xs font-semibold font-grotesk uppercase tracking-wide text-brand-600 mb-1">VHB 225</p>
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
           {t("escalation.title")}
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="text-[#1A1A1A]/60 mt-1">
           {t("escalation.subtitle")}
         </p>
       </div>
@@ -254,7 +254,7 @@ export default function PreisgleitklauselPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       <div className="bg-white rounded-none border shadow-sm p-6 mb-6">
-        <h2 className="font-semibold mb-4 text-gray-800">{t("escalation.contractData")}</h2>
+        <h2 className="font-semibold font-oswald uppercase mb-4 text-gray-800">{t("escalation.contractData")}</h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <div>
@@ -318,7 +318,7 @@ export default function PreisgleitklauselPage() {
           </div>
         </div>
 
-        <h2 className="font-semibold mb-3 text-gray-800">{t("escalation.materialShares")}</h2>
+        <h2 className="font-semibold font-oswald uppercase mb-3 text-gray-800">{t("escalation.materialShares")}</h2>
         <div className="space-y-3 mb-4">
           {materials.map((m, idx) => (
             <div key={idx} className="flex items-center gap-3 p-3 rounded-none bg-gray-50/50 border border-gray-100 hover:border-gray-200 transition-colors duration-200">
@@ -393,7 +393,7 @@ export default function PreisgleitklauselPage() {
       {calculated && allPricesAvailable && (
         <div className="bg-white rounded-none border shadow-sm p-6">
           <div className="flex items-start justify-between mb-4">
-            <h2 className="font-semibold text-gray-800">{t("escalation.result")}</h2>
+            <h2 className="font-semibold font-oswald uppercase text-gray-800">{t("escalation.result")}</h2>
             <button
               onClick={exportCsv}
               className="px-4 py-2 rounded-none text-sm font-medium bg-white border text-gray-600 hover:bg-gray-50 hover:shadow-sm transition-all duration-200"
@@ -405,17 +405,17 @@ export default function PreisgleitklauselPage() {
           {/* Summary Cards */}
           <div className="grid sm:grid-cols-3 gap-4 mb-6">
             <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 rounded-none p-4 border border-gray-100">
-              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultBaseAmount")}</p>
+              <p className="text-xs font-medium font-grotesk uppercase tracking-wide text-[#1A1A1A]/60 mb-1">{t("escalation.resultBaseAmount")}</p>
               <p className="text-xl font-bold text-gray-900">{"\u20AC"}{formatEur(base)}</p>
             </div>
             <div className="bg-gradient-to-br from-brand-50 to-brand-100/30 rounded-none p-4 border border-brand-100">
-              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultAdjustedAmount")}</p>
+              <p className="text-xs font-medium font-grotesk uppercase tracking-wide text-[#1A1A1A]/60 mb-1">{t("escalation.resultAdjustedAmount")}</p>
               <p className="text-xl font-bold text-brand-700">{"\u20AC"}{formatEur(adjustedAmount)}</p>
             </div>
             <div
               className={`rounded-none p-4 border ${difference > 0 ? "bg-gradient-to-br from-brand-50 to-brand-100/30 border-brand-100" : difference < 0 ? "bg-gradient-to-br from-[#F5C518]/10 to-[#F5C518]/5 border-[#F5C518]/30" : "bg-gradient-to-br from-gray-50 to-gray-100/50 border-gray-100"}`}
             >
-              <p className="text-xs font-medium uppercase tracking-wider text-gray-500 mb-1">{t("escalation.resultDifference")}</p>
+              <p className="text-xs font-medium font-grotesk uppercase tracking-wide text-[#1A1A1A]/60 mb-1">{t("escalation.resultDifference")}</p>
               <p
                 className={`text-xl font-bold ${difference > 0 ? "text-brand-600" : difference < 0 ? "text-[#F5C518]" : ""}`}
               >

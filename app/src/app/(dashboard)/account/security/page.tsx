@@ -10,7 +10,7 @@ export default function SecurityPage() {
     <div className="space-y-6 max-w-2xl mx-auto">
       {/* Section 1: Access */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4 flex items-center gap-2">
           <span>{t("account.security.access")}</span>
         </h2>
 
@@ -19,7 +19,7 @@ export default function SecurityPage() {
             <h3 className="text-sm font-medium text-gray-900 mb-1">
               {t("account.security.currentSession")}
             </h3>
-            <p className="text-sm text-gray-500 mb-3">
+            <p className="text-sm text-[#1A1A1A]/60 mb-3">
               {t("account.security.sessionDesc")}
             </p>
             <button
@@ -37,7 +37,7 @@ export default function SecurityPage() {
 
       {/* Section 2: Danger Zone */}
       <div className="bg-red-50 rounded-none border border-red-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-red-800 mb-2 flex items-center gap-2">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-red-800 mb-2 flex items-center gap-2">
           <span>{t("account.security.dangerZone")}</span>
         </h2>
         <p className="text-sm text-red-600 mb-4">

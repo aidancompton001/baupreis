@@ -93,7 +93,7 @@ export default function LandingPage() {
                 {t("landing2.heroBadge")}
               </div>
 
-              <h1 className="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] leading-[0.95] tracking-wide text-bauhaus-black mb-3 is-visible animate-on-scroll">
+              <h1 className="font-oswald text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] leading-[0.95] tracking-wide text-bauhaus-black mb-3 is-visible animate-on-scroll">
                 MATERIAL&shy;PREISE<span className="text-bauhaus-yellow">.</span><br />
                 DIGITAL<span className="text-bauhaus-yellow">.</span>
               </h1>

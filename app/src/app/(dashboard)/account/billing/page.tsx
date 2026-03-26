@@ -100,7 +100,7 @@ export default function BillingPage() {
     <div className="space-y-6">
       {/* Section 1: Aktueller Plan */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4">
           {t("account.billing.currentPlan")}
         </h2>
 
@@ -131,7 +131,7 @@ export default function BillingPage() {
             </p>
           )}
           {!isTrial && (
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-[#1A1A1A]/60">
               {t("account.billing.nextPayment")}: —
             </p>
           )}
@@ -140,7 +140,7 @@ export default function BillingPage() {
 
       {/* Section 2: Zahlungsmethode */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4">
           {t("account.billing.paymentMethod")}
         </h2>
 
@@ -164,7 +164,7 @@ export default function BillingPage() {
               </div>
               <div>
                 <p className="text-sm font-medium text-gray-900">Stripe</p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-[#1A1A1A]/60">
                   ID: ...{org.stripe_subscription_id!.slice(-6)}
                 </p>
               </div>
@@ -180,7 +180,7 @@ export default function BillingPage() {
             </button>
           </div>
         ) : (
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[#1A1A1A]/60">
             {t("account.billing.noPayment")}
           </p>
         )}
@@ -188,10 +188,10 @@ export default function BillingPage() {
 
       {/* Section 3: Rechnungen */}
       <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4">
           {t("account.billing.invoices")}
         </h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-[#1A1A1A]/60">
           {t("account.billing.noInvoices")}
         </p>
       </div>
@@ -199,10 +199,10 @@ export default function BillingPage() {
       {/* Section 4: Vertrag widerrufen */}
       {hasSubscription && (
         <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold font-oswald uppercase text-gray-900 mb-4">
             {t("account.billing.cancelSection")}
           </h2>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-[#1A1A1A]/60 mb-4">
             {t("account.billing.cancelDescription")}
           </p>
 

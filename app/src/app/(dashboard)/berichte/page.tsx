@@ -30,7 +30,7 @@ export default function BerichtePage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{t("reports.title")}</h1>
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("reports.title")}</h1>
           <p className="text-gray-600">
             {t("reports.subtitle")}
           </p>
@@ -47,9 +47,9 @@ export default function BerichtePage() {
   return (
     <div>
       <div className="mb-8">
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">Analytics</p>
-        <h1 className="text-2xl font-bold text-gray-900">{t("reports.title")}</h1>
-        <p className="text-gray-500 mt-1">
+        <p className="text-xs font-semibold font-grotesk uppercase tracking-wide text-brand-600 mb-1">Analytics</p>
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("reports.title")}</h1>
+        <p className="text-[#1A1A1A]/60 mt-1">
           {t("reports.subtitle")}
         </p>
       </div>
@@ -74,7 +74,7 @@ export default function BerichtePage() {
                       ? t("reports.weekly")
                       : t("reports.monthly")}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-[#1A1A1A]/60">
                     {formatDate(report.period_start)} – {formatDate(report.period_end)}
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function BerichtePage() {
           <div className="w-16 h-16 rounded-none bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </div>
-          <p className="text-gray-500 text-lg font-medium">{t("reports.noReports")}</p>
+          <p className="text-[#1A1A1A]/60 text-lg font-medium">{t("reports.noReports")}</p>
           <p className="text-gray-400 mt-2">
             {t("reports.noReportsHint")}
           </p>
@@ -126,7 +126,7 @@ export default function BerichtePage() {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-none max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-xl font-semibold font-oswald uppercase">
                 {selectedReport.report_type === "daily"
                   ? t("reports.daily")
                   : selectedReport.report_type === "weekly"

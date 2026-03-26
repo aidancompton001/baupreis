@@ -132,7 +132,7 @@ export default function ChatPage() {
     return (
       <div>
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
             {t("chat.title")}
           </h1>
           <p className="text-gray-600">
@@ -154,11 +154,11 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-[calc(100vh-8rem)]">
       <div className="mb-4">
-        <p className="text-xs font-semibold uppercase tracking-wider text-brand-600 mb-1">AI Assistant</p>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <p className="text-xs font-semibold font-grotesk uppercase tracking-wide text-brand-600 mb-1">AI Assistant</p>
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">
           {t("chat.title")}
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="text-[#1A1A1A]/60 mt-1">
           {t("chat.subtitle")}
         </p>
       </div>
@@ -170,7 +170,7 @@ export default function ChatPage() {
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <span className="text-4xl mb-4">💬</span>
-            <p className="text-gray-500 mb-6">
+            <p className="text-[#1A1A1A]/60 mb-6">
               {t("chat.subtitle")}
             </p>
             <div className="flex flex-wrap gap-2 justify-center max-w-lg">

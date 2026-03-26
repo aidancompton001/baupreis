@@ -107,8 +107,8 @@ export default function MaterialienPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">{t("materials.title")}</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold font-oswald uppercase text-gray-900">{t("materials.title")}</h1>
+        <p className="text-[#1A1A1A]/60 text-sm mt-1">
           {t("materials.subtitle")}
         </p>
         {isLimited && (
@@ -120,7 +120,7 @@ export default function MaterialienPage() {
 
       {Object.entries(grouped).map(([category, mats]) => (
         <div key={category} className="mb-6">
-          <h2 className="font-semibold text-gray-700 mb-3">
+          <h2 className="font-semibold font-oswald uppercase text-gray-700 mb-3">
             {CATEGORY_LABELS[category] || category}
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -142,7 +142,7 @@ export default function MaterialienPage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium text-gray-900">{m.name_de}</p>
-                      <p className="text-xs text-gray-500">{m.unit}</p>
+                      <p className="text-xs text-[#1A1A1A]/60">{m.unit}</p>
                     </div>
                     <div
                       className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
@@ -186,7 +186,7 @@ export default function MaterialienPage() {
       </button>
 
       {isLimited && (
-        <p className="mt-4 text-sm text-gray-500">
+        <p className="mt-4 text-sm text-[#1A1A1A]/60">
           {t("materials.planLimit", { plan: "Basis", max: maxMaterials })}{" "}
           <a href="/einstellungen/abo" className="text-brand-600 hover:underline">
             {t("materials.upgrade")}
