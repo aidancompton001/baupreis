@@ -6,13 +6,13 @@ import MobileNav from "@/components/MobileNav";
 import LanguageSwitcher from "@/i18n/LanguageSwitcher";
 import { useLocale } from "@/i18n/LocaleContext";
 
-/* ── SVG icons as small components ── */
+/* ── SVG icons ── */
 const ArrowRight = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
 );
-const CheckCircle = () => (
-  <span className="flex-shrink-0 w-[22px] h-[22px] mt-0.5 rounded-full bg-brand-100 flex items-center justify-center">
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+const CheckPricing = () => (
+  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
   </span>
 );
 const XCircle = () => (
@@ -20,67 +20,23 @@ const XCircle = () => (
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
   </span>
 );
-const CheckPricing = () => (
-  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-100 flex items-center justify-center">
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-  </span>
+
+/* ── Bauhaus Logo SVG ── */
+const BauhausLogo = ({ size = 32 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
+    <rect x="2" y="2" width="28" height="28" rx="3" fill="#C1292E" />
+    <rect x="34" y="2" width="28" height="28" rx="3" fill="#C1292E" />
+    <rect x="2" y="34" width="28" height="28" rx="3" fill="#C1292E" />
+    <rect x="14" y="14" width="16" height="16" rx="2" fill="white" />
+    <rect x="38" y="6" width="10" height="10" rx="1" fill="white" />
+    <polyline points="10,48 22,40 32,52" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+  </svg>
 );
-
-/* ── Browser frame mockup ── */
-function BrowserFrame({ url, imgSrc, alt }: { url: string; imgSrc: string; alt: string }) {
-  return (
-    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
-      <div className="bg-gray-100 px-4 py-3 flex items-center gap-2 border-b border-gray-200">
-        <span className="w-3 h-3 rounded-full" style={{ background: "#FF5F57" }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: "#FFBD2E" }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: "#28CA41" }} />
-        <span className="flex-1 ml-3 bg-white rounded-md px-3 py-1 text-xs text-gray-500 border border-gray-200 font-mono">
-          {url}
-        </span>
-      </div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={imgSrc} alt={alt} loading="lazy" className="w-full block" />
-    </div>
-  );
-}
-
-/* ── Feature section with left text / right screenshot ── */
-function FeatureSection({
-  eyebrow, title, desc, bullets, url, imgSrc, imgAlt, reversed = false, even = false,
-}: {
-  eyebrow: string; title: string; desc: string; bullets: string[]; url: string; imgSrc: string; imgAlt: string; reversed?: boolean; even?: boolean;
-}) {
-  return (
-    <section className={`py-20 lg:py-28 ${even ? "bg-gray-50" : ""}`}>
-      <div className="max-w-[1200px] mx-auto px-6">
-        <div className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-center ${reversed ? "direction-rtl" : ""}`}>
-          <div className={`max-w-[480px] animate-on-scroll ${reversed ? "lg:order-2 direction-ltr" : ""}`}>
-            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{eyebrow}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight tracking-tight mb-5">{title}</h2>
-            <p className="text-gray-500 text-lg leading-relaxed max-w-xl">{desc}</p>
-            <ul className="mt-7 space-y-3">
-              {bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-3 text-[0.95rem] text-gray-600 leading-relaxed">
-                  <CheckCircle />
-                  <span dangerouslySetInnerHTML={{ __html: b }} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className={`animate-on-scroll ${reversed ? "lg:order-1 direction-ltr" : ""}`}>
-            <BrowserFrame url={url} imgSrc={imgSrc} alt={imgAlt} />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 export default function LandingPage() {
   const { t } = useLocale();
   const mainRef = useRef<HTMLElement>(null);
 
-  /* IntersectionObserver for scroll animations */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -95,7 +51,7 @@ export default function LandingPage() {
     );
     const root = mainRef.current;
     if (!root) return;
-    root.querySelectorAll(".animate-on-scroll, .animate-left, .animate-right").forEach((el) => {
+    root.querySelectorAll(".animate-on-scroll").forEach((el) => {
       if (!el.closest("[data-hero]")) observer.observe(el);
     });
     return () => observer.disconnect();
@@ -115,26 +71,15 @@ export default function LandingPage() {
       {/* ═══ NAVIGATION ═══ */}
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b-[3px] border-brand-600 z-50">
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-bold font-grotesk text-gray-900 flex items-center gap-2.5">
-            <span className="w-8 h-8 bg-brand-600 rounded-md flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            </span>
+          <Link href="/" className="font-grotesk text-xl font-bold text-gray-900 flex items-center gap-2.5">
+            <BauhausLogo size={32} />
             Bau<span className="text-brand-600">Preis</span> AI
           </Link>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/preise" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
-              {t("nav.pricing")}
-            </Link>
-            <Link href="/ueber-uns" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
-              {t("nav.aboutUs")}
-            </Link>
-            <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">
-              {t("nav.signIn")}
-            </Link>
-            <Link
-              href="/sign-up"
-              className="bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]"
-            >
+            <Link href="/preise" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.pricing")}</Link>
+            <Link href="/ueber-uns" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.aboutUs")}</Link>
+            <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.signIn")}</Link>
+            <Link href="/sign-up" className="bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]">
               {t("nav.freeTrial")}
             </Link>
             <LanguageSwitcher />
@@ -143,77 +88,91 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* ═══ HERO ═══ */}
-      <section
-        data-hero
-        className="min-h-screen flex items-center justify-center text-center pt-28 pb-16 px-6 relative overflow-hidden bg-white"
-      >
-        {/* Bauhaus geometric shapes */}
+      {/* ═══ HERO — 2 Columns ═══ */}
+      <section data-hero className="min-h-screen flex items-center pt-20 pb-16 px-6 relative overflow-hidden bg-white">
+        {/* Background geometric shapes */}
         <div className="absolute -top-[100px] -right-[100px] w-[400px] h-[400px] rounded-full pointer-events-none bg-brand-600 opacity-[0.06]" />
-        <div className="absolute bottom-[80px] -left-[60px] w-[200px] h-[200px] rounded-full pointer-events-none bg-bauhaus-yellow opacity-[0.15]" />
-        <div className="absolute top-[200px] right-[200px] w-[120px] h-[120px] pointer-events-none bg-bauhaus-black opacity-[0.04]" />
-        <div className="absolute bottom-[200px] right-[80px] w-[80px] h-[80px] rounded-full pointer-events-none bg-bauhaus-salmon opacity-[0.2]" />
+        <div className="absolute bottom-[80px] -left-[60px] w-[200px] h-[200px] rounded-full pointer-events-none bg-bauhaus-yellow opacity-[0.12]" />
 
-        <div className="relative z-10 max-w-[1200px] mx-auto">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border-2 border-brand-600 rounded text-xs font-bold text-brand-600 mb-8 is-visible animate-on-scroll uppercase tracking-widest font-grotesk">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot" />
-            {t("landing2.heroBadge")}
-          </div>
-
-          {/* Title */}
-          <h1 className="font-grotesk text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-[-0.02em] text-bauhaus-black mb-2 is-visible animate-on-scroll">
-            Bau<span className="text-brand-600">Preis</span> AI
-          </h1>
-
-          {/* Tagline */}
-          <p className="font-grotesk text-xl sm:text-2xl font-medium text-gray-600 mb-4 is-visible animate-on-scroll">
-            {t("landing2.heroTagline")}
-          </p>
-
-          {/* Subtitle */}
-          <p className="text-base sm:text-lg text-gray-500 max-w-[600px] mx-auto mb-10 leading-relaxed is-visible animate-on-scroll">
-            {t("landing2.heroSubtitle")}
-          </p>
-
-          {/* CTA buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mb-16 is-visible animate-on-scroll">
-            <Link
-              href="/sign-up"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-600 text-white rounded-lg font-bold font-grotesk uppercase tracking-wide shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#1A1A1A] transition-all"
-            >
-              {t("landing2.heroCta")}
-              <ArrowRight />
-            </Link>
-            <Link
-              href="/preise"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-bauhaus-black border-3 border-bauhaus-black rounded-lg font-bold font-grotesk uppercase tracking-wide hover:bg-yellow-50 transition-all"
-              style={{ borderWidth: "3px" }}
-            >
-              {t("landing2.heroCtaPlans")}
-            </Link>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-[600px] mx-auto is-visible animate-on-scroll">
-            {[
-              { v: t("landing2.heroStat1Value"), l: t("landing2.heroStat1Label") },
-              { v: t("landing2.heroStat2Value"), l: t("landing2.heroStat2Label") },
-              { v: t("landing2.heroStat3Value"), l: t("landing2.heroStat3Label") },
-              { v: t("landing2.heroStat4Value"), l: t("landing2.heroStat4Label") },
-            ].map((s, i) => (
-              <div key={i} className="text-center p-4 border-2 border-gray-200 rounded-lg">
-                <div className="text-xl sm:text-2xl font-bold font-grotesk text-brand-600 tracking-tight">{s.v}</div>
-                <div className="text-xs text-gray-500 mt-1">{s.l}</div>
+        <div className="relative z-10 max-w-[1200px] mx-auto w-full">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* LEFT — Text */}
+            <div className="lg:text-left text-center">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border-2 border-brand-600 rounded text-xs font-bold text-brand-600 mb-8 is-visible animate-on-scroll uppercase tracking-widest font-grotesk">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot" />
+                {t("landing2.heroBadge")}
               </div>
-            ))}
+
+              <h1 className="font-grotesk text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.02em] text-bauhaus-black mb-3 is-visible animate-on-scroll">
+                MATERIAL&shy;PREISE<span className="text-bauhaus-yellow">.</span><br />
+                DIGITAL<span className="text-bauhaus-yellow">.</span>
+              </h1>
+
+              <p className="font-grotesk text-lg sm:text-xl font-medium text-gray-600 mb-3 is-visible animate-on-scroll">
+                {t("landing2.heroTagline")}
+              </p>
+
+              <p className="text-base text-gray-500 max-w-[480px] lg:mx-0 mx-auto mb-8 leading-relaxed is-visible animate-on-scroll">
+                {t("landing2.heroSubtitle")}
+              </p>
+
+              <div className="flex flex-wrap lg:justify-start justify-center gap-3 mb-10 is-visible animate-on-scroll">
+                <Link href="/sign-up" className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand-600 text-white rounded-lg font-bold font-grotesk uppercase tracking-wide shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#1A1A1A] transition-all">
+                  {t("landing2.heroCta")} <ArrowRight />
+                </Link>
+                <Link href="/preise" className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-bauhaus-black rounded-lg font-bold font-grotesk uppercase tracking-wide hover:bg-yellow-50 transition-all" style={{ border: "3px solid #1A1A1A" }}>
+                  {t("landing2.heroCtaPlans")}
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-[480px] lg:mx-0 mx-auto is-visible animate-on-scroll">
+                {[
+                  { v: t("landing2.heroStat1Value"), l: t("landing2.heroStat1Label") },
+                  { v: t("landing2.heroStat2Value"), l: t("landing2.heroStat2Label") },
+                  { v: t("landing2.heroStat3Value"), l: t("landing2.heroStat3Label") },
+                  { v: t("landing2.heroStat4Value"), l: t("landing2.heroStat4Label") },
+                ].map((s, i) => (
+                  <div key={i} className="text-center p-3 border-2 border-gray-200 rounded-lg">
+                    <div className="text-lg font-bold font-grotesk text-brand-600">{s.v}</div>
+                    <div className="text-[0.65rem] text-gray-500 mt-0.5">{s.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* RIGHT — Bauhaus Composition */}
+            <div className="relative hidden lg:block" style={{ aspectRatio: "1" }}>
+              {/* Big circle background */}
+              <div className="absolute inset-[10%] rounded-full bg-brand-600 opacity-[0.08]" />
+              {/* Red small circle */}
+              <div className="absolute top-[5%] right-[15%] w-10 h-10 rounded-full bg-brand-600" />
+              {/* Dashboard card */}
+              <div className="absolute top-[25%] left-[15%] w-[70%] h-[50%] bg-bauhaus-black rounded-xl overflow-hidden shadow-[8px_8px_0_#F5C518]">
+                <div className="p-5 text-white h-full flex flex-col justify-between">
+                  <div>
+                    <div className="font-grotesk text-[0.6rem] uppercase tracking-[0.1em] text-gray-400 mb-1">DASHBOARD</div>
+                    <div className="font-grotesk text-2xl font-bold">&euro;7.915</div>
+                    <div className="text-sm font-semibold text-emerald-400">+2.3% BauPreis Index</div>
+                  </div>
+                  {/* Mini bar chart */}
+                  <div className="flex items-end gap-1.5 h-14">
+                    {[25, 40, 30, 55, 45, 35, 50, 38].map((h, i) => (
+                      <div key={i} className="w-4 rounded-t" style={{ height: `${h}px`, background: i < 2 ? "#C1292E" : i < 4 ? "#F5C518" : i < 6 ? "#BC8279" : "#C1292E" }} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Yellow square rotated */}
+              <div className="absolute bottom-[10%] right-[5%] w-14 h-14 bg-bauhaus-yellow" style={{ transform: "rotate(15deg)" }} />
+              {/* Salmon rectangle */}
+              <div className="absolute bottom-[25%] left-0 w-24 h-7 bg-bauhaus-salmon rounded opacity-70" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ THE PROBLEM ═══ */}
+      {/* ═══ PROBLEM ═══ */}
       <section className="bg-bauhaus-black text-white py-20 lg:py-28 relative overflow-hidden">
-        {/* Geometric accent */}
         <div className="absolute -top-[100px] -right-[80px] w-[300px] h-[300px] rounded-full border-[40px] border-brand-600 opacity-[0.08] pointer-events-none" />
         <div className="max-w-[1200px] mx-auto px-6 relative z-10">
           <div className="animate-on-scroll">
@@ -228,10 +187,7 @@ export default function LandingPage() {
               { stat: t("landing2.problemStat2"), title: t("landing2.problemCard2Title"), text: t("landing2.problemCard2Text"), color: "text-bauhaus-yellow", accent: "bg-bauhaus-yellow" },
               { stat: t("landing2.problemStat3"), title: t("landing2.problemCard3Title"), text: t("landing2.problemCard3Text"), color: "text-bauhaus-salmon", accent: "bg-bauhaus-salmon" },
             ].map((card, i) => (
-              <div
-                key={i}
-                className={`animate-on-scroll anim-delay-${i + 1} bg-white/5 border-2 border-white/10 rounded-xl p-8 transition-all hover:border-brand-600 hover:-translate-y-1 relative overflow-hidden`}
-              >
+              <div key={i} className={`animate-on-scroll bg-white/5 border-2 border-white/10 rounded-xl p-8 transition-all hover:border-brand-600 hover:-translate-y-1 relative overflow-hidden`}>
                 <div className={`absolute top-0 left-0 w-1 h-full ${card.accent}`} />
                 <div className={`text-4xl font-bold font-grotesk ${card.color} tracking-tight mb-2`}>{card.stat}</div>
                 <h3 className="text-lg font-bold font-grotesk text-white mb-3">{card.title}</h3>
@@ -242,193 +198,104 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══ FEATURE SECTIONS ═══ */}
-
-      {/* Dashboard */}
-      <FeatureSection
-        eyebrow={t("landing2.dashboardEyebrow")}
-        title={t("landing2.dashboardTitle")}
-        desc={t("landing2.dashboardDesc")}
-        bullets={[t("landing2.dashboardBullet1"), t("landing2.dashboardBullet2"), t("landing2.dashboardBullet3"), t("landing2.dashboardBullet4")]}
-        url={t("landing2.dashboardUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151000.png"
-        imgAlt="BauPreis AI Dashboard"
-      />
-
-      {/* Price Tracking */}
-      <FeatureSection
-        eyebrow={t("landing2.priceTrackingEyebrow")}
-        title={t("landing2.priceTrackingTitle")}
-        desc={t("landing2.priceTrackingDesc")}
-        bullets={[t("landing2.priceTrackingBullet1"), t("landing2.priceTrackingBullet2"), t("landing2.priceTrackingBullet3"), t("landing2.priceTrackingBullet4")]}
-        url={t("landing2.priceTrackingUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151031.png"
-        imgAlt="BauPreis AI Material Price Detail"
-        reversed
-        even
-      />
-
-      {/* AI Analysis */}
-      <FeatureSection
-        eyebrow={t("landing2.aiAnalysisEyebrow")}
-        title={t("landing2.aiAnalysisTitle")}
-        desc={t("landing2.aiAnalysisDesc")}
-        bullets={[t("landing2.aiAnalysisBullet1"), t("landing2.aiAnalysisBullet2"), t("landing2.aiAnalysisBullet3"), t("landing2.aiAnalysisBullet4")]}
-        url={t("landing2.aiAnalysisUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151036.png"
-        imgAlt="BauPreis AI Market Analysis"
-      />
-
-      {/* AI Forecasts */}
-      <FeatureSection
-        eyebrow={t("landing2.forecastsEyebrow")}
-        title={t("landing2.forecastsTitle")}
-        desc={t("landing2.forecastsDesc")}
-        bullets={[t("landing2.forecastsBullet1"), t("landing2.forecastsBullet2"), t("landing2.forecastsBullet3"), t("landing2.forecastsBullet4")]}
-        url={t("landing2.forecastsUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151323.png"
-        imgAlt="BauPreis AI Price Forecasts"
-        reversed
-        even
-      />
-
-      {/* AI Chat */}
-      <FeatureSection
-        eyebrow={t("landing2.chatEyebrow")}
-        title={t("landing2.chatTitle")}
-        desc={t("landing2.chatDesc")}
-        bullets={[t("landing2.chatBullet1"), t("landing2.chatBullet2"), t("landing2.chatBullet3"), t("landing2.chatBullet4")]}
-        url={t("landing2.chatUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151335.png"
-        imgAlt="BauPreis AI Chat"
-      />
-
-      {/* Price Escalation Calculator — full width with dual screenshots */}
-      <section className="py-20 lg:py-28 bg-gray-50">
-        <div className="max-w-[800px] mx-auto px-6 text-center">
-          <div className="animate-on-scroll">
-            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.escalationEyebrow")}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight tracking-tight mb-5">{t("landing2.escalationTitle")}</h2>
-            <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">{t("landing2.escalationDesc")}</p>
-          </div>
-          <div className="animate-on-scroll anim-delay-2">
-            <ul className="mt-6 space-y-3 max-w-[600px] mx-auto text-left">
-              {[t("landing2.escalationBullet1"), t("landing2.escalationBullet2"), t("landing2.escalationBullet3")].map((b, i) => (
-                <li key={i} className="flex items-start gap-3 text-[0.95rem] text-gray-600 leading-relaxed">
-                  <CheckCircle />
-                  <span dangerouslySetInnerHTML={{ __html: b }} />
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-6 mt-12 animate-on-scroll anim-delay-3">
-            <BrowserFrame url={t("landing2.escalationUrl")} imgSrc="/img/Screenshot 2026-03-04 151357.png" alt="Price Escalation Calculator - Input" />
-            <BrowserFrame url={t("landing2.escalationUrl")} imgSrc="/img/Screenshot 2026-03-04 151403.png" alt="Price Escalation Calculator - Result" />
-          </div>
-        </div>
-      </section>
-
-      {/* Alloy Calculator */}
-      <FeatureSection
-        eyebrow={t("landing2.alloyEyebrow")}
-        title={t("landing2.alloyTitle")}
-        desc={t("landing2.alloyDesc")}
-        bullets={[t("landing2.alloyBullet1"), t("landing2.alloyBullet2"), t("landing2.alloyBullet3"), t("landing2.alloyBullet4")]}
-        url={t("landing2.alloyUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151430.png"
-        imgAlt="BauPreis AI Alloy Calculator"
-        reversed
-      />
-
-      {/* Reports */}
-      <FeatureSection
-        eyebrow={t("landing2.reportsEyebrow")}
-        title={t("landing2.reportsTitle")}
-        desc={t("landing2.reportsDesc")}
-        bullets={[t("landing2.reportsBullet1"), t("landing2.reportsBullet2"), t("landing2.reportsBullet3"), t("landing2.reportsBullet4")]}
-        url={t("landing2.reportsUrl")}
-        imgSrc="/img/Screenshot 2026-03-04 151439.png"
-        imgAlt="BauPreis AI Reports"
-        even
-      />
-
-      {/* ═══ FEATURES GRID ═══ */}
+      {/* ═══ DASHBOARD MOCKUP ═══ */}
       <section className="py-20 lg:py-28 bg-gray-50">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center animate-on-scroll">
-            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.gridEyebrow")}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight tracking-tight mb-5">{t("landing2.gridTitle")}</h2>
-            <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">{t("landing2.gridSubtitle")}</p>
+          <div className="text-center mb-12 animate-on-scroll">
+            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.dashboardEyebrow")}</span>
+            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight mb-4">{t("landing2.dashboardTitle")}</h2>
+            <p className="text-base text-gray-500 max-w-xl mx-auto">{t("landing2.dashboardDesc")}</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
-            {[
-              { title: t("landing2.gridCard1Title"), text: t("landing2.gridCard1Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg> },
-              { title: t("landing2.gridCard2Title"), text: t("landing2.gridCard2Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
-              { title: t("landing2.gridCard3Title"), text: t("landing2.gridCard3Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg> },
-              { title: t("landing2.gridCard4Title"), text: t("landing2.gridCard4Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12" /></svg> },
-              { title: t("landing2.gridCard5Title"), text: t("landing2.gridCard5Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> },
-              { title: t("landing2.gridCard6Title"), text: t("landing2.gridCard6Text"), icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C1292E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" /></svg> },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className={`animate-on-scroll anim-delay-${i + 1} bg-white border border-gray-200 rounded-2xl p-8 transition-all hover:border-brand-200 hover:shadow-lg hover:-translate-y-1`}
-              >
-                <div className="w-12 h-12 rounded-xl bg-brand-50 flex items-center justify-center mb-5">{card.icon}</div>
-                <h3 className="text-base font-bold text-gray-900 mb-2">{card.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{card.text}</p>
+          {/* Browser frame mockup */}
+          <div className="animate-on-scroll max-w-[1000px] mx-auto bg-white border-[3px] border-bauhaus-black rounded-xl overflow-hidden shadow-[8px_8px_0_#C1292E]">
+            {/* Title bar */}
+            <div className="bg-bauhaus-black px-4 py-3 flex items-center gap-2 font-grotesk text-sm font-semibold text-white">
+              <span className="w-3 h-3 rounded-full bg-brand-600" />
+              <span className="w-3 h-3 rounded-full bg-bauhaus-yellow" />
+              <span className="w-3 h-3 rounded-full bg-emerald-500" />
+              <span className="ml-3 text-xs text-gray-400">baupreis.ais152.com/dashboard</span>
+            </div>
+            {/* Dashboard body */}
+            <div className="p-6">
+              {/* KPI row */}
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                {[
+                  { label: "BAUPREIS INDEX", value: "€7.915", change: "+2.3%", up: true, accent: "bg-brand-600" },
+                  { label: "STAHLPREIS", value: "€450.00", change: "+12.5%", up: true, accent: "bg-bauhaus-yellow" },
+                  { label: "KUPFERPREIS", value: "€8.234", change: "-3.2%", up: false, accent: "bg-bauhaus-salmon" },
+                  { label: "KONSTRUKTIONSHOLZ", value: "€285.50", change: "-30.5%", up: false, accent: "bg-bauhaus-black" },
+                ].map((kpi, i) => (
+                  <div key={i} className="border-2 border-gray-200 rounded-lg p-4 relative overflow-hidden">
+                    <div className={`absolute top-0 left-0 right-0 h-[3px] ${kpi.accent}`} />
+                    <div className="font-grotesk text-[0.6rem] font-bold uppercase tracking-[0.08em] text-gray-500 mb-1">{kpi.label}</div>
+                    <div className="font-grotesk text-xl font-bold text-gray-900">{kpi.value}</div>
+                    <div className={`text-sm font-bold mt-1 ${kpi.up ? "text-emerald-600" : "text-brand-600"}`}>{kpi.change}</div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ TECH STACK ═══ */}
-      <section className="bg-gray-50 py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center animate-on-scroll">
-            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.techEyebrow")}</span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-grotesk text-gray-900 leading-tight tracking-tight">{t("landing2.techTitle")}</h2>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
-            {[
-              { title: t("landing2.techItem1Title"), desc: t("landing2.techItem1Desc"), icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg> },
-              { title: t("landing2.techItem2Title"), desc: t("landing2.techItem2Desc"), icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></svg> },
-              { title: t("landing2.techItem3Title"), desc: t("landing2.techItem3Desc"), icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
-              { title: t("landing2.techItem4Title"), desc: t("landing2.techItem4Desc"), icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></svg> },
-            ].map((item, i) => (
-              <div key={i} className={`animate-on-scroll anim-delay-${i + 1} text-center p-7 bg-white rounded-xl border border-gray-200 transition-all hover:border-brand-200 hover:shadow-md`}>
-                <div className="text-3xl mb-3 flex justify-center">{item.icon}</div>
-                <h4 className="text-sm font-bold text-gray-900 mb-1">{item.title}</h4>
-                <p className="text-xs text-gray-500">{item.desc}</p>
+              {/* Charts row */}
+              <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
+                <div className="border-2 border-gray-200 rounded-lg p-5">
+                  <div className="font-grotesk text-xs font-bold uppercase tracking-[0.05em] text-gray-600 mb-4">Stahlpreis Prognose Q2 2026 (90 Tage)</div>
+                  <svg viewBox="0 0 600 180" className="w-full h-auto" preserveAspectRatio="none">
+                    <line x1="0" y1="45" x2="600" y2="45" stroke="#E5E7EB" strokeWidth="1" />
+                    <line x1="0" y1="90" x2="600" y2="90" stroke="#E5E7EB" strokeWidth="1" />
+                    <line x1="0" y1="135" x2="600" y2="135" stroke="#E5E7EB" strokeWidth="1" />
+                    <path d="M0,150 C40,145 80,130 120,125 C160,120 200,110 240,90 C280,70 320,80 360,65 C400,50 440,40 480,45 C520,50 560,35 600,20" fill="none" stroke="#C1292E" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M0,150 C40,145 80,130 120,125 C160,120 200,110 240,90 C280,70 320,80 360,65 C400,50 440,40 480,45 C520,50 560,35 600,20 L600,180 L0,180 Z" fill="#C1292E" opacity="0.06" />
+                    <path d="M420,42 C460,38 500,32 540,25 C570,20 590,15 600,10" fill="none" stroke="#F5C518" strokeWidth="2" strokeDasharray="6,4" strokeLinecap="round" />
+                    <circle cx="420" cy="42" r="5" fill="#F5C518" stroke="#fff" strokeWidth="2" />
+                    <text x="10" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">Jan</text>
+                    <text x="150" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">Feb</text>
+                    <text x="290" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">M&auml;r</text>
+                    <text x="430" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">Apr</text>
+                    <text x="560" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">Mai</text>
+                  </svg>
+                </div>
+                <div className="border-2 border-gray-200 rounded-lg p-5">
+                  <div className="font-grotesk text-xs font-bold uppercase tracking-[0.05em] text-gray-600 mb-4">Top 5 Materialien</div>
+                  <svg viewBox="0 0 200 180" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+                    <rect x="10" y="45" width="30" height="105" rx="2" fill="#C1292E" />
+                    <rect x="48" y="70" width="30" height="80" rx="2" fill="#1A1A1A" />
+                    <rect x="86" y="90" width="30" height="60" rx="2" fill="#BC8279" />
+                    <rect x="124" y="60" width="30" height="90" rx="2" fill="#F5C518" />
+                    <rect x="162" y="105" width="30" height="45" rx="2" fill="#C1292E" opacity="0.5" />
+                    <text x="25" y="170" fill="#6B7280" fontSize="8" fontFamily="Space Grotesk" textAnchor="middle">Stahl</text>
+                    <text x="63" y="170" fill="#6B7280" fontSize="8" fontFamily="Space Grotesk" textAnchor="middle">Kupfer</text>
+                    <text x="101" y="170" fill="#6B7280" fontSize="8" fontFamily="Space Grotesk" textAnchor="middle">Alu</text>
+                    <text x="139" y="170" fill="#6B7280" fontSize="8" fontFamily="Space Grotesk" textAnchor="middle">Holz</text>
+                    <text x="177" y="170" fill="#6B7280" fontSize="8" fontFamily="Space Grotesk" textAnchor="middle">Beton</text>
+                    <text x="25" y="40" fill="#C1292E" fontSize="9" fontFamily="Space Grotesk" fontWeight="700" textAnchor="middle">+12.5%</text>
+                    <text x="63" y="65" fill="#1A1A1A" fontSize="9" fontFamily="Space Grotesk" fontWeight="700" textAnchor="middle">+8.1%</text>
+                    <text x="101" y="85" fill="#BC8279" fontSize="9" fontFamily="Space Grotesk" fontWeight="700" textAnchor="middle">+5.4%</text>
+                    <text x="139" y="55" fill="#9e7e00" fontSize="9" fontFamily="Space Grotesk" fontWeight="700" textAnchor="middle">-30.5%</text>
+                    <text x="177" y="100" fill="#C1292E" fontSize="9" fontFamily="Space Grotesk" fontWeight="700" textAnchor="middle">+2.1%</text>
+                  </svg>
+                </div>
               </div>
-            ))}
-          </div>
-          <div className="text-center mt-10 animate-on-scroll">
-            <p className="text-sm text-gray-500">{t("landing2.techStats")}</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ═══ PRICING ═══ */}
-      <section className="py-20 lg:py-28">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-center animate-on-scroll">
+      <section id="pricing" className="py-20 lg:py-28 bg-white relative overflow-hidden">
+        <div className="absolute bottom-[-60px] left-[-60px] w-[200px] h-[200px] rounded-full bg-bauhaus-yellow opacity-[0.08] pointer-events-none" />
+        <div className="absolute top-[40px] right-[-40px] w-[150px] h-[150px] bg-brand-600 opacity-[0.05] pointer-events-none" />
+        <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+          <div className="text-center mb-12 animate-on-scroll">
             <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.pricingEyebrow")}</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight tracking-tight mb-5">{t("landing2.pricingTitle")}</h2>
-            <p className="text-lg text-gray-500 max-w-xl mx-auto leading-relaxed">{t("landing2.pricingSubtitle")}</p>
+            <h2 className="text-3xl sm:text-4xl font-bold font-grotesk text-gray-900 leading-tight mb-4">{t("landing2.pricingTitle")}</h2>
+            <p className="text-base text-gray-500 max-w-xl mx-auto">{t("landing2.pricingSubtitle")}</p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6 mt-16 items-start max-w-5xl mx-auto">
+          <div className="grid lg:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
             {/* Basis */}
-            <div className="animate-on-scroll anim-delay-1 bg-white border border-gray-200 rounded-xl px-8 py-10 transition-all hover:shadow-xl hover:-translate-y-1 relative">
-              <div className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-2">{t("landing.planBasis")}</div>
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-2xl font-bold text-gray-900">&euro;</span>
-                <span className="text-5xl font-extrabold text-gray-900 tracking-tight leading-none">49</span>
-                <span className="text-base text-gray-500">{t("landing2.pricingPerMonth")}</span>
-              </div>
-              <p className="text-sm text-gray-500 leading-relaxed mb-7">{t("landing2.pricingBasisDesc")}</p>
+            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-xl p-8 bg-white transition-all hover:-translate-y-1">
+              <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planBasis")}</div>
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingBasisDesc")}</p>
+              <div className="font-grotesk text-4xl font-bold text-gray-900 mb-6">&euro;49 <span className="text-base font-medium text-gray-500">{t("landing2.pricingPerMonth")}</span></div>
               <ul className="space-y-2.5 mb-8">
                 {[t("landing2.pricingBasisFeat1"), t("landing2.pricingBasisFeat2"), t("landing2.pricingBasisFeat3"), t("landing2.pricingBasisFeat4"), t("landing2.pricingBasisFeat5")].map((f, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-sm text-gray-700"><CheckPricing />{f}</li>
@@ -437,21 +304,17 @@ export default function LandingPage() {
                   <li key={`off-${i}`} className="flex items-center gap-2.5 text-sm text-gray-400"><XCircle />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-xl font-semibold text-sm text-brand-600 border-2 border-brand-200 hover:bg-brand-50 hover:border-brand-600 transition-all">
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
                 {t("landing2.pricingCta")}
               </Link>
             </div>
 
             {/* Pro */}
-            <div className="animate-on-scroll anim-delay-2 bg-white border-2 border-brand-600 rounded-xl px-8 py-10 shadow-lg relative">
-              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-bold px-5 py-1.5 rounded-full uppercase tracking-wider">{t("landing2.pricingMostPopular")}</span>
-              <div className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-2">{t("landing.planPro")}</div>
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-2xl font-bold text-gray-900">&euro;</span>
-                <span className="text-5xl font-extrabold text-gray-900 tracking-tight leading-none">149</span>
-                <span className="text-base text-gray-500">{t("landing2.pricingPerMonth")}</span>
-              </div>
-              <p className="text-sm text-gray-500 leading-relaxed mb-7">{t("landing2.pricingProDesc")}</p>
+            <div className="animate-on-scroll border-[3px] border-brand-600 rounded-xl p-8 bg-white relative shadow-[6px_6px_0_#C1292E]">
+              <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-bold font-grotesk px-5 py-1.5 uppercase tracking-wide whitespace-nowrap">{t("landing2.pricingMostPopular")}</span>
+              <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planPro")}</div>
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingProDesc")}</p>
+              <div className="font-grotesk text-4xl font-bold text-gray-900 mb-6">&euro;149 <span className="text-base font-medium text-gray-500">{t("landing2.pricingPerMonth")}</span></div>
               <ul className="space-y-2.5 mb-8">
                 {[t("landing2.pricingProFeat1"), t("landing2.pricingProFeat2"), t("landing2.pricingProFeat3"), t("landing2.pricingProFeat4"), t("landing2.pricingProFeat5"), t("landing2.pricingProFeat6"), t("landing2.pricingProFeat7")].map((f, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-sm text-gray-700"><CheckPricing />{f}</li>
@@ -460,26 +323,22 @@ export default function LandingPage() {
                   <li key={`off-${i}`} className="flex items-center gap-2.5 text-sm text-gray-400"><XCircle />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-xl font-semibold text-sm text-white bg-brand-600 hover:bg-brand-700 transition-all">
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-white bg-brand-600 uppercase tracking-wide hover:bg-brand-700 transition shadow-[4px_4px_0_#1A1A1A]">
                 {t("landing2.pricingCtaPro")}
               </Link>
             </div>
 
             {/* Team */}
-            <div className="animate-on-scroll anim-delay-3 bg-white border border-gray-200 rounded-xl px-8 py-10 transition-all hover:shadow-xl hover:-translate-y-1 relative">
-              <div className="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-2">{t("landing.planTeam")}</div>
-              <div className="flex items-baseline gap-1 mb-2">
-                <span className="text-2xl font-bold text-gray-900">&euro;</span>
-                <span className="text-5xl font-extrabold text-gray-900 tracking-tight leading-none">299</span>
-                <span className="text-base text-gray-500">{t("landing2.pricingPerMonth")}</span>
-              </div>
-              <p className="text-sm text-gray-500 leading-relaxed mb-7">{t("landing2.pricingTeamDesc")}</p>
+            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-xl p-8 bg-white transition-all hover:-translate-y-1">
+              <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planTeam")}</div>
+              <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingTeamDesc")}</p>
+              <div className="font-grotesk text-4xl font-bold text-gray-900 mb-6">&euro;299 <span className="text-base font-medium text-gray-500">{t("landing2.pricingPerMonth")}</span></div>
               <ul className="space-y-2.5 mb-8">
                 {[t("landing2.pricingTeamFeat1"), t("landing2.pricingTeamFeat2"), t("landing2.pricingTeamFeat3"), t("landing2.pricingTeamFeat4"), t("landing2.pricingTeamFeat5"), t("landing2.pricingTeamFeat6"), t("landing2.pricingTeamFeat7"), t("landing2.pricingTeamFeat8")].map((f, i) => (
                   <li key={i} className="flex items-center gap-2.5 text-sm text-gray-700"><CheckPricing />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-xl font-semibold text-sm text-brand-600 border-2 border-brand-200 hover:bg-brand-50 hover:border-brand-600 transition-all">
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
                 {t("landing2.pricingCtaTeam")}
               </Link>
             </div>
@@ -490,12 +349,12 @@ export default function LandingPage() {
       {/* ═══ FAQ ═══ */}
       <section className="py-20 bg-gray-50 px-6">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-center text-gray-900 mb-12 animate-on-scroll">
+          <h2 className="text-3xl font-bold font-grotesk text-center text-gray-900 mb-12 animate-on-scroll">
             {t("landing.faqTitle")}
           </h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <details key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 animate-on-scroll">
+              <details key={i} className="bg-white rounded-xl p-6 border-2 border-gray-200 animate-on-scroll">
                 <summary className="font-semibold cursor-pointer text-gray-900">{faq.q}</summary>
                 <p className="mt-3 text-gray-600 leading-relaxed">{faq.a}</p>
               </details>
@@ -504,59 +363,36 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ═══ BOTTOM CTA ═══ */}
-      <section className="py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center animate-on-scroll">
-          <h2 className="text-3xl font-extrabold text-gray-900 mb-4">
-            {t("landing.ctaBottomTitle")}
-          </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            {t("landing.ctaBottomText")}
-          </p>
-          <Link
-            href="/sign-up"
-            className="inline-flex items-center gap-2 bg-brand-600 text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-brand-700 transition shadow-[0_1px_2px_rgba(79,70,229,0.3),0_4px_12px_rgba(79,70,229,0.15)]"
-          >
-            {t("landing.ctaBottomButton")}
-            <ArrowRight />
-          </Link>
-        </div>
-      </section>
-
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-bauhaus-black text-gray-400 py-16 text-center">
+      <footer className="bg-bauhaus-black text-gray-400 py-16">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="text-2xl font-bold font-grotesk text-white mb-2">
-            Bau<span className="text-brand-400">Preis</span> AI
-          </div>
-          <p className="text-sm text-gray-500 mb-6">{t("landing2.footerTagline")}</p>
-
-          <div className="flex flex-wrap items-center justify-center gap-8 mb-8">
-            <Link href="/preise" className="text-sm text-gray-400 hover:text-white transition">{t("nav.pricing")}</Link>
-            <Link href="/ueber-uns" className="text-sm text-gray-400 hover:text-white transition">{t("nav.aboutUs")}</Link>
-            <Link href="/kontakt" className="text-sm text-gray-400 hover:text-white transition">{t("nav.contact")}</Link>
-          </div>
-
-          <div className="w-20 h-px bg-gray-700 mx-auto mb-6" />
-
-          <div className="flex flex-wrap items-center justify-center gap-6 mb-6 text-sm">
-            <Link href="/impressum" className="hover:text-white transition">{t("landing.footerImpressum")}</Link>
-            <Link href="/datenschutz" className="hover:text-white transition">{t("landing.footerDatenschutz")}</Link>
-            <Link href="/agb" className="hover:text-white transition">{t("landing.footerAgb")}</Link>
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                  (window as any).__openCookieSettings?.();
-                }
-              }}
-              className="hover:text-white transition cursor-pointer"
-            >
-              {t("cookie.settings")}
-            </button>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
+            <div>
+              <div className="font-grotesk text-xl font-bold text-white flex items-center gap-2.5 mb-2">
+                <BauhausLogo size={28} />
+                Bau<span className="text-brand-400">Preis</span> AI
+              </div>
+              <p className="text-sm text-gray-500">{t("landing2.footerTagline")}</p>
+              <p className="text-sm text-gray-500">{t("landing2.footerLocation")}</p>
+            </div>
+            <div className="flex flex-wrap gap-6">
+              <Link href="/preise" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("nav.pricing")}</Link>
+              <Link href="/ueber-uns" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("nav.aboutUs")}</Link>
+              <Link href="/kontakt" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("nav.contact")}</Link>
+              <Link href="/impressum" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerImpressum")}</Link>
+              <Link href="/datenschutz" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerDatenschutz")}</Link>
+              <Link href="/agb" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerAgb")}</Link>
+            </div>
           </div>
 
-          <p className="text-sm text-gray-500 mb-2">{t("landing2.footerLocation")}</p>
+          {/* Bauhaus color bar */}
+          <div className="flex h-1 mb-6">
+            <div className="flex-[3] bg-brand-600" />
+            <div className="flex-[2] bg-bauhaus-yellow" />
+            <div className="flex-[1] bg-bauhaus-salmon" />
+            <div className="flex-[4] bg-white/10" />
+          </div>
+
           <p className="text-xs text-gray-600">
             {t("landing.footerCopyright").replace("{year}", String(new Date().getFullYear()))}
           </p>

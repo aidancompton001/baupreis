@@ -9,6 +9,25 @@
 
 ---
 
+### [S022] — 2026-03-26 — T006: Landing = Прототип (структура, не только цвета)
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend
+**Статус:** завершено
+
+**Что сделано:**
+- Hero: centered → 2 колонки (текст лево + Bauhaus-композиция право)
+- Заголовок: "BauPreis AI" → "MATERIALPREISE. DIGITAL." с жёлтыми точками
+- Bauhaus-композиция: dashboard card + геометрия (круги, квадраты, salmon rect)
+- Убрано 7 feature sections + Grid + Tech Stack (лендинг компактный)
+- Добавлен Dashboard mockup с browser frame, KPI, SVG charts
+- Bauhaus-логотип SVG (красные геометрические квадраты)
+- Footer: Bauhaus color bar (красный + жёлтый + salmon)
+- Лого обновлён: page.tsx, MarketingHeader, Dashboard layout
+
+**Артефакты:** `page.tsx` (полная перезапись), `MarketingHeader.tsx`, `(dashboard)/layout.tsx`
+
+---
+
 ### [S021] — 2026-03-26 — T004: Bauhaus Bold Full Redesign (50+ файлов)
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review
