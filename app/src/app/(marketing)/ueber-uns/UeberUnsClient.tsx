@@ -56,7 +56,7 @@ export default function UeberUnsPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-purple-800">
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-bauhaus-black">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold font-grotesk text-white mb-6 tracking-tight">
@@ -74,9 +74,9 @@ export default function UeberUnsPage() {
           {sections.map((s, i) => (
             <div
               key={i}
-              className={`animate-on-scroll anim-delay-${i + 1} bg-white rounded-xl p-8 border border-gray-100 hover:shadow-lg transition-shadow duration-300`}
+              className={`animate-on-scroll anim-delay-${i + 1} bg-white rounded-none p-8 border border-gray-100 hover:shadow-lg transition-shadow duration-300`}
             >
-              <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-brand-50">
+              <div className="mb-4 inline-flex items-center justify-center w-14 h-14 rounded-none bg-brand-50">
                 {s.icon}
               </div>
               <h2 className="text-xl font-bold text-gray-900 mb-3">{s.title}</h2>

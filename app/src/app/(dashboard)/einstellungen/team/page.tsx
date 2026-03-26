@@ -26,8 +26,8 @@ interface Invite {
 }
 
 const ROLE_COLORS: Record<string, string> = {
-  owner: "bg-purple-100 text-purple-700",
-  admin: "bg-blue-100 text-blue-700",
+  owner: "bg-brand-100 text-brand-700",
+  admin: "bg-[#F5C518]/20 text-[#1A1A1A]",
   member: "bg-gray-100 text-gray-700",
 };
 
@@ -120,7 +120,7 @@ export default function TeamPage() {
           <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
           <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-8 animate-pulse">
+        <div className="bg-white rounded-none border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/3"></div>
         </div>
@@ -157,7 +157,7 @@ export default function TeamPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Team" />}
 
       {/* Invite form */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
         <h2 className="font-semibold text-gray-900 mb-3">{t("team.inviteSection")}</h2>
         <div className="flex gap-3">
           <input
@@ -165,12 +165,12 @@ export default function TeamPage() {
             value={inviteEmail}
             onChange={(e) => setInviteEmail(e.target.value)}
             placeholder={t("team.inviteEmail")}
-            className="flex-1 rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
+            className="flex-1 rounded-none border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
           />
           <select
             value={inviteRole}
             onChange={(e) => setInviteRole(e.target.value)}
-            className="rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
+            className="rounded-none border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
           >
             <option value="member">{t("team.roles.member")}</option>
             <option value="admin">{t("team.roles.admin")}</option>
@@ -178,17 +178,17 @@ export default function TeamPage() {
           <button
             onClick={handleInvite}
             disabled={inviting || !inviteEmail.trim()}
-            className="px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50 transition-all duration-300"
+            className="px-6 py-2.5 rounded-none bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50 transition-all duration-300"
           >
             {inviting ? t("team.inviting") : t("team.inviteButton")}
           </button>
         </div>
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        {success && <p className="text-green-600 text-sm mt-2">{success}</p>}
+        {success && <p className="text-[#F5C518] text-sm mt-2">{success}</p>}
       </div>
 
       {/* Members list */}
-      <div className="bg-white rounded-xl border border-gray-200 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 mb-6 hover:shadow-md transition-all duration-300">
         <div className="p-5 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">{t("team.membersSection")}</h2>
         </div>
@@ -217,7 +217,7 @@ export default function TeamPage() {
                     <select
                       value={member.role}
                       onChange={(e) => handleChangeRole(member.id, e.target.value)}
-                      className="text-xs border border-gray-200 rounded-lg px-2 py-1.5 focus:ring-2 focus:ring-brand-500 transition-all duration-300"
+                      className="text-xs border border-gray-200 rounded-none px-2 py-1.5 focus:ring-2 focus:ring-brand-500 transition-all duration-300"
                     >
                       <option value="member">{t("team.roles.member")}</option>
                       <option value="admin">{t("team.roles.admin")}</option>
@@ -238,7 +238,7 @@ export default function TeamPage() {
 
       {/* Pending invites */}
       {invites.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300">
+        <div className="bg-white rounded-none border border-gray-200 hover:shadow-md transition-all duration-300">
           <div className="p-5 border-b border-gray-100">
             <h2 className="font-semibold text-gray-900">{t("team.pendingSection")}</h2>
           </div>
@@ -251,7 +251,7 @@ export default function TeamPage() {
                     {t("team.pendingInvited", { created: formatDate(invite.created_at), expires: formatDate(invite.expires_at) })}
                   </p>
                 </div>
-                <span className="text-xs px-2 py-1 rounded-full bg-yellow-100 text-yellow-700 font-medium">
+                <span className="text-xs px-2 py-1 rounded-full bg-[#F5C518]/20 text-[#1A1A1A] font-medium">
                   {t("team.pendingStatus")}
                 </span>
               </div>

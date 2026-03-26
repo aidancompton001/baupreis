@@ -93,7 +93,7 @@ export default function MaterialDetailPage() {
           <button
             key={d}
             onClick={() => setDays(d)}
-            className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+            className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-200 ${
               days === d
                 ? "bg-brand-600 text-white shadow-md"
                 : "bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md"
@@ -105,7 +105,7 @@ export default function MaterialDetailPage() {
         <a
           href={`/api/export/prices?material=${code}&days=${days}`}
           download
-          className="ml-auto px-4 py-2 rounded-xl text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
+          className="ml-auto px-4 py-2 rounded-none text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
         >
           {t("material.csvExport")}
         </a>
@@ -126,7 +126,7 @@ export default function MaterialDetailPage() {
         </div>
         <div className="dash-card p-4 dash-appear dash-delay-2">
           <p className="text-sm text-gray-500">{t("material.minimum")} ({days}T)</p>
-          <p className="text-2xl font-bold text-green-600">
+          <p className="text-2xl font-bold text-[#F5C518]">
             {minPrice
               ? `€${minPrice.toLocaleString(dateFmtLocale, {
                   minimumFractionDigits: 2,
@@ -136,7 +136,7 @@ export default function MaterialDetailPage() {
         </div>
         <div className="dash-card p-4 dash-appear dash-delay-3">
           <p className="text-sm text-gray-500">{t("material.maximum")} ({days}T)</p>
-          <p className="text-2xl font-bold text-red-600">
+          <p className="text-2xl font-bold text-brand-600">
             {maxPrice
               ? `€${maxPrice.toLocaleString(dateFmtLocale, {
                   minimumFractionDigits: 2,
@@ -270,10 +270,10 @@ export default function MaterialDetailPage() {
                 <span
                   className={`text-sm font-medium px-3 py-1.5 rounded-full ${
                     analysis.recommendation === "buy_now"
-                      ? "bg-green-100 text-green-700"
+                      ? "bg-[#F5C518] text-[#1A1A1A]"
                       : analysis.recommendation === "wait"
-                      ? "bg-yellow-100 text-yellow-700"
-                      : "bg-gray-100 text-gray-700"
+                      ? "bg-[#BC8279] text-white"
+                      : "bg-gray-200 text-[#1A1A1A]"
                   }`}
                 >
                   {t("material.recommendation")}:{" "}

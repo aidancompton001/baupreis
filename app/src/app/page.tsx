@@ -21,11 +21,7 @@ const XCircle = () => (
   </span>
 );
 
-/* ── Bauhaus Logo (from Luma brand identity) ── */
-const BauhausLogo = ({ size = 32 }: { size?: number }) => (
-  // eslint-disable-next-line @next/next/no-img-element
-  <img src="/logo-bauhaus.png" alt="BauPreis AI" width={size} height={size} className="object-contain" />
-);
+/* logos are now in /logo/ folder — no component needed */
 
 export default function LandingPage() {
   const { t } = useLocale();
@@ -65,15 +61,15 @@ export default function LandingPage() {
       {/* ═══ NAVIGATION ═══ */}
       <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b-[3px] border-brand-600 z-50">
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
-          <Link href="/" className="font-grotesk text-xl font-bold text-gray-900 flex items-center gap-2.5">
-            <BauhausLogo size={32} />
-            Bau<span className="text-brand-600">Preis</span> AI
+          <Link href="/">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" height={32} className="h-8 w-auto" />
           </Link>
           <div className="hidden md:flex items-center gap-8">
             <Link href="/preise" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.pricing")}</Link>
             <Link href="/ueber-uns" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.aboutUs")}</Link>
             <Link href="/sign-in" className="text-sm font-medium text-gray-600 hover:text-brand-600 transition">{t("nav.signIn")}</Link>
-            <Link href="/sign-up" className="bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]">
+            <Link href="/sign-up" className="bg-brand-600 text-white px-5 py-2.5 rounded-none text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]">
               {t("nav.freeTrial")}
             </Link>
             <LanguageSwitcher />
@@ -93,11 +89,11 @@ export default function LandingPage() {
             {/* LEFT — Text */}
             <div className="lg:text-left text-center">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-50 border-2 border-brand-600 rounded text-xs font-bold text-brand-600 mb-8 is-visible animate-on-scroll uppercase tracking-widest font-grotesk">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot" />
+                <span className="w-2 h-2 rounded-full bg-bauhaus-yellow pulse-dot" />
                 {t("landing2.heroBadge")}
               </div>
 
-              <h1 className="font-grotesk text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-[-0.02em] text-bauhaus-black mb-3 is-visible animate-on-scroll">
+              <h1 className="font-bebas text-5xl sm:text-6xl md:text-7xl lg:text-[6rem] leading-[0.95] tracking-wide text-bauhaus-black mb-3 is-visible animate-on-scroll">
                 MATERIAL&shy;PREISE<span className="text-bauhaus-yellow">.</span><br />
                 DIGITAL<span className="text-bauhaus-yellow">.</span>
               </h1>
@@ -111,10 +107,10 @@ export default function LandingPage() {
               </p>
 
               <div className="flex flex-wrap lg:justify-start justify-center gap-3 mb-10 is-visible animate-on-scroll">
-                <Link href="/sign-up" className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand-600 text-white rounded-lg font-bold font-grotesk uppercase tracking-wide shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#1A1A1A] transition-all">
+                <Link href="/sign-up" className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand-600 text-white rounded-none font-bold font-grotesk uppercase tracking-wide shadow-[4px_4px_0_#1A1A1A] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#1A1A1A] transition-all">
                   {t("landing2.heroCta")} <ArrowRight />
                 </Link>
-                <Link href="/preise" className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-bauhaus-black rounded-lg font-bold font-grotesk uppercase tracking-wide hover:bg-yellow-50 transition-all" style={{ border: "3px solid #1A1A1A" }}>
+                <Link href="/preise" className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-bauhaus-black rounded-none font-bold font-grotesk uppercase tracking-wide hover:bg-yellow-50 transition-all" style={{ border: "3px solid #1A1A1A" }}>
                   {t("landing2.heroCtaPlans")}
                 </Link>
               </div>
@@ -126,7 +122,7 @@ export default function LandingPage() {
                   { v: t("landing2.heroStat3Value"), l: t("landing2.heroStat3Label") },
                   { v: t("landing2.heroStat4Value"), l: t("landing2.heroStat4Label") },
                 ].map((s, i) => (
-                  <div key={i} className="text-center p-3 border-2 border-gray-200 rounded-lg">
+                  <div key={i} className="text-center p-3 border-2 border-gray-200 rounded-none">
                     <div className="text-lg font-bold font-grotesk text-brand-600">{s.v}</div>
                     <div className="text-[0.65rem] text-gray-500 mt-0.5">{s.l}</div>
                   </div>
@@ -141,12 +137,12 @@ export default function LandingPage() {
               {/* Red small circle */}
               <div className="absolute top-[5%] right-[15%] w-10 h-10 rounded-full bg-brand-600" />
               {/* Dashboard card */}
-              <div className="absolute top-[25%] left-[15%] w-[70%] h-[50%] bg-bauhaus-black rounded-xl overflow-hidden shadow-[8px_8px_0_#F5C518]">
+              <div className="absolute top-[25%] left-[15%] w-[70%] h-[50%] bg-bauhaus-black rounded-none overflow-hidden shadow-[8px_8px_0_#F5C518]">
                 <div className="p-5 text-white h-full flex flex-col justify-between">
                   <div>
                     <div className="font-grotesk text-[0.6rem] uppercase tracking-[0.1em] text-gray-400 mb-1">DASHBOARD</div>
                     <div className="font-grotesk text-2xl font-bold">&euro;7.915</div>
-                    <div className="text-sm font-semibold text-emerald-400">+2.3% BauPreis Index</div>
+                    <div className="text-sm font-semibold text-bauhaus-yellow">+2.3% BauPreis Index</div>
                   </div>
                   {/* Mini bar chart */}
                   <div className="flex items-end gap-1.5 h-14">
@@ -181,7 +177,7 @@ export default function LandingPage() {
               { stat: t("landing2.problemStat2"), title: t("landing2.problemCard2Title"), text: t("landing2.problemCard2Text"), color: "text-bauhaus-yellow", accent: "bg-bauhaus-yellow" },
               { stat: t("landing2.problemStat3"), title: t("landing2.problemCard3Title"), text: t("landing2.problemCard3Text"), color: "text-bauhaus-salmon", accent: "bg-bauhaus-salmon" },
             ].map((card, i) => (
-              <div key={i} className={`animate-on-scroll bg-white/5 border-2 border-white/10 rounded-xl p-8 transition-all hover:border-brand-600 hover:-translate-y-1 relative overflow-hidden`}>
+              <div key={i} className={`animate-on-scroll bg-white/5 border-2 border-white/10 rounded-none p-8 transition-all hover:border-brand-600 hover:-translate-y-1 relative overflow-hidden`}>
                 <div className={`absolute top-0 left-0 w-1 h-full ${card.accent}`} />
                 <div className={`text-4xl font-bold font-grotesk ${card.color} tracking-tight mb-2`}>{card.stat}</div>
                 <h3 className="text-lg font-bold font-grotesk text-white mb-3">{card.title}</h3>
@@ -202,12 +198,12 @@ export default function LandingPage() {
           </div>
 
           {/* Browser frame mockup */}
-          <div className="animate-on-scroll max-w-[1000px] mx-auto bg-white border-[3px] border-bauhaus-black rounded-xl overflow-hidden shadow-[8px_8px_0_#C1292E]">
+          <div className="animate-on-scroll max-w-[1000px] mx-auto bg-white border-[3px] border-bauhaus-black rounded-none overflow-hidden shadow-[8px_8px_0_#C1292E]">
             {/* Title bar */}
             <div className="bg-bauhaus-black px-4 py-3 flex items-center gap-2 font-grotesk text-sm font-semibold text-white">
               <span className="w-3 h-3 rounded-full bg-brand-600" />
               <span className="w-3 h-3 rounded-full bg-bauhaus-yellow" />
-              <span className="w-3 h-3 rounded-full bg-emerald-500" />
+              <span className="w-3 h-3 rounded-full bg-bauhaus-yellow" />
               <span className="ml-3 text-xs text-gray-400">baupreis.ais152.com/dashboard</span>
             </div>
             {/* Dashboard body */}
@@ -220,17 +216,17 @@ export default function LandingPage() {
                   { label: "KUPFERPREIS", value: "€8.234", change: "-3.2%", up: false, accent: "bg-bauhaus-salmon" },
                   { label: "KONSTRUKTIONSHOLZ", value: "€285.50", change: "-30.5%", up: false, accent: "bg-bauhaus-black" },
                 ].map((kpi, i) => (
-                  <div key={i} className="border-2 border-gray-200 rounded-lg p-4 relative overflow-hidden">
+                  <div key={i} className="border-2 border-gray-200 rounded-none p-4 relative overflow-hidden">
                     <div className={`absolute top-0 left-0 right-0 h-[3px] ${kpi.accent}`} />
                     <div className="font-grotesk text-[0.6rem] font-bold uppercase tracking-[0.08em] text-gray-500 mb-1">{kpi.label}</div>
                     <div className="font-grotesk text-xl font-bold text-gray-900">{kpi.value}</div>
-                    <div className={`text-sm font-bold mt-1 ${kpi.up ? "text-emerald-600" : "text-brand-600"}`}>{kpi.change}</div>
+                    <div className={`text-sm font-bold mt-1 ${kpi.up ? "text-bauhaus-yellow" : "text-brand-600"}`}>{kpi.change}</div>
                   </div>
                 ))}
               </div>
               {/* Charts row */}
               <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
-                <div className="border-2 border-gray-200 rounded-lg p-5">
+                <div className="border-2 border-gray-200 rounded-none p-5">
                   <div className="font-grotesk text-xs font-bold uppercase tracking-[0.05em] text-gray-600 mb-4">Stahlpreis Prognose Q2 2026 (90 Tage)</div>
                   <svg viewBox="0 0 600 180" className="w-full h-auto" preserveAspectRatio="none">
                     <line x1="0" y1="45" x2="600" y2="45" stroke="#E5E7EB" strokeWidth="1" />
@@ -247,7 +243,7 @@ export default function LandingPage() {
                     <text x="560" y="175" fill="#9CA3AF" fontSize="10" fontFamily="Space Grotesk">Mai</text>
                   </svg>
                 </div>
-                <div className="border-2 border-gray-200 rounded-lg p-5">
+                <div className="border-2 border-gray-200 rounded-none p-5">
                   <div className="font-grotesk text-xs font-bold uppercase tracking-[0.05em] text-gray-600 mb-4">Top 5 Materialien</div>
                   <svg viewBox="0 0 200 180" className="w-full h-auto" preserveAspectRatio="xMidYMid meet">
                     <rect x="10" y="45" width="30" height="105" rx="2" fill="#C1292E" />
@@ -286,7 +282,7 @@ export default function LandingPage() {
 
           <div className="grid lg:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
             {/* Basis */}
-            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-xl p-8 bg-white transition-all hover:-translate-y-1">
+            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-none p-8 bg-white transition-all hover:-translate-y-1">
               <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planBasis")}</div>
               <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingBasisDesc")}</p>
               <div className="font-grotesk text-4xl font-bold text-gray-900 mb-6">&euro;49 <span className="text-base font-medium text-gray-500">{t("landing2.pricingPerMonth")}</span></div>
@@ -298,13 +294,13 @@ export default function LandingPage() {
                   <li key={`off-${i}`} className="flex items-center gap-2.5 text-sm text-gray-400"><XCircle />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-none font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
                 {t("landing2.pricingCta")}
               </Link>
             </div>
 
             {/* Pro */}
-            <div className="animate-on-scroll border-[3px] border-brand-600 rounded-xl p-8 bg-white relative shadow-[6px_6px_0_#C1292E]">
+            <div className="animate-on-scroll border-[3px] border-brand-600 rounded-none p-8 bg-white relative shadow-[6px_6px_0_#C1292E]">
               <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand-600 text-white text-xs font-bold font-grotesk px-5 py-1.5 uppercase tracking-wide whitespace-nowrap">{t("landing2.pricingMostPopular")}</span>
               <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planPro")}</div>
               <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingProDesc")}</p>
@@ -317,13 +313,13 @@ export default function LandingPage() {
                   <li key={`off-${i}`} className="flex items-center gap-2.5 text-sm text-gray-400"><XCircle />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-white bg-brand-600 uppercase tracking-wide hover:bg-brand-700 transition shadow-[4px_4px_0_#1A1A1A]">
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-none font-grotesk font-bold text-sm text-white bg-brand-600 uppercase tracking-wide hover:bg-brand-700 transition shadow-[4px_4px_0_#1A1A1A]">
                 {t("landing2.pricingCtaPro")}
               </Link>
             </div>
 
             {/* Team */}
-            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-xl p-8 bg-white transition-all hover:-translate-y-1">
+            <div className="animate-on-scroll border-[3px] border-gray-200 rounded-none p-8 bg-white transition-all hover:-translate-y-1">
               <div className="font-grotesk text-lg font-bold text-gray-900 mb-2">{t("landing.planTeam")}</div>
               <p className="text-sm text-gray-500 mb-6 leading-relaxed">{t("landing2.pricingTeamDesc")}</p>
               <div className="font-grotesk text-4xl font-bold text-gray-900 mb-6">&euro;299 <span className="text-base font-medium text-gray-500">{t("landing2.pricingPerMonth")}</span></div>
@@ -332,7 +328,7 @@ export default function LandingPage() {
                   <li key={i} className="flex items-center gap-2.5 text-sm text-gray-700"><CheckPricing />{f}</li>
                 ))}
               </ul>
-              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-lg font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
+              <Link href="/sign-up" className="block w-full text-center py-3.5 rounded-none font-grotesk font-bold text-sm text-gray-900 uppercase tracking-wide" style={{ border: "3px solid #1A1A1A" }}>
                 {t("landing2.pricingCtaTeam")}
               </Link>
             </div>
@@ -348,7 +344,7 @@ export default function LandingPage() {
           </h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <details key={i} className="bg-white rounded-xl p-6 border-2 border-gray-200 animate-on-scroll">
+              <details key={i} className="bg-white rounded-none p-6 border-2 border-gray-200 animate-on-scroll">
                 <summary className="font-semibold cursor-pointer text-gray-900">{faq.q}</summary>
                 <p className="mt-3 text-gray-600 leading-relaxed">{faq.a}</p>
               </details>
@@ -362,9 +358,9 @@ export default function LandingPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
             <div>
-              <div className="font-grotesk text-xl font-bold text-white flex items-center gap-2.5 mb-2">
-                <BauhausLogo size={28} />
-                Bau<span className="text-brand-400">Preis</span> AI
+              <div className="mb-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" height={28} className="h-7 w-auto brightness-0 invert" />
               </div>
               <p className="text-sm text-gray-500">{t("landing2.footerTagline")}</p>
               <p className="text-sm text-gray-500">{t("landing2.footerLocation")}</p>

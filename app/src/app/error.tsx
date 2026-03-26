@@ -27,13 +27,13 @@ export default function GlobalError({
       <div className="flex gap-3">
         <button
           onClick={reset}
-          className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition"
+          className="px-4 py-2 bg-brand-600 text-white rounded-none hover:bg-brand-700 transition"
         >
           Erneut versuchen
         </button>
         <Link
           href="/dashboard"
-          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition"
+          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-none hover:bg-gray-50 transition"
         >
           Zum Dashboard
         </Link>

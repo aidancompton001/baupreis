@@ -63,7 +63,7 @@ export default function UpgradeCard({
   }
 
   return (
-    <div className="bg-gradient-to-br from-brand-50 to-white rounded-xl border-2 border-brand-200 p-8 text-center max-w-lg mx-auto">
+    <div className="bg-gradient-to-br from-brand-50 to-white rounded-none border-2 border-brand-200 p-8 text-center max-w-lg mx-auto">
       <span className="text-4xl block mb-4">{icon}</span>
       <h2 className="text-xl font-semibold text-gray-900 mb-2">
         {t("upgrade.featureFrom", { feature, plan: requiredPlan })}
@@ -75,14 +75,14 @@ export default function UpgradeCard({
         <button
           onClick={handleCheckout}
           disabled={loading}
-          className="inline-block bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 transition disabled:opacity-50"
+          className="inline-block bg-brand-600 text-white px-6 py-3 rounded-none font-medium hover:bg-brand-700 transition disabled:opacity-50"
         >
           {loading ? t("upgrade.processing") : t("upgrade.button", { plan: requiredPlan })}
         </button>
       ) : (
         <Link
           href={`/einstellungen/abo?plan=${planKey}`}
-          className="inline-block bg-brand-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-brand-700 transition"
+          className="inline-block bg-brand-600 text-white px-6 py-3 rounded-none font-medium hover:bg-brand-700 transition"
         >
           {t("upgrade.button", { plan: requiredPlan })}
         </Link>

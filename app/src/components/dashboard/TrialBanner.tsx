@@ -28,7 +28,7 @@ export default function TrialBanner() {
 
   return (
     <div
-      className={`rounded-lg px-4 py-3 mb-6 ${
+      className={`rounded-none px-4 py-3 mb-6 ${
         isUrgent
           ? "bg-red-50 border border-red-200 text-red-800"
           : "bg-brand-50 border border-brand-200 text-brand-800"
@@ -48,7 +48,7 @@ export default function TrialBanner() {
         <div className="flex items-center gap-3">
           <Link
             href="/einstellungen/abo"
-            className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition ${
+            className={`text-xs font-semibold px-3 py-1.5 rounded-none transition ${
               isUrgent
                 ? "bg-red-600 text-white hover:bg-red-700"
                 : "bg-brand-600 text-white hover:bg-brand-700"

@@ -6,7 +6,7 @@ export function SkeletonBlock({ className = "" }: { className?: string }) {
 
 export function SkeletonMaterialCard() {
   return (
-    <div className="bg-white rounded-xl border p-4">
+    <div className="bg-white rounded-none border p-4">
       <div className="flex items-start justify-between mb-2">
         <SkeletonBlock className="h-4 w-24" />
         <SkeletonBlock className="h-5 w-5 rounded-full" />
@@ -50,7 +50,7 @@ export function SkeletonListRow() {
 
 export function SkeletonPrognoseCard() {
   return (
-    <div className="bg-white rounded-xl border p-6">
+    <div className="bg-white rounded-none border p-6">
       <div className="flex items-start justify-between mb-4">
         <div className="space-y-2">
           <SkeletonBlock className="h-5 w-36" />
@@ -58,7 +58,7 @@ export function SkeletonPrognoseCard() {
         </div>
         <SkeletonBlock className="h-6 w-20 rounded-full" />
       </div>
-      <SkeletonBlock className="h-16 w-full rounded-lg" />
+      <SkeletonBlock className="h-16 w-full rounded-none" />
     </div>
   );
 }
@@ -72,15 +72,15 @@ export function SkeletonMaterialDetail() {
       </div>
       <div className="grid sm:grid-cols-3 gap-4 mb-6">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="bg-white rounded-xl border p-4 space-y-2">
+          <div key={i} className="bg-white rounded-none border p-4 space-y-2">
             <SkeletonBlock className="h-3 w-24" />
             <SkeletonBlock className="h-7 w-20" />
           </div>
         ))}
       </div>
-      <div className="bg-white rounded-xl border p-6">
+      <div className="bg-white rounded-none border p-6">
         <SkeletonBlock className="h-5 w-24 mb-4" />
-        <SkeletonBlock className="h-64 w-full rounded-lg" />
+        <SkeletonBlock className="h-64 w-full rounded-none" />
       </div>
     </div>
   );

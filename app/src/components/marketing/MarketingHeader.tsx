@@ -11,10 +11,9 @@ export default function MarketingHeader() {
   return (
     <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b-[3px] border-brand-600 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-        <Link href="/" className="font-grotesk text-xl font-bold text-gray-900 flex items-center gap-2.5">
+        <Link href="/">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-bauhaus.png" alt="BauPreis AI" width={32} height={32} className="object-contain" />
-          Bau<span className="text-brand-600">Preis</span> AI
+          <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" className="h-8 w-auto" />
         </Link>
         <div className="hidden md:flex items-center gap-8">
           <Link href="/preise" className="text-gray-600 hover:text-gray-900">
@@ -40,7 +39,7 @@ export default function MarketingHeader() {
           </Link>
           <Link
             href="/sign-up"
-            className="bg-brand-600 text-white px-5 py-2.5 rounded-lg text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]"
+            className="bg-brand-600 text-white px-5 py-2.5 rounded-none text-sm font-bold font-grotesk uppercase tracking-wide hover:bg-brand-700 transition shadow-[3px_3px_0_#1A1A1A]"
           >
             {t("nav.freeTrial")}
           </Link>

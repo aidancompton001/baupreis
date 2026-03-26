@@ -118,7 +118,7 @@ export default function OnboardingPage() {
               {t("onboarding.trialStart")}
             </p>
 
-            <div className="bg-white rounded-xl border p-8 mb-8 text-left max-w-md mx-auto">
+            <div className="bg-white rounded-none border p-8 mb-8 text-left max-w-md mx-auto">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t("onboarding.companyLabel")}
               </label>
@@ -127,7 +127,7 @@ export default function OnboardingPage() {
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder={t("onboarding.companyPlaceholder")}
-                className="w-full border rounded-lg px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                className="w-full border rounded-none px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
               />
               <p className="text-xs text-gray-400 mt-2">
                 {t("onboarding.companyHint")}
@@ -136,7 +136,7 @@ export default function OnboardingPage() {
 
             <button
               onClick={() => setStep(2)}
-              className="bg-brand-600 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-brand-700 transition"
+              className="bg-brand-600 text-white px-8 py-3 rounded-none text-lg font-semibold hover:bg-brand-700 transition"
             >
               {t("common.next")}
             </button>
@@ -177,7 +177,7 @@ export default function OnboardingPage() {
                         key={m.id}
                         onClick={() => toggleMaterial(m.id)}
                         disabled={disabled}
-                        className={`text-left p-3 rounded-xl border-2 transition text-sm ${
+                        className={`text-left p-3 rounded-none border-2 transition text-sm ${
                           isSelected
                             ? "border-brand-500 bg-brand-50"
                             : disabled
@@ -197,13 +197,13 @@ export default function OnboardingPage() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setStep(1)}
-                className="flex-1 border rounded-lg py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
+                className="flex-1 border rounded-none py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
               >
                 {t("common.back")}
               </button>
               <button
                 onClick={() => setStep(3)}
-                className="flex-1 bg-brand-600 text-white rounded-lg py-3 text-sm font-medium hover:bg-brand-700 transition"
+                className="flex-1 bg-brand-600 text-white rounded-none py-3 text-sm font-medium hover:bg-brand-700 transition"
               >
                 {t("onboarding.nextWithCount", { count: selectedIds.length, plural: selectedIds.length !== 1 ? "ien" : "" })}
               </button>
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
               {t("onboarding.setupHint")}
             </p>
 
-            <div className="bg-white rounded-xl border p-6 mb-8 text-left max-w-md mx-auto">
+            <div className="bg-white rounded-none border p-6 mb-8 text-left max-w-md mx-auto">
               <h3 className="font-semibold mb-3">{t("onboarding.yourSettings")}</h3>
               <div className="space-y-2 text-sm text-gray-600">
                 {companyName && (
@@ -249,14 +249,14 @@ export default function OnboardingPage() {
             <div className="flex gap-3 max-w-md mx-auto">
               <button
                 onClick={() => setStep(2)}
-                className="flex-1 border rounded-lg py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
+                className="flex-1 border rounded-none py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
               >
                 {t("common.back")}
               </button>
               <button
                 onClick={handleFinish}
                 disabled={loading}
-                className="flex-1 bg-brand-600 text-white rounded-lg py-3 text-lg font-semibold hover:bg-brand-700 transition disabled:opacity-50"
+                className="flex-1 bg-brand-600 text-white rounded-none py-3 text-lg font-semibold hover:bg-brand-700 transition disabled:opacity-50"
               >
                 {loading ? t("onboarding.settingUp") : t("onboarding.toDashboard")}
               </button>

@@ -137,12 +137,12 @@ export default function TelegramPage() {
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
-      <div className="bg-white rounded-xl border border-gray-200 p-6 max-w-lg hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 max-w-lg hover:shadow-md transition-all duration-300">
         {connected ? (
           <>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-              <h2 className="font-semibold text-green-700">
+              <div className="w-3 h-3 bg-[#F5C518] rounded-full animate-pulse" />
+              <h2 className="font-semibold text-[#1A1A1A]">
                 {t("telegram.connectedTitle")}
               </h2>
             </div>
@@ -186,7 +186,7 @@ export default function TelegramPage() {
               <button
                 onClick={handleConnect}
                 disabled={status === "generating"}
-                className="bg-[#0088cc] text-white px-6 py-2.5 rounded-xl hover:bg-[#0077b5] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 flex items-center gap-2"
+                className="bg-[#0088cc] text-white px-6 py-2.5 rounded-none hover:bg-[#0077b5] shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 flex items-center gap-2"
               >
                 <svg
                   className="w-5 h-5"
@@ -202,7 +202,7 @@ export default function TelegramPage() {
             )}
 
             {status === "success" && (
-              <p className="mt-3 text-green-600 text-sm">
+              <p className="mt-3 text-[#F5C518] text-sm">
                 {t("telegram.success")}
               </p>
             )}

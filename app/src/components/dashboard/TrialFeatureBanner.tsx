@@ -12,7 +12,7 @@ export default function TrialFeatureBanner({ plan }: TrialFeatureBannerProps) {
   const { t } = useLocale();
 
   return (
-    <div className="bg-gradient-to-r from-brand-50 to-blue-50 border border-brand-200 rounded-lg px-4 py-3 mb-6 flex items-center justify-between">
+    <div className="bg-gradient-to-r from-brand-50 to-[#F5C518]/10 border border-brand-200 rounded-none px-4 py-3 mb-6 flex items-center justify-between">
       <div className="flex items-center gap-2 text-sm">
         <span>★</span>
         <PlanBadge plan={plan} />

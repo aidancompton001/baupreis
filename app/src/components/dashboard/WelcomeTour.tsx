@@ -97,7 +97,7 @@ export default function WelcomeTour() {
 
       {/* Tour Card */}
       <div
-        className="fixed z-[999] w-80 bg-white rounded-xl shadow-2xl p-5 border border-gray-100"
+        className="fixed z-[999] w-80 bg-white rounded-none shadow-2xl p-5 border border-gray-100"
         style={{
           top: pos.below ? pos.top : undefined,
           bottom: pos.below ? undefined : window.innerHeight - pos.top,
@@ -118,7 +118,7 @@ export default function WelcomeTour() {
           </button>
           <button
             onClick={() => isLast ? finish() : setStep((s) => s + 1)}
-            className="bg-brand-600 text-white text-sm font-medium px-4 py-1.5 rounded-lg hover:bg-brand-700 transition-colors"
+            className="bg-brand-600 text-white text-sm font-medium px-4 py-1.5 rounded-none hover:bg-brand-700 transition-colors"
           >
             {isLast ? t("common.done") : t("common.next")}
           </button>

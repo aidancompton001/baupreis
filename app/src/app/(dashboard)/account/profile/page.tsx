@@ -105,7 +105,7 @@ export default function ProfilePage() {
   }
 
   const inputClass =
-    "w-full px-3 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300";
+    "w-full px-3 py-2.5 border border-gray-200 rounded-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300";
   const labelClass = "block text-sm font-medium text-gray-700 mb-1.5";
 
   return (
@@ -113,9 +113,9 @@ export default function ProfilePage() {
       {/* Success / Error Message */}
       {message && (
         <div
-          className={`px-4 py-3 rounded-xl text-sm ${
+          className={`px-4 py-3 rounded-none text-sm ${
             message.type === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
+              ? "bg-[#FEF9C3] text-[#1A1A1A] border border-[#F5C518]/30"
               : "bg-red-50 text-red-700 border border-red-200"
           }`}
         >
@@ -124,7 +124,7 @@ export default function ProfilePage() {
       )}
 
       {/* Section: Personal Data */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.profile.personalData")}
         </h2>
@@ -202,7 +202,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Section: Company */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.profile.companySection")}
         </h2>
@@ -238,7 +238,7 @@ export default function ProfilePage() {
       </div>
 
       {/* Section: Billing Address */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.profile.billingAddress")}
         </h2>
@@ -304,7 +304,7 @@ export default function ProfilePage() {
         <button
           type="submit"
           disabled={saving}
-          className={`px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 ${
+          className={`px-6 py-2.5 rounded-none text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 ${
             saving ? "opacity-50 cursor-wait" : ""
           }`}
         >

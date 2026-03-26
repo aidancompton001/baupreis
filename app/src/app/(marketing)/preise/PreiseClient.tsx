@@ -83,10 +83,10 @@ export default function PreisePage() {
           </p>
 
           <div className="flex justify-center mb-12">
-            <div className="bg-gray-100 rounded-lg p-1 inline-flex">
+            <div className="bg-gray-100 rounded-none p-1 inline-flex">
               <button
                 onClick={() => setYearly(false)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                className={`px-4 py-2 rounded-none text-sm font-medium transition ${
                   !yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
                 }`}
               >
@@ -94,7 +94,7 @@ export default function PreisePage() {
               </button>
               <button
                 onClick={() => setYearly(true)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+                className={`px-4 py-2 rounded-none text-sm font-medium transition ${
                   yearly ? "bg-white shadow text-gray-900" : "text-gray-600"
                 }`}
               >
@@ -107,7 +107,7 @@ export default function PreisePage() {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`rounded-xl p-8 ${
+                className={`rounded-none p-8 ${
                   plan.popular
                     ? "border-2 border-brand-600 shadow-lg relative"
                     : "border hover:shadow-lg transition"
@@ -129,7 +129,7 @@ export default function PreisePage() {
                   </span>
                 </p>
                 {yearly && (
-                  <p className="text-sm text-green-600 mb-6">
+                  <p className="text-sm text-brand-600 mb-6">
                     {t("pricing.savings", { savings: plan.monthlyPrice * 12 - plan.yearlyPrice })}
                   </p>
                 )}
@@ -137,7 +137,7 @@ export default function PreisePage() {
                 <ul className="space-y-3 mb-8 mt-6">
                   {plan.features.map((f) => (
                     <li key={f} className="flex items-start gap-2 text-sm">
-                      <span className="text-green-500 mt-0.5">&#10003;</span>
+                      <span className="text-brand-500 mt-0.5">&#10003;</span>
                       {f}
                     </li>
                   ))}
@@ -154,7 +154,7 @@ export default function PreisePage() {
 
                 <Link
                   href="/sign-up"
-                  className={`block w-full py-3 rounded-lg font-semibold text-center transition ${
+                  className={`block w-full py-3 rounded-none font-semibold text-center transition ${
                     plan.popular
                       ? "bg-brand-600 text-white hover:bg-brand-700"
                       : "border border-brand-600 text-brand-600 hover:bg-brand-50"
@@ -170,7 +170,7 @@ export default function PreisePage() {
 
       {/* Price disclaimer */}
       <section className="pb-20 px-4">
-        <div className="max-w-3xl mx-auto bg-gray-50 rounded-xl p-8">
+        <div className="max-w-3xl mx-auto bg-gray-50 rounded-none p-8">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             {t("pricing.disclaimerTitle")}
           </h2>

@@ -131,7 +131,7 @@ export default function MaterialienPage() {
                   key={m.id}
                   onClick={() => toggleMaterial(m.id)}
                   disabled={disabled}
-                  className={`text-left p-4 rounded-xl border-2 transition-all duration-300 ${
+                  className={`text-left p-4 rounded-none border-2 transition-all duration-300 ${
                     m.selected
                       ? "border-brand-500 bg-brand-50 shadow-sm"
                       : disabled
@@ -167,10 +167,10 @@ export default function MaterialienPage() {
 
       {message && (
         <div
-          className={`mb-4 text-sm p-3 rounded-xl ${
+          className={`mb-4 text-sm p-3 rounded-none ${
             isError
               ? "bg-red-50 text-red-700"
-              : "bg-green-50 text-green-700"
+              : "bg-[#FEF9C3] text-[#1A1A1A]"
           }`}
         >
           {message}
@@ -180,7 +180,7 @@ export default function MaterialienPage() {
       <button
         onClick={save}
         disabled={saving}
-        className="bg-brand-600 text-white px-6 py-2.5 rounded-xl hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-medium disabled:opacity-50"
+        className="bg-brand-600 text-white px-6 py-2.5 rounded-none hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-medium disabled:opacity-50"
       >
         {saving ? t("materials.saving") : t("materials.save")}
       </button>

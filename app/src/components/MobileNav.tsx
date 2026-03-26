@@ -71,7 +71,7 @@ export default function MobileNav() {
               <Link
                 href="/sign-up"
                 onClick={() => setOpen(false)}
-                className="bg-brand-600 text-white text-center px-6 py-3 rounded-lg text-lg font-semibold hover:bg-brand-700 transition mt-2"
+                className="bg-brand-600 text-white text-center px-6 py-3 rounded-none text-lg font-semibold hover:bg-brand-700 transition mt-2"
               >
                 {t("nav.freeTrial")}
               </Link>

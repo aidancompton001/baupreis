@@ -79,7 +79,7 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6">
-      <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-xl shadow-2xl p-6">
+      <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-none shadow-2xl p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">
           {t("cookie.title")}
         </h3>
@@ -131,27 +131,27 @@ export default function CookieConsent() {
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={() => saveConsent(true)}
-            className="flex-1 bg-brand-600 text-white py-2.5 px-4 rounded-lg text-sm font-semibold hover:bg-brand-700 transition"
+            className="flex-1 bg-brand-600 text-white py-2.5 px-4 rounded-none text-sm font-semibold hover:bg-brand-700 transition"
           >
             {t("cookie.acceptAll")}
           </button>
           <button
             onClick={() => saveConsent(false)}
-            className="flex-1 border border-gray-300 text-gray-700 py-2.5 px-4 rounded-lg text-sm font-semibold hover:bg-gray-50 transition"
+            className="flex-1 border border-gray-300 text-gray-700 py-2.5 px-4 rounded-none text-sm font-semibold hover:bg-gray-50 transition"
           >
             {t("cookie.necessaryOnly")}
           </button>
           {!showDetails ? (
             <button
               onClick={() => setShowDetails(true)}
-              className="flex-1 text-gray-500 py-2.5 px-4 rounded-lg text-sm hover:text-gray-900 hover:bg-gray-50 transition"
+              className="flex-1 text-gray-500 py-2.5 px-4 rounded-none text-sm hover:text-gray-900 hover:bg-gray-50 transition"
             >
               {t("cookie.details")}
             </button>
           ) : (
             <button
               onClick={() => saveConsent(analyticsChecked)}
-              className="flex-1 border border-brand-600 text-brand-600 py-2.5 px-4 rounded-lg text-sm font-semibold hover:bg-brand-50 transition"
+              className="flex-1 border border-brand-600 text-brand-600 py-2.5 px-4 rounded-none text-sm font-semibold hover:bg-brand-50 transition"
             >
               {t("cookie.saveSettings")}
             </button>

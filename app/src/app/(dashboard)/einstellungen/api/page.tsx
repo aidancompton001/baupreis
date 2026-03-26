@@ -82,7 +82,7 @@ export default function ApiSettingsPage() {
           <h1 className="text-2xl font-bold text-gray-900">{t("api.title")}</h1>
           <p className="text-gray-500 text-sm mt-1">{t("api.subtitle")}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-8 animate-pulse">
+        <div className="bg-white rounded-none border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/3"></div>
         </div>
@@ -114,7 +114,7 @@ export default function ApiSettingsPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Team" />}
 
       {/* Create key */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
         <h2 className="font-semibold text-gray-900 mb-3">{t("api.createSection")}</h2>
         <div className="flex gap-3">
           <input
@@ -122,13 +122,13 @@ export default function ApiSettingsPage() {
             value={newKeyName}
             onChange={(e) => setNewKeyName(e.target.value)}
             placeholder={t("api.createPlaceholder")}
-            className="flex-1 rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
+            className="flex-1 rounded-none border border-gray-200 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-all duration-300"
             maxLength={100}
           />
           <button
             onClick={handleCreate}
             disabled={creating || !newKeyName.trim()}
-            className="px-6 py-2.5 rounded-xl bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50 transition-all duration-300"
+            className="px-6 py-2.5 rounded-none bg-brand-600 text-white text-sm font-medium hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 disabled:opacity-50 transition-all duration-300"
           >
             {creating ? t("api.creating") : t("api.createButton")}
           </button>
@@ -138,21 +138,21 @@ export default function ApiSettingsPage() {
 
       {/* Newly created key (show once) */}
       {createdKey && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-6 mb-6 hover:shadow-md transition-all duration-300">
-          <h3 className="font-semibold text-green-800 mb-2">
+        <div className="bg-[#FEF9C3] border border-[#F5C518]/30 rounded-none p-6 mb-6 hover:shadow-md transition-all duration-300">
+          <h3 className="font-semibold text-[#1A1A1A] mb-2">
             {t("api.createdTitle")}
           </h3>
-          <p className="text-sm text-green-700 mb-3">
+          <p className="text-sm text-[#1A1A1A] mb-3">
             {t("api.createdHint")}
           </p>
-          <code className="block bg-white border border-gray-200 rounded-xl p-3 text-xs font-mono break-all select-all">
+          <code className="block bg-white border border-gray-200 rounded-none p-3 text-xs font-mono break-all select-all">
             {createdKey}
           </code>
           <button
             onClick={() => {
               navigator.clipboard.writeText(createdKey);
             }}
-            className="mt-3 px-6 py-2.5 rounded-xl bg-green-600 text-white text-sm font-medium hover:bg-green-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+            className="mt-3 px-6 py-2.5 rounded-none bg-[#F5C518] text-white text-sm font-medium hover:bg-[#F5C518]/80 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
           >
             {t("api.copy")}
           </button>
@@ -160,7 +160,7 @@ export default function ApiSettingsPage() {
       )}
 
       {/* Key list */}
-      <div className="bg-white rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 hover:shadow-md transition-all duration-300">
         <div className="p-5 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">{t("api.activeKeys")}</h2>
         </div>
@@ -193,7 +193,7 @@ export default function ApiSettingsPage() {
       </div>
 
       {/* API docs hint */}
-      <div className="mt-6 bg-gray-50 rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="mt-6 bg-gray-50 rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h3 className="font-semibold text-gray-900 mb-2">{t("api.docsSection")}</h3>
         <div className="space-y-2 text-sm text-gray-700 font-mono">
           <p>GET /api/v1/prices?material=steel_rebar&days=30</p>

@@ -47,7 +47,7 @@ export default function EinstellungenPage() {
           <Link
             key={item.href}
             href={item.href}
-            className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+            className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
           >
             <span className="text-3xl block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
             <h3 className="font-semibold text-gray-900 mt-3">{t(item.titleKey)}</h3>
@@ -66,7 +66,7 @@ export default function EinstellungenPage() {
           <button
             onClick={handleRestartTour}
             disabled={restarting}
-            className="shrink-0 ml-4 px-4 py-2 text-sm font-medium text-brand-600 border border-brand-200 rounded-lg hover:bg-brand-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="shrink-0 ml-4 px-4 py-2 text-sm font-medium text-brand-600 border border-brand-200 rounded-none hover:bg-brand-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {restarting ? "..." : t("settings.tour.restart")}
           </button>

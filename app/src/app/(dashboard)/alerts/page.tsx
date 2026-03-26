@@ -136,9 +136,9 @@ export default function AlertsPage() {
             <h1 className="text-2xl font-bold text-gray-900">{t("alerts.title")}</h1>
             <p className="text-gray-600">{t("alerts.subtitle")}</p>
           </div>
-          <div className="bg-gray-200 rounded-lg animate-pulse h-10 w-28" />
+          <div className="bg-gray-200 rounded-none animate-pulse h-10 w-28" />
         </div>
-        <div className="bg-white rounded-xl border">
+        <div className="bg-white rounded-none border">
           <div className="p-4 border-b">
             <div className="bg-gray-200 rounded animate-pulse h-5 w-32" />
           </div>
@@ -162,14 +162,14 @@ export default function AlertsPage() {
         </div>
         <button
           onClick={() => { resetForm(); setShowForm(true); }}
-          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-5 py-2.5 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
+          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-5 py-2.5 rounded-none hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
         >
           {t("alerts.addButton")}
         </button>
       </div>
 
       {/* Active Rules */}
-      <div className="bg-white rounded-xl border shadow-sm mb-6 overflow-hidden">
+      <div className="bg-white rounded-none border shadow-sm mb-6 overflow-hidden">
         <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
           <h2 className="font-semibold text-gray-800">{t("alerts.activeRules", { count: rules.length })}</h2>
         </div>
@@ -196,7 +196,7 @@ export default function AlertsPage() {
                   <span
                     className={`text-xs px-2.5 py-1 rounded-full font-medium ${
                       rule.is_active
-                        ? "bg-green-100 text-green-700 ring-1 ring-green-200"
+                        ? "bg-[#FEF9C3] text-[#1A1A1A] ring-1 ring-[#F5C518]/40"
                         : "bg-gray-100 text-gray-500 ring-1 ring-gray-200"
                     }`}
                   >
@@ -237,7 +237,7 @@ export default function AlertsPage() {
       </div>
 
       {/* Sent Alerts Log */}
-      <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
+      <div className="bg-white rounded-none border shadow-sm overflow-hidden">
         <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
           <h2 className="font-semibold text-gray-800">{t("alerts.sentAlarms")}</h2>
         </div>
@@ -272,7 +272,7 @@ export default function AlertsPage() {
       {/* Create Alert Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl">
+          <div className="bg-white rounded-none max-w-lg w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold">{t("alerts.modal.title")}</h2>
               <button
@@ -292,7 +292,7 @@ export default function AlertsPage() {
                 <select
                   value={materialId}
                   onChange={(e) => setMaterialId(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                  className="w-full border rounded-none px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 >
                   <option value="">{t("alerts.modal.allMaterials")}</option>
                   {materials.map((m) => (
@@ -311,7 +311,7 @@ export default function AlertsPage() {
                 <select
                   value={ruleType}
                   onChange={(e) => setRuleType(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                  className="w-full border rounded-none px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 >
                   {Object.entries(RULE_TYPE_LABELS).map(([k, v]) => (
                     <option key={k} value={k}>
@@ -335,7 +335,7 @@ export default function AlertsPage() {
                     min="0"
                     max="100"
                     step="0.5"
-                    className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                    className="w-full border rounded-none px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                     placeholder={ruleType === "price_change" ? t("alerts.modal.thresholdPlaceholderPct") : t("alerts.modal.thresholdPlaceholderEur")}
                   />
                   {ruleType === "price_change" && (
@@ -354,7 +354,7 @@ export default function AlertsPage() {
                 <select
                   value={timeWindow}
                   onChange={(e) => setTimeWindow(e.target.value)}
-                  className="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+                  className="w-full border rounded-none px-3 py-2 text-sm focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
                 >
                   {Object.entries(TIME_WINDOW_LABELS).map(([k, v]) => (
                     <option key={k} value={k}>
@@ -375,7 +375,7 @@ export default function AlertsPage() {
                       key={k}
                       type="button"
                       onClick={() => setChannel(k)}
-                      className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition border ${
+                      className={`flex-1 px-3 py-2 rounded-none text-sm font-medium transition border ${
                         channel === k
                           ? "bg-brand-50 border-brand-500 text-brand-700"
                           : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
@@ -398,7 +398,7 @@ export default function AlertsPage() {
                       key={k}
                       type="button"
                       onClick={() => setPriority(k)}
-                      className={`flex-1 px-3 py-2 rounded-lg text-sm font-medium transition border ${
+                      className={`flex-1 px-3 py-2 rounded-none text-sm font-medium transition border ${
                         priority === k
                           ? "bg-brand-50 border-brand-500 text-brand-700"
                           : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
@@ -412,7 +412,7 @@ export default function AlertsPage() {
 
               {/* Error */}
               {formError && (
-                <div className="bg-red-50 text-red-700 text-sm p-3 rounded-lg">
+                <div className="bg-red-50 text-red-700 text-sm p-3 rounded-none">
                   {formError}
                 </div>
               )}
@@ -421,14 +421,14 @@ export default function AlertsPage() {
               <div className="flex gap-3 pt-2">
                 <button
                   onClick={() => setShowForm(false)}
-                  className="flex-1 border rounded-lg py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
+                  className="flex-1 border rounded-none py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 transition"
                 >
                   {t("common.cancel")}
                 </button>
                 <button
                   onClick={createRule}
                   disabled={submitting}
-                  className="flex-1 bg-brand-600 text-white rounded-lg py-2.5 text-sm font-medium hover:bg-brand-700 transition disabled:opacity-50"
+                  className="flex-1 bg-brand-600 text-white rounded-none py-2.5 text-sm font-medium hover:bg-brand-700 transition disabled:opacity-50"
                 >
                   {submitting ? t("alerts.modal.creating") : t("alerts.modal.create")}
                 </button>

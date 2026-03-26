@@ -41,21 +41,21 @@ interface IndexData {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  steel: "text-slate-600",
-  metal: "text-blue-600",
-  concrete: "text-stone-600",
-  wood: "text-amber-600",
-  insulation: "text-rose-600",
-  energy: "text-orange-600",
+  steel: "text-[#C1292E]",
+  metal: "text-[#1A1A1A]",
+  concrete: "text-[#BC8279]",
+  wood: "text-[#F5C518]",
+  insulation: "text-[#C1292E]/60",
+  energy: "text-[#F5C518]/80",
 };
 
 const CATEGORY_BORDER: Record<string, string> = {
-  steel: "border-l-slate-400",
-  metal: "border-l-blue-400",
-  concrete: "border-l-stone-400",
-  wood: "border-l-amber-400",
-  insulation: "border-l-rose-400",
-  energy: "border-l-orange-400",
+  steel: "border-l-[#C1292E]",
+  metal: "border-l-[#1A1A1A]",
+  concrete: "border-l-[#BC8279]",
+  wood: "border-l-[#F5C518]",
+  insulation: "border-l-[#C1292E]",
+  energy: "border-l-[#F5C518]",
 };
 
 const CATEGORY_ORDER = ["steel", "metal", "concrete", "wood", "insulation", "energy"];
@@ -131,14 +131,14 @@ export default function DashboardPage() {
         <a
           href="/api/export/prices?days=30"
           download
-          className="px-4 py-2 rounded-xl text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
+          className="px-4 py-2 rounded-none text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
         >
           {t("dashboard.csvExport")}
         </a>
       </div>
 
       {indexData && (
-        <div data-tour="baupreis-index" className="mb-6 bg-[#1A1A1A] rounded-xl p-6 text-white shadow-[6px_6px_0_#C1292E] dash-appear">
+        <div data-tour="baupreis-index" className="mb-6 bg-[#1A1A1A] rounded-none p-6 text-white shadow-[6px_6px_0_#C1292E] dash-appear">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-gray-400 text-sm font-medium">{t("dashboard.indexLabel")}</p>
@@ -151,7 +151,7 @@ export default function DashboardPage() {
                 <div>
                   <p className="text-gray-400 text-xs">{t("dashboard.days30")}</p>
                   <p className={`text-lg font-semibold ${
-                    indexData.change_pct_30d > 0 ? "text-red-200" : indexData.change_pct_30d < 0 ? "text-green-200" : "text-white"
+                    indexData.change_pct_30d > 0 ? "text-brand-200" : indexData.change_pct_30d < 0 ? "text-[#F5C518]" : "text-white"
                   }`}>
                     {indexData.change_pct_30d > 0 ? "+" : ""}{parseFloat(String(indexData.change_pct_30d)).toFixed(2)}%
                   </p>
@@ -161,7 +161,7 @@ export default function DashboardPage() {
                 <div className="mt-1">
                   <p className="text-gray-400 text-xs">{t("dashboard.today")}</p>
                   <p className={`text-sm font-medium ${
-                    indexData.change_pct_1d > 0 ? "text-red-200" : indexData.change_pct_1d < 0 ? "text-green-200" : "text-white"
+                    indexData.change_pct_1d > 0 ? "text-brand-200" : indexData.change_pct_1d < 0 ? "text-[#F5C518]" : "text-white"
                   }`}>
                     {indexData.change_pct_1d > 0 ? "+" : ""}{parseFloat(String(indexData.change_pct_1d)).toFixed(2)}%
                   </p>
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                             {formatPrice(latestPrice.price_eur, latestPrice.unit)}
                           </p>
                           {latestPrice.source === "synthetic" && (
-                            <span className="text-xs bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded font-medium">
+                            <span className="text-xs bg-[#F5C518]/20 text-[#1A1A1A] px-1.5 py-0.5 rounded-none font-medium">
                               {t("dashboard.synthetic")}
                             </span>
                           )}
@@ -226,9 +226,9 @@ export default function DashboardPage() {
                           <span
                             className={
                               item.change_pct_7d > 0
-                                ? "text-red-600"
+                                ? "text-brand-600"
                                 : item.change_pct_7d < 0
-                                  ? "text-green-600"
+                                  ? "text-[#F5C518]"
                                   : "text-gray-600"
                             }
                           >
@@ -240,9 +240,9 @@ export default function DashboardPage() {
                           <span
                             className={
                               item.change_pct_30d > 0
-                                ? "text-red-600"
+                                ? "text-brand-600"
                                 : item.change_pct_30d < 0
-                                  ? "text-green-600"
+                                  ? "text-[#F5C518]"
                                   : "text-gray-600"
                             }
                           >
@@ -256,10 +256,10 @@ export default function DashboardPage() {
                           <span
                             className={`text-xs font-medium px-2 py-1 rounded-full ${
                               item.recommendation === "buy_now"
-                                ? "bg-green-100 text-green-700"
+                                ? "bg-[#F5C518] text-[#1A1A1A]"
                                 : item.recommendation === "wait"
-                                  ? "bg-yellow-100 text-yellow-700"
-                                  : "bg-gray-100 text-gray-700"
+                                  ? "bg-[#BC8279] text-white"
+                                  : "bg-gray-200 text-[#1A1A1A]"
                             }`}
                           >
                             {item.recommendation === "buy_now"

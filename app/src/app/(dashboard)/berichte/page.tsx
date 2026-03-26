@@ -35,7 +35,7 @@ export default function BerichtePage() {
             {t("reports.subtitle")}
           </p>
         </div>
-        <div className="bg-white rounded-xl border divide-y">
+        <div className="bg-white rounded-none border divide-y">
           {Array.from({ length: 4 }).map((_, i) => (
             <SkeletonListRow key={i} />
           ))}
@@ -59,11 +59,11 @@ export default function BerichtePage() {
           {reports.map((report) => (
             <div
               key={report.id}
-              className="bg-white rounded-xl border shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
+              className="bg-white rounded-none border shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
             >
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 to-brand-700" />
               <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-none bg-gradient-to-br from-brand-50 to-brand-100 flex items-center justify-center shrink-0">
                   <svg className="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                 </div>
                 <div>
@@ -83,7 +83,7 @@ export default function BerichtePage() {
                 <a
                   href={`/api/export/report?id=${report.id}`}
                   download
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-none transition-colors duration-200"
                 >
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3" /></svg>
                   CSV
@@ -92,7 +92,7 @@ export default function BerichtePage() {
                   <a
                     href={`/api/export/report-pdf?id=${report.id}`}
                     download
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-none transition-colors duration-200"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17v3a2 2 0 002 2h14a2 2 0 002-2v-3" /></svg>
                     PDF {org?.plan === "trial" && <PlanBadge plan="Team" />}
@@ -100,7 +100,7 @@ export default function BerichtePage() {
                 )}
                 <button
                   onClick={() => setSelectedReport(report)}
-                  className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-lg transition-colors duration-200"
+                  className="ml-auto inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-none transition-colors duration-200"
                 >
                   {t("reports.read")}
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -110,8 +110,8 @@ export default function BerichtePage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 bg-white rounded-xl border shadow-sm">
-          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-16 bg-white rounded-none border shadow-sm">
+          <div className="w-16 h-16 rounded-none bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </div>
           <p className="text-gray-500 text-lg font-medium">{t("reports.noReports")}</p>
@@ -124,7 +124,7 @@ export default function BerichtePage() {
       {/* Report Modal */}
       {selectedReport && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
+          <div className="bg-white rounded-none max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">
                 {selectedReport.report_type === "daily"
@@ -172,7 +172,7 @@ export default function BerichtePage() {
                           </td>
                           <td className="py-2 text-right">
                             {mat.change_pct_7d != null ? (
-                              <span className={parseFloat(mat.change_pct_7d) > 0 ? "text-red-600" : parseFloat(mat.change_pct_7d) < 0 ? "text-green-600" : "text-gray-500"}>
+                              <span className={parseFloat(mat.change_pct_7d) > 0 ? "text-brand-600" : parseFloat(mat.change_pct_7d) < 0 ? "text-[#F5C518]" : "text-gray-500"}>
                                 {parseFloat(mat.change_pct_7d) > 0 ? "+" : ""}{parseFloat(mat.change_pct_7d).toFixed(2)}%
                               </span>
                             ) : "–"}

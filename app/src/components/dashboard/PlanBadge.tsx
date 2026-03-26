@@ -7,8 +7,8 @@ interface PlanBadgeProps {
 export default function PlanBadge({ plan }: PlanBadgeProps) {
   const colors =
     plan === "Pro"
-      ? "bg-blue-100 text-blue-700"
-      : "bg-amber-100 text-amber-700";
+      ? "bg-[#F5C518]/20 text-[#1A1A1A]"
+      : "bg-[#BC8279]/20 text-[#BC8279]";
 
   return (
     <span

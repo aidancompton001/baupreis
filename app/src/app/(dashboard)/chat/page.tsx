@@ -166,7 +166,7 @@ export default function ChatPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white rounded-xl border shadow-sm p-4 mb-4 space-y-4">
+      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white rounded-none border shadow-sm p-4 mb-4 space-y-4">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <span className="text-4xl mb-4">💬</span>
@@ -178,7 +178,7 @@ export default function ChatPage() {
                 <button
                   key={chip}
                   onClick={() => sendMessage(chip)}
-                  className="text-sm px-4 py-2.5 rounded-xl border bg-white text-gray-700 hover:bg-brand-50 hover:border-brand-200 hover:text-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+                  className="text-sm px-4 py-2.5 rounded-none border bg-white text-gray-700 hover:bg-brand-50 hover:border-brand-200 hover:text-brand-700 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
                 >
                   {chip}
                 </button>
@@ -193,7 +193,7 @@ export default function ChatPage() {
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[80%] rounded-xl px-4 py-3 text-sm whitespace-pre-wrap shadow-sm ${
+              className={`max-w-[80%] rounded-none px-4 py-3 text-sm whitespace-pre-wrap shadow-sm ${
                 msg.role === "user"
                   ? "bg-gradient-to-br from-brand-600 to-brand-700 text-white"
                   : "bg-gray-100 text-gray-900"
@@ -215,7 +215,7 @@ export default function ChatPage() {
 
       {/* Error */}
       {error && (
-        <div className="mb-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-2">
+        <div className="mb-2 text-sm text-red-600 bg-red-50 border border-red-200 rounded-none px-4 py-2">
           {error}
         </div>
       )}
@@ -229,13 +229,13 @@ export default function ChatPage() {
           onKeyDown={handleKeyDown}
           placeholder={t("chat.placeholder")}
           rows={1}
-          className="flex-1 border rounded-xl px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200 shadow-sm"
+          className="flex-1 border rounded-none px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-brand-500 focus:shadow-sm transition-shadow duration-200 shadow-sm"
           disabled={isStreaming}
         />
         <button
           onClick={() => sendMessage(input)}
           disabled={!input.trim() || isStreaming}
-          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-6 py-3 rounded-xl hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50"
+          className="bg-gradient-to-r from-brand-600 to-brand-700 text-white px-6 py-3 rounded-none hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50"
         >
           {isStreaming ? t("chat.sending") : t("chat.send")}
         </button>

@@ -6,12 +6,12 @@ import { useOrg } from "@/lib/hooks/useOrg";
 import { useLocale } from "@/i18n/LocaleContext";
 
 const PLAN_BADGE_COLORS: Record<string, string> = {
-  trial: "bg-yellow-100 text-yellow-800",
-  basis: "bg-blue-100 text-blue-800",
-  pro: "bg-purple-100 text-purple-800",
-  team: "bg-green-100 text-green-800",
-  cancelled: "bg-red-100 text-red-800",
-  suspended: "bg-red-100 text-red-800",
+  trial: "bg-[#F5C518]/20 text-[#1A1A1A]",
+  basis: "bg-gray-200 text-[#1A1A1A]",
+  pro: "bg-brand-100 text-brand-800",
+  team: "bg-[#F5C518] text-[#1A1A1A]",
+  cancelled: "bg-brand-100 text-brand-800",
+  suspended: "bg-brand-100 text-brand-800",
 };
 
 export default function BillingPage() {
@@ -99,7 +99,7 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       {/* Section 1: Aktueller Plan */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.currentPlan")}
         </h2>
@@ -114,7 +114,7 @@ export default function BillingPage() {
           </div>
           <Link
             href="/einstellungen/abo"
-            className="bg-brand-600 text-white px-6 py-2.5 rounded-xl hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
+            className="bg-brand-600 text-white px-6 py-2.5 rounded-none hover:bg-brand-700 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium"
           >
             {t("account.billing.changePlan")}
           </Link>
@@ -122,7 +122,7 @@ export default function BillingPage() {
 
         <div className="mt-4 space-y-1">
           {isTrial && org?.trial_ends_at && (
-            <p className="text-sm text-yellow-600">
+            <p className="text-sm text-[#F5C518]">
               {t("account.billing.trialEnds", {
                 date: new Date(org.trial_ends_at).toLocaleDateString(
                   dateFmtLocale
@@ -139,7 +139,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 2: Zahlungsmethode */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.paymentMethod")}
         </h2>
@@ -147,9 +147,9 @@ export default function BillingPage() {
         {hasSubscription ? (
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
-              <div className="bg-blue-50 rounded-xl p-2.5">
+              <div className="bg-[#F5C518]/10 rounded-none p-2.5">
                 <svg
-                  className="w-6 h-6 text-blue-600"
+                  className="w-6 h-6 text-[#1A1A1A]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -172,7 +172,7 @@ export default function BillingPage() {
             <button
               onClick={handleManageBilling}
               disabled={manageLoading}
-              className="border border-gray-200 text-gray-700 px-6 py-2.5 rounded-xl hover:bg-gray-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-wait"
+              className="border border-gray-200 text-gray-700 px-6 py-2.5 rounded-none hover:bg-gray-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 text-sm font-medium disabled:opacity-50 disabled:cursor-wait"
             >
               {manageLoading
                 ? t("common.loading")
@@ -187,7 +187,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 3: Rechnungen */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.invoices")}
         </h2>
@@ -198,7 +198,7 @@ export default function BillingPage() {
 
       {/* Section 4: Vertrag widerrufen */}
       {hasSubscription && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+        <div className="bg-white rounded-none border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             {t("account.billing.cancelSection")}
           </h2>
@@ -209,7 +209,7 @@ export default function BillingPage() {
           <button
             onClick={handleCancelSubscription}
             disabled={cancelLoading}
-            className="border-2 border-red-500 text-red-600 px-6 py-2.5 rounded-xl hover:bg-red-50 shadow-sm hover:-translate-y-0.5 transition-all duration-300 text-sm font-semibold disabled:opacity-50 disabled:cursor-wait"
+            className="border-2 border-red-500 text-red-600 px-6 py-2.5 rounded-none hover:bg-red-50 shadow-sm hover:-translate-y-0.5 transition-all duration-300 text-sm font-semibold disabled:opacity-50 disabled:cursor-wait"
           >
             {cancelLoading
               ? t("common.loading")
@@ -218,9 +218,9 @@ export default function BillingPage() {
 
           {cancelMessage && (
             <div
-              className={`mt-4 p-3 rounded-xl text-sm ${
+              className={`mt-4 p-3 rounded-none text-sm ${
                 cancelMessage.type === "success"
-                  ? "bg-green-50 text-green-700 border border-green-200"
+                  ? "bg-[#FEF9C3] text-[#1A1A1A] border border-[#F5C518]/30"
                   : "bg-red-50 text-red-700 border border-red-200"
               }`}
             >

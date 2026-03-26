@@ -41,9 +41,9 @@ export function getTrendArrow(trend: string): string {
 export function getTrendColor(trend: string): string {
   switch (trend) {
     case "rising":
-      return "text-red-500";
+      return "text-[#C1292E]";
     case "falling":
-      return "text-green-500";
+      return "text-[#F5C518]";
     default:
       return "text-gray-500";
   }

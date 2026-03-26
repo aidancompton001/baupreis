@@ -28,6 +28,7 @@ const config: Config = {
         },
       },
       fontFamily: {
+        bebas: ['var(--font-bebas)', '"Bebas Neue"', 'sans-serif'],
         grotesk: ['var(--font-grotesk)', '"Space Grotesk"', 'sans-serif'],
       },
     },

@@ -32,13 +32,13 @@ export function LegalPageShell({ heading, date, sections }: LegalPageShellProps)
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative pt-32 pb-14 px-4 overflow-hidden bg-gradient-to-br from-slate-700 via-slate-800 to-slate-900">
+      <section className="relative pt-32 pb-14 px-4 overflow-hidden bg-gradient-to-br from-gray-800 via-gray-900 to-black">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl font-bold font-grotesk text-white mb-3 tracking-tight">
             {heading}
           </h1>
-          <p className="text-sm text-slate-300">{date}</p>
+          <p className="text-sm text-gray-300">{date}</p>
         </div>
       </section>
 
@@ -48,7 +48,7 @@ export function LegalPageShell({ heading, date, sections }: LegalPageShellProps)
           {sections.map((s, i) => (
             <div
               key={i}
-              className={`animate-on-scroll anim-delay-${(i % 4) + 1} bg-white rounded-xl p-8 border border-gray-100 hover:shadow-md transition-shadow duration-300`}
+              className={`animate-on-scroll anim-delay-${(i % 4) + 1} bg-white rounded-none p-8 border border-gray-100 hover:shadow-md transition-shadow duration-300`}
             >
               <h2 className="text-lg font-bold text-gray-900 mb-3">{s.title}</h2>
               <div className="whitespace-pre-line text-base text-gray-600 leading-relaxed">

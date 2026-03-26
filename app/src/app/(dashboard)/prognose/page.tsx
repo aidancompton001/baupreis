@@ -80,8 +80,8 @@ export default function PrognosePage() {
       {analysis.length > 0 ? (
         <div className="space-y-4">
           {analysis.map((item) => (
-            <div key={item.code} className="bg-white rounded-xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-500 to-brand-700 rounded-l-2xl" />
+            <div key={item.code} className="bg-white rounded-none border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-500 to-brand-700 rounded-l-none" />
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3 className="font-semibold text-lg">{item.name_de}</h3>
@@ -90,10 +90,10 @@ export default function PrognosePage() {
                 <span
                   className={`text-sm font-medium px-3 py-1.5 rounded-full ring-1 ${
                     item.recommendation === "buy_now"
-                      ? "bg-green-100 text-green-700 ring-green-200"
+                      ? "bg-[#F5C518] text-[#1A1A1A] ring-[#F5C518]/40"
                       : item.recommendation === "wait"
-                        ? "bg-yellow-100 text-yellow-700 ring-yellow-200"
-                        : "bg-gray-100 text-gray-700 ring-gray-200"
+                        ? "bg-[#BC8279] text-white ring-[#BC8279]/40"
+                        : "bg-gray-200 text-[#1A1A1A] ring-gray-300"
                   }`}
                 >
                   {item.recommendation === "buy_now"
@@ -111,10 +111,10 @@ export default function PrognosePage() {
               )}
 
               {item.forecast_json && (
-                <div className="grid grid-cols-3 gap-4 text-sm bg-gradient-to-r from-gray-50 to-gray-100/50 rounded-xl p-4">
+                <div className="grid grid-cols-3 gap-4 text-sm bg-gradient-to-r from-gray-50 to-gray-100/50 rounded-none p-4">
                   <div>
                     <p className="text-gray-500 mb-1">{t("material.days", { count: 7 })}</p>
-                    <p className="font-semibold text-green-600">
+                    <p className="font-semibold text-[#F5C518]">
                       €{Number(item.forecast_json["7d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
@@ -126,7 +126,7 @@ export default function PrognosePage() {
                   </div>
                   <div>
                     <p className="text-gray-500 mb-1">{t("material.days", { count: 90 })}</p>
-                    <p className="font-semibold text-red-600">
+                    <p className="font-semibold text-brand-600">
                       €{Number(item.forecast_json["90d"]).toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}
                     </p>
                   </div>
@@ -150,7 +150,7 @@ export default function PrognosePage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white rounded-xl border shadow-sm">
+        <div className="text-center py-12 bg-white rounded-none border shadow-sm">
           <p className="text-gray-500 text-lg">
             {t("forecast.noData")}
           </p>

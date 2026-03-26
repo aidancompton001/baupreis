@@ -15,7 +15,7 @@ export default function MarketingError({
       </p>
       <button
         onClick={reset}
-        className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
+        className="px-4 py-2 bg-primary text-primary-foreground rounded-none hover:bg-primary/90"
       >
         Erneut versuchen
       </button>
