@@ -129,7 +129,7 @@ export default function MaterialienPage() {
                     <Link
                       key={item.code}
                       href={`/material/${item.code}`}
-                      className={`dash-card p-4 border-l-4 ${borderClass} dash-appear dash-delay-${Math.min(idx + 1, 8)}`}
+                      className={`group dash-card p-4 border-l-4 ${borderClass} dash-appear dash-delay-${Math.min(idx + 1, 8)}`}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="font-medium text-sm text-gray-900 leading-tight">
@@ -187,6 +187,9 @@ export default function MaterialienPage() {
                           </span>
                         </div>
                       )}
+                      <p className="text-[0.65rem] text-[#1A1A1A]/25 font-grotesk uppercase tracking-wide mt-3 group-hover:text-[#C1292E] transition-colors">
+                        Details anzeigen →
+                      </p>
                     </Link>
                   );
                 })}

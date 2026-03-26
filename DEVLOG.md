@@ -9,6 +9,22 @@
 
 ---
 
+### [S041] — 2026-03-26 — T018: Material Chart SMA-7 + Cards UX + Back Nav
+
+**Роли:** #2 Lena Hoffmann (UX), #3 Maximilian Braun (Frontend)
+**Статус:** завершено
+
+**Что сделано:**
+
+- Chart: жёлтая штрих-пунктирная SMA-7 линия (скользящее среднее, клиентский расчёт)
+- Back: "← Materialien" кнопка на странице материала
+- Cards: "Details anzeigen →" с group-hover красным
+- Tooltip обновлён: показывает и цену, и Ø 7 Tage
+
+**Артефакты:** `material/[code]/page.tsx`, `materialien/page.tsx`
+
+---
+
 ### [S040] — 2026-03-26 — T017: Guest Mode Crash Fix + Trial 14d
 
 **Роли:** #3 Maximilian Braun (Frontend), #14 Hans Landa (ревью)

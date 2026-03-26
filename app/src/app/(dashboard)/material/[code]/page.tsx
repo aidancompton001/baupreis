@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 import { formatPercent, getTrendArrow, getTrendColor } from "@/lib/utils";
 import { SkeletonMaterialDetail } from "@/components/dashboard/Skeleton";
 import { useLocale } from "@/i18n/LocaleContext";
@@ -82,6 +83,13 @@ export default function MaterialDetailPage() {
 
   return (
     <div>
+      <Link
+        href="/dashboard/materialien"
+        className="inline-flex items-center gap-1 text-xs font-grotesk uppercase tracking-wide text-[#1A1A1A]/40 hover:text-[#C1292E] transition-colors mb-3"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
+        {t("nav.materials")}
+      </Link>
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-[#1A1A1A] font-oswald uppercase">{materialName}</h1>
         <p className="text-[#1A1A1A]/60 text-sm mt-1">{unit}</p>
@@ -152,18 +160,26 @@ export default function MaterialDetailPage() {
         {prices.length > 0 ? (
           <ResponsiveContainer width="100%" height={300}>
             <AreaChart
-              data={[...prices].reverse().map((p) => ({
-                date: new Date(p.timestamp).toLocaleDateString(dateFmtLocale, {
-                  day: "2-digit",
-                  month: "2-digit",
-                }),
-                fullDate: new Date(p.timestamp).toLocaleDateString(dateFmtLocale, {
-                  day: "2-digit",
-                  month: "2-digit",
-                  year: "numeric",
-                }),
-                price: Number(p.price_eur),
-              }))}
+              data={(() => {
+                const sorted = [...prices].reverse().map((p) => ({
+                  date: new Date(p.timestamp).toLocaleDateString(dateFmtLocale, {
+                    day: "2-digit",
+                    month: "2-digit",
+                  }),
+                  fullDate: new Date(p.timestamp).toLocaleDateString(dateFmtLocale, {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                  }),
+                  price: Number(p.price_eur),
+                }));
+                return sorted.map((point, i) => ({
+                  ...point,
+                  sma7: i >= 6
+                    ? sorted.slice(i - 6, i + 1).reduce((s, p) => s + p.price, 0) / 7
+                    : undefined,
+                }));
+              })()}
               margin={{ top: 5, right: 20, left: 20, bottom: 5 }}
             >
               <defs>
@@ -192,9 +208,9 @@ export default function MaterialDetailPage() {
                   border: "2px solid #1A1A1A",
                   boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
                 }}
-                formatter={(value: number) => [
+                formatter={(value: number, name: string) => [
                   `€${value.toLocaleString(dateFmtLocale, { minimumFractionDigits: 2 })}`,
-                  t("material.price"),
+                  name === "sma7" ? "Ø 7 Tage" : t("material.price"),
                 ]}
                 labelFormatter={(_, payload) =>
                   payload?.[0]?.payload?.fullDate || ""
@@ -224,6 +240,15 @@ export default function MaterialDetailPage() {
                 fill="url(#priceGradient)"
                 dot={false}
                 activeDot={{ r: 5, fill: "#C1292E", strokeWidth: 2, stroke: "#fff" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="sma7"
+                stroke="#F5C518"
+                strokeWidth={2}
+                strokeDasharray="6 4"
+                dot={false}
+                connectNulls={false}
               />
             </AreaChart>
           </ResponsiveContainer>

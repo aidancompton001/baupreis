@@ -1,7 +1,7 @@
 # STATUS.md — BauPreis AI SaaS
 
 **Обновлён:** 2026-03-26
-**Сессия:** S040 (T017: Guest Mode Crash Fix)
+**Сессия:** S041 (T018: Material Chart SMA-7 + UX)
 **Методология:** V7.0 (MainCore CLAUDE_TEMPLATE + TEAM_TEMPLATE)
 
 ## Текущий этап
