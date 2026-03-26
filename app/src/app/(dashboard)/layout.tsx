@@ -20,9 +20,11 @@ export default function DashboardLayout({
       {/* Top Navigation */}
       <header className="fixed top-0 w-full bg-[#1A1A1A] border-b-[3px] border-brand-600 z-50 h-16">
         <div className="h-full px-4 flex items-center justify-between">
-          <Link href="/dashboard">
+          <Link href="/dashboard" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" className="h-7 w-auto brightness-0 invert" />
+            <img src="/logo/logo-icon.png" alt="" width={28} height={28} className="h-7 w-7" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo/logo-full-horizontal.png" alt="BauPreis AI" className="h-6 w-auto brightness-0 invert" />
           </Link>
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
