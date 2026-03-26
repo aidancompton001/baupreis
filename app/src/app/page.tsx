@@ -21,16 +21,10 @@ const XCircle = () => (
   </span>
 );
 
-/* ── Bauhaus Logo SVG ── */
+/* ── Bauhaus Logo (from Luma brand identity) ── */
 const BauhausLogo = ({ size = 32 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 64 64" fill="none">
-    <rect x="2" y="2" width="28" height="28" rx="3" fill="#C1292E" />
-    <rect x="34" y="2" width="28" height="28" rx="3" fill="#C1292E" />
-    <rect x="2" y="34" width="28" height="28" rx="3" fill="#C1292E" />
-    <rect x="14" y="14" width="16" height="16" rx="2" fill="white" />
-    <rect x="38" y="6" width="10" height="10" rx="1" fill="white" />
-    <polyline points="10,48 22,40 32,52" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-  </svg>
+  // eslint-disable-next-line @next/next/no-img-element
+  <img src="/logo-bauhaus.png" alt="BauPreis AI" width={size} height={size} className="object-contain" />
 );
 
 export default function LandingPage() {

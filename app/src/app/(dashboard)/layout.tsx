@@ -21,7 +21,8 @@ export default function DashboardLayout({
       <header className="fixed top-0 w-full bg-white border-b-[3px] border-brand-600 z-50 h-16">
         <div className="h-full px-4 flex items-center justify-between">
           <Link href="/dashboard" className="font-grotesk text-xl font-bold text-gray-900 flex items-center gap-2.5">
-            <svg width="28" height="28" viewBox="0 0 64 64" fill="none"><rect x="2" y="2" width="28" height="28" rx="3" fill="#C1292E"/><rect x="34" y="2" width="28" height="28" rx="3" fill="#C1292E"/><rect x="2" y="34" width="28" height="28" rx="3" fill="#C1292E"/><rect x="14" y="14" width="16" height="16" rx="2" fill="white"/><rect x="38" y="6" width="10" height="10" rx="1" fill="white"/><polyline points="10,48 22,40 32,52" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-bauhaus.png" alt="BauPreis AI" width={28} height={28} className="object-contain" />
             Bau<span className="text-brand-600">Preis</span> AI
           </Link>
           <div className="flex items-center gap-4">
