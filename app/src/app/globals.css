@@ -72,13 +72,12 @@ body {
 }
 
 .dash-card {
-  @apply bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100
-         shadow-[0_1px_3px_rgba(99,102,241,0.04),0_4px_12px_rgba(99,102,241,0.06)]
-         transition-all duration-300 ease-out;
+  @apply bg-white rounded-xl border-2 border-gray-200
+         transition-all duration-200 ease-out;
 }
 .dash-card:hover {
-  @apply -translate-y-1 shadow-[0_4px_12px_rgba(99,102,241,0.08),0_12px_28px_rgba(99,102,241,0.12)]
-         border-indigo-100;
+  @apply -translate-y-1 border-gray-400;
+  box-shadow: 4px 4px 0 #E5E7EB;
 }
 
 .dash-appear {
@@ -94,25 +93,26 @@ body {
 .dash-delay-8 { animation-delay: 0.40s; }
 
 .eyebrow {
-  @apply text-xs font-semibold uppercase tracking-wider text-indigo-600;
+  @apply text-xs font-bold uppercase tracking-wider text-brand-600;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-brand-600 to-indigo-500 bg-clip-text text-transparent;
+  @apply text-brand-600;
 }
 
-/* Sidebar glassmorphism */
+/* Sidebar — Bauhaus Bold */
 .sidebar-glass {
-  @apply bg-white/80 backdrop-blur-xl border-r border-gray-100;
+  @apply bg-white border-r-2 border-gray-200;
 }
 
 .sidebar-item {
-  @apply flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200;
+  @apply flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200;
 }
 .sidebar-item-active {
-  @apply bg-gradient-to-r from-brand-50 to-transparent border-l-[3px] border-l-brand-600
-         text-brand-600 font-medium shadow-[0_1px_4px_rgba(99,102,241,0.08)];
+  @apply bg-brand-50 border-l-[3px] border-l-brand-600
+         text-brand-600 font-semibold;
 }
 .sidebar-item-inactive {
-  @apply text-gray-600 hover:bg-gray-50/80 hover:text-gray-900 border-l-[3px] border-l-transparent;
+  @apply text-gray-600 hover:bg-gray-100 hover:text-gray-900 border-l-[3px] border-l-transparent;
 }

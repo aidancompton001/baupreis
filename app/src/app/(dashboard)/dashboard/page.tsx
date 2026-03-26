@@ -30,6 +30,7 @@ interface PricePoint {
   unit: string;
   price_eur: number;
   timestamp: string;
+  source?: string;
 }
 
 interface IndexData {
@@ -130,17 +131,17 @@ export default function DashboardPage() {
         <a
           href="/api/export/prices?days=30"
           download
-          className="px-4 py-2 rounded-xl text-sm font-medium bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
+          className="px-4 py-2 rounded-xl text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200 whitespace-nowrap"
         >
           {t("dashboard.csvExport")}
         </a>
       </div>
 
       {indexData && (
-        <div data-tour="baupreis-index" className="mb-6 bg-gradient-to-r from-brand-600 via-indigo-600 to-brand-700 rounded-2xl p-6 text-white shadow-[0_4px_20px_rgba(99,102,241,0.25)] dash-appear">
+        <div data-tour="baupreis-index" className="mb-6 bg-[#1A1A1A] rounded-xl p-6 text-white shadow-[6px_6px_0_#C1292E] dash-appear">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-brand-100 text-sm font-medium">{t("dashboard.indexLabel")}</p>
+              <p className="text-gray-400 text-sm font-medium">{t("dashboard.indexLabel")}</p>
               <p className="text-3xl font-bold mt-1">
                 {parseFloat(String(indexData.index_value)).toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </p>
@@ -148,7 +149,7 @@ export default function DashboardPage() {
             <div className="text-right">
               {indexData.change_pct_30d !== null && (
                 <div>
-                  <p className="text-brand-100 text-xs">{t("dashboard.days30")}</p>
+                  <p className="text-gray-400 text-xs">{t("dashboard.days30")}</p>
                   <p className={`text-lg font-semibold ${
                     indexData.change_pct_30d > 0 ? "text-red-200" : indexData.change_pct_30d < 0 ? "text-green-200" : "text-white"
                   }`}>
@@ -158,7 +159,7 @@ export default function DashboardPage() {
               )}
               {indexData.change_pct_1d !== null && (
                 <div className="mt-1">
-                  <p className="text-brand-100 text-xs">{t("dashboard.today")}</p>
+                  <p className="text-gray-400 text-xs">{t("dashboard.today")}</p>
                   <p className={`text-sm font-medium ${
                     indexData.change_pct_1d > 0 ? "text-red-200" : indexData.change_pct_1d < 0 ? "text-green-200" : "text-white"
                   }`}>
@@ -168,7 +169,7 @@ export default function DashboardPage() {
               )}
             </div>
           </div>
-          <p className="text-brand-200 text-xs mt-3">
+          <p className="text-gray-500 text-xs mt-3">
             {t("dashboard.indexDescription")}
           </p>
         </div>
@@ -207,9 +208,16 @@ export default function DashboardPage() {
                       </div>
 
                       {latestPrice && (
-                        <p className="text-lg font-bold text-gray-900 mb-2">
-                          {formatPrice(latestPrice.price_eur, latestPrice.unit)}
-                        </p>
+                        <div className="mb-2">
+                          <p className="text-lg font-bold text-gray-900">
+                            {formatPrice(latestPrice.price_eur, latestPrice.unit)}
+                          </p>
+                          {latestPrice.source === "synthetic" && (
+                            <span className="text-xs bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded font-medium">
+                              {t("dashboard.synthetic")}
+                            </span>
+                          )}
+                        </div>
                       )}
 
                       <div className="space-y-1">

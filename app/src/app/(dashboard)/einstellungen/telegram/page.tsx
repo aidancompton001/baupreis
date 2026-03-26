@@ -137,7 +137,7 @@ export default function TelegramPage() {
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 max-w-lg hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 max-w-lg hover:shadow-md transition-all duration-300">
         {connected ? (
           <>
             <div className="flex items-center gap-3 mb-4">

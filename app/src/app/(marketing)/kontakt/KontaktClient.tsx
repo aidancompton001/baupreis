@@ -64,13 +64,13 @@ export default function KontaktPage() {
   return (
     <main className="min-h-screen">
       {/* Hero */}
-      <section className="relative pt-32 pb-16 px-4 overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800">
+      <section className="relative pt-32 pb-16 px-4 overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-purple-800">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
         <div className="relative max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-white mb-4 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold font-grotesk text-white mb-4 tracking-tight">
             {t("contact.heading")}
           </h1>
-          <p className="text-lg text-indigo-100 max-w-xl mx-auto">
+          <p className="text-lg text-brand-100 max-w-xl mx-auto">
             {t("contact.subtitle")}
           </p>
         </div>
@@ -81,16 +81,16 @@ export default function KontaktPage() {
         <div className="max-w-4xl mx-auto grid gap-8 lg:grid-cols-3">
           {/* Contact info card */}
           <div className="animate-on-scroll anim-delay-1 lg:col-span-1">
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm h-full">
-              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-indigo-50">
-                <svg className="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-sm h-full">
+              <div className="mb-6 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-brand-50">
+                <svg className="w-8 h-8 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
               <p className="text-sm text-gray-500 mb-1">{t("contact.emailLabel")}</p>
               <a
                 href="mailto:pashchenkoh@gmail.com"
-                className="text-indigo-600 font-semibold hover:underline text-lg"
+                className="text-brand-600 font-semibold hover:underline text-lg"
               >
                 pashchenkoh@gmail.com
               </a>
@@ -99,7 +99,7 @@ export default function KontaktPage() {
 
           {/* Contact form card */}
           <div className="animate-on-scroll anim-delay-2 lg:col-span-2">
-            <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-lg">
+            <div className="bg-white rounded-xl p-8 border border-gray-100 shadow-lg">
               <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Name */}
                 <div>
@@ -115,7 +115,7 @@ export default function KontaktPage() {
                     required
                     value={form.name}
                     onChange={(e) => handleChange("name", e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-gray-50 focus:bg-white"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition bg-gray-50 focus:bg-white"
                     placeholder={t("contact.namePlaceholder")}
                   />
                 </div>
@@ -134,7 +134,7 @@ export default function KontaktPage() {
                     required
                     value={form.email}
                     onChange={(e) => handleChange("email", e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition bg-gray-50 focus:bg-white"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition bg-gray-50 focus:bg-white"
                     placeholder={t("contact.emailPlaceholder")}
                   />
                 </div>
@@ -153,7 +153,7 @@ export default function KontaktPage() {
                     rows={5}
                     value={form.message}
                     onChange={(e) => handleChange("message", e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition resize-vertical bg-gray-50 focus:bg-white"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition resize-vertical bg-gray-50 focus:bg-white"
                     placeholder={t("contact.messagePlaceholder")}
                   />
                 </div>
@@ -175,7 +175,7 @@ export default function KontaktPage() {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full bg-indigo-600 text-white px-6 py-3.5 rounded-xl hover:bg-indigo-700 transition-all duration-200 disabled:opacity-50 font-semibold text-lg shadow-md hover:shadow-lg"
+                  className="w-full bg-brand-600 text-white px-6 py-3.5 rounded-xl hover:bg-brand-700 transition-all duration-200 disabled:opacity-50 font-semibold text-lg shadow-md hover:shadow-lg"
                 >
                   {sending ? t("contact.sending") : t("contact.send")}
                 </button>

@@ -99,7 +99,7 @@ export default function BillingPage() {
   return (
     <div className="space-y-6">
       {/* Section 1: Aktueller Plan */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.currentPlan")}
         </h2>
@@ -139,7 +139,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 2: Zahlungsmethode */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.paymentMethod")}
         </h2>
@@ -187,7 +187,7 @@ export default function BillingPage() {
       </div>
 
       {/* Section 3: Rechnungen */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           {t("account.billing.invoices")}
         </h2>
@@ -198,7 +198,7 @@ export default function BillingPage() {
 
       {/* Section 4: Vertrag widerrufen */}
       {hasSubscription && (
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">
             {t("account.billing.cancelSection")}
           </h2>

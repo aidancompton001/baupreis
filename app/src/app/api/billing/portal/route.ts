@@ -1,34 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
 import pool from "@/lib/db";
-
-const DEV_USER_ID = "dev_local_user";
-
-function isClerkConfigured(): boolean {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
-}
-
-function getClerkUserId(): string | null {
-  if (!isClerkConfigured()) return DEV_USER_ID;
-  const { auth } = require("@clerk/nextjs/server");
-  const { userId } = auth();
-  return userId;
-}
+import { getSession } from "@/lib/session";
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
     const result = await pool.query(
       `SELECT o.stripe_customer_id
        FROM organizations o
-       JOIN users u ON u.org_id = o.id
-       WHERE u.clerk_user_id = $1`,
-      [userId]
+       WHERE o.id = $1`,
+      [session.oid]
     );
 
     const customerId = result.rows[0]?.stripe_customer_id;
@@ -41,12 +27,12 @@ export async function POST(req: NextRequest) {
 
     const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "";
 
-    const session = await getStripe().billingPortal.sessions.create({
+    const portalSession = await getStripe().billingPortal.sessions.create({
       customer: customerId,
       return_url: `${origin}/einstellungen/abo`,
     });
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: portalSession.url });
   } catch (error: unknown) {
     console.error("[Billing Portal] Error:", error instanceof Error ? error.message : String(error));
     return NextResponse.json(

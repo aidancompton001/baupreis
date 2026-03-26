@@ -131,7 +131,7 @@ export default function MaterialienPage() {
                   key={m.id}
                   onClick={() => toggleMaterial(m.id)}
                   disabled={disabled}
-                  className={`text-left p-4 rounded-2xl border-2 transition-all duration-300 ${
+                  className={`text-left p-4 rounded-xl border-2 transition-all duration-300 ${
                     m.selected
                       ? "border-brand-500 bg-brand-50 shadow-sm"
                       : disabled

@@ -120,7 +120,7 @@ export default function TeamPage() {
           <h1 className="text-2xl font-bold text-gray-900">{t("team.title")}</h1>
           <p className="text-gray-500 text-sm mt-1">{t("team.subtitle")}</p>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 animate-pulse">
+        <div className="bg-white rounded-xl border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/3"></div>
         </div>
@@ -157,7 +157,7 @@ export default function TeamPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Team" />}
 
       {/* Invite form */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
         <h2 className="font-semibold text-gray-900 mb-3">{t("team.inviteSection")}</h2>
         <div className="flex gap-3">
           <input
@@ -188,7 +188,7 @@ export default function TeamPage() {
       </div>
 
       {/* Members list */}
-      <div className="bg-white rounded-2xl border border-gray-200 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 mb-6 hover:shadow-md transition-all duration-300">
         <div className="p-5 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">{t("team.membersSection")}</h2>
         </div>
@@ -238,7 +238,7 @@ export default function TeamPage() {
 
       {/* Pending invites */}
       {invites.length > 0 && (
-        <div className="bg-white rounded-2xl border border-gray-200 hover:shadow-md transition-all duration-300">
+        <div className="bg-white rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300">
           <div className="p-5 border-b border-gray-100">
             <h2 className="font-semibold text-gray-900">{t("team.pendingSection")}</h2>
           </div>

@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Businessplan — BauPreis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 25mm 20mm 25mm 25mm;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2563EB;
+    --text: #1A1A2E;
+    --text-secondary: #4B5563;
+    --table-header-bg: #1E3A5F;
+    --table-header-text: #FFFFFF;
+    --table-stripe: #F8F9FA;
+    --table-border: #E5E7EB;
+    --positive: #059669;
+    --negative: #DC2626;
+    --accent: #F59E0B;
+    --bg: #FFFFFF;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 165mm;
+    margin: 0 auto;
+    padding: 20px 30px;
+  }
+
+  /* ===== COVER PAGE ===== */
+  .cover {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    text-align: center;
+    padding: 40px 0;
+  }
+
+  .cover-logo {
+    font-size: 42pt;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -1px;
+    margin-bottom: 4px;
+  }
+
+  .cover-logo span {
+    color: var(--accent);
+  }
+
+  .cover-title {
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-subtitle {
+    font-size: 16pt;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 60px;
+  }
+
+  .cover-line {
+    width: 80px;
+    height: 3px;
+    background: var(--accent);
+    margin: 0 auto 40px;
+  }
+
+  .cover-info {
+    text-align: left;
+    font-size: 11pt;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .cover-info strong {
+    display: inline-block;
+    width: 140px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  .cover-confidential {
+    margin-top: 60px;
+    font-size: 9pt;
+    color: var(--text-secondary);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ===== TOC ===== */
+  .toc {
+    page-break-after: always;
+    padding-top: 20px;
+  }
+
+  .toc h2 {
+    font-size: 20pt;
+    color: var(--primary);
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 8px;
+  }
+
+  .toc-list {
+    list-style: none;
+    font-size: 11pt;
+  }
+
+  .toc-list li {
+    padding: 6px 0;
+    border-bottom: 1px dotted var(--table-border);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toc-list li.toc-sub {
+    padding-left: 24px;
+    font-size: 10pt;
+    color: var(--text-secondary);
+  }
+
+  .toc-list .toc-num {
+    color: var(--primary);
+    font-weight: 600;
+    margin-right: 8px;
+  }
+
+  /* ===== HEADINGS ===== */
+  h1 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--primary);
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 16pt;
+    font-weight: 600;
+    color: var(--primary);
+    margin-top: 28px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 13pt;
+    font-weight: 600;
+    color: var(--primary);
+    margin-top: 20px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  /* ===== PARAGRAPHS ===== */
+  p {
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  /* ===== TABLES ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 10pt;
+    page-break-inside: avoid;
+  }
+
+  thead th {
+    background: var(--table-header-bg);
+    color: var(--table-header-text);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 10pt;
+  }
+
+  tbody td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--table-border);
+    vertical-align: top;
+  }
+
+  tbody tr:nth-child(even) {
+    background: var(--table-stripe);
+  }
+
+  tbody tr.total-row {
+    font-weight: 700;
+    background: #EEF2F7;
+    border-top: 2px solid var(--primary);
+  }
+
+  td.num, th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  td.positive { color: var(--positive); font-weight: 600; }
+  td.negative { color: var(--negative); font-weight: 600; }
+
+  /* ===== LISTS ===== */
+  ul, ol {
+    margin: 8px 0 12px 20px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  /* ===== SECTION BREAKS ===== */
+  .section {
+    page-break-before: always;
+    padding-top: 0;
+  }
+
+  .section:first-of-type {
+    page-break-before: auto;
+  }
+
+  /* ===== SPECIAL BLOCKS ===== */
+  .highlight-box {
+    background: #FFF7ED;
+    border-left: 4px solid var(--accent);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+
+  .info-box {
+    background: #EFF6FF;
+    border-left: 4px solid var(--primary-light);
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 10pt;
+  }
+
+  .positioning-chart {
+    background: var(--table-stripe);
+    border: 1px solid var(--table-border);
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-family: 'Inter', monospace;
+    font-size: 10pt;
+    line-height: 1.6;
+    border-radius: 4px;
+  }
+
+  /* ===== SWOT ===== */
+  .swot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .swot-box {
+    border: 1px solid var(--table-border);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 10pt;
+  }
+
+  .swot-box h4 {
+    font-size: 11pt;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid;
+  }
+
+  .swot-box.strengths h4 { color: var(--positive); border-color: var(--positive); }
+  .swot-box.weaknesses h4 { color: var(--negative); border-color: var(--negative); }
+  .swot-box.opportunities h4 { color: var(--primary-light); border-color: var(--primary-light); }
+  .swot-box.threats h4 { color: #92400E; border-color: #F59E0B; }
+
+  .swot-box ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 9.5pt;
+  }
+
+  .swot-box li {
+    margin-bottom: 3px;
+  }
+
+  /* ===== HEADER/FOOTER for print ===== */
+  @media print {
+    body {
+      max-width: none;
+      padding: 0;
+      font-size: 11pt;
+    }
+
+    .cover {
+      min-height: 100vh;
+    }
+
+    .no-print {
+      display: none;
+    }
+
+    h1, h2, h3 {
+      page-break-after: avoid;
+    }
+
+    table {
+      page-break-inside: avoid;
+    }
+  }
+
+  /* ===== FOOTER ===== */
+  .page-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 8pt;
+    color: var(--text-secondary);
+    border-top: 0.5px solid var(--table-border);
+    padding: 4px 25mm;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  /* Phase table */
+  .phase-table td:first-child {
+    font-weight: 600;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== COVER PAGE ==================== -->
+<div class="cover">
+  <div class="cover-logo">Bau<span>Preis</span></div>
+  <div style="height: 20px;"></div>
+  <div class="cover-title">BUSINESSPLAN</div>
+  <div class="cover-subtitle">Intelligente Baustoffpreisüberwachung<br>für den deutschen Mittelstand</div>
+  <div class="cover-line"></div>
+  <div class="cover-info">
+    <strong>Gründer:</strong> Eduard Morocho Baias<br>
+    <strong>Tel.:</strong> +49 155 636 75 772<br>
+    <strong>E-Mail:</strong> ebaias.muc@gmail.com<br>
+    <strong>Rechtsform:</strong> Einzelunternehmen (Kleingewerbe)<br>
+    <strong>Standort:</strong> München, Bayern<br>
+    <strong>Geplanter Start:</strong> Q2 2026<br>
+    <strong>Erstellt:</strong> Februar 2026
+  </div>
+  <div class="cover-confidential">Vertraulich</div>
+</div>
+
+<!-- ==================== TABLE OF CONTENTS ==================== -->
+<div class="toc">
+  <h2>Inhaltsverzeichnis</h2>
+  <ul class="toc-list">
+    <li><span><span class="toc-num">1.</span> Zusammenfassung (Executive Summary)</span></li>
+    <li><span><span class="toc-num">2.</span> Gründerprofil</span></li>
+    <li><span><span class="toc-num">3.</span> Geschäftsidee / Produkt</span></li>
+    <li><span><span class="toc-num">4.</span> Marktanalyse</span></li>
+    <li><span><span class="toc-num">5.</span> Wettbewerbsanalyse</span></li>
+    <li><span><span class="toc-num">6.</span> Marketing und Vertrieb</span></li>
+    <li><span><span class="toc-num">7.</span> Unternehmensorganisation</span></li>
+    <li><span><span class="toc-num">8.</span> SWOT-Analyse</span></li>
+    <li class="toc-sub"><span>8a. Meilensteinplan (Jahr 1)</span></li>
+    <li class="toc-sub"><span>8b. Worst-Case-Szenario</span></li>
+    <li class="toc-sub"><span>8c. Rechtliche Rahmenbedingungen</span></li>
+    <li><span><span class="toc-num">9.</span> Finanzplanung</span></li>
+    <li class="toc-sub"><span>9a. Kapitalbedarfsplan</span></li>
+    <li class="toc-sub"><span>9b. Umsatzplanung (36 Monate)</span></li>
+    <li class="toc-sub"><span>9c. Rentabilitätsvorschau</span></li>
+    <li class="toc-sub"><span>9d. Liquiditätsplan</span></li>
+    <li class="toc-sub"><span>9e. Privater Finanzbedarf</span></li>
+    <li class="toc-sub"><span>9f. Finanzierungsplan</span></li>
+    <li><span><span class="toc-num">10.</span> Anhang</span></li>
+  </ul>
+</div>
+
+<!-- ==================== 1. ZUSAMMENFASSUNG ==================== -->
+<div class="section">
+  <h1>1. Zusammenfassung (Executive Summary)</h1>
+
+  <h2>Geschäftsidee</h2>
+  <p>BauPreis ist eine webbasierte SaaS-Plattform (Software-as-a-Service), die Bauunternehmen, Architekten und Einkäufern eine automatisierte Überwachung der Preise für 16 zentrale Baustoffe in Deutschland bietet. Die Plattform sammelt täglich aktuelle Preisdaten aus öffentlichen und kommerziellen Quellen, analysiert Trends mithilfe künstlicher Intelligenz (Claude API) und benachrichtigt Nutzer automatisch über signifikante Preisänderungen per E-Mail und WhatsApp.</p>
+
+  <h2>Zielmarkt</h2>
+  <p>In Deutschland gibt es rund 350.000 Bauunternehmen (Quelle: Bauindustrie.de / Destatis). Die primäre Zielgruppe sind kleine und mittlere Bauunternehmen (KMU) mit bis zu 50 Mitarbeitern — geschätzt rund 70.000 Betriebe. Diese Unternehmen haben aktuell keine bezahlbare digitale Lösung zur systematischen Baustoffpreisüberwachung.</p>
+
+  <h2>Geschäftsmodell</h2>
+  <p>Abonnement-Modell mit drei Tarifen:</p>
+  <table>
+    <thead><tr><th>Tarif</th><th class="num">Preis/Monat</th><th class="num">Preis/Jahr</th><th>Zielgruppe</th></tr></thead>
+    <tbody>
+      <tr><td>Basis</td><td class="num">49 €</td><td class="num">470 €</td><td>Einzelunternehmer, kleine Handwerker</td></tr>
+      <tr><td>Pro</td><td class="num">149 €</td><td class="num">1.430 €</td><td>Mittelständische Bauunternehmen</td></tr>
+      <tr><td>Team</td><td class="num">299 €</td><td class="num">2.870 €</td><td>Größere Unternehmen mit Einkaufsabteilung</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Umsatzprognose</h2>
+  <table>
+    <thead><tr><th></th><th class="num">Jahr 1</th><th class="num">Jahr 2</th><th class="num">Jahr 3</th></tr></thead>
+    <tbody>
+      <tr><td>Kunden (Ende)</td><td class="num">12</td><td class="num">35</td><td class="num">70</td></tr>
+      <tr><td>Umsatz</td><td class="num">4.615 €</td><td class="num">32.475 €</td><td class="num">84.570 €</td></tr>
+      <tr><td>Gewinn (nach Steuern)</td><td class="num">2.386 €</td><td class="num">23.625 €</td><td class="num">54.485 €</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Alleinstellungsmerkmal (USP)</h2>
+  <p>BauPreis ist die einzige bezahlbare SaaS-Lösung für Baustoffpreismonitoring im KMU-Segment in Deutschland. Die Kombination aus automatischer Datenerfassung, KI-gestützten Prognosen und sofortigen Benachrichtigungen ist in dieser Preisklasse (ab 49 €/Monat) einzigartig. Der Prototyp ist bereits entwickelt, live erreichbar unter baupreis.ais152.com und umfasst 52 Seiten sowie über 3.100 Preisdatensätze.</p>
+
+  <div class="highlight-box">
+    <strong>Wichtiger Hinweis:</strong> Die Plattform wurde als technisches Lernprojekt entwickelt. Die <strong>kommerzielle Tätigkeit</strong> (aktive Kundenakquise, Rechnungsstellung, Marketingmaßnahmen) beginnt erst <strong>nach Bewilligung des Einstiegsgeldes</strong> und der Gewerbeanmeldung. Vor diesem Zeitpunkt finden keine geschäftlichen Aktivitäten statt.
+  </div>
+</div>
+
+<!-- ==================== 2. GRÜNDERPROFIL ==================== -->
+<div class="section">
+  <h1>2. Gründerprofil</h1>
+
+  <h2>Persönliche Daten</h2>
+  <ul>
+    <li><strong>Name:</strong> Eduard Morocho Baias</li>
+    <li><strong>Standort:</strong> München, Bayern</li>
+    <li><strong>Aufenthaltsstatus:</strong> § 24 AufenthG (vorübergehender Schutz), Erwerbstätigkeit einschließlich Selbständigkeit gestattet, verlängert bis 04.03.2027</li>
+  </ul>
+
+  <h2>Qualifikation</h2>
+  <table>
+    <thead><tr><th>Bereich</th><th>Kompetenz</th></tr></thead>
+    <tbody>
+      <tr><td>Programmierung</td><td>TypeScript, JavaScript, React, Next.js, Node.js</td></tr>
+      <tr><td>Datenbanken</td><td>PostgreSQL, SQL, Datenmodellierung</td></tr>
+      <tr><td>Cloud &amp; DevOps</td><td>Docker, Linux-Server, Caddy, CI/CD</td></tr>
+      <tr><td>KI-Integration</td><td>Claude API (Anthropic), Prompt Engineering</td></tr>
+      <tr><td>Webentwicklung</td><td>Responsive Design, Tailwind CSS, PWA</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Werdegang</h2>
+  <table>
+    <thead><tr><th>Zeitraum</th><th>Tätigkeit</th></tr></thead>
+    <tbody>
+      <tr><td>2009–2020</td><td>Gastronomie-Management & Geschäftsführung in Kiew (Leitung eines Komplexes mit 100+ Mitarbeitenden, Eröffnung von 10+ Betrieben, Budgetmanagement, Eventmanagement)</td></tr>
+      <tr><td>2020–2024</td><td>Videoproduktion & CGI: eigenes Produktionsstudio (3D-Werbevideos, Unreal Engine, Cinema4D, Adobe Suite)</td></tr>
+      <tr><td>2022–2024</td><td>Selbststudium: Programmierung und Webentwicklung (HTML, CSS, JavaScript, React, Node.js, PostgreSQL)</td></tr>
+      <tr><td>Feb. 2025</td><td>Ankunft in Deutschland, Integrationskurse, Deutschkurse</td></tr>
+      <tr><td>2024–2025</td><td>Fortgeschrittene Technologien: TypeScript, Next.js, Docker, Cloud-Deployment, KI-Integration</td></tr>
+      <tr><td>2025–2026</td><td>Konzeption und Entwicklung von BauPreis als praxisnahes Hauptprojekt — von der Idee bis zum produktionsreifen SaaS-Produkt</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Ausbildung:</strong> Formale Ausbildung: Tourismusmanagement (2008–2012, Ukraine). IT-Ausbildung: autodidaktisch mit nachweisbarer praktischer Kompetenz. Der vollständig eigenentwickelte und betriebene Prototyp dient als objektiver Nachweis der technischen Fähigkeiten:</p>
+  <ul>
+    <li><strong>52 Seiten</strong> (Webanwendung mit Dashboard, Verwaltung, Landing Page)</li>
+    <li><strong>Multi-Tenant-Architektur</strong> (Mandantenfähigkeit mit Organisationen und Benutzerverwaltung)</li>
+    <li><strong>7 automatisierte Hintergrundprozesse</strong> (Datenerfassung, KI-Analyse, Alerts, Reports, Health-Check)</li>
+    <li><strong>WhatsApp-Bot-Integration</strong> (Echtzeit-Benachrichtigungen)</li>
+    <li><strong>3.106 Preisdatensätze</strong> aus realen Quellen</li>
+    <li><strong>Live erreichbar</strong> unter baupreis.ais152.com</li>
+  </ul>
+
+  <h2>Branchenkenntnisse</h2>
+  <p>Die Idee für BauPreis entstand aus der intensiven Recherche der deutschen Bauindustrie im Rahmen der Produktentwicklung. Durch die Entwicklung der Plattform hat der Gründer ein fundiertes Verständnis der Preisstrukturen für Baustoffe, der Einkaufsprozesse in KMU und der Herausforderungen bei der Kalkulation aufgebaut. Dieses Wissen wurde durch die Analyse öffentlicher Baupreisindizes (BKI, Destatis), Branchenberichte (PwC, Bauindustrie.de) und den technischen Aufbau der Datenerfassungspipeline erworben.</p>
+
+  <h2>Warum Selbständigkeit statt Anstellung?</h2>
+  <ol>
+    <li><strong>Der Prototyp existiert bereits</strong> — die Plattform ist entwickelt, getestet und im Produktivbetrieb. Eine Anstellung würde dieses fertige Produkt ungenutzt lassen.</li>
+    <li><strong>Einzigartige Marktlücke</strong> — keine vergleichbare Lösung im bezahlbaren Segment der Baustoffpreisüberwachung für KMU.</li>
+    <li><strong>Niedrige Markteintrittsbarriere</strong> — die Hauptinvestition (Softwareentwicklung) ist bereits getätigt. Die laufenden Kosten sind minimal (~50 €/Monat).</li>
+    <li><strong>Skalierbarkeit</strong> — als SaaS-Produkt kann BauPreis hunderte Kunden mit derselben Infrastruktur bedienen, ohne proportional steigende Kosten.</li>
+  </ol>
+
+  <h2>Zeitaufwand</h2>
+  <p>Die Selbständigkeit wird <strong>hauptberuflich</strong> (mindestens 20 Stunden/Woche) ausgeübt:</p>
+  <table>
+    <thead><tr><th>Aufgabe</th><th class="num">Stunden/Woche</th></tr></thead>
+    <tbody>
+      <tr><td>Produktentwicklung &amp; Wartung</td><td class="num">10</td></tr>
+      <tr><td>Marketing &amp; Vertrieb</td><td class="num">6</td></tr>
+      <tr><td>Kundenbetreuung &amp; Support</td><td class="num">2</td></tr>
+      <tr><td>Administration &amp; Buchhaltung</td><td class="num">2</td></tr>
+      <tr class="total-row"><td><strong>Gesamt</strong></td><td class="num"><strong>20</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 3. GESCHÄFTSIDEE ==================== -->
+<div class="section">
+  <h1>3. Geschäftsidee / Produkt</h1>
+
+  <h2>Problem</h2>
+  <p>Bauunternehmen in Deutschland stehen vor einer erheblichen Herausforderung: Die Preise für Baumaterialien sind seit 2010 um 64 % gestiegen (Quelle: BKI Baupreisindex), während die allgemeine Inflation im gleichen Zeitraum nur 25 % betrug. Besonders in den Jahren 2021–2022 stiegen die Baupreise um bis zu 17,6 % pro Jahr.</p>
+  <p>Trotz dieser extremen Preisvolatilität überwachen die meisten KMU ihre Materialkosten nach wie vor manuell — per Telefon, Lieferantenkatalogen oder Excel-Tabellen. Laut der PwC-Studie 2025 zur deutschen Bauindustrie nennen 82 % der befragten Unternehmen fehlendes digitales Know-how als Haupthindernis bei der Umsetzung der Digitalisierung (Quelle: PwC-Studie 2025, „Bauindustrie unter Druck").</p>
+
+  <h2>Lösung</h2>
+  <p>BauPreis löst dieses Problem durch eine vollautomatische, webbasierte Plattform:</p>
+
+  <h3>Automatische Datenerfassung</h3>
+  <ul>
+    <li>Tägliche Erfassung der Preise für 16 zentrale Baustoffe (Stahl, Beton, Bauholz, Dämmstoffe, Kupfer, Aluminium u.a.)</li>
+    <li>Quellen: Öffentliche Preisindizes, Rohstoffbörsen, Branchendaten</li>
+  </ul>
+
+  <h3>KI-gestützte Analyse</h3>
+  <ul>
+    <li>Trendanalyse und Prognosen mittels Claude API (Anthropic)</li>
+    <li>Automatische Erkennung signifikanter Preisänderungen</li>
+    <li>Wöchentliche und monatliche Analysereports</li>
+  </ul>
+
+  <h3>Sofortige Benachrichtigung</h3>
+  <ul>
+    <li>E-Mail-Alerts bei Preisänderungen über definierter Schwelle</li>
+    <li>WhatsApp-Bot für Echtzeit-Benachrichtigungen (Pro- und Team-Tarif)</li>
+    <li>Individuelle Schwellenwerte je Material konfigurierbar</li>
+  </ul>
+
+  <h3>Dashboard</h3>
+  <ul>
+    <li>Übersichtliche Darstellung aller Materialpreise und Trends</li>
+    <li>Historische Preisentwicklung (90+ Tage)</li>
+    <li>Mobile-optimiert (PWA — Progressive Web App) — nutzbar auf Smartphone und Tablet</li>
+  </ul>
+
+  <h2>Produktmerkmale nach Tarif</h2>
+  <table>
+    <thead><tr><th>Funktion</th><th>Basis (49 €)</th><th>Pro (149 €)</th><th>Team (299 €)</th></tr></thead>
+    <tbody>
+      <tr><td>Materialüberwachung</td><td>5 Materialien</td><td>Alle 16</td><td>Alle 16</td></tr>
+      <tr><td>Benutzer</td><td>1</td><td>1</td><td>Bis zu 5</td></tr>
+      <tr><td>E-Mail-Alerts</td><td>3 Regeln</td><td>Unbegrenzt</td><td>Unbegrenzt</td></tr>
+      <tr><td>WhatsApp-Alerts</td><td>—</td><td>&#10003;</td><td>&#10003;</td></tr>
+      <tr><td>KI-Prognosen</td><td>—</td><td>&#10003;</td><td>&#10003;</td></tr>
+      <tr><td>API-Zugang</td><td>—</td><td>—</td><td>&#10003;</td></tr>
+      <tr><td>PDF-Berichte</td><td>—</td><td>—</td><td>&#10003;</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Monetarisierung</h2>
+  <p>Wiederkehrende Einnahmen durch monatliche oder jährliche Abonnements. Jahresabonnements erhalten ca. 20 % Rabatt gegenüber der monatlichen Zahlung, was die Kundenbindung und Planbarkeit erhöht. Zahlungsabwicklung über Paddle (Merchant of Record) — Paddle übernimmt Steuerberechnung, -erhebung und -abführung in allen Jurisdiktionen.</p>
+</div>
+
+<!-- ==================== 4. MARKTANALYSE ==================== -->
+<div class="section">
+  <h1>4. Marktanalyse</h1>
+
+  <h2>Gesamtmarkt (TAM)</h2>
+  <p>Die deutsche Bauindustrie ist einer der größten Wirtschaftszweige des Landes:</p>
+  <table>
+    <thead><tr><th>Kennzahl</th><th class="num">Wert</th><th>Quelle</th></tr></thead>
+    <tbody>
+      <tr><td>Bauvolumen Deutschland</td><td class="num">~430 Mrd. € (2024)</td><td>Destatis</td></tr>
+      <tr><td>Bauunternehmen gesamt</td><td class="num">~350.000</td><td>Bauindustrie.de</td></tr>
+      <tr><td>Davon Bauhauptgewerbe</td><td class="num">~83.000</td><td>Destatis</td></tr>
+      <tr><td>Beschäftigte Bauwirtschaft</td><td class="num">~2,7 Mio.</td><td>Bauindustrie.de</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Serviceable Addressable Market (SAM)</h2>
+  <p>Primäre Zielgruppe: Kleine und mittlere Bauunternehmen mit bis zu 50 Mitarbeitern:</p>
+  <table>
+    <thead><tr><th>Segment</th><th class="num">Geschätzte Anzahl</th><th>Potenzial</th></tr></thead>
+    <tbody>
+      <tr><td>Bauunternehmen KMU (bis 50 MA)</td><td class="num">~70.000</td><td>Primär</td></tr>
+      <tr><td>Architektur- und Planungsbüros</td><td class="num">~40.000</td><td>Sekundär</td></tr>
+      <tr><td>Einkaufsabteilungen</td><td class="num">~30.000</td><td>Sekundär</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Serviceable Obtainable Market (SOM)</h2>
+  <p>Das realistische Kundenziel basiert auf der geplanten Vertriebskapazität eines Einzelgründers:</p>
+  <table>
+    <thead><tr><th></th><th class="num">Jahr 1</th><th class="num">Jahr 2</th><th class="num">Jahr 3</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Zielkunden (Ende)</strong></td><td class="num">12</td><td class="num">35</td><td class="num">70</td></tr>
+      <tr><td>Neukunden/Monat (Ø)</td><td class="num">~1</td><td class="num">~2</td><td class="num">~3</td></tr>
+      <tr><td>Churn-Rate (monatlich)</td><td class="num">~5 %</td><td class="num">~5 %</td><td class="num">~5 %</td></tr>
+      <tr><td>Marktdurchdringung (SAM)</td><td class="num">0,017 %</td><td class="num">0,05 %</td><td class="num">0,1 %</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Annahme Tarif-Mix</h3>
+  <table>
+    <thead><tr><th>Tarif</th><th class="num">Jahr 1</th><th class="num">Jahr 2</th><th class="num">Jahr 3</th></tr></thead>
+    <tbody>
+      <tr><td>Basis (49 €)</td><td class="num">70 %</td><td class="num">50 %</td><td class="num">35 %</td></tr>
+      <tr><td>Pro (149 €)</td><td class="num">25 %</td><td class="num">40 %</td><td class="num">45 %</td></tr>
+      <tr><td>Team (299 €)</td><td class="num">5 %</td><td class="num">10 %</td><td class="num">20 %</td></tr>
+      <tr class="total-row"><td><strong>Ø Umsatz/Kunde</strong></td><td class="num"><strong>~74 €</strong></td><td class="num"><strong>~113 €</strong></td><td class="num"><strong>~139 €</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Die Verschiebung zu höheren Tarifen ergibt sich daraus, dass Kunden nach einer Testphase im Basis-Tarif den Mehrwert der KI-Prognosen und WhatsApp-Alerts erkennen und auf Pro upgraden.</p>
+
+  <h2>Markttrends</h2>
+  <h3>1. Extreme Preissteigerungen bei Baustoffen</h3>
+  <p>Die Baustoffpreise sind seit 2010 um 64 % gestiegen (Quelle: BKI Baupreisindex). Allein im Jahr 2025 betrug der Anstieg 3,2 % gegenüber dem Vorjahr (Quelle: Destatis). Diese Volatilität macht ein systematisches Preismonitoring für Kalkulationssicherheit unerlässlich.</p>
+
+  <h3>2. Wachsender Markt für Construction Software</h3>
+  <p>Der globale Markt für Bausoftware liegt bei geschätzt 4–11 Mrd. USD (2025) und wächst mit einer jährlichen Rate (CAGR) von ca. 9 % (Quellen: Mordor Intelligence, Fortune Business Insights).</p>
+
+  <h3>3. Digitalisierungsdefizit in der Baubranche</h3>
+  <p>Laut der PwC-Studie 2025 nennen 82 % der befragten Bauunternehmen fehlendes digitales Know-how als Haupthindernis der Digitalisierung. Dies zeigt einen erheblichen Bedarf an einfachen, intuitiven digitalen Werkzeugen — genau das, was BauPreis bietet.</p>
+</div>
+
+<!-- ==================== 5. WETTBEWERBSANALYSE ==================== -->
+<div class="section">
+  <h1>5. Wettbewerbsanalyse</h1>
+
+  <h2>Direkte und indirekte Wettbewerber</h2>
+  <table>
+    <thead><tr><th>Anbieter</th><th>Art</th><th>Preis</th><th>Stärken</th><th>Schwächen</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Heinze.de</strong></td><td>Baudatenbank</td><td>Kostenlos (Basis)</td><td>Große Datenbank, bekannte Marke</td><td>Kein autom. Preismonitoring, keine Alerts, keine KI</td></tr>
+      <tr><td><strong>BKI</strong></td><td>Baukosteninformation</td><td>ab 500 €/Jahr</td><td>Umfassende Baudaten, anerkannter Standard</td><td>Zu teuer für KMU, keine Echtzeit-Alerts, kein SaaS</td></tr>
+      <tr><td><strong>ORCA AVA</strong></td><td>AVA-Software</td><td>ab 900 €/Jahr</td><td>Integriert in Ausschreibungsprozesse</td><td>Fokus auf AVA, nicht auf Preismonitoring; sehr teuer</td></tr>
+      <tr><td><strong>Cosuno</strong></td><td>Bau-Beschaffung</td><td>auf Anfrage</td><td>Digitale Vergabe, große Nutzerbasis</td><td>Fokus auf Nachunternehmer, kein Materialpreis</td></tr>
+      <tr><td><strong>Excel / manuell</strong></td><td>Eigenentwicklung</td><td>0 €</td><td>Keine Kosten</td><td>Zeitaufwändig, fehleranfällig, keine Automatisierung</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Positionierung von BauPreis</h2>
+  <div class="positioning-chart">
+    <strong>Kostenlos</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="color:var(--primary-light)">BauPreis (49–299 €)</strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Enterprise (500+ €)</strong><br>
+    ├── Heinze &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├── Basis: 49 €/Monat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├── BKI: ab 500 €/Jahr<br>
+    ├── Excel &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├── Pro: 149 €/Monat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ├── ORCA AVA<br>
+    └── Telefon &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; └── Team: 299 €/Monat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; └── Enterprise-ERP
+  </div>
+
+  <h2>Wettbewerbsvorteile</h2>
+  <ol>
+    <li><strong>Keine vergleichbare Lösung</strong> im Preissegment unter 100 €/Monat, die automatisiertes Preismonitoring und KI-Prognosen kombiniert</li>
+    <li><strong>KI-Prognosen</strong> — einziges Produkt in der Preisklasse mit KI-gestützter Preisvorhersage</li>
+    <li><strong>Sofortige Benachrichtigungen</strong> — E-Mail + WhatsApp statt manueller Recherche</li>
+    <li><strong>Niedrige Einstiegshürde</strong> — 14-Tage-Testphase, ab 49 €/Monat</li>
+    <li><strong>DSGVO-konform</strong> — Server in Nürnberg (Hetzner), deutsche Datenverarbeitung</li>
+  </ol>
+</div>
+
+<!-- ==================== 6. MARKETING ==================== -->
+<div class="section">
+  <h1>6. Marketing und Vertrieb</h1>
+
+  <h2>Strategie: Die ersten 12 Kunden (Jahr 1)</h2>
+  <p>Der wichtigste Meilenstein ist die Gewinnung der ersten 12 zahlenden Kunden im ersten Jahr. Die Strategie kombiniert Direktansprache mit organischem Marketing:</p>
+
+  <div class="info-box"><strong>Bereits durchgeführt (vor Gründung):</strong> Besuch der DACH+HOLZ International (Köln, 24.–27.02.2026) — Europas führende Fachmesse für Dach und Holzbau. Erste direkte Gespräche mit potenziellen Kunden aus der Zielgruppe. Eintrittskarte als Nachweis im Anhang.</div>
+
+  <h3>Monat 1–3: Direktansprache + Messen (Outbound)</h3>
+  <ul>
+    <li>Identifikation von 100 Bauunternehmen in München und Oberbayern über IHK-Firmendatenbank und Handelsregister</li>
+    <li>Persönliche E-Mail-Ansprache mit kostenlosem Testzugang (50 Unternehmen im ersten Quartal)</li>
+    <li>Telefonische Nachfassung bei Interessenten</li>
+    <li><strong>Besuch digitalBAU (Köln, 24.–26.03.2026)</strong> — Fachmesse für digitale Lösungen in der Baubranche (KI, BIM, Smart Construction)</li>
+    <li><strong>ARCHITECT@WORK München (15.–16.04.2026)</strong></li>
+    <li><strong>Besuch Construction Summit (Hamburg, 22.–23.04.2026)</strong> — Konferenz für Digitalisierung, Nachhaltigkeit und Innovation im Bauwesen</li>
+    <li>Ziel: 5 Testnutzer, davon 1–2 zahlende Kunden</li>
+    <li>Networking bei IHK-Gründerveranstaltungen und lokalen Unternehmertreffen</li>
+  </ul>
+
+  <h3>Monat 4–6: Content + Outbound + Google Ads</h3>
+  <ul>
+    <li>Veröffentlichung von 2 Fachartikeln pro Monat (z. B. „Stahlpreise Q2 2026 — Analyse und Prognose")</li>
+    <li>LinkedIn-Profil als Branchenexperte aufbauen (3 Beiträge/Woche)</li>
+    <li>Weitere 50 Unternehmen direkt ansprechen</li>
+    <li>Google Ads: 50–100 €/Monat für Keywords „Baustoffpreise aktuell", „Baupreisindex", „Stahlpreis Entwicklung"</li>
+    <li>Ziel: 3–4 weitere zahlende Kunden (kumuliert: 4–6)</li>
+  </ul>
+
+  <h3>Monat 7–12: Skalierung + weitere Messen</h3>
+  <ul>
+    <li>Google Ads optimieren auf Basis der Monat-4–6-Daten</li>
+    <li>Zukunft Bau / HAUS Stuttgart — regionale Fachmesse für Bauen und Wohnen</li>
+    <li>Kostenloser Quartals-Report „Baustoffpreise Deutschland" als Lead-Magnet (Download gegen E-Mail)</li>
+    <li>Ziel: 6–8 weitere zahlende Kunden (kumuliert: 12)</li>
+  </ul>
+
+  <h2>Conversion-Funnel</h2>
+  <table>
+    <thead><tr><th>Stufe</th><th>Kennzahl</th><th>Annahme</th></tr></thead>
+    <tbody>
+      <tr><td>Website-Besucher</td><td>pro Monat</td><td>~200 (Monat 1–6), ~500 (Monat 7–12)</td></tr>
+      <tr><td>Trial-Registrierung</td><td>Conversion</td><td>~5 % der Besucher</td></tr>
+      <tr><td>Trial → Bezahlt</td><td>Conversion</td><td>~20 % der Trial-Nutzer</td></tr>
+      <tr><td>Ergebnis/Monat</td><td>Neukunden</td><td>~1–2 (Monat 1–6), ~2–3 (Monat 7–12)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Vertriebsprozess</h2>
+  <ol>
+    <li>Interessent findet BauPreis über Direktansprache, Google oder LinkedIn</li>
+    <li>14-Tage-Testphase (kostenlos, keine Zahlungsdaten erforderlich)</li>
+    <li>Automatisiertes E-Mail-Onboarding mit Nutzungstipps (Tag 1, 3, 7, 12)</li>
+    <li>Persönliche Nachfassung per E-Mail am Tag 10 der Testphase</li>
+    <li>Upgrade auf bezahltes Abonnement über Paddle-Checkout</li>
+    <li>Laufende Betreuung über E-Mail-Support und WhatsApp</li>
+  </ol>
+
+  <h2>Marketingbudget</h2>
+  <table>
+    <thead><tr><th>Posten</th><th class="num">Monat 1–6</th><th class="num">Monat 7–12</th><th class="num">Jahr 2</th></tr></thead>
+    <tbody>
+      <tr><td>Direktansprache (Tools, E-Mail)</td><td class="num">20 €</td><td class="num">20 €</td><td class="num">20 €</td></tr>
+      <tr><td>Google Ads</td><td class="num">0 €</td><td class="num">50–100 €</td><td class="num">100–200 €</td></tr>
+      <tr><td>LinkedIn (Sales Navigator)</td><td class="num">0 €</td><td class="num">0 €</td><td class="num">80 €</td></tr>
+      <tr><td>Messen/Networking</td><td class="num">30 €</td><td class="num">30 €</td><td class="num">100 €</td></tr>
+      <tr><td>Content/SEO</td><td class="num">0 € (Eigenl.)</td><td class="num">0 €</td><td class="num">0 €</td></tr>
+      <tr class="total-row"><td><strong>Gesamt/Monat</strong></td><td class="num"><strong>~50 €</strong></td><td class="num"><strong>~100–150 €</strong></td><td class="num"><strong>~300–400 €</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 7. ORGANISATION ==================== -->
+<div class="section">
+  <h1>7. Unternehmensorganisation</h1>
+
+  <h2>Rechtsform</h2>
+  <p><strong>Einzelunternehmen (Kleingewerbe)</strong> — die einfachste und kostengünstigste Rechtsform für den Start:</p>
+  <ul>
+    <li>Gewerbeanmeldung: 60 € (KVR München)</li>
+    <li>Keine Mindestkapitalanforderung</li>
+    <li>Einfache Buchführung (EÜR — Einnahmenüberschussrechnung)</li>
+    <li>Gewerbesteuer-Freibetrag: 24.500 €/Jahr</li>
+    <li>Kleinunternehmerregelung (§ 19 UStG): Keine Umsatzsteuer bis 25.000 € Vorjahresumsatz</li>
+  </ul>
+
+  <h2>Standort</h2>
+  <p>Homeoffice in München. Kein separates Büro erforderlich — die Tätigkeit ist vollständig digital und ortsunabhängig.</p>
+
+  <h2>Technische Infrastruktur</h2>
+  <table>
+    <thead><tr><th>Komponente</th><th>Anbieter</th><th class="num">Kosten/Monat</th><th>DSGVO</th></tr></thead>
+    <tbody>
+      <tr><td>Server</td><td>Hetzner Cloud CX32, Nürnberg</td><td class="num">~15 €</td><td>&#10003; DE</td></tr>
+      <tr><td>Domain + SSL</td><td>Caddy (auto-SSL)</td><td class="num">~1 €</td><td>&#10003;</td></tr>
+      <tr><td>Authentifizierung</td><td>Clerk</td><td class="num">0 € (Free Tier)</td><td>&#10003;</td></tr>
+      <tr><td>E-Mail-Versand</td><td>Resend</td><td class="num">0 € (Free Tier)</td><td>&#10003;</td></tr>
+      <tr><td>KI-Analyse</td><td>Claude API (Anthropic)</td><td class="num">~20–50 €</td><td>&#10003;</td></tr>
+      <tr><td>Zahlungsabwicklung</td><td>Paddle</td><td class="num">5 % + 0,50 $/Txn</td><td>&#10003;</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Personal</h2>
+  <p>Im ersten Jahr keine Einstellungen geplant. Alle Aufgaben (Entwicklung, Marketing, Support) werden vom Gründer selbst übernommen. Ab Jahr 2 bei Wachstum ggf. Vergabe von Teilaufgaben (z. B. Content-Erstellung) an Freelancer.</p>
+</div>
+
+<!-- ==================== 8. SWOT ==================== -->
+<div class="section">
+  <h1>8. SWOT-Analyse</h1>
+
+  <div class="swot-grid">
+    <div class="swot-box strengths">
+      <h4>Stärken (Strengths)</h4>
+      <ul>
+        <li>Produkt bereits fertig entwickelt und live — kein Entwicklungsrisiko</li>
+        <li>Extrem niedrige Betriebskosten (~50 €/Monat) — hohe Marge</li>
+        <li>Einzigartiges Angebot im KMU-Segment</li>
+        <li>KI-Prognosen als technologischer Vorsprung</li>
+        <li>DSGVO-konform — Server in Deutschland</li>
+        <li>Skalierbar — derselbe Server bedient Hunderte von Kunden</li>
+      </ul>
+    </div>
+    <div class="swot-box weaknesses">
+      <h4>Schwächen (Weaknesses)</h4>
+      <ul>
+        <li>Einzelgründer — alle Aufgaben ruhen auf einer Person</li>
+        <li>Autodidaktische Ausbildung — kein formaler IT-Abschluss</li>
+        <li>Begrenztes Marketingbudget zu Beginn</li>
+        <li>Keine etablierte Marke — BauPreis ist neu am Markt</li>
+      </ul>
+    </div>
+    <div class="swot-box opportunities">
+      <h4>Chancen (Opportunities)</h4>
+      <ul>
+        <li>Unbesetzte Marktnische im Preissegment 49–299 €</li>
+        <li>82 % der Bauunternehmen sehen Know-how-Defizite (PwC 2025)</li>
+        <li>Anhaltende Preisvolatilität bei Baustoffen</li>
+        <li>Wachsender Construction-SaaS-Markt (CAGR ~9 %)</li>
+        <li>Fördermöglichkeiten senken das Gründungsrisiko</li>
+      </ul>
+    </div>
+    <div class="swot-box threats">
+      <h4>Risiken (Threats)</h4>
+      <ul>
+        <li>Langer B2B-Vertriebszyklus</li>
+        <li>Saisonalität der Baubranche</li>
+        <li>Abhängigkeit von externen Datenquellen</li>
+        <li>Markteintritt großer Player (SAP, Oracle)</li>
+        <li>Kundenabwanderung (Churn) 3–7 % monatlich</li>
+        <li>Einpersonenrisiko bei Krankheit/Ausfall</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Gegenmaßnahmen</h2>
+  <table>
+    <thead><tr><th>Risiko</th><th>Gegenmaßnahme</th></tr></thead>
+    <tbody>
+      <tr><td>Langer Vertriebszyklus</td><td>14-Tage-Testphase senkt Einstiegshürde</td></tr>
+      <tr><td>Saisonalität</td><td>Jahresabonnements mit Rabatt → stabile Einnahmen</td></tr>
+      <tr><td>API-Abhängigkeit</td><td>Mindestens 3 unabhängige Datenquellen</td></tr>
+      <tr><td>Große Player</td><td>Fokus auf Einfachheit und Bezahlbarkeit für KMU</td></tr>
+      <tr><td>Churn</td><td>Onboarding-Mails, persönliche Betreuung, Jahresabonnements</td></tr>
+      <tr><td>Einpersonenrisiko</td><td>7 automatisierte Hintergrundprozesse, dokumentierte Abläufe</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 8a. MEILENSTEINPLAN ==================== -->
+<div class="section">
+  <h1>8a. Meilensteinplan (Jahr 1)</h1>
+  <table>
+    <thead><tr><th>Monat</th><th>Meilenstein</th><th>Aktivitäten</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td><strong>Marktstart</strong></td><td>Gewerbeanmeldung, Paddle-/Stripe-Anbindung live, erste 50 Direktansprachen. digitalBAU Köln besuchen (24.–26.03.2026)</td></tr>
+      <tr><td><strong>2</strong></td><td><strong>Erster Kunde + Messen</strong></td><td>Trial-Nutzer gewinnen, Onboarding optimieren, SEO-Blog starten, ARCHITECT@WORK München (15.–16.04.2026) und Construction Summit Hamburg (22.–23.04.) besuchen</td></tr>
+      <tr><td><strong>3</strong></td><td><strong>Produkt-Feedback</strong></td><td>Kundenfeedbacks auswerten, Features priorisieren, 2 Fachartikel</td></tr>
+      <tr><td><strong>4–6</strong></td><td><strong>Traktion</strong></td><td>4–6 zahlende Kunden, Google-Ranking für 3 Keywords, LinkedIn 200+ Kontakte</td></tr>
+      <tr><td><strong>7–9</strong></td><td><strong>Wachstum</strong></td><td>Google Ads optimieren, Zukunft Bau / HAUS Stuttgart besuchen, 8 Kunden, Break-even (Geschäftsebene)</td></tr>
+      <tr><td><strong>10–12</strong></td><td><strong>Konsolidierung</strong></td><td>12 zahlende Kunden, Churn-Analyse, Jahresabo, Quartals-Report</td></tr>
+    </tbody>
+  </table>
+
+  <h1>8b. Worst-Case-Szenario</h1>
+  <p><strong>Annahme:</strong> Nur 50 % der geplanten Kunden werden gewonnen, Churn ist höher als erwartet.</p>
+  <table>
+    <thead><tr><th></th><th class="num">Basisszenario</th><th class="num">Worst-Case (50 %)</th></tr></thead>
+    <tbody>
+      <tr><td>Kunden Jahr 1</td><td class="num">12</td><td class="num">6</td></tr>
+      <tr><td>Umsatz Jahr 1</td><td class="num">4.615 €</td><td class="num">~2.300 €</td></tr>
+      <tr><td>Kunden Jahr 2</td><td class="num">35</td><td class="num">18</td></tr>
+      <tr><td>Umsatz Jahr 2</td><td class="num">32.475 €</td><td class="num">~16.000 €</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box">
+    <strong>Auswirkung im Worst-Case:</strong><br>
+    Jahr 1: Geschäftsausgaben (~2.200 €) werden durch Einstiegsgeld (~3.384 €/Jahr) vollständig gedeckt. Kein finanzielles Risiko.<br>
+    Jahr 2: Umsatz deckt Betriebskosten, aber reicht noch nicht für volle Unabhängigkeit von Bürgergeld.
+  </div>
+
+  <h3>Plan B (falls Worst-Case eintritt)</h3>
+  <ul>
+    <li>Monate 1–12: Analyse der Gründe (Produkt, Pricing, Zielgruppe) und Anpassung der Strategie</li>
+    <li>Nach 18 Monaten: Wenn unter 10 Kunden — Rückkehr in sozialversicherungspflichtige Beschäftigung (IT-Branche) unter Beibehaltung von BauPreis als Nebentätigkeit</li>
+    <li><strong>Finanzielles Risiko:</strong> Minimal. Der Kapitalbedarf (5.500 €) wird durch den Investitionszuschuss (§ 16c SGB II) gedeckt. Das Eigenkapital (200 €) ist der einzige persönliche Einsatz.</li>
+  </ul>
+
+  <h1>8c. Rechtliche Rahmenbedingungen</h1>
+  <ul>
+    <li><strong>DSGVO:</strong> Alle Daten werden auf einem deutschen Server (Hetzner, Nürnberg) verarbeitet. Datenschutzerklärung und Impressum sind auf der Website vorhanden.</li>
+    <li><strong>Impressumspflicht:</strong> Impressum gemäß § 5 TMG auf allen Seiten der Plattform.</li>
+    <li><strong>AGB:</strong> Allgemeine Geschäftsbedingungen für die SaaS-Nutzung werden vor Marktstart erstellt.</li>
+    <li><strong>Aufenthaltsrechtliche Grundlage:</strong> § 24 AufenthG berechtigt zur Ausübung einer selbständigen Erwerbstätigkeit (Nebenbestimmung: „Erwerbstätigkeit gestattet"). Verlängerung bis 04.03.2027 erteilt.</li>
+  </ul>
+</div>
+
+<!-- ==================== 9. FINANZPLANUNG ==================== -->
+<div class="section">
+  <h1>9. Finanzplanung</h1>
+
+  <h2>9a. Kapitalbedarfsplan (Startinvestitionen)</h2>
+
+  <h3>A. Grundkosten (sofort erforderlich)</h3>
+  <table>
+    <thead><tr><th>Position</th><th class="num">Betrag</th><th>Erläuterung</th></tr></thead>
+    <tbody>
+      <tr><td>Gewerbeanmeldung (KVR München)</td><td class="num">60 €</td><td>Einmalig</td></tr>
+      <tr><td>Server Hetzner CX32 (1 Jahr im Voraus)</td><td class="num">300 €</td><td>Nürnberg, DSGVO-konform</td></tr>
+      <tr><td>Domain + SSL (1 Jahr)</td><td class="num">15 €</td><td>baupreis.ais152.com</td></tr>
+      <tr><td>Claude API Credits (6 Monate)</td><td class="num">300 €</td><td>KI-Analysen und Prognosen</td></tr>
+      <tr><td>Buchhaltungssoftware lexoffice (1 Jahr)</td><td class="num">96 €</td><td>EÜR, Rechnungen</td></tr>
+      <tr class="total-row"><td><strong>Zwischensumme Grundkosten</strong></td><td class="num"><strong>771 €</strong></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>B. Marketing und Kundenakquise (erste 6 Monate)</h3>
+  <table>
+    <thead><tr><th>Position</th><th class="num">Betrag</th><th>Erläuterung</th></tr></thead>
+    <tbody>
+      <tr><td>Messebesuch DACH+HOLZ (Köln, Feb. 2026 — bereits besucht)</td><td class="num">850 €</td><td>Eintritt, Anreise, Übernachtung, Druckmaterial</td></tr>
+      <tr><td>Weitere Messebesuche (digitalBAU, ARCHITECT@WORK, Construction Summit, Zukunft Bau)</td><td class="num">1.207 €</td><td>Eintritt, Anreise, Übernachtung (Details s. Messeplan)</td></tr>
+      <tr><td>Google Ads (6 Monate × 100 €)</td><td class="num">600 €</td><td>Keywords: Baustoffpreise, Baupreisindex</td></tr>
+      <tr><td>LinkedIn Sales Navigator (6 Monate)</td><td class="num">480 €</td><td>Direktansprache Bauunternehmen</td></tr>
+      <tr><td>Marketing-Tools (E-Mail, CRM, 6 Monate)</td><td class="num">300 €</td><td>Newsletter, Outreach-Automation</td></tr>
+      <tr><td>Druckmaterial (Visitenkarten, Flyer)</td><td class="num">150 €</td><td>Für Messen und Networking</td></tr>
+      <tr class="total-row"><td><strong>Zwischensumme Marketing</strong></td><td class="num"><strong>3.587 €</strong></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <h3>C. Betriebliche Infrastruktur (erste 12 Monate)</h3>
+  <table>
+    <thead><tr><th>Position</th><th class="num">Betrag</th><th>Erläuterung</th></tr></thead>
+    <tbody>
+      <tr><td>Metals.dev API (Preisdaten, 1 Jahr)</td><td class="num">360 €</td><td>Echtzeit-Metallpreise</td></tr>
+      <tr><td>Resend E-Mail-Service (Pro, 6 Monate)</td><td class="num">120 €</td><td>Transaktions- und Marketing-E-Mails</td></tr>
+      <tr><td>IHK-Mitgliedsbeitrag (1 Jahr)</td><td class="num">150 €</td><td>Pflichtmitgliedschaft</td></tr>
+      <tr><td>Externe Datenquellen (APIs, 1 Jahr)</td><td class="num">240 €</td><td>Eurostat, SMARD, weitere Quellen</td></tr>
+      <tr><td>Sicherheitspuffer (unvorhergesehen)</td><td class="num">272 €</td><td>Reserve für unerwartete Ausgaben</td></tr>
+      <tr class="total-row"><td><strong>Zwischensumme Infrastruktur</strong></td><td class="num"><strong>1.142 €</strong></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <table>
+    <tbody>
+      <tr class="total-row"><td><strong>Gesamter Kapitalbedarf</strong></td><td class="num"><strong>5.500 €</strong></td><td></td></tr>
+    </tbody>
+  </table>
+  <p><em>Hinweis: Laptop (Alienware m17 R3, i9, 32 GB RAM) und Internetanschluss sind bereits vorhanden. Kein zusätzlicher Investitionsbedarf für Hardware.</em></p>
+
+  <h2>9b. Umsatzplanung (36 Monate)</h2>
+  <h3>Jahr 1 — Monatliche Aufstellung</h3>
+  <table>
+    <thead><tr><th>Monat</th><th class="num">Neue Kd.</th><th class="num">Kd. ges.</th><th class="num">Ø Umsatz/Kd.</th><th class="num">Monatsumsatz</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="num">0</td><td class="num">0</td><td class="num">—</td><td class="num">0 €</td></tr>
+      <tr><td>2</td><td class="num">1</td><td class="num">1</td><td class="num">49 €</td><td class="num">49 €</td></tr>
+      <tr><td>3</td><td class="num">1</td><td class="num">2</td><td class="num">49 €</td><td class="num">98 €</td></tr>
+      <tr><td>4</td><td class="num">0</td><td class="num">2</td><td class="num">49 €</td><td class="num">98 €</td></tr>
+      <tr><td>5</td><td class="num">1</td><td class="num">3</td><td class="num">55 €</td><td class="num">165 €</td></tr>
+      <tr><td>6</td><td class="num">1</td><td class="num">4</td><td class="num">60 €</td><td class="num">240 €</td></tr>
+      <tr><td>7</td><td class="num">1</td><td class="num">5</td><td class="num">65 €</td><td class="num">325 €</td></tr>
+      <tr><td>8</td><td class="num">1</td><td class="num">6</td><td class="num">70 €</td><td class="num">420 €</td></tr>
+      <tr><td>9</td><td class="num">2</td><td class="num">8</td><td class="num">75 €</td><td class="num">600 €</td></tr>
+      <tr><td>10</td><td class="num">1</td><td class="num">9</td><td class="num">80 €</td><td class="num">720 €</td></tr>
+      <tr><td>11</td><td class="num">2</td><td class="num">11</td><td class="num">80 €</td><td class="num">880 €</td></tr>
+      <tr><td>12</td><td class="num">1</td><td class="num">12</td><td class="num">85 €</td><td class="num">1.020 €</td></tr>
+      <tr class="total-row"><td colspan="4"><strong>Jahr 1 gesamt</strong></td><td class="num"><strong>4.615 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Jahr 2 — Quartalsaufstellung</h3>
+  <table>
+    <thead><tr><th>Quartal</th><th class="num">Kunden (Ende)</th><th class="num">Ø Umsatz/Kunde</th><th class="num">Quartalsumsatz</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td class="num">16</td><td class="num">95 €</td><td class="num">4.560 €</td></tr>
+      <tr><td>Q2</td><td class="num">22</td><td class="num">100 €</td><td class="num">6.600 €</td></tr>
+      <tr><td>Q3</td><td class="num">28</td><td class="num">110 €</td><td class="num">9.240 €</td></tr>
+      <tr><td>Q4</td><td class="num">35</td><td class="num">115 €</td><td class="num">12.075 €</td></tr>
+      <tr class="total-row"><td colspan="3"><strong>Jahr 2 gesamt</strong></td><td class="num"><strong>32.475 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Jahr 3 — Quartalsaufstellung</h3>
+  <table>
+    <thead><tr><th>Quartal</th><th class="num">Kunden (Ende)</th><th class="num">Ø Umsatz/Kunde</th><th class="num">Quartalsumsatz</th></tr></thead>
+    <tbody>
+      <tr><td>Q1</td><td class="num">42</td><td class="num">120 €</td><td class="num">15.120 €</td></tr>
+      <tr><td>Q2</td><td class="num">50</td><td class="num">125 €</td><td class="num">18.750 €</td></tr>
+      <tr><td>Q3</td><td class="num">60</td><td class="num">130 €</td><td class="num">23.400 €</td></tr>
+      <tr><td>Q4</td><td class="num">70</td><td class="num">130 €</td><td class="num">27.300 €</td></tr>
+      <tr class="total-row"><td colspan="3"><strong>Jahr 3 gesamt</strong></td><td class="num"><strong>84.570 €</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 9c-9f ==================== -->
+<div class="section">
+  <h2>9c. Rentabilitätsvorschau</h2>
+  <table>
+    <thead><tr><th>Position</th><th class="num">Jahr 1</th><th class="num">Jahr 2</th><th class="num">Jahr 3</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Umsatz</strong></td><td class="num"><strong>4.615 €</strong></td><td class="num"><strong>32.475 €</strong></td><td class="num"><strong>84.570 €</strong></td></tr>
+      <tr><td>— Server &amp; Infrastruktur</td><td class="num negative">-600 €</td><td class="num negative">-720 €</td><td class="num negative">-960 €</td></tr>
+      <tr><td>— Claude API</td><td class="num negative">-300 €</td><td class="num negative">-600 €</td><td class="num negative">-1.200 €</td></tr>
+      <tr><td>— Marketing</td><td class="num negative">-540 €</td><td class="num negative">-2.400 €</td><td class="num negative">-4.200 €</td></tr>
+      <tr><td>— Paddle-Gebühren (5 % + 0,50 $/Txn)</td><td class="num negative">-303 €</td><td class="num negative">-1.824 €</td><td class="num negative">-4.649 €</td></tr>
+      <tr><td>— Buchhaltungssoftware (lexoffice)</td><td class="num negative">-96 €</td><td class="num negative">-96 €</td><td class="num negative">-96 €</td></tr>
+      <tr><td>— Steuerberater</td><td class="num negative">0 €</td><td class="num negative">-500 €</td><td class="num negative">-1.000 €</td></tr>
+      <tr><td>— IHK-Mitgliedsbeitrag</td><td class="num negative">-150 €</td><td class="num negative">-150 €</td><td class="num negative">-200 €</td></tr>
+      <tr><td>— Sonstige (Domain, Tools, Telefon)</td><td class="num negative">-240 €</td><td class="num negative">-360 €</td><td class="num negative">-480 €</td></tr>
+      <tr class="total-row"><td><strong>Betriebliche Aufwendungen</strong></td><td class="num negative"><strong>-2.229 €</strong></td><td class="num negative"><strong>-6.650 €</strong></td><td class="num negative"><strong>-12.785 €</strong></td></tr>
+      <tr><td><strong>Gewinn vor Steuern</strong></td><td class="num positive"><strong>2.386 €</strong></td><td class="num positive"><strong>25.825 €</strong></td><td class="num positive"><strong>71.785 €</strong></td></tr>
+      <tr><td>— Einkommensteuer (geschätzt)</td><td class="num">0 €</td><td class="num negative">~2.200 €</td><td class="num negative">~14.000 €</td></tr>
+      <tr><td>— Gewerbesteuer (Freibetrag 24.500 €)</td><td class="num">0 €</td><td class="num">0 €</td><td class="num negative">~3.300 €</td></tr>
+      <tr class="total-row"><td><strong>Gewinn nach Steuern</strong></td><td class="num positive"><strong>~2.386 €</strong></td><td class="num positive"><strong>~23.625 €</strong></td><td class="num positive"><strong>~54.485 €</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2>9d. Liquiditätsplan (Jahr 1, monatlich)</h2>
+  <table>
+    <thead><tr><th>Monat</th><th class="num">Einnahmen</th><th class="num">Ausgaben</th><th class="num">Saldo</th><th class="num">Kumuliert</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="num">0 €</td><td class="num">355 €</td><td class="num negative">-355 €</td><td class="num negative">-355 €</td></tr>
+      <tr><td>2</td><td class="num">49 €</td><td class="num">85 €</td><td class="num negative">-36 €</td><td class="num negative">-391 €</td></tr>
+      <tr><td>3</td><td class="num">98 €</td><td class="num">85 €</td><td class="num positive">+13 €</td><td class="num negative">-378 €</td></tr>
+      <tr><td>4</td><td class="num">98 €</td><td class="num">85 €</td><td class="num positive">+13 €</td><td class="num negative">-365 €</td></tr>
+      <tr><td>5</td><td class="num">165 €</td><td class="num">85 €</td><td class="num positive">+80 €</td><td class="num negative">-285 €</td></tr>
+      <tr><td>6</td><td class="num">240 €</td><td class="num">135 €</td><td class="num positive">+105 €</td><td class="num negative">-180 €</td></tr>
+      <tr><td>7</td><td class="num">325 €</td><td class="num">135 €</td><td class="num positive">+190 €</td><td class="num positive">+10 €</td></tr>
+      <tr><td>8</td><td class="num">420 €</td><td class="num">135 €</td><td class="num positive">+285 €</td><td class="num positive">+295 €</td></tr>
+      <tr><td>9</td><td class="num">600 €</td><td class="num">135 €</td><td class="num positive">+465 €</td><td class="num positive">+760 €</td></tr>
+      <tr><td>10</td><td class="num">720 €</td><td class="num">135 €</td><td class="num positive">+585 €</td><td class="num positive">+1.345 €</td></tr>
+      <tr><td>11</td><td class="num">880 €</td><td class="num">135 €</td><td class="num positive">+745 €</td><td class="num positive">+2.090 €</td></tr>
+      <tr><td>12</td><td class="num">1.020 €</td><td class="num">135 €</td><td class="num positive">+885 €</td><td class="num positive">+2.975 €</td></tr>
+    </tbody>
+  </table>
+  <div class="info-box">
+    <strong>Break-even:</strong> Monat 7 (kumulierter Saldo wird positiv).<br>
+    <em>Privater Finanzbedarf wird durch Bürgergeld und ggf. Einstiegsgeld gedeckt (siehe 9e).</em>
+  </div>
+
+  <h2>9e. Privater Finanzbedarf</h2>
+  <table>
+    <thead><tr><th>Position</th><th class="num">Monatlich</th></tr></thead>
+    <tbody>
+      <tr><td>Miete (Warmmiete)</td><td class="num">~700 €</td></tr>
+      <tr><td>Lebenshaltung (Essen, Kleidung)</td><td class="num">~350 €</td></tr>
+      <tr><td>Krankenversicherung</td><td class="num">über Bürgergeld gedeckt</td></tr>
+      <tr><td>Telefon / Internet</td><td class="num">~40 €</td></tr>
+      <tr><td>Transport (MVV)</td><td class="num">~60 €</td></tr>
+      <tr><td>Sonstiges</td><td class="num">~50 €</td></tr>
+      <tr class="total-row"><td><strong>Gesamter privater Bedarf</strong></td><td class="num"><strong>~1.200 €/Monat</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Weg in die finanzielle Unabhängigkeit</h3>
+  <table class="phase-table">
+    <thead><tr><th>Phase</th><th>Zeitraum</th><th>Lebenshaltung gedeckt durch</th></tr></thead>
+    <tbody>
+      <tr><td>Phase 1</td><td>Monat 1–12</td><td>Bürgergeld (Regelbedarf + Unterkunft) + ggf. Einstiegsgeld (~282 €/Monat)</td></tr>
+      <tr><td>Phase 2</td><td>Monat 13–24</td><td>Teilweise Geschäftseinkommen (~1.970 €/Monat) + reduziertes Bürgergeld</td></tr>
+      <tr><td>Phase 3</td><td>Ab Monat 25</td><td>Vollständig aus Geschäftseinkommen (~4.540 €/Monat) — <strong>kein Bürgergeld mehr</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h2>9f. Finanzierungsplan</h2>
+  <table>
+    <thead><tr><th>Quelle</th><th class="num">Betrag</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Eigenkapital</td><td class="num">~200 €</td><td>Vorhanden</td></tr>
+      <tr><td>Einstiegsgeld (§ 16b SGB II)</td><td class="num">~282 €/Monat, bis 24 Mon.</td><td>Beantragt</td></tr>
+      <tr><td>Investitionszuschuss (§ 16c SGB II)</td><td class="num">bis 5.000 € (einmalig)</td><td>Beantragt</td></tr>
+      <tr class="total-row"><td><strong>Gesamtfinanzierung (Jahr 1)</strong></td><td class="num"><strong>bis ~8.584 €</strong></td><td></td></tr>
+      <tr><td>Kapitalbedarf (siehe 9a)</td><td class="num">5.500 €</td><td></td></tr>
+      <tr class="total-row"><td><strong>Überdeckung</strong></td><td class="num positive"><strong>+3.084 €</strong></td><td>Sicherheitspuffer</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==================== 10. ANHANG ==================== -->
+<div class="section">
+  <h1>10. Anhang</h1>
+
+  <h2>Quellenverzeichnis</h2>
+  <table>
+    <thead><tr><th>#</th><th>Quelle</th><th>Verwendung</th><th>URL</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>BKI Baupreisindex</td><td>Baustoffpreisentwicklung +64 % (2010–2022)</td><td>bki.de/baupreisindex</td></tr>
+      <tr><td>2</td><td>Destatis — Baupreise</td><td>Baupreisanstieg 2025: +3,2 %</td><td>destatis.de</td></tr>
+      <tr><td>3</td><td>Bauindustrie.de</td><td>~350.000 Bauunternehmen, ~2,7 Mio. Beschäftigte</td><td>bauindustrie.de/zahlen-fakten</td></tr>
+      <tr><td>4</td><td>PwC-Studie 2025</td><td>82 % Digitalisierungsbarriere</td><td>pwc.de/baustudie</td></tr>
+      <tr><td>5</td><td>Mordor Intelligence</td><td>Construction Software Markt, CAGR ~9 %</td><td>mordorintelligence.com</td></tr>
+      <tr><td>6</td><td>Fortune Business Insights</td><td>Construction Software $11,78 Mrd. (2026)</td><td>fortunebusinessinsights.com</td></tr>
+      <tr><td>7</td><td>§16b SGB II</td><td>Einstiegsgeld — Rechtsgrundlage</td><td>gesetze-im-internet.de</td></tr>
+      <tr><td>8</td><td>§16c SGB II</td><td>Investitionszuschuss — Rechtsgrundlage</td><td>gesetze-im-internet.de</td></tr>
+      <tr><td>9</td><td>Bundesregierung</td><td>Regelbedarf 2026: 563 €</td><td>bundesregierung.de</td></tr>
+      <tr><td>10</td><td>IHK München</td><td>Tragfähigkeitsbescheinigung, Gründungsberatung</td><td>ihk-muenchen.de</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Weitere Anhänge (separat beizufügen)</h2>
+  <ul>
+    <li>Lebenslauf des Gründers</li>
+    <li>Screenshots der Live-Plattform (baupreis.ais152.com)</li>
+    <li>Qualifikationsnachweise / Zertifikate</li>
+    <li>Aufenthaltserlaubnis (§ 24 AufenthG)</li>
+  </ul>
+</div>
+
+</body>
+</html>

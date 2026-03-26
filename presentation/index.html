@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauPreis AI — Pitch Deck 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --brand: #2563eb;
+    --brand-dark: #1e40af;
+    --accent: #f59e0b;
+    --dark: #0f172a;
+    --gray-900: #111827;
+    --gray-700: #374151;
+    --gray-500: #6b7280;
+    --gray-300: #d1d5db;
+    --gray-100: #f3f4f6;
+    --white: #ffffff;
+    --red: #ef4444;
+    --green: #22c55e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--gray-900);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Page / Slide — FIXED HEIGHT ── */
+  .slide {
+    width: 297mm;
+    height: 210mm;
+    padding: 36px 48px;
+    page-break-after: always;
+    page-break-inside: avoid;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide:last-child { page-break-after: avoid; }
+
+  /* ── Cover Slide ── */
+  .slide--cover {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #2563eb 100%);
+    color: white;
+    text-align: left;
+  }
+  .cover-content { position: relative; z-index: 2; }
+  .cover-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    margin-bottom: 28px;
+  }
+  .slide--cover h1 {
+    font-size: 54px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: -1px;
+  }
+  .slide--cover h1 span { color: var(--accent); }
+  .cover-subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    opacity: 0.85;
+    line-height: 1.5;
+    max-width: 620px;
+    margin-bottom: 40px;
+    color: white;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+  .cover-dots {
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(37,99,235,0.3) 0%, transparent 70%);
+    z-index: 1;
+  }
+  .cover-dots-2 {
+    position: absolute;
+    right: 60px;
+    bottom: -80px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
+    z-index: 1;
+  }
+
+  /* ── Dark slides ── */
+  .slide--dark {
+    background: var(--dark);
+    color: white;
+  }
+  .slide--dark .section-label { color: var(--accent); }
+  .slide--dark .stat-value { color: white; }
+  .slide--dark p, .slide--dark li { color: rgba(255,255,255,0.8); }
+  .slide--dark table { color: rgba(255,255,255,0.9); }
+  .slide--dark th { color: var(--accent); border-bottom-color: rgba(255,255,255,0.15); }
+  .slide--dark td { border-bottom-color: rgba(255,255,255,0.08); }
+
+  /* ── Gradient accent slide ── */
+  .slide--accent {
+    background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+    color: white;
+  }
+  .slide--accent .section-label { color: var(--accent); }
+  .slide--accent p { color: rgba(255,255,255,0.85); }
+
+  /* ── Typography ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 8px;
+  }
+  .slide h2 {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .slide h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .slide p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+  .slide li {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray-700);
+  }
+
+  /* ── Stats Grid ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .stat-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .slide--dark .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--brand);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gray-500);
+    line-height: 1.4;
+  }
+  .slide--dark .stat-label { color: rgba(255,255,255,0.5); }
+  .stat-value .up { color: var(--red); }
+  .stat-value .small { font-size: 18px; font-weight: 600; }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  th {
+    text-align: left;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--brand);
+    padding: 10px 14px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  td {
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--gray-100);
+    vertical-align: middle;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .tag--green { background: #f0fdf4; color: #16a34a; }
+  .tag--gray { background: #f3f4f6; color: #6b7280; }
+
+  /* ── Feature Grid ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .feature-grid--3col {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .feature-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .slide--dark .feature-card,
+  .slide--accent .feature-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+  .feature-icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .feature-card h3 {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .feature-card p {
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+  .slide--accent .feature-card h3 { color: white; }
+  .slide--accent .feature-card p { color: rgba(255,255,255,0.7); }
+
+  /* ── Moat list ── */
+  .moat-list {
+    list-style: none;
+    counter-reset: moat;
+  }
+  .moat-list li {
+    counter-increment: moat;
+    position: relative;
+    padding-left: 56px;
+    margin-bottom: 20px;
+  }
+  .moat-list li::before {
+    content: counter(moat, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.5;
+  }
+  .moat-list li strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
+    color: white;
+  }
+  .moat-list li span {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.5;
+  }
+
+  /* ── Roadmap ── */
+  .roadmap {
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .roadmap-item {
+    flex: 1;
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+  }
+  .roadmap-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 12px 12px 0 0;
+  }
+  .roadmap-item:nth-child(1)::before { background: var(--green); }
+  .roadmap-item:nth-child(2)::before { background: var(--brand); }
+  .roadmap-item:nth-child(3)::before { background: var(--accent); }
+  .roadmap-item:nth-child(4)::before { background: #8b5cf6; }
+  .roadmap-quarter {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .roadmap-item:nth-child(1) .roadmap-quarter { color: var(--green); }
+  .roadmap-item:nth-child(2) .roadmap-quarter { color: var(--brand); }
+  .roadmap-item:nth-child(3) .roadmap-quarter { color: var(--accent); }
+  .roadmap-item:nth-child(4) .roadmap-quarter { color: #8b5cf6; }
+  .roadmap-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .roadmap-list {
+    list-style: none;
+    font-size: 11.5px;
+    line-height: 1.8;
+    color: var(--gray-500);
+  }
+  .roadmap-list li::before {
+    content: '-> ';
+    color: var(--gray-300);
+  }
+
+  /* ── Pricing table ── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .pricing-card {
+    border-radius: 14px;
+    padding: 24px;
+    background: var(--gray-100);
+    text-align: center;
+  }
+  .pricing-card--featured {
+    background: var(--brand);
+    color: white;
+    transform: scale(1.02);
+  }
+  .pricing-name {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .pricing-card--featured .pricing-name { color: rgba(255,255,255,0.8); }
+  .pricing-price {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .pricing-price span { font-size: 14px; font-weight: 400; }
+  .pricing-period {
+    font-size: 11px;
+    color: var(--gray-500);
+    margin-bottom: 16px;
+  }
+  .pricing-card--featured .pricing-period { color: rgba(255,255,255,0.6); }
+  .pricing-features {
+    list-style: none;
+    font-size: 12px;
+    text-align: left;
+    line-height: 1.9;
+  }
+  .pricing-features li::before {
+    content: '+ ';
+    color: var(--green);
+    font-weight: 700;
+  }
+  .pricing-card--featured .pricing-features li::before { color: var(--accent); }
+
+  /* ── Quote ── */
+  .quote-block {
+    border-left: 4px solid var(--accent);
+    padding: 14px 22px;
+    margin: 16px 0;
+    background: rgba(245,158,11,0.06);
+    border-radius: 0 10px 10px 0;
+  }
+  .slide--dark .quote-block {
+    background: rgba(245,158,11,0.08);
+  }
+  .quote-block p {
+    font-size: 15px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .quote-block .quote-source {
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gray-500);
+    margin-top: 6px;
+  }
+  .slide--dark .quote-block p { color: rgba(255,255,255,0.9); }
+
+  /* ── CTA slide ── */
+  .cta-box {
+    text-align: center;
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .cta-box h2 {
+    font-size: 40px;
+    margin-bottom: 14px;
+  }
+  .cta-box p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 32px;
+  }
+  .cta-url {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--dark);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 36px;
+    border-radius: 10px;
+    text-decoration: none;
+  }
+
+  /* ── Page number ── */
+  .page-num {
+    position: absolute;
+    bottom: 20px;
+    right: 36px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gray-300);
+  }
+  .slide--dark .page-num,
+  .slide--accent .page-num,
+  .slide--cover .page-num { color: rgba(255,255,255,0.25); }
+
+  /* ── Two Column ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 12px;
+  }
+
+  /* ── Source footnote ── */
+  .source {
+    font-size: 9px;
+    color: var(--gray-400);
+    position: absolute;
+    bottom: 20px;
+    left: 48px;
+  }
+  .slide--dark .source { color: rgba(255,255,255,0.2); }
+
+  /* ── DE badge (instead of flag emoji) ── */
+  .de-badge {
+    display: inline-block;
+    background: linear-gradient(180deg, #000 33%, #dd0000 33%, #dd0000 66%, #ffcc00 66%);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    border-radius: 6px;
+    letter-spacing: 0;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+
+  /* ── Print ── */
+  @media print {
+    .slide { break-after: page; page-break-after: always; }
+  }
+  @page { size: 297mm 210mm; margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SLIDE 1 — COVER ═══════════════════ -->
+<div class="slide slide--cover">
+  <div class="cover-dots"></div>
+  <div class="cover-dots-2"></div>
+  <div class="cover-content">
+    <div class="cover-badge">PITCH DECK &middot; FEBRUAR 2026</div>
+    <h1>BauPreis <span>AI</span></h1>
+    <p class="cover-subtitle">
+      KI-gest&uuml;tzte Preis&uuml;berwachung und Prognose f&uuml;r Baustoffe in Deutschland.
+      Echtzeit-Transparenz f&uuml;r eine Branche, die blind kalkuliert.
+    </p>
+    <div class="cover-meta">
+      <span>baupreis.ais152.com</span>
+      <span>SaaS &middot; B2B &middot; ConTech</span>
+      <span>Gegr&uuml;ndet 2026</span>
+    </div>
+  </div>
+  <div class="page-num">01</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 2 — PROBLEM ═══════════════════ -->
+<div class="slide slide--dark">
+  <div class="section-label">Das Problem</div>
+  <h2>Baustoffpreise sind unberechenbar.<br>Die Branche reagiert zu sp&auml;t.</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+77%</span></div>
+      <div class="stat-label">Konstruktionsvollholz<br>2021 (Destatis)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+40%</span></div>
+      <div class="stat-label">Betonstahl<br>2022 (Destatis)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+67%</span></div>
+      <div class="stat-label">Kupfer<br>2021 (LFBS)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+49%</span></div>
+      <div class="stat-label">Flachglas<br>2022 (Destatis)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+41%</span></div>
+      <div class="stat-label">Bitumen<br>2022 (LFBS)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value"><span class="up">+53%</span></div>
+      <div class="stat-label">Diesel<br>2022 (Destatis)</div>
+    </div>
+  </div>
+
+  <div class="quote-block" style="margin-top: 18px;">
+    <p>Die durchschnittliche Budgetabweichung bei Bauprojekten betr&auml;gt +28&thinsp;%.</p>
+    <div class="quote-source">&mdash; McKinsey Global Institute, &bdquo;Reinventing Construction&ldquo;</div>
+  </div>
+
+  <div class="source">Quellen: Destatis Erzeugerpreisindex 2021&ndash;2024, LFBS Baukostenindex, McKinsey 2017/2020</div>
+  <div class="page-num">02</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 3 — PAIN POINTS ═══════════════════ -->
+<div class="slide">
+  <div class="section-label">Schmerzpunkte</div>
+  <h2>Warum Baufirmen t&auml;glich Geld verlieren</h2>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F50D;</div>
+      <h3>Keine Transparenz</h3>
+      <p>Preise sind &uuml;ber Lieferanten-Websites, PDF-Preislisten und m&uuml;ndliche Angebote verstreut. Ein zentrales Dashboard fehlt komplett.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x23F0;</div>
+      <h3>Reaktiv statt proaktiv</h3>
+      <p>Unternehmen erfahren von Preisspitzen NACH Vertragsabschluss. Kein Fr&uuml;hwarnsystem, keine Prognosen.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F4CB;</div>
+      <h3>Manuelle Arbeit</h3>
+      <p>Kalkulatoren sammeln Preise per Hand in Excel-Tabellen. Zeitaufwand: Stunden pro Woche, hohe Fehlerquote.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">&#x1F4B8;</div>
+      <h3>Verluste bei Projekten</h3>
+      <p>Falsche Kalkulation = unprofitable Projekte. &Oslash; Budgetabweichung +28&nbsp;%. Preisgleitklauseln werden oft zu sp&auml;t eingesetzt.</p>
+    </div>
+  </div>
+
+  <div class="page-num">03</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 4 — SOLUTION ═══════════════════ -->
+<div class="slide slide--accent" style="justify-content: flex-start; padding-top: 32px;">
+  <div class="section-label">Die L&ouml;sung</div>
+  <h2>BauPreis AI &mdash; Echtzeit-Intelligenz f&uuml;r Baustoffpreise</h2>
+
+  <div class="feature-grid feature-grid--3col" style="gap: 12px;">
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F4CA;</div>
+      <h3 style="font-size: 13px;">Live-Preis-Dashboard</h3>
+      <p style="font-size: 11px;">16+ Schl&uuml;sselmaterialien mit Echtzeit-Preisen, Trends und historischen Daten.</p>
+    </div>
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F916;</div>
+      <h3 style="font-size: 13px;">KI-Prognosen</h3>
+      <p style="font-size: 11px;">Claude AI analysiert Muster und liefert 3&ndash;6-Monats-Prognosen f&uuml;r jedes Material.</p>
+    </div>
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F514;</div>
+      <h3 style="font-size: 13px;">Preis-Alarme</h3>
+      <p style="font-size: 11px;">Sofortige Benachrichtigungen bei Preisspr&uuml;ngen per E-Mail, Telegram oder WhatsApp.</p>
+    </div>
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F4D0;</div>
+      <h3 style="font-size: 13px;">Preisgleitklausel-Rechner</h3>
+      <p style="font-size: 11px;">Automatische Berechnung nach VOB/VHB-Formeln. F&uuml;r Ausschreibungen und Nachtr&auml;ge.</p>
+    </div>
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F4AC;</div>
+      <h3 style="font-size: 13px;">KI-Chat</h3>
+      <p style="font-size: 11px;">Fragen in nat&uuml;rlicher Sprache: &bdquo;Wann wird Stahl billiger?&ldquo; &mdash; sofortige Antwort.</p>
+    </div>
+    <div class="feature-card" style="padding: 14px;">
+      <div class="feature-icon" style="font-size: 20px; margin-bottom: 6px;">&#x1F4C4;</div>
+      <h3 style="font-size: 13px;">PDF-Reports</h3>
+      <p style="font-size: 11px;">Automatische Analyseberichte f&uuml;r Ausschreibungen, Vorstand oder Bauherren.</p>
+    </div>
+  </div>
+
+  <div class="page-num">04</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 5 — MARKET ═══════════════════ -->
+<div class="slide slide--dark">
+  <div class="section-label">Marktchance</div>
+  <h2>Riesiger Markt, minimale Digitalisierung</h2>
+
+  <div class="two-col">
+    <div>
+      <div class="stats-grid" style="grid-template-columns: 1fr; gap: 12px;">
+        <div class="stat-card">
+          <div class="stat-value">~430 <span class="small">Mrd. $</span></div>
+          <div class="stat-label">Deutsches Bauvolumen 2024 (GlobalData)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">400K<span class="small">+</span></div>
+          <div class="stat-label">Bauunternehmen in Deutschland (Destatis)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">&lt;1<span class="small">%</span></div>
+          <div class="stat-label">F&amp;E-Ausgaben der Branche (McKinsey)</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="stats-grid" style="grid-template-columns: 1fr; gap: 12px;">
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--accent);">$7.8 <span class="small">Mrd.</span></div>
+          <div class="stat-label">ConTech Europa 2034, CAGR 15,6&nbsp;% (Precedence Research)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--accent);">$13.5 <span class="small">Mrd.</span></div>
+          <div class="stat-label">KI im Bauwesen global 2030, CAGR 34&nbsp;% (Grand View Research)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" style="color: var(--accent);">14&ndash;15<span class="small">%</span></div>
+          <div class="stat-label">Produktivit&auml;tssteigerung durch Digitalisierung (McKinsey)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="source">Quellen: GlobalData 2024, Precedence Research 2024, Grand View Research 2023, McKinsey 2020</div>
+  <div class="page-num">05</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 6 — COMPETITORS ═══════════════════ -->
+<div class="slide">
+  <div class="section-label">Wettbewerb</div>
+  <h2>Niemand macht, was wir machen</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:130px;">Unternehmen</th>
+        <th>Fokus</th>
+        <th style="width:90px;">Funding</th>
+        <th style="width:150px;">&Uuml;berschneidung</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Comstruct</strong></td>
+        <td>Beschaffung &amp; Einkauf f&uuml;r Bauunternehmen</td>
+        <td>&euro;12,5M</td>
+        <td><span class="tag tag--gray">Einkauf, nicht Preise</span></td>
+      </tr>
+      <tr>
+        <td><strong>Cosuno</strong></td>
+        <td>Subunternehmer-Matching</td>
+        <td>$30M</td>
+        <td><span class="tag tag--green">Keine</span></td>
+      </tr>
+      <tr>
+        <td><strong>Sch&uuml;ttflix</strong></td>
+        <td>Baustoff-Logistik</td>
+        <td>$110M</td>
+        <td><span class="tag tag--green">Keine</span></td>
+      </tr>
+      <tr>
+        <td><strong>Plancraft</strong></td>
+        <td>Software f&uuml;r Handwerksbetriebe</td>
+        <td>&euro;38M</td>
+        <td><span class="tag tag--green">Keine</span></td>
+      </tr>
+      <tr>
+        <td><strong>PlanRadar</strong></td>
+        <td>Baudokumentation</td>
+        <td>$120M+</td>
+        <td><span class="tag tag--green">Keine</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="quote-block" style="margin-top: 20px; border-left-color: var(--brand);">
+    <p>Kein einziger ConTech-Anbieter in Deutschland bietet KI-gest&uuml;tzte Baustoffpreis-&Uuml;berwachung und -Prognosen an.</p>
+    <div class="quote-source">&mdash; Eigene Marktanalyse, Crunchbase &amp; TechCrunch, Februar 2026</div>
+  </div>
+
+  <div class="page-num">06</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 7 — WHY EMPTY ═══════════════════ -->
+<div class="slide slide--dark">
+  <div class="section-label">Blue Ocean</div>
+  <h2>Warum ist diese Nische noch frei?</h2>
+
+  <ol class="moat-list" style="margin-top: 16px;">
+    <li>
+      <strong>Datenzugang ist schwierig</strong>
+      <span>Es gibt keine einheitliche API f&uuml;r Baustoffpreise (im Gegensatz zu Aktien/Krypto). Daten m&uuml;ssen aus amtlichen Quellen, Verb&auml;nden und Lieferanten aggregiert werden.</span>
+    </li>
+    <li>
+      <strong>Domain-Expertise erforderlich</strong>
+      <span>VOB-Kenntnisse, Preisgleitklauseln, deutsche Ausschreibungs-Spezifika &mdash; Tech-Startups fehlt dieses Wissen.</span>
+    </li>
+    <li>
+      <strong>Regulatorische H&uuml;rden</strong>
+      <span>DSGVO, deutsche Hosting-Anforderungen, branchenspezifische Standards &mdash; Eintrittsbarriere f&uuml;r ausl&auml;ndische Anbieter.</span>
+    </li>
+    <li>
+      <strong>Geringes F&amp;E-Budget der Branche</strong>
+      <span>Weniger als 1&nbsp;% des Umsatzes flie&szlig;t in F&amp;E. Das zieht wenige Startup-Gr&uuml;nder an &mdash; f&uuml;r Early Movers ein Vorteil.</span>
+    </li>
+  </ol>
+
+  <div class="page-num">07</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 8 — MOAT ═══════════════════ -->
+<div class="slide">
+  <div class="section-label">Wettbewerbsvorteile</div>
+  <h2>Unser Burggraben wird jeden Tag tiefer</h2>
+
+  <div class="feature-grid feature-grid--3col">
+    <div class="feature-card" style="border-top: 3px solid var(--brand);">
+      <div class="feature-icon">&#x1F4C8;</div>
+      <h3>Daten-Flywheel</h3>
+      <p>Mehr Daten &rarr; bessere KI-Prognosen &rarr; mehr Kunden &rarr; mehr Daten. Jeder neue Datenpunkt st&auml;rkt unseren Vorsprung.</p>
+    </div>
+    <div class="feature-card" style="border-top: 3px solid var(--accent);">
+      <div class="de-badge">DE</div>
+      <h3 style="margin-top: 8px;">German-First</h3>
+      <p>DSGVO-konform, Hetzner N&uuml;rnberg, deutsche UI, VOB-Rechner. Kein US-Startup kann das einfach kopieren.</p>
+    </div>
+    <div class="feature-card" style="border-top: 3px solid var(--green);">
+      <div class="feature-icon">&#x23F1;</div>
+      <h3>First Mover</h3>
+      <p>90+ Tage historische Preisdaten, funktionierendes Produkt. Ein Wettbewerber m&uuml;sste bei null beginnen.</p>
+    </div>
+  </div>
+
+  <div class="page-num">08</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 9 — PRODUCT STATUS ═══════════════════ -->
+<div class="slide slide--accent" style="justify-content: flex-start; padding-top: 32px;">
+  <div class="section-label">Produkt-Status</div>
+  <h2>MVP ist live und funktionsf&auml;hig</h2>
+
+  <div class="two-col" style="margin-top: 4px;">
+    <div>
+      <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 14px;">Fertig</h3>
+      <ul style="list-style: none; font-size: 12.5px; line-height: 2;">
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; Landing Page (DE/EN/RU) + SEO</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; Preis-Dashboard mit Echtzeit-Daten</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; KI-Prognosen (3&ndash;6 Monate)</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; KI-Chat f&uuml;r Preisfragen</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; Preisgleitklausel-Rechner (VOB)</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; Alarm-System (E-Mail + Telegram)</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; PDF-Reports</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; PayPal-Abonnements (LIVE)</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; 3.100+ Preisdatenpunkte (90 Tage)</li>
+        <li style="color: rgba(255,255,255,0.85);">&#x2705; DSGVO-konform (AGB, Datenschutz)</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color: var(--accent); margin-bottom: 10px; font-size: 14px;">Tech-Stack</h3>
+      <div class="feature-card" style="padding: 10px 14px; margin-bottom: 8px;">
+        <p style="font-size: 12px;"><strong style="color: white;">Frontend:</strong> Next.js 14, TypeScript, Tailwind CSS</p>
+      </div>
+      <div class="feature-card" style="padding: 10px 14px; margin-bottom: 8px;">
+        <p style="font-size: 12px;"><strong style="color: white;">Auth:</strong> Clerk (Google OAuth + E-Mail)</p>
+      </div>
+      <div class="feature-card" style="padding: 10px 14px; margin-bottom: 8px;">
+        <p style="font-size: 12px;"><strong style="color: white;">KI:</strong> Claude API (Sonnet) &mdash; Analyse, Prognosen, Chat</p>
+      </div>
+      <div class="feature-card" style="padding: 10px 14px; margin-bottom: 8px;">
+        <p style="font-size: 12px;"><strong style="color: white;">DB:</strong> PostgreSQL 16 (Multi-Tenant)</p>
+      </div>
+      <div class="feature-card" style="padding: 10px 14px; margin-bottom: 8px;">
+        <p style="font-size: 12px;"><strong style="color: white;">Hosting:</strong> Hetzner Cloud (N&uuml;rnberg, DSGVO)</p>
+      </div>
+      <div class="feature-card" style="padding: 10px 14px;">
+        <p style="font-size: 12px;"><strong style="color: white;">PWA:</strong> Mobile-ready, installierbar</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-num">09</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 10 — PRICING ═══════════════════ -->
+<div class="slide">
+  <div class="section-label">Preismodell</div>
+  <h2>SaaS-Abonnements &mdash; 3 Tarife</h2>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-name">Basis</div>
+      <div class="pricing-price">&euro;49<span>/Mo.</span></div>
+      <div class="pricing-period">oder &euro;490/Jahr (&ndash;17&nbsp;%)</div>
+      <ul class="pricing-features">
+        <li>5 Materialien</li>
+        <li>1 Benutzer</li>
+        <li>3 Preisalarme</li>
+        <li>E-Mail-Benachrichtigungen</li>
+        <li>Preis-Dashboard</li>
+      </ul>
+    </div>
+    <div class="pricing-card pricing-card--featured">
+      <div class="pricing-name">Pro</div>
+      <div class="pricing-price">&euro;149<span>/Mo.</span></div>
+      <div class="pricing-period">oder &euro;1.490/Jahr (&ndash;17&nbsp;%)</div>
+      <ul class="pricing-features">
+        <li>Alle Materialien</li>
+        <li>1 Benutzer</li>
+        <li>Unbegrenzte Alarme</li>
+        <li>Telegram + E-Mail</li>
+        <li>KI-Prognosen</li>
+        <li>KI-Chat</li>
+      </ul>
+    </div>
+    <div class="pricing-card">
+      <div class="pricing-name">Team</div>
+      <div class="pricing-price">&euro;299<span>/Mo.</span></div>
+      <div class="pricing-period">oder &euro;2.990/Jahr (&ndash;17&nbsp;%)</div>
+      <ul class="pricing-features">
+        <li>Alle Materialien</li>
+        <li>5 Benutzer</li>
+        <li>Unbegrenzte Alarme</li>
+        <li>API-Zugang</li>
+        <li>PDF-Reports</li>
+        <li>Alles aus Pro</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-num">10</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 11 — UNIT ECONOMICS ═══════════════════ -->
+<div class="slide slide--dark">
+  <div class="section-label">Unit Economics</div>
+  <h2>Skalierbar ab Tag 1</h2>
+
+  <div class="two-col">
+    <div>
+      <div class="stats-grid" style="grid-template-columns: 1fr; gap: 12px;">
+        <div class="stat-card">
+          <div class="stat-value">~85<span class="small">%</span></div>
+          <div class="stat-label">Bruttomarge (reines SaaS)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4,5&ndash;9<span class="small">x</span></div>
+          <div class="stat-label">LTV / CAC Ratio (Ziel)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">~&euro;150</div>
+          <div class="stat-label">&Oslash; ARPU / Monat (Tarif-Mix)</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3 style="color: white; margin-bottom: 12px;">TAM &rarr; SAM &rarr; SOM</h3>
+      <table>
+        <tr>
+          <td style="border-bottom-color: rgba(255,255,255,0.1); width: 90px;"><strong>TAM</strong></td>
+          <td style="border-bottom-color: rgba(255,255,255,0.1);">~400.000 Bauunternehmen in DE</td>
+        </tr>
+        <tr>
+          <td style="border-bottom-color: rgba(255,255,255,0.1);"><strong>SAM</strong></td>
+          <td style="border-bottom-color: rgba(255,255,255,0.1);">~80.000 mit Kalkulationsabteilungen</td>
+        </tr>
+        <tr>
+          <td style="border-bottom-color: rgba(255,255,255,0.1);"><strong>SOM</strong></td>
+          <td style="border-bottom-color: rgba(255,255,255,0.1);">200&ndash;500 Kunden (Year 1&ndash;2)</td>
+        </tr>
+        <tr>
+          <td><strong>Ziel ARR</strong></td>
+          <td style="color: var(--accent); font-weight: 700; font-size: 16px;">&euro;120K &ndash; &euro;900K</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="page-num">11</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 12 — ROADMAP ═══════════════════ -->
+<div class="slide">
+  <div class="section-label">Roadmap</div>
+  <h2>Von MVP zu Marktf&uuml;hrer</h2>
+
+  <div class="roadmap">
+    <div class="roadmap-item">
+      <div class="roadmap-quarter">Q1 2026</div>
+      <div class="roadmap-title">MVP Launch</div>
+      <ul class="roadmap-list">
+        <li>Produkt live &amp; funktionsf&auml;hig</li>
+        <li>Echte Datenquellen anbinden</li>
+        <li>Erste Beta-Kunden</li>
+        <li>SEO &amp; Content aufbauen</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-quarter">Q2&ndash;Q3 2026</div>
+      <div class="roadmap-title">Product-Market Fit</div>
+      <ul class="roadmap-list">
+        <li>5+ Datenquellen live</li>
+        <li>50&ndash;100 zahlende Kunden</li>
+        <li>A/B-Tests der Tarife</li>
+        <li>Blog &amp; Fachbeitr&auml;ge</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-quarter">Q4 2026</div>
+      <div class="roadmap-title">Skalierung</div>
+      <ul class="roadmap-list">
+        <li>200+ Kunden</li>
+        <li>ERP-Integrationen</li>
+        <li>Mobile App</li>
+        <li>H&auml;ndler-Partnerschaften</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <div class="roadmap-quarter">2027</div>
+      <div class="roadmap-title">Expansion</div>
+      <ul class="roadmap-list">
+        <li>DACH-M&auml;rkte (AT, CH)</li>
+        <li>Enterprise API</li>
+        <li>White-Label-L&ouml;sung</li>
+        <li>Neue Materialklassen</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-num">12</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 13 — WHY NOW ═══════════════════ -->
+<div class="slide slide--dark">
+  <div class="section-label">Warum jetzt?</div>
+  <h2>F&uuml;nf Gr&uuml;nde f&uuml;r den perfekten Zeitpunkt</h2>
+
+  <ol class="moat-list" style="margin-top: 16px;">
+    <li>
+      <strong>Anhaltende Preisvolatilit&auml;t</strong>
+      <span>Nach dem Schock von 2021&ndash;2022 bleiben die Preise instabil. Unternehmen suchen aktiv nach L&ouml;sungen.</span>
+    </li>
+    <li>
+      <strong>KI ist Mainstream geworden</strong>
+      <span>Entscheider akzeptieren KI-Werkzeuge. Die Bereitschaft, f&uuml;r KI-Analysen zu zahlen, war nie h&ouml;her.</span>
+    </li>
+    <li>
+      <strong>Regulatorischer R&uuml;ckenwind</strong>
+      <span>Preisgleitklauseln sind seit 2021 f&uuml;r viele &ouml;ffentliche Auftr&auml;ge Pflicht &rarr; direkter Bedarf an unserem Rechner.</span>
+    </li>
+    <li>
+      <strong>DACH-Digitalisierungsoffensive</strong>
+      <span>Staatliche F&ouml;rderprogramme f&uuml;r digitale Transformation im Bauwesen schaffen Budgets bei Zielkunden.</span>
+    </li>
+    <li>
+      <strong>Null direkte Konkurrenz</strong>
+      <span>Trotz $300M+ in deutschem ConTech-Funding: Kein Anbieter deckt KI-Preisanalyse ab. Blue Ocean.</span>
+    </li>
+  </ol>
+
+  <div class="page-num">13</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 14 — CTA ═══════════════════ -->
+<div class="slide slide--cover" style="text-align: center;">
+  <div class="cover-dots"></div>
+  <div class="cover-dots-2"></div>
+  <div class="cta-box">
+    <div class="section-label" style="color: var(--accent);">N&auml;chste Schritte</div>
+    <h2>Lassen Sie uns gemeinsam<br>die Baubranche transformieren.</h2>
+    <p>BauPreis AI &mdash; KI-gest&uuml;tzte Preisintelligenz f&uuml;r Deutschlands gr&ouml;&szlig;te Branche.</p>
+    <a class="cta-url" href="https://baupreis.ais152.com" target="_blank">baupreis.ais152.com</a>
+  </div>
+  <div class="page-num">14</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 15 — SOURCES ═══════════════════ -->
+<div class="slide" style="justify-content: flex-start; padding-top: 36px;">
+  <div class="section-label">Quellenverzeichnis</div>
+  <h2 style="font-size: 26px;">Verwendete Studien &amp; Datenquellen</h2>
+
+  <div class="two-col" style="margin-top: 16px; font-size: 12px; line-height: 2; color: var(--gray-500);">
+    <div>
+      <p><strong>1.</strong> Destatis &mdash; Erzeugerpreisindex gewerblicher Produkte, 2021&ndash;2024</p>
+      <p><strong>2.</strong> Destatis Press Release PE22_N006_61 &mdash; Baustoffpreise 2021</p>
+      <p><strong>3.</strong> LFBS &mdash; Landesamt f&uuml;r Bauen und Verkehr, Baukostenindex</p>
+      <p><strong>4.</strong> McKinsey Global Institute &mdash; &bdquo;Reinventing Construction&ldquo; (2017)</p>
+      <p><strong>5.</strong> McKinsey &mdash; &bdquo;The next normal in construction&ldquo; (2020)</p>
+      <p><strong>6.</strong> McKinsey &mdash; &bdquo;Rise of the platform era in construction&ldquo; (2023)</p>
+      <p><strong>7.</strong> GlobalData &mdash; Germany Construction Market Size (2024)</p>
+    </div>
+    <div>
+      <p><strong>8.</strong> Precedence Research &mdash; Europe Construction Tech Market (2024)</p>
+      <p><strong>9.</strong> Grand View Research &mdash; AI in Construction Market (2023)</p>
+      <p><strong>10.</strong> Crunchbase &mdash; Funding data: Comstruct, Cosuno, Sch&uuml;ttflix, Plancraft</p>
+      <p><strong>11.</strong> TechCrunch &mdash; ConTech startup coverage, 2023&ndash;2025</p>
+      <p><strong>12.</strong> Bundesverband Baustoffe &mdash; Marktdaten Baustoffhandel</p>
+      <p><strong>13.</strong> Destatis &mdash; Unternehmensregister, Baugewerbe 2023</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 11px; color: var(--gray-400); text-align: center;">
+    BauPreis AI &middot; Pitch Deck &middot; Februar 2026 &middot; Vertraulich
+  </div>
+  <div class="page-num">15</div>
+</div>
+
+</body>
+</html>

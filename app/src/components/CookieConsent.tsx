@@ -79,7 +79,7 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[9999] p-4 md:p-6">
-      <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-2xl shadow-2xl p-6">
+      <div className="max-w-2xl mx-auto bg-white border border-gray-200 rounded-xl shadow-2xl p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">
           {t("cookie.title")}
         </h3>

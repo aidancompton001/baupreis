@@ -3,11 +3,13 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useLocale } from "@/i18n/LocaleContext";
 
 function LocalSignIn() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/dashboard";
+  const { t } = useLocale();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,14 +28,14 @@ function LocalSignIn() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Anmeldung fehlgeschlagen.");
+        setError(data.error || t("auth.login.error"));
         setLoading(false);
         return;
       }
 
       router.push(redirect);
     } catch {
-      setError("Netzwerkfehler. Bitte versuchen Sie es erneut.");
+      setError(t("auth.network.error"));
       setLoading(false);
     }
   }
@@ -45,22 +47,22 @@ function LocalSignIn() {
           <Link href="/" className="text-2xl font-bold text-brand-600">
             BauPreis AI
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-6">Anmelden</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mt-6">{t("auth.login.title")}</h1>
           <p className="text-gray-500 mt-2">
-            Willkommen zurück bei BauPreis AI
+            {t("auth.login.subtitle")}
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl border shadow-sm p-8 space-y-5"
+          className="bg-white rounded-xl border shadow-sm p-8 space-y-5"
         >
           <div>
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700 mb-1.5"
             >
-              E-Mail-Adresse
+              {t("auth.email")}
             </label>
             <input
               id="email"
@@ -69,7 +71,7 @@ function LocalSignIn() {
               autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@firma.de"
+              placeholder={t("auth.email.placeholder")}
               className="w-full border rounded-lg px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
@@ -85,7 +87,7 @@ function LocalSignIn() {
             disabled={loading}
             className="w-full bg-brand-600 text-white py-3 rounded-lg text-base font-semibold hover:bg-brand-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Wird angemeldet..." : "Anmelden"}
+            {loading ? t("auth.login.loading") : t("auth.login.button")}
           </button>
 
           <div className="relative">
@@ -93,7 +95,7 @@ function LocalSignIn() {
               <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-3 bg-white text-gray-400">oder</span>
+              <span className="px-3 bg-white text-gray-400">{t("auth.or")}</span>
             </div>
           </div>
 
@@ -107,16 +109,16 @@ function LocalSignIn() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            Mit Google anmelden
+            {t("auth.google.login")}
           </a>
 
           <p className="text-center text-sm text-gray-500">
-            Noch kein Konto?{" "}
+            {t("auth.no.account")}{" "}
             <Link
               href="/sign-up"
               className="text-brand-600 font-medium hover:underline"
             >
-              Kostenlos registrieren
+              {t("auth.register.link")}
             </Link>
           </p>
         </form>

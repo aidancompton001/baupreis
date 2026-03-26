@@ -34,20 +34,11 @@ export async function POST(request: Request) {
       }
     }
 
-    // Delete org (cascades to users, org_materials, alert_rules, etc.)
+    // Deactivate org and users
     await pool.query(`UPDATE organizations SET is_active = false, plan = 'cancelled' WHERE id = $1`, [
       org.id,
     ]);
     await pool.query(`UPDATE users SET is_active = false WHERE org_id = $1`, [org.id]);
-
-    // Try to delete Clerk user
-    try {
-      const { clerkClient } = require("@clerk/nextjs/server");
-      const client = clerkClient();
-      await client.users.deleteUser(user.clerk_user_id);
-    } catch {
-      // Continue even if Clerk deletion fails
-    }
 
     return NextResponse.json({ ok: true });
   } catch (error: unknown) {

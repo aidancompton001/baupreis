@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauPreis AI — Intelligent Construction Material Price Monitoring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   BauPreis AI — Product Showcase
+   Premium B2B SaaS presentation — scroll-based
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --primary: #4F46E5;
+  --primary-dark: #4338CA;
+  --primary-light: #6366F1;
+  --primary-50: #EEF2FF;
+  --primary-100: #E0E7FF;
+  --primary-200: #C7D2FE;
+
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+
+  --white: #FFFFFF;
+  --red: #EF4444;
+  --green: #10B981;
+  --amber: #F59E0B;
+  --blue: #3B82F6;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--gray-900);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+/* ── Scroll Animations ── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(79, 70, 229, 0.15); }
+  50% { box-shadow: 0 0 40px rgba(79, 70, 229, 0.3); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.animate-left {
+  opacity: 0;
+  animation: fadeInLeft 0.8s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.animate-right {
+  opacity: 0;
+  animation: fadeInRight 0.8s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.animate-scale {
+  opacity: 0;
+  animation: scaleIn 0.8s ease-out forwards;
+  animation-play-state: paused;
+}
+
+.is-visible {
+  animation-play-state: running;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
+
+/* ── Layout ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.container-narrow {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 120px 0;
+  position: relative;
+}
+
+/* ── Typography ── */
+.section-eyebrow {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--gray-900);
+  margin-bottom: 20px;
+  letter-spacing: -0.025em;
+}
+
+.section-subtitle {
+  font-size: clamp(1.1rem, 2vw, 1.25rem);
+  color: var(--gray-500);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 1px 2px rgba(79, 70, 229, 0.3), 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 1px 2px rgba(79, 70, 229, 0.4), 0 8px 20px rgba(79, 70, 229, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary-200);
+}
+
+.btn-outline:hover {
+  background: var(--primary-50);
+  border-color: var(--primary);
+}
+
+/* ── Browser Frame Mockup ── */
+.browser-frame {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2xl);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
+.browser-frame-bar {
+  background: var(--gray-100);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.browser-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gray-300);
+}
+
+.browser-dot:nth-child(1) { background: #FF5F57; }
+.browser-dot:nth-child(2) { background: #FFBD2E; }
+.browser-dot:nth-child(3) { background: #28CA41; }
+
+.browser-url {
+  flex: 1;
+  margin-left: 12px;
+  background: var(--white);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  border: 1px solid var(--gray-200);
+  font-family: 'Inter', monospace;
+}
+
+.browser-frame img {
+  width: 100%;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════
+   Section 1: HERO
+   ═══════════════════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  background: linear-gradient(180deg, var(--white) 0%, var(--primary-50) 50%, var(--white) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--white);
+  border: 1px solid var(--primary-200);
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary);
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 2s ease infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--gray-900);
+  margin-bottom: 8px;
+}
+
+.hero h1 span {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-tagline {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--gray-500);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 64px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.hero-stat-label {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   Section 2: THE PROBLEM
+   ═══════════════════════════════════════════ */
+.problem {
+  background: var(--gray-900);
+  color: var(--white);
+  padding: 120px 0;
+}
+
+.problem .section-eyebrow {
+  color: var(--primary-light);
+}
+
+.problem .section-title {
+  color: var(--white);
+}
+
+.problem .section-subtitle {
+  color: var(--gray-400);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 64px;
+}
+
+.problem-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-lg);
+  padding: 36px 28px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.problem-card:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(79, 70, 229, 0.4);
+  transform: translateY(-4px);
+}
+
+.problem-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: rgba(79, 70, 229, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.problem-card-stat {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-light);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.problem-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+
+.problem-card p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--gray-400);
+}
+
+/* ═══════════════════════════════════════════
+   Section 3+: Feature Sections (alternating)
+   ═══════════════════════════════════════════ */
+.feature-section {
+  padding: 120px 0;
+}
+
+.feature-section:nth-child(even) {
+  background: var(--gray-50);
+}
+
+.feature-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.feature-layout.reversed {
+  direction: rtl;
+}
+
+.feature-layout.reversed > * {
+  direction: ltr;
+}
+
+.feature-content {
+  max-width: 480px;
+}
+
+.feature-list {
+  list-style: none;
+  margin-top: 28px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: var(--gray-600);
+  line-height: 1.5;
+}
+
+.feature-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  border-radius: 50%;
+  background: var(--primary-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.feature-screenshot {
+  width: 100%;
+}
+
+/* Full-width screenshot layout */
+.feature-full-width {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.feature-full-width .section-subtitle {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-full-width .browser-frame {
+  margin-top: 48px;
+}
+
+/* Dual screenshot layout */
+.dual-screenshots {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+
+/* ═══════════════════════════════════════════
+   Section 11: Features Grid
+   ═══════════════════════════════════════════ */
+.features-grid-section {
+  background: linear-gradient(180deg, var(--white) 0%, var(--primary-50) 100%);
+  padding: 120px 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.feature-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--primary-200);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.feature-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--primary-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   Section 12: Tech Stack
+   ═══════════════════════════════════════════ */
+.tech-section {
+  background: var(--gray-50);
+  padding: 80px 0;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+.tech-item {
+  text-align: center;
+  padding: 28px 16px;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-200);
+  transition: all 0.2s ease;
+}
+
+.tech-item:hover {
+  border-color: var(--primary-200);
+  box-shadow: var(--shadow-md);
+}
+
+.tech-item-icon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.tech-item h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 4px;
+}
+
+.tech-item p {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+/* ═══════════════════════════════════════════
+   Section 13: Pricing
+   ═══════════════════════════════════════════ */
+.pricing-section {
+  padding: 120px 0;
+  background: var(--white);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+  align-items: start;
+}
+
+.pricing-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-4px);
+}
+
+.pricing-card.featured {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg), 0 0 0 1px var(--primary);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 100px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pricing-plan {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.pricing-price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.pricing-currency {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.pricing-amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.pricing-period {
+  font-size: 1rem;
+  color: var(--gray-500);
+}
+
+.pricing-description {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.pricing-features {
+  list-style: none;
+  margin-bottom: 32px;
+}
+
+.pricing-features li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+.pricing-features li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%234F46E5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pricing-features li.disabled {
+  color: var(--gray-400);
+}
+
+.pricing-features li.disabled::before {
+  background: var(--gray-100);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'%3E%3C/line%3E%3Cline x1='6' y1='6' x2='18' y2='18'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.pricing-cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.pricing-cta-primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.pricing-cta-primary:hover {
+  background: var(--primary-dark);
+}
+
+.pricing-cta-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary-200);
+}
+
+.pricing-cta-outline:hover {
+  background: var(--primary-50);
+  border-color: var(--primary);
+}
+
+/* ═══════════════════════════════════════════
+   Section 14: Footer
+   ═══════════════════════════════════════════ */
+.footer {
+  background: var(--gray-900);
+  color: var(--gray-400);
+  padding: 64px 0;
+  text-align: center;
+}
+
+.footer-logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.footer-logo span {
+  color: var(--primary-light);
+}
+
+.footer-tagline {
+  font-size: 0.95rem;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--white);
+}
+
+.footer-divider {
+  width: 80px;
+  height: 1px;
+  background: var(--gray-700);
+  margin: 0 auto 24px;
+}
+
+.footer-copyright {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+}
+
+.footer-location {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  margin-bottom: 8px;
+}
+
+/* ═══════════════════════════════════════════
+   Navigation (floating)
+   ═══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 24px;
+  transition: all 0.3s ease;
+}
+
+.nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 12px 24px;
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--gray-900);
+  text-decoration: none;
+}
+
+.nav-logo span {
+  color: var(--primary);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.nav-cta {
+  padding: 10px 24px;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--primary-dark);
+}
+
+/* ═══════════════════════════════════════════
+   Responsive
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .feature-layout {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .feature-layout.reversed {
+    direction: ltr;
+  }
+
+  .problem-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dual-screenshots {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 80px 0;
+  }
+
+  .hero {
+    padding: 100px 24px 60px;
+    min-height: auto;
+  }
+
+  .hero-stats {
+    gap: 32px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .feature-content {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .pricing-card {
+    padding: 28px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Bau<span>Preis</span> AI</a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#ai" class="nav-link">AI Analysis</a>
+      <a href="#tools" class="nav-link">Tools</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="https://baupreis.ais152.com" class="nav-cta" target="_blank">Open Platform</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 1: HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-badge animate-on-scroll is-visible">
+      <span class="hero-badge-dot"></span>
+      B2B SaaS for the German Construction Industry
+    </div>
+
+    <h1 class="animate-on-scroll is-visible delay-1">
+      Bau<span>Preis</span> AI
+    </h1>
+
+    <p class="hero-tagline animate-on-scroll is-visible delay-2">
+      Intelligent Construction Material Price Monitoring
+    </p>
+
+    <p class="hero-subtitle animate-on-scroll is-visible delay-3">
+      Track 16 key construction materials in real-time. Get AI-powered forecasts,
+      automated alerts, and data-driven insights &mdash; all in one platform.
+    </p>
+
+    <div class="hero-cta-group animate-on-scroll is-visible delay-4">
+      <a href="#dashboard" class="btn btn-primary">
+        Explore the Platform
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+      <a href="#pricing" class="btn btn-outline">View Plans</a>
+    </div>
+
+    <div class="hero-stats animate-on-scroll is-visible delay-5">
+      <div class="hero-stat">
+        <div class="hero-stat-value">16</div>
+        <div class="hero-stat-label">Materials Tracked</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">7</div>
+        <div class="hero-stat-label">Data Sources</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">3,000+</div>
+        <div class="hero-stat-label">Price Points</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">100%</div>
+        <div class="hero-stat-label">GDPR Compliant</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 2: THE PROBLEM
+     ═══════════════════════════════════════════ -->
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="animate-on-scroll">
+      <span class="section-eyebrow">The Problem</span>
+      <h2 class="section-title">The Construction Industry Is Flying Blind on Prices</h2>
+      <p class="section-subtitle">
+        Material costs are volatile. Most companies lack the tools to respond in time.
+      </p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card animate-on-scroll delay-1">
+        <div class="problem-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        </div>
+        <div class="problem-card-stat">+64%</div>
+        <h3>Skyrocketing Prices</h3>
+        <p>Construction material prices in Germany have surged 64% since 2010, with extreme spikes during supply chain disruptions.</p>
+      </div>
+
+      <div class="problem-card animate-on-scroll delay-2">
+        <div class="problem-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </div>
+        <div class="problem-card-stat">82%</div>
+        <h3>No Digital Tools</h3>
+        <p>According to PwC (2025), 82% of construction companies still lack any digital solution for systematic price monitoring.</p>
+      </div>
+
+      <div class="problem-card animate-on-scroll delay-3">
+        <div class="problem-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#818CF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <div class="problem-card-stat">Manual</div>
+        <h3>Phone Calls & Spreadsheets</h3>
+        <p>Most procurement teams still rely on phone calls to suppliers, printed catalogs, and fragmented Excel spreadsheets.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 3: DASHBOARD OVERVIEW
+     ═══════════════════════════════════════════ -->
+<section class="feature-section" id="dashboard">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-content animate-left">
+        <span class="section-eyebrow">Dashboard</span>
+        <h2 class="section-title">Everything at a Glance</h2>
+        <p class="section-subtitle">
+          The BauPreis Dashboard gives you an instant overview of all 16 tracked construction materials with real-time pricing data.
+        </p>
+        <ul class="feature-list">
+          <li><strong>BauPreis Index</strong> &mdash; composite index across all 16 key materials, updated daily</li>
+          <li><strong>Price cards</strong> with 7-day and 30-day trend indicators for quick scanning</li>
+          <li><strong>AI recommendations</strong> &mdash; buy, wait, or hold signals based on market analysis</li>
+          <li><strong>Intuitive navigation</strong> &mdash; clean sidebar with quick access to all tools</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-right">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/dashboard</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151000.png" alt="BauPreis AI Dashboard" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 4: PRICE TRACKING & HISTORY
+     ═══════════════════════════════════════════ -->
+<section class="feature-section" id="features">
+  <div class="container">
+    <div class="feature-layout reversed">
+      <div class="feature-content animate-right">
+        <span class="section-eyebrow">Price Tracking</span>
+        <h2 class="section-title">Deep Dive into Any Material</h2>
+        <p class="section-subtitle">
+          Click into any of the 16 materials for comprehensive price analytics and historical data.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Current, minimum, and maximum</strong> prices with percentage changes</li>
+          <li><strong>Interactive charts</strong> with 30, 90, and 365-day history views</li>
+          <li><strong>CSV export</strong> for seamless integration with your procurement systems</li>
+          <li><strong>Source transparency</strong> &mdash; every data point linked to its official source</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-left">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/material/steel-rebar</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151031.png" alt="BauPreis AI Material Price Detail" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 5: AI ANALYSIS
+     ═══════════════════════════════════════════ -->
+<section class="feature-section" id="ai">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-content animate-left">
+        <span class="section-eyebrow">AI Analysis</span>
+        <h2 class="section-title">AI-Powered Market Analysis</h2>
+        <p class="section-subtitle">
+          Let artificial intelligence do the heavy lifting. BauPreis AI analyzes price trends across all materials and delivers actionable intelligence.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Trend detection</strong> &mdash; automatically classifies each material as Rising, Falling, or Stable</li>
+          <li><strong>Percentage change analysis</strong> with multi-period comparison (7d / 30d / 90d)</li>
+          <li><strong>Natural language explanations</strong> so you understand the "why" behind every trend</li>
+          <li><strong>Buy/Wait recommendation</strong> with confidence score for procurement timing</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-right">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/analysis</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151036.png" alt="BauPreis AI Market Analysis" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 6: AI FORECASTS
+     ═══════════════════════════════════════════ -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-layout reversed">
+      <div class="feature-content animate-right">
+        <span class="section-eyebrow">AI Forecasts</span>
+        <h2 class="section-title">14-Day Price Forecasts</h2>
+        <p class="section-subtitle">
+          Go beyond historical data. BauPreis AI predicts where prices are heading, so you can plan purchases and bids with confidence.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Powered by Claude AI</strong> (Anthropic) &mdash; state-of-the-art language model</li>
+          <li><strong>7, 30, and 90-day predictions</strong> with directional confidence percentage</li>
+          <li><strong>Actionable recommendations</strong> &mdash; clear buy/wait/hold advice for procurement</li>
+          <li><strong>Updated daily</strong> with the latest market data from 7 official sources</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-left">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/prognose</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151323.png" alt="BauPreis AI Price Forecasts" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 7: AI CHAT
+     ═══════════════════════════════════════════ -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-content animate-left">
+        <span class="section-eyebrow">AI Chat</span>
+        <h2 class="section-title">Ask BauPreis AI Anything</h2>
+        <p class="section-subtitle">
+          Have a question about material prices, trends, or market conditions? Just ask. BauPreis AI understands natural language and responds with data-backed answers.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Natural language queries</strong> &mdash; "What's the cheapest month to buy steel?"</li>
+          <li><strong>Cross-material comparisons</strong> and trend analysis on demand</li>
+          <li><strong>Powered by Claude API</strong> with real-time access to all BauPreis price data</li>
+          <li><strong>Context-aware</strong> &mdash; remembers your conversation for follow-up questions</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-right">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/chat</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151335.png" alt="BauPreis AI Chat" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 8: PRICE ESCALATION CALCULATOR
+     ═══════════════════════════════════════════ -->
+<section class="feature-section" id="tools">
+  <div class="container">
+    <div class="feature-full-width">
+      <div class="animate-on-scroll">
+        <span class="section-eyebrow">Procurement Tool</span>
+        <h2 class="section-title">Price Escalation Calculator</h2>
+        <p class="section-subtitle">
+          Automatically calculate price adjustments for construction contracts using the official German
+          <strong>Preisgleitklausel</strong> formula, fully compliant with VHB Form 225.
+        </p>
+      </div>
+      <div class="animate-on-scroll delay-2">
+        <ul class="feature-list" style="max-width: 600px; margin: 24px auto 0;">
+          <li><strong>VHB Form 225 compliant</strong> &mdash; accepted by all German public procurement bodies</li>
+          <li><strong>Formula:</strong> P = Base &times; (f + &Sigma;(s<sub>i</sub> &times; current<sub>i</sub> / base<sub>i</sub>)) with configurable material cost shares</li>
+          <li><strong>Base amount to adjusted amount</strong> calculated instantly with full transparency</li>
+        </ul>
+      </div>
+      <div class="dual-screenshots animate-on-scroll delay-3">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/preisgleitklausel</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151357.png" alt="Price Escalation Calculator - Input" loading="lazy">
+        </div>
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/preisgleitklausel</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151403.png" alt="Price Escalation Calculator - Result" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 9: ALLOY CALCULATOR
+     ═══════════════════════════════════════════ -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-layout reversed">
+      <div class="feature-content animate-right">
+        <span class="section-eyebrow">Metal Alloys</span>
+        <h2 class="section-title">Metal Alloy Price Calculator</h2>
+        <p class="section-subtitle">
+          Calculate the exact material cost of any metal alloy based on current element prices and composition ratios.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Standard alloy catalog</strong> &mdash; Stainless Steel (304, 316L), Brass, Bronze, and more</li>
+          <li><strong>Custom compositions</strong> &mdash; define your own alloy with element-by-element breakdown</li>
+          <li><strong>Live element prices</strong> from LME and commodity markets, updated daily</li>
+          <li><strong>PDF export</strong> for quotes, proposals, and internal documentation</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-left">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/legierungsrechner</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151430.png" alt="BauPreis AI Alloy Calculator" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 10: AUTOMATED REPORTS
+     ═══════════════════════════════════════════ -->
+<section class="feature-section">
+  <div class="container">
+    <div class="feature-layout">
+      <div class="feature-content animate-left">
+        <span class="section-eyebrow">Reports</span>
+        <h2 class="section-title">Automated Reports</h2>
+        <p class="section-subtitle">
+          Never miss a market movement. BauPreis generates comprehensive reports on your schedule, delivered to your inbox and dashboard.
+        </p>
+        <ul class="feature-list">
+          <li><strong>Daily, weekly, and monthly</strong> reports generated automatically by background jobs</li>
+          <li><strong>CSV and PDF export</strong> for sharing with colleagues and management</li>
+          <li><strong>Full archive</strong> with historical reports accessible anytime</li>
+          <li><strong>Email + Telegram delivery</strong> &mdash; reports arrive where you work</li>
+        </ul>
+      </div>
+      <div class="feature-screenshot animate-right">
+        <div class="browser-frame">
+          <div class="browser-frame-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-url">baupreis.ais152.com/berichte</span>
+          </div>
+          <img src="img/Screenshot 2026-03-04 151439.png" alt="BauPreis AI Reports" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 11: KEY FEATURES GRID
+     ═══════════════════════════════════════════ -->
+<section class="features-grid-section" id="features-grid">
+  <div class="container">
+    <div class="animate-on-scroll" style="text-align: center;">
+      <span class="section-eyebrow">Platform Capabilities</span>
+      <h2 class="section-title">Built for German Construction Professionals</h2>
+      <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">
+        Every feature designed for the specific needs of procurement teams, project managers, and estimators in the German construction market.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card animate-on-scroll delay-1">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <h3>Real-Time Price Data</h3>
+        <p>Prices collected daily from 7 official sources including Eurostat, SMARD energy exchange, and LME commodity markets.</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll delay-2">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <h3>AI Forecasts (Claude)</h3>
+        <p>Price predictions powered by Anthropic's Claude AI, analyzing historical patterns and market signals to forecast 7-90 day trends.</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll delay-3">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+        </div>
+        <h3>Telegram & Email Alerts</h3>
+        <p>Set price thresholds and get instant notifications via Telegram or email when materials hit your target price.</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll delay-4">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        </div>
+        <h3>BauPreis Index</h3>
+        <p>Proprietary composite index aggregating all 16 materials into a single metric for quick market assessment and trend tracking.</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll delay-5">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>GDPR Compliant</h3>
+        <p>Hosted exclusively on Hetzner Cloud in Nuremberg, Germany. Full DSGVO/BDSG compliance. Your data never leaves Europe.</p>
+      </div>
+
+      <div class="feature-card animate-on-scroll delay-6">
+        <div class="feature-card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        </div>
+        <h3>PWA &mdash; Works on Mobile</h3>
+        <p>Install BauPreis AI as an app on any device. Full Progressive Web App with offline support and push notifications.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 12: TECH STACK
+     ═══════════════════════════════════════════ -->
+<section class="tech-section" id="tech">
+  <div class="container">
+    <div class="animate-on-scroll" style="text-align: center;">
+      <span class="section-eyebrow">Under the Hood</span>
+      <h2 class="section-title" style="font-size: clamp(1.5rem, 3vw, 2rem);">Built with Modern Technology</h2>
+    </div>
+
+    <div class="tech-grid">
+      <div class="tech-item animate-on-scroll delay-1">
+        <div class="tech-item-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gray-700)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+        </div>
+        <h4>Next.js 14 + TypeScript</h4>
+        <p>52 pages, App Router</p>
+      </div>
+
+      <div class="tech-item animate-on-scroll delay-2">
+        <div class="tech-item-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gray-700)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+        </div>
+        <h4>PostgreSQL 16</h4>
+        <p>Multi-tenant database</p>
+      </div>
+
+      <div class="tech-item animate-on-scroll delay-3">
+        <div class="tech-item-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gray-700)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <h4>Claude API (Anthropic)</h4>
+        <p>AI analysis & forecasts</p>
+      </div>
+
+      <div class="tech-item animate-on-scroll delay-4">
+        <div class="tech-item-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--gray-700)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+        </div>
+        <h4>Docker + Hetzner</h4>
+        <p>7 automated cron jobs</p>
+      </div>
+    </div>
+
+    <div class="animate-on-scroll" style="text-align: center; margin-top: 40px;">
+      <p style="color: var(--gray-500); font-size: 0.9rem;">
+        <strong style="color: var(--gray-700);">46 API endpoints</strong> &middot;
+        <strong style="color: var(--gray-700);">52 pages</strong> &middot;
+        <strong style="color: var(--gray-700);">7 background jobs</strong> &middot;
+        <strong style="color: var(--gray-700);">Multi-tenant architecture</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 13: PRICING
+     ═══════════════════════════════════════════ -->
+<section class="pricing-section" id="pricing">
+  <div class="container">
+    <div class="animate-on-scroll" style="text-align: center;">
+      <span class="section-eyebrow">Pricing</span>
+      <h2 class="section-title">Plans for Every Team Size</h2>
+      <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">
+        Start with Basis for essential monitoring, upgrade to Pro for AI insights, or go Team for full organizational access.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <!-- Basis -->
+      <div class="pricing-card animate-on-scroll delay-1">
+        <div class="pricing-plan">Basis</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">&euro;</span>
+          <span class="pricing-amount">49</span>
+          <span class="pricing-period">/mo</span>
+        </div>
+        <p class="pricing-description">Essential price monitoring for individual users and small procurement teams.</p>
+        <ul class="pricing-features">
+          <li>5 materials tracked</li>
+          <li>1 user</li>
+          <li>Email alerts (3 rules)</li>
+          <li>30-day price history</li>
+          <li>CSV export</li>
+          <li class="disabled">AI forecasts</li>
+          <li class="disabled">Telegram notifications</li>
+          <li class="disabled">API access</li>
+        </ul>
+        <a href="#" class="pricing-cta pricing-cta-outline">Get Started</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card featured animate-on-scroll delay-2">
+        <span class="pricing-badge">Most Popular</span>
+        <div class="pricing-plan">Pro</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">&euro;</span>
+          <span class="pricing-amount">149</span>
+          <span class="pricing-period">/mo</span>
+        </div>
+        <p class="pricing-description">Full platform access with AI-powered analysis and forecasts for data-driven procurement.</p>
+        <ul class="pricing-features">
+          <li>All 16 materials</li>
+          <li>1 user</li>
+          <li>Unlimited alerts</li>
+          <li>365-day history</li>
+          <li>AI forecasts &amp; analysis</li>
+          <li>AI Chat</li>
+          <li>Telegram notifications</li>
+          <li class="disabled">API access &amp; PDF reports</li>
+        </ul>
+        <a href="#" class="pricing-cta pricing-cta-primary">Start Free Trial</a>
+      </div>
+
+      <!-- Team -->
+      <div class="pricing-card animate-on-scroll delay-3">
+        <div class="pricing-plan">Team</div>
+        <div class="pricing-price">
+          <span class="pricing-currency">&euro;</span>
+          <span class="pricing-amount">299</span>
+          <span class="pricing-period">/mo</span>
+        </div>
+        <p class="pricing-description">Enterprise-grade access for procurement departments and project management teams.</p>
+        <ul class="pricing-features">
+          <li>All 16 materials</li>
+          <li>Up to 5 users</li>
+          <li>Unlimited everything</li>
+          <li>AI forecasts &amp; analysis</li>
+          <li>REST API access</li>
+          <li>PDF report generation</li>
+          <li>Priority support</li>
+          <li>Team roles &amp; permissions</li>
+        </ul>
+        <a href="#" class="pricing-cta pricing-cta-outline">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECTION 14: FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Bau<span>Preis</span> AI</div>
+    <p class="footer-tagline">Intelligent Construction Material Price Monitoring</p>
+
+    <div class="footer-links">
+      <a href="https://baupreis.ais152.com" target="_blank">baupreis.ais152.com</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#tech">Technology</a>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <p class="footer-location">Built in Munich, Germany</p>
+    <p class="footer-copyright">&copy; 2026 BauPreis AI. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JavaScript: Scroll Animations + Nav
+     ═══════════════════════════════════════════ -->
+<script>
+// Intersection Observer for scroll animations
+(function() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // Once visible, stop observing (animate only once)
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.15,
+      rootMargin: '0px 0px -60px 0px'
+    }
+  );
+
+  // Observe all animatable elements
+  document.querySelectorAll(
+    '.animate-on-scroll, .animate-left, .animate-right, .animate-scale'
+  ).forEach((el) => {
+    // Don't re-animate hero elements (they start visible)
+    if (!el.closest('.hero')) {
+      observer.observe(el);
+    }
+  });
+})();
+
+// Navigation scroll effect
+(function() {
+  const nav = document.getElementById('nav');
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 50) {
+          nav.classList.add('scrolled');
+        } else {
+          nav.classList.remove('scrolled');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    const target = document.querySelector(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

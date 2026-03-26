@@ -47,7 +47,7 @@ export default function EinstellungenPage() {
           <Link
             key={item.href}
             href={item.href}
-            className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+            className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
           >
             <span className="text-3xl block group-hover:scale-110 transition-transform duration-300">{item.icon}</span>
             <h3 className="font-semibold text-gray-900 mt-3">{t(item.titleKey)}</h3>

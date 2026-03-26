@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import { cookies } from "next/headers";
 import { LocaleProvider } from "@/i18n/LocaleContext";
 import { getTranslations, type Locale, LOCALE_DATE_MAP } from "@/i18n";
@@ -8,6 +8,11 @@ import CookieConsent from "@/components/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-grotesk",
+  display: "swap",
+});
 
 const GTM_ID = "GTM-TF2Q5T8C";
 
@@ -86,7 +91,7 @@ function Shell({
         <meta name="apple-mobile-web-app-title" content="BauPreis" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${spaceGrotesk.variable}`}>
         {/* GTM noscript fallback */}
         <noscript>
           <iframe

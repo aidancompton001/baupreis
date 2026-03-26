@@ -59,7 +59,7 @@ export default function BerichtePage() {
           {reports.map((report) => (
             <div
               key={report.id}
-              className="bg-white rounded-2xl border shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
+              className="bg-white rounded-xl border shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden group"
             >
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-500 to-brand-700" />
               <div className="flex items-start gap-3 mb-3">
@@ -110,8 +110,8 @@ export default function BerichtePage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 bg-white rounded-2xl border shadow-sm">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
+        <div className="text-center py-16 bg-white rounded-xl border shadow-sm">
+          <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
           </div>
           <p className="text-gray-500 text-lg font-medium">{t("reports.noReports")}</p>
@@ -124,7 +124,7 @@ export default function BerichtePage() {
       {/* Report Modal */}
       {selectedReport && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
+          <div className="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">
                 {selectedReport.report_type === "daily"

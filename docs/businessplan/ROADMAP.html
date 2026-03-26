@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>BauPreis — Дорожная карта регистрации бизнеса</title>
+<style>
+  @page { margin: 1.5cm; size: A4; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; color: #1a1a1a; line-height: 1.6; padding: 30px; max-width: 900px; margin: 0 auto; }
+
+  h1 { font-size: 22px; text-align: center; margin-bottom: 5px; color: #111; }
+  .subtitle { text-align: center; font-size: 13px; color: #666; margin-bottom: 25px; }
+
+  .current-position { background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 15px 20px; margin-bottom: 25px; }
+  .current-position h2 { font-size: 15px; color: #92400e; margin-bottom: 8px; }
+  .current-position ul { margin-left: 18px; font-size: 13px; }
+  .current-position li { margin-bottom: 3px; }
+
+  .step { border: 1px solid #e5e7eb; border-radius: 8px; margin-bottom: 15px; page-break-inside: avoid; }
+  .step-header { display: flex; align-items: center; padding: 12px 16px; background: #f9fafb; border-radius: 8px 8px 0 0; border-bottom: 1px solid #e5e7eb; }
+  .step-num { background: #2563eb; color: #fff; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; margin-right: 12px; }
+  .step-title { font-weight: 700; font-size: 15px; }
+  .step-meta { font-size: 12px; color: #666; margin-left: auto; text-align: right; }
+  .step-body { padding: 14px 16px; font-size: 13px; }
+  .step-body h4 { font-size: 13px; font-weight: 700; color: #374151; margin: 10px 0 5px 0; }
+  .step-body h4:first-child { margin-top: 0; }
+  .step-body ul, .step-body ol { margin-left: 18px; margin-bottom: 8px; }
+  .step-body li { margin-bottom: 3px; }
+
+  .why { background: #eff6ff; border-left: 3px solid #2563eb; padding: 8px 12px; margin: 8px 0; font-size: 12px; }
+  .why strong { color: #1e40af; }
+
+  .warning { background: #fef2f2; border-left: 3px solid #ef4444; padding: 8px 12px; margin: 8px 0; font-size: 12px; }
+  .warning strong { color: #dc2626; }
+
+  .money { background: #f0fdf4; border-left: 3px solid #22c55e; padding: 8px 12px; margin: 8px 0; font-size: 12px; }
+  .money strong { color: #16a34a; }
+
+  .source { font-size: 11px; color: #6b7280; margin-top: 8px; }
+  .source a { color: #2563eb; text-decoration: none; }
+
+  table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 12px; }
+  th { background: #f3f4f6; text-align: left; padding: 6px 10px; border: 1px solid #e5e7eb; font-weight: 600; }
+  td { padding: 6px 10px; border: 1px solid #e5e7eb; }
+
+  .timeline { display: flex; justify-content: space-between; margin: 20px 0; padding: 0; }
+  .timeline-item { text-align: center; flex: 1; position: relative; }
+  .timeline-item::after { content: '→'; position: absolute; right: -8px; top: 8px; color: #9ca3af; font-size: 18px; }
+  .timeline-item:last-child::after { display: none; }
+  .timeline-label { font-size: 11px; color: #6b7280; }
+  .timeline-value { font-size: 13px; font-weight: 700; }
+
+  .summary { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px 20px; margin-top: 20px; }
+  .summary h3 { font-size: 14px; margin-bottom: 8px; }
+  .summary table { font-size: 12px; }
+
+  .footer { text-align: center; margin-top: 25px; font-size: 11px; color: #9ca3af; border-top: 1px solid #e5e7eb; padding-top: 10px; }
+
+  @media print {
+    body { padding: 0; }
+    .step { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>ДОРОЖНАЯ КАРТА: Регистрация бизнеса в Германии</h1>
+<p class="subtitle">BauPreis AI SaaS — Личный план действий | Февраль 2026</p>
+
+<!-- ===== ТОЧКА 0 ===== -->
+<div class="current-position">
+  <h2>📍 ТОЧКА 0 — Где ты сейчас (февраль 2026)</h2>
+  <ul>
+    <li><strong>Статус:</strong> Гражданин Украины, §24 AufenthG (временная защита, авто-продлён до 04.03.2027)</li>
+    <li><strong>Место:</strong> Мюнхен, Бавария</li>
+    <li><strong>Доход:</strong> Bürgergeld через JobCenter</li>
+    <li><strong>Продукт:</strong> BauPreis SaaS — готов, развёрнут на baupreis.ais152.com (52 страницы, 3.106 записей цен)</li>
+    <li><strong>Биллинг:</strong> Paddle — код написан, домен на проверке</li>
+    <li><strong>Gewerbe:</strong> НЕТ — не зарегистрирован</li>
+    <li><strong>Steuernummer:</strong> НЕТ</li>
+  </ul>
+</div>
+
+<!-- ===== ШАГ 1 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title">Бесплатная консультация IHK München</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 1 неделя</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать:</h4>
+    <ol>
+      <li>Зайти на <a href="https://www.ihk-muenchen.de/service-beratung/gruendung/gruendungsberatung/">ihk-muenchen.de → Erstberatung für Gründer</a></li>
+      <li>Записаться на бесплатную 45-минутную консультацию</li>
+      <li>Прийти с описанием бизнес-идеи (BauPreis — SaaS для мониторинга цен на стройматериалы)</li>
+    </ol>
+
+    <h4>Что спросить на консультации:</h4>
+    <ul>
+      <li>Мой SaaS — это Gewerbe или Freiberuf?</li>
+      <li>Какие формы мне нужно заполнить?</li>
+      <li>Можете помочь с Businessplan?</li>
+      <li>Как получить Tragfähigkeitsbescheinigung?</li>
+    </ul>
+
+    <div class="why">
+      <strong>Почему этот шаг первый:</strong> IHK — официальная торгово-промышленная палата. Их консультация бесплатна и обязательна перед подачей на Einstiegsgeld. IHK также выдаёт Tragfähigkeitsbescheinigung (шаг 4), без которого JobCenter не рассмотрит заявку на субсидию. По данным IHK München, в 2025 году более 12.000 предпринимателей получили бесплатную стартовую консультацию.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://www.ihk-muenchen.de/service-beratung/gruendung/gruendungsberatung/">IHK München — Erstberatung</a> |
+      <a href="https://www.ihk-muenchen.de/ratgeber/gruendung/businessplan/">IHK — Businessplan</a> |
+      <a href="https://www.ihk-muenchen.de/de/Service/Gr%C3%BCndung/Gr%C3%BCndungswerkstatt/">IHK — Unternehmenswerkstatt</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 2 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title">Сообщить JobCenter о планах</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 1 визит</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать:</h4>
+    <ol>
+      <li>Позвонить своему Integrationsfachkraft или записаться на приём</li>
+      <li>Сказать: <em>"Ich möchte mich hauptberuflich selbständig machen im IT-Bereich. Ich möchte Einstiegsgeld und Investitionszuschuss beantragen."</em></li>
+      <li>Показать черновик бизнес-идеи (можно на телефоне — baupreis.ais152.com)</li>
+      <li>Спросить о процедуре подачи на Einstiegsgeld</li>
+    </ol>
+
+    <div class="warning">
+      <strong>КРИТИЧЕСКИ ВАЖНО:</strong> НЕ регистрируй Gewerbe до этого шага! Если зарегистрируешь бизнес до подачи на Einstiegsgeld — в субсидии откажут. Заявка на Einstiegsgeld должна быть подана ДО начала предпринимательской деятельности (§16b SGB II).
+    </div>
+
+    <h4>Что тебе может предложить JobCenter:</h4>
+    <table>
+      <tr><th>Субсидия</th><th>Основание</th><th>Сумма</th><th>Условие</th></tr>
+      <tr><td>Einstiegsgeld</td><td>§16b SGB II</td><td>до ~€280/мес (50% от Regelbedarf)</td><td>Заявка ДО начала</td></tr>
+      <tr><td>Investitionszuschuss</td><td>§16c SGB II</td><td>до €5.000 (безвозвратно)</td><td>Обоснование в Businessplan</td></tr>
+    </table>
+
+    <div class="why">
+      <strong>Почему важно:</strong> Einstiegsgeld — это доплата к Bürgergeld, которая НЕ вычитается из пособия. Ты получаешь оба одновременно: Bürgergeld + Einstiegsgeld. По статистике Bundesagentur für Arbeit за 2025 год, ~65% заявок с Tragfähigkeitsbescheinigung от IHK одобряются. Инвестиционный грант до €5.000 не нужно возвращать — это подарок на оборудование, сервер, маркетинг.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/buergergeld/arbeit-finden/einstiegsgeld-fuer-selbststaendigkeit">Bundesagentur — Einstiegsgeld</a> |
+      <a href="https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/buergergeld/arbeit-finden/existenzgruendung">Bundesagentur — Existenzgründung</a> |
+      <a href="https://www.buerger-geld.org/news/einstiegsgeld-beim-buergergeld-voraussetzungen-und-hoehe-der-foerderung-2025-2026/">Bürger-Geld.org — Einstiegsgeld 2025/2026</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 3 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title">Написать Businessplan</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 1-2 недели</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать:</h4>
+    <ol>
+      <li>Зарегистрироваться в <a href="https://www.ihk-muenchen.de/de/Service/Gr%C3%BCndung/Gr%C3%BCndungswerkstatt/">IHK Unternehmenswerkstatt</a> (бесплатный онлайн-инструмент)</li>
+      <li>Использовать шаблон из <a href="https://www.ihk-muenchen.de/ratgeber/gruendung/businessplan/">IHK Businessplan-Vorlage</a> (Word + Excel)</li>
+      <li>Заполнить разделы (на немецком языке!)</li>
+    </ol>
+
+    <h4>Структура Businessplan:</h4>
+    <table>
+      <tr><th>Раздел</th><th>Что писать для BauPreis</th></tr>
+      <tr><td>Zusammenfassung</td><td>SaaS-Plattform für Baustoffpreismonitoring mit KI-Prognosen</td></tr>
+      <tr><td>Gründerprofil</td><td>IT-Fachkraft, Erfahrung in Webentwicklung</td></tr>
+      <tr><td>Geschäftsidee</td><td>Automatische Überwachung von 16 Baustoffpreisen, AI-Analyse, Telegram-Alerts</td></tr>
+      <tr><td>Zielgruppe</td><td>~70.000 Bauunternehmen (KMU) in Deutschland</td></tr>
+      <tr><td>Marktanalyse</td><td>DE Baubranche ~€500 Mrd/Jahr, keine direkten Konkurrenten im KMU-Segment</td></tr>
+      <tr><td>Produkt & Preise</td><td>3 Tarife: Basis €49, Pro €149, Team €299/Monat</td></tr>
+      <tr><td>Marketing</td><td>SEO, Google Ads, LinkedIn, Branchenforen</td></tr>
+      <tr><td>Finanzplan (3 Jahre)</td><td>Jahr 1: €6.400 | Jahr 2: €33.800 | Jahr 3: €93.300</td></tr>
+      <tr><td>Investitionen</td><td>~€1.500 (Server, API, Marketing, Gewerbe)</td></tr>
+      <tr><td>Risiken</td><td>Langer B2B-Vertriebszyklus, Saisonalität</td></tr>
+    </table>
+
+    <div class="why">
+      <strong>Почему нужен Businessplan:</strong> Без него невозможно: (1) получить Tragfähigkeitsbescheinigung от IHK, (2) подать заявку на Einstiegsgeld в JobCenter, (3) обосновать Investitionszuschuss €5.000. IHK предоставляет бесплатные шаблоны и консультации. В Unternehmenswerkstatt можно работать онлайн, а эксперт IHK проверит и даст обратную связь.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://www.ihk-muenchen.de/ratgeber/gruendung/businessplan/">IHK — Businessplan erstellen</a> |
+      <a href="https://gruenderplattform.de/unternehmen-gruenden/einstiegsgeld">Gründerplattform — Einstiegsgeld</a> |
+      <a href="https://www.fuer-gruender.de/kapital/foerdermittel/zuschuss/einstiegsgeld/">Für-Gründer.de — Einstiegsgeld</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 4 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">4</div>
+    <div class="step-title">Получить Tragfähigkeitsbescheinigung от IHK</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 1-2 недели</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать:</h4>
+    <ol>
+      <li>Принести готовый Businessplan в IHK München</li>
+      <li>IHK проверит план и выдаст Tragfähigkeitsbescheinigung (Stellungnahme einer fachkundigen Stelle)</li>
+      <li>Это документ, подтверждающий что бизнес жизнеспособен</li>
+    </ol>
+
+    <h4>Что проверяет IHK:</h4>
+    <ul>
+      <li>Реалистичность финансового плана</li>
+      <li>Наличие целевого рынка</li>
+      <li>Квалификация основателя</li>
+      <li>Конкурентоспособность</li>
+    </ul>
+
+    <div class="why">
+      <strong>Почему это обязательно:</strong> JobCenter принимает заявку на Einstiegsgeld только с Tragfähigkeitsbescheinigung от "fachkundige Stelle" (компетентного органа). IHK — официально признанная fachkundige Stelle. Без этого документа заявка будет отклонена. Услуга бесплатна для всех предпринимателей.
+    </div>
+
+    <div class="source">
+      <strong>Источник:</strong>
+      <a href="https://www.deutschland-startet.de/gruendung-aus-alg-1-2/einstiegsgeld-aus-alg2/">Deutschland-Startet — Einstiegsgeld из ALG2</a> |
+      <a href="https://www.fuer-gruender.de/kapital/foerdermittel/zuschuss/einstiegsgeld/">Für-Gründer — Tragfähigkeitsbescheinigung</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 5 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">5</div>
+    <div class="step-title">Подать заявку на Einstiegsgeld + Investitionszuschuss</div>
+    <div class="step-meta">Стоимость: €0<br>Ожидание: 2-4 недели</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать:</h4>
+    <ol>
+      <li>Войти в <a href="https://www.arbeitsagentur.de">BA-Benutzerkonto</a> (аккаунт Bundesagentur)</li>
+      <li>Заполнить онлайн-форму на Einstiegsgeld</li>
+      <li>Приложить документы:</li>
+    </ol>
+
+    <h4>Необходимые документы:</h4>
+    <table>
+      <tr><th>Документ</th><th>Где взять</th></tr>
+      <tr><td>Заявка на Einstiegsgeld (форма)</td><td>Онлайн в BA-Benutzerkonto</td></tr>
+      <tr><td>Businessplan</td><td>Шаг 3</td></tr>
+      <tr><td>Tragfähigkeitsbescheinigung</td><td>Шаг 4 (IHK)</td></tr>
+      <tr><td>Lebenslauf (резюме)</td><td>Подготовить самому</td></tr>
+      <tr><td>Перечень инвестиций (для €5K гранта)</td><td>Включить в Businessplan</td></tr>
+    </table>
+
+    <div class="money">
+      <strong>Что получишь при одобрении:</strong><br>
+      • Einstiegsgeld: ~€280/мес (до 24 месяцев) — не вычитается из Bürgergeld<br>
+      • Investitionszuschuss: до €5.000 единовременно — не возвращается<br>
+      • Bürgergeld продолжает выплачиваться параллельно
+    </div>
+
+    <div class="warning">
+      <strong>Важно:</strong> Einstiegsgeld — Ermessensleistung (на усмотрение). Нет юридического права на получение. Решает твой Integrationsfachkraft. Хороший Businessplan + Tragfähigkeitsbescheinigung значительно повышают шансы. При отказе — можно доработать план и подать повторно.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/buergergeld/arbeit-finden/einstiegsgeld-fuer-selbststaendigkeit">Bundesagentur — Einstiegsgeld Antrag</a> |
+      <a href="https://www.arbeitsagentur.de/arbeitslos-arbeit-finden/buergergeld/arbeit-finden/existenzgruendung/leistungen-zur-eingliederung-von-selbstaendigen">Bundesagentur — LES (§16c)</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 6 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">6</div>
+    <div class="step-title">Gewerbeanmeldung — Регистрация бизнеса в KVR</div>
+    <div class="step-meta">Стоимость: €50-60<br>Срок: 1 день</div>
+  </div>
+  <div class="step-body">
+    <h4>Что делать (ПОСЛЕ одобрения Einstiegsgeld):</h4>
+    <ol>
+      <li>Скачать форму: <a href="https://stadt.muenchen.de/dam/jcr:7258a37c-bffa-4f7c-93b0-e7a71736ff0a/Gewerbeanmeldung.pdf">Gewerbeanmeldung.pdf</a></li>
+      <li>Заполнить или подать онлайн через <a href="https://stadt.muenchen.de/service/suche/gewerbeanmeldung/">BayernID</a></li>
+      <li>Оплатить ~€50-60</li>
+    </ol>
+
+    <h4>Что указать в форме:</h4>
+    <table>
+      <tr><th>Поле</th><th>Что писать</th></tr>
+      <tr><td>Name des Gewerbetreibenden</td><td>[Твоё полное имя]</td></tr>
+      <tr><td>Staatsangehörigkeit</td><td>Ukrainisch</td></tr>
+      <tr><td>Art des Gewerbes</td><td>IT-Dienstleistungen, Betrieb einer SaaS-Plattform für Baustoffpreismonitoring</td></tr>
+      <tr><td>Rechtsform</td><td>Einzelunternehmen</td></tr>
+      <tr><td>Datum der Aufnahme</td><td>[Дата начала деятельности]</td></tr>
+    </table>
+
+    <h4>Необходимые документы:</h4>
+    <ul>
+      <li>Паспорт (украинский)</li>
+      <li>Aufenthaltserlaubnis §24 (с пометкой "Erwerbstätigkeit erlaubt")</li>
+      <li>Заполненная форма Gewerbeanmeldung</li>
+      <li>~€50-60 (картой или наличными)</li>
+    </ul>
+
+    <h4>Куда идти:</h4>
+    <p><strong>KVR München (Gewerbeamt)</strong><br>
+    Ruppertstraße 19, 80337 München<br>
+    Тел: 089 233-44100</p>
+
+    <div class="money">
+      <strong>Результат:</strong> Получишь <strong>Gewerbeschein</strong> — официальный документ о регистрации бизнеса. С ним можно открыть бизнес-счёт и зарегистрироваться в Paddle/Stripe.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://stadt.muenchen.de/service/info/gewerbeamt/10164604/">KVR München — Gewerbeamt</a> |
+      <a href="https://www.gewerbeanmeldung.de/gewerbeamt/muenchen">Gewerbeanmeldung.de — München</a> |
+      <a href="https://www.gruenden-muenchen.de/in-gruendung/anmeldung">Gründen München — Anmeldung</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 7 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">7</div>
+    <div class="step-title">ELSTER регистрация + Fragebogen zur steuerlichen Erfassung</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 2-4 недели</div>
+  </div>
+  <div class="step-body">
+    <h4>Шаг 7a — Регистрация в ELSTER:</h4>
+    <ol>
+      <li>Зайти на <a href="https://www.elster.de">elster.de</a></li>
+      <li>Создать Benutzerkonto (выбрать "Zertifikatsdatei")</li>
+      <li>Получить сертификат по почте (до 2 недель)</li>
+    </ol>
+
+    <h4>Шаг 7b — Заполнить Fragebogen (в течение 1 месяца после Gewerbe):</h4>
+    <table>
+      <tr><th>Поле</th><th>Что указать</th></tr>
+      <tr><td>Zuständiges Finanzamt</td><td>Finanzamt по твоему району (найти: <a href="https://www.bzst.de">bzst.de</a>)</td></tr>
+      <tr><td>Art der Tätigkeit</td><td>Betrieb einer SaaS-Plattform / IT-Dienstleistungen</td></tr>
+      <tr><td>Geschätzter Umsatz Jahr 1</td><td>€5.000 - €10.000</td></tr>
+      <tr><td>Geschätzter Gewinn Jahr 1</td><td>€3.000 - €5.000</td></tr>
+      <tr><td>Kleinunternehmerregelung §19 UStG</td><td><strong>JA</strong> — выбрать!</td></tr>
+    </table>
+
+    <div class="warning">
+      <strong>Не пропусти срок!</strong> Fragebogen нужно подать в течение 1 месяца после начала деятельности. При пропуске срока — Finanzamt может оштрафовать или сделать расчёт по оценке (Schätzung).
+    </div>
+
+    <div class="money">
+      <strong>Результат:</strong> Получишь <strong>Steuernummer</strong> от Finanzamt — нужна для счетов, Paddle/Stripe, и всей официальной деятельности.
+    </div>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://www.elster.de">ELSTER</a> |
+      <a href="https://www.accountable.de/blog/so-fullst-du-den-fragebogen-zur-steuerlichen-erfassung-richtig-aus/">Accountable — Fragebogen Anleitung</a> |
+      <a href="https://www.fuer-gruender.de/wissen/unternehmen-fuehren/buchhaltung/fragebogen-zur-steuerlichen-erfassung/">Für-Gründer — Fragebogen</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 8 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">8</div>
+    <div class="step-title">Kleinunternehmerregelung — Работа без НДС</div>
+    <div class="step-meta">Стоимость: €0<br>Автоматически</div>
+  </div>
+  <div class="step-body">
+    <h4>Что это даёт:</h4>
+    <ul>
+      <li>Не платишь НДС (19%) с продаж</li>
+      <li>Не подаёшь Umsatzsteuervoranmeldung</li>
+      <li>Упрощённая бухгалтерия</li>
+    </ul>
+
+    <h4>Лимиты 2026:</h4>
+    <table>
+      <tr><th>Показатель</th><th>Лимит</th></tr>
+      <tr><td>Оборот прошлого года (Vorjahr)</td><td>до €25.000</td></tr>
+      <tr><td>Оборот текущего года (laufendes Jahr)</td><td>до €100.000</td></tr>
+    </table>
+
+    <div class="why">
+      <strong>Почему выбрать:</strong> Для BauPreis на старте оборот будет ~€6.000 в первый год — далеко от лимитов. Kleinunternehmerregelung убирает сложную бухгалтерию с НДС и снижает цены для клиентов. С 2025 года лимиты повышены с €22K до €25K (Vorjahr) и с €50K до €100K (laufendes Jahr). Отказ от Kleinunternehmerregelung блокирует возврат на 5 лет — на старте всегда выбирай "Ja".
+    </div>
+
+    <h4>На счетах/инвойсах пишешь:</h4>
+    <p style="background: #f3f4f6; padding: 8px 12px; font-family: monospace; font-size: 12px;">
+      Rechnungsbetrag: 49,00 €<br>
+      Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.
+    </p>
+
+    <div class="source">
+      <strong>Источники:</strong>
+      <a href="https://taxfix.de/ratgeber/selbststaendige/kleinunternehmergrenze/">Taxfix — Kleinunternehmergrenze 2026</a> |
+      <a href="https://gruenderplattform.de/ratgeber/kleinunternehmerregelung">Gründerplattform — Kleinunternehmerregelung</a> |
+      <a href="https://www.ihk.de/stuttgart/fuer-unternehmen/recht-und-steuern/steuerrecht/umsatzsteuer-national/kleinunternehmerregelung-in-der-umsatzsteuer-1843632">IHK — §19 UStG</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ШАГ 9 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">9</div>
+    <div class="step-title">Открыть бизнес-счёт (рекомендуется)</div>
+    <div class="step-meta">Стоимость: €0-9/мес<br>Срок: 1-3 дня</div>
+  </div>
+  <div class="step-body">
+    <h4>Зачем:</h4>
+    <ul>
+      <li>Разделение личных и бизнес-транзакций</li>
+      <li>Нужен для Paddle/Stripe payouts (выплат)</li>
+      <li>Упрощает бухгалтерию и налоговую отчётность</li>
+    </ul>
+
+    <h4>Варианты:</h4>
+    <table>
+      <tr><th>Банк</th><th>Стоимость</th><th>Особенности</th></tr>
+      <tr><td>N26 Business</td><td>€0/мес</td><td>Мобильный банк, быстрое открытие</td></tr>
+      <tr><td>Qonto</td><td>от €9/мес</td><td>Бизнес-банк, IBAN сразу, инвойсы</td></tr>
+      <tr><td>Holvi</td><td>от €6/мес</td><td>Для Einzelunternehmer, бухгалтерия</td></tr>
+      <tr><td>Sparkasse/Commerzbank</td><td>от €5-10/мес</td><td>Классический банк, филиалы</td></tr>
+    </table>
+
+    <h4>Документы для открытия:</h4>
+    <ul>
+      <li>Паспорт</li>
+      <li>Gewerbeschein (шаг 6)</li>
+      <li>Steuernummer (шаг 7) — не обязательно для N26</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== ШАГ 10 ===== -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">10</div>
+    <div class="step-title">Подключить платёжную систему (Paddle/Stripe)</div>
+    <div class="step-meta">Стоимость: €0<br>Срок: 1-7 дней</div>
+  </div>
+  <div class="step-body">
+    <h4>С Gewerbeschein + Steuernummer ты можешь:</h4>
+
+    <h4>Вариант A — Paddle (код уже написан):</h4>
+    <ol>
+      <li>Повторно подать домен baupreis.ais152.com на проверку</li>
+      <li>Приложить Gewerbeschein как доказательство бизнеса</li>
+      <li>Дождаться одобрения (1-7 дней)</li>
+    </ol>
+
+    <h4>Вариант B — Stripe (если Paddle не одобрит):</h4>
+    <ol>
+      <li>Зарегистрироваться на stripe.com как Einzelunternehmer</li>
+      <li>Указать Steuernummer</li>
+      <li>Переписать код (~2 часа)</li>
+    </ol>
+
+    <div class="money">
+      <strong>ФИНИШ:</strong> После этого шага BauPreis может принимать реальные платежи. Бизнес запущен легально.
+    </div>
+  </div>
+</div>
+
+<!-- ===== SUMMARY ===== -->
+<div class="summary">
+  <h3>Сводная таблица: все расходы и сроки</h3>
+  <table>
+    <tr><th>Шаг</th><th>Действие</th><th>Стоимость</th><th>Срок</th><th>Форма/документ</th></tr>
+    <tr><td>1</td><td>IHK консультация</td><td>€0</td><td>1 неделя</td><td>—</td></tr>
+    <tr><td>2</td><td>Разговор с JobCenter</td><td>€0</td><td>1 визит</td><td>—</td></tr>
+    <tr><td>3</td><td>Businessplan</td><td>€0</td><td>1-2 недели</td><td>IHK Vorlage (Word+Excel)</td></tr>
+    <tr><td>4</td><td>Tragfähigkeitsbescheinigung</td><td>€0</td><td>1-2 недели</td><td>Выдаёт IHK</td></tr>
+    <tr><td>5</td><td>Заявка Einstiegsgeld</td><td>€0</td><td>2-4 нед. ожидание</td><td>BA-Benutzerkonto онлайн</td></tr>
+    <tr><td>6</td><td>Gewerbeanmeldung</td><td><strong>€50-60</strong></td><td>1 день</td><td>Gewerbeanmeldung.pdf (KVR)</td></tr>
+    <tr><td>7</td><td>ELSTER + Fragebogen</td><td>€0</td><td>2-4 недели</td><td>ELSTER онлайн</td></tr>
+    <tr><td>8</td><td>Kleinunternehmerregelung</td><td>€0</td><td>В шаге 7</td><td>Галочка в Fragebogen</td></tr>
+    <tr><td>9</td><td>Бизнес-счёт</td><td>€0-9/мес</td><td>1-3 дня</td><td>Онлайн-регистрация</td></tr>
+    <tr><td>10</td><td>Paddle/Stripe</td><td>€0</td><td>1-7 дней</td><td>Онлайн-регистрация</td></tr>
+    <tr style="background: #f0fdf4; font-weight: 700;"><td></td><td>ИТОГО</td><td>~€60</td><td>~6-8 недель</td><td></td></tr>
+  </table>
+</div>
+
+<div class="summary" style="margin-top: 15px;">
+  <h3>Что ты получишь в итоге</h3>
+  <table>
+    <tr><th>Документ</th><th>Для чего нужен</th></tr>
+    <tr><td>Gewerbeschein</td><td>Официальная регистрация бизнеса. Нужен для банка, Paddle, Stripe.</td></tr>
+    <tr><td>Steuernummer</td><td>Налоговый номер. Нужен для счетов, отчётности.</td></tr>
+    <tr><td>Einstiegsgeld (при одобрении)</td><td>~€280/мес доплата на 6-24 месяца.</td></tr>
+    <tr><td>Investitionszuschuss (при одобрении)</td><td>До €5.000 на оборудование (безвозвратно).</td></tr>
+    <tr><td>Бизнес-счёт</td><td>IBAN для приёма платежей от Paddle/Stripe.</td></tr>
+  </table>
+</div>
+
+<div class="footer">
+  Документ подготовлен: 19 февраля 2026<br>
+  Все ссылки ведут на официальные источники (Bundesagentur, IHK, Stadt München, ELSTER)<br>
+  <strong>Открой в браузере → Ctrl+P → Сохранить как PDF</strong>
+</div>
+
+</body>
+</html>

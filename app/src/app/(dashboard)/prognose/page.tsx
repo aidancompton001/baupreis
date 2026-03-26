@@ -80,7 +80,7 @@ export default function PrognosePage() {
       {analysis.length > 0 ? (
         <div className="space-y-4">
           {analysis.map((item) => (
-            <div key={item.code} className="bg-white rounded-2xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
+            <div key={item.code} className="bg-white rounded-xl border shadow-sm p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-brand-500 to-brand-700 rounded-l-2xl" />
               <div className="flex items-start justify-between mb-4">
                 <div>
@@ -150,7 +150,7 @@ export default function PrognosePage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-white rounded-2xl border shadow-sm">
+        <div className="text-center py-12 bg-white rounded-xl border shadow-sm">
           <p className="text-gray-500 text-lg">
             {t("forecast.noData")}
           </p>

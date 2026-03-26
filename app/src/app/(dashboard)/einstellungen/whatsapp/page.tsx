@@ -89,7 +89,7 @@ export default function WhatsAppSettingsPage() {
           <h1 className="text-2xl font-bold text-gray-900">{t("whatsapp.title")}</h1>
           <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 animate-pulse">
+        <div className="bg-white rounded-xl border border-gray-200 p-8 animate-pulse">
           <div className="h-4 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="h-4 bg-gray-200 rounded w-2/3"></div>
         </div>
@@ -117,7 +117,7 @@ export default function WhatsAppSettingsPage() {
           <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
         </div>
         {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
-        <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+        <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-2xl">✅</span>
             <div>
@@ -147,7 +147,7 @@ export default function WhatsAppSettingsPage() {
         <p className="text-gray-500 text-sm mt-1">{t("whatsapp.subtitle")}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         {step === "input" && (
           <>
             <h2 className="font-semibold mb-3">{t("whatsapp.input.title")}</h2>

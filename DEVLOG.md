@@ -9,7 +9,148 @@
 
 ---
 
+### [S021] — 2026-03-26 — T004: Bauhaus Bold Full Redesign (50+ файлов)
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review
+**Статус:** завершено
+
+**Что сделано:**
+- Полный редизайн: brand palette #2563eb→#C1292E, добавлены bauhaus-yellow/salmon/black
+- Space Grotesk подключён как headline font
+- Glassmorphism → solid borders + Bauhaus hard shadows (4px 4px 0)
+- Landing page: geometric shapes, Bauhaus typography, red/yellow/black theme
+- Dashboard: solid sidebar, black index banner с red shadow
+- Все 50+ файлов обновлены: 0 indigo, 0 #4F46E5, 0 backdrop-blur
+
+**Верификация:**
+- `npm run build` → 0 errors
+- `grep indigo app/src/` → 0 results
+- `grep #4F46E5 app/src/` → 0 results
+
+**Артефакты:** T004 roadmap, tailwind.config.ts, globals.css, layout.tsx, page.tsx, 50+ component/page files
+
+---
+
+### [S020] — 2026-03-26 — Прототипы: Landing + Dashboard (Bauhaus Bold)
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #14 Hans Landa — Review
+**Статус:** завершено
+
+**Что сделано:**
+- 2 landing прототипа (Dark Professional + Bauhaus Bold) — CEO выбрал Bauhaus Bold
+- Dashboard прототип Bauhaus Bold: sidebar, index banner, 16 материалов по 6 категориям
+- Все данные реальные (de.ts + цены), responsive 375/768/1440
+- 3 standalone HTML файла, app/ не затронут
+
+**Артефакты:** `design/prototypes/variant-1-dark-professional.html`, `variant-2-bauhaus-bold.html`, `variant-2-dashboard.html`
+
+**Решение CEO:** Bauhaus Bold (#C1292E / #1A1A1A / #F5C518) — направление дизайна
+
+---
+
+### [S019] — 2026-03-26 — 8 Creative Briefs для Luma Labs инфографик
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #1 Markus Lehmann — PA, #14 Hans Landa — Review
+**Статус:** завершено
+
+**Что сделано:**
+- 8 copy-paste ready промптов для Luma Labs AI (4 темы x 2 стиля)
+- Темы: Product, Market, Dashboard, Marketing (pain→solution)
+- Стили: Dark Tech (#0A1528 палитра) + Bauhaus (#C1292E палитра)
+- Формат: 16:9 для сайта, язык EN, немецкие тексты внутри
+
+**Ключевые решения:**
+- Убраны неверифицируемые цифры (73%, 15% Einsparung) по замечанию Ланды
+- Рыночные данные только из Destatis/Hauptverband/ifo
+- Округлено 398K→~400K Bauunternehmen
+
+**Артефакты:** `design/briefs/01-product-dark.md` ... `design/briefs/08-marketing-bauhaus.md`
+
+**Следующие шаги:**
+- CEO копирует briefs в Luma Labs → генерация → выбор лучших
+
+---
+
+### [S018] — 2026-03-26 — 2 прототипа дизайна из Luma Brand Identity
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #1 Markus Lehmann — PA, #14 Hans Landa — Review
+**Статус:** завершено
+
+**Что сделано:**
+- Исследование Figma MCP + Claude Code интеграции (T002)
+- Анализ 2 brand identity вариантов из Luma Labs (Dark Professional + Bauhaus Bold)
+- 2 standalone HTML-прототипа с SVG-графиками, pricing, responsive
+- Тексты на Deutsch из de.ts
+
+**Ключевые решения:**
+- Standalone HTML — zero risk для prod, мгновенный просмотр
+- SVG-графики inline — self-contained, no dependencies
+
+**Артефакты:** `design/prototypes/variant-1-dark-professional.html`, `design/prototypes/variant-2-bauhaus-bold.html`, `docs/tasks/T002_*`, `docs/tasks/T003_*`
+
+**Следующие шаги:**
+- CEO выбирает вариант → применяем к сайту
+
+---
+
 ## Записи
+
+---
+
+### S033 — 2026-03-26 — Site Audit Fixes: Wave 1+2 (8 задач)
+
+**Роли:** #6 SRE, #5 Backend, #3 Frontend, #7 QA, #14 Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+- T1: CSP header добавлен в Caddy (без unsafe-eval, замечание Ланды)
+- T2: CSRF lib создан (HMAC-SHA256, 1h TTL), 6 unit тестов
+- T3: Stripe verify — пропущен (CEO), обнаружено: на сервере нет Stripe, только PayPal+Paddle
+- T4: i18n auth pages — sign-in/sign-up локализованы (de/en), 30 ключей
+- T5: Clerk cleanup — удалены 4 компонента, 1 webhook, очищены 6 API routes + auth.ts, security page переписан
+- T6: URL redirects — /login→/sign-in, /registrieren→/sign-up (permanent)
+- T7: CORS whitelist — API headers, conditional dev/prod origin
+- T8: Synthetic data indicator — оранжевый badge "Simuliert" на dashboard
+
+**Ключевые решения:**
+- Clerk полностью удалён, auth = custom session only
+- CSP без unsafe-eval (Ланда: "иначе бесполезен")
+- CSRF в lib (не middleware) — Edge Runtime не поддерживает crypto.createHmac
+- Billing на сервере = PayPal+Paddle, НЕ Stripe (CREDENTIALS.md drift)
+- TANKERKOENIG_API_KEY отсутствует на сервере → Diesel не показывается
+
+**Артефакты:** `lib/csrf.ts`, `next.config.js`, `auth.ts`, `i18n/de.ts`, `i18n/en.ts`, sign-in/sign-up pages, security page, 4 API routes
+
+**Верификация:** Build ✅ 0 errors, TypeScript ✅ 0 errors, Tests ✅ 78/78 pass, CSP ✅ curl verified
+
+**Следующие шаги:**
+- Wave 3: Sentry, тесты, OpenAPI, a11y, WhatsApp (после аудита)
+- Зарегистрировать TANKERKOENIG_API_KEY для Diesel
+- Деплой на production
+
+---
+
+### S032 — 2026-03-24 — Переписка: HWK Schneider + STARTUP PROFI Vertrag
+
+**Роли:** #8 Chief of Staff, #14 Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+- HWK München (Ana Schneider): исследование контакта, Online-Termin 10.04 14:00 подтверждён
+- STARTUP PROFI: Coaching-Vertrag повторно подписан (reminder 23.03 — первая подпись 13.03 не дошла), подтверждение получено, email отправлен
+- Coaching-Start сдвинулся: 23.03 → 30.03 → 07.04.2026
+- Создана папка `docs/inbox/unsorted/` для несортированных писем
+- CORRESPONDENCE.md обновлён (контакты #3 и #10)
+
+**Ключевые решения:**
+- Красный флаг: AVGS до 10.04, coaching-start 07.04 — 3 дня зазора. Уточнить у STARTUP PROFI
+
+**Артефакты:** `docs/CORRESPONDENCE.md`, `docs/inbox/unsorted/`
+
+**Следующие шаги:**
+- Ждать подтверждение от STARTUP PROFI по email
+- Подготовить демо к звонку HWK 10.04
+- Проверить Digitalbonus Bayern (актуальность)
 
 ---
 

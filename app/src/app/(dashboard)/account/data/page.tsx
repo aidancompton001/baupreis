@@ -80,7 +80,7 @@ export default function DataPage() {
   return (
     <div className="space-y-6">
       {/* Export */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">
           <span className="mr-2">&#128229;</span>
           {t("account.data.exportTitle")}
@@ -119,7 +119,7 @@ export default function DataPage() {
       </div>
 
       {/* Consents */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">
           <span className="mr-2">&#128203;</span>
           {t("account.data.consentsTitle")}
@@ -167,7 +167,7 @@ export default function DataPage() {
       </div>
 
       {/* Cookie Settings */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-gray-900 mb-2">
           <span className="mr-2">&#127850;</span>
           {t("account.data.cookieTitle")}
@@ -184,7 +184,7 @@ export default function DataPage() {
       </div>
 
       {/* Delete Account */}
-      <div className="bg-red-50 rounded-2xl border border-red-200 p-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-red-50 rounded-xl border border-red-200 p-6 hover:shadow-md transition-all duration-300">
         <h2 className="text-lg font-semibold text-red-800 mb-2">
           <span className="mr-2">&#9888;&#65039;</span>
           {t("account.data.deleteAccount")}

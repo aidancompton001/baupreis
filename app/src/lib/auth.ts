@@ -1,127 +1,21 @@
 import pool from "./db";
 import { getSession } from "./session";
 
-export function isClerkConfigured(): boolean {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
-}
-
-function getClerkUserId(): string | null {
-  // 1. Try local session cookie first (email-based auth)
+function getSessionUserId(): string | null {
   const session = getSession();
-  if (session) return session.uid;
-
-  // 2. Try Clerk if configured
-  if (isClerkConfigured()) {
-    const { auth } = require("@clerk/nextjs/server");
-    const { userId } = auth();
-    return userId;
-  }
-
-  // 3. No auth — return null (will redirect to sign-in)
-  return null;
+  return session ? session.uid : null;
 }
 
 export async function getOrg() {
-  // Try local session first — it has org_id directly
   const session = getSession();
-  if (session) {
-    const result = await pool.query(
-      `SELECT o.* FROM organizations o
-       WHERE o.id = $1 AND o.is_active = true`,
-      [session.oid]
-    );
-    if (result.rows[0]) return result.rows[0];
-  }
-
-  const userId = getClerkUserId();
-  if (!userId) return null;
+  if (!session) return null;
 
   const result = await pool.query(
     `SELECT o.* FROM organizations o
-     JOIN users u ON u.org_id = o.id
-     WHERE u.clerk_user_id = $1 AND o.is_active = true`,
-    [userId]
+     WHERE o.id = $1 AND o.is_active = true`,
+    [session.oid]
   );
-
-  if (result.rows[0]) return result.rows[0];
-
-  // Clerk mode: auto-create org for authenticated user (no webhook needed)
-  if (isClerkConfigured()) {
-    return await autoCreateOrgForClerkUser(userId);
-  }
-
-  return null;
-}
-
-/** Auto-create org for a Clerk-authenticated user on first access. */
-async function autoCreateOrgForClerkUser(clerkUserId: string) {
-  let email = "user@baupreis.ai";
-  let name = "BauPreis User";
-
-  // Try to get user info from Clerk Backend API
-  try {
-    const { clerkClient } = require("@clerk/nextjs/server");
-    const client = clerkClient();
-    const user = await client.users.getUser(clerkUserId);
-    if (user) {
-      email = user.emailAddresses?.[0]?.emailAddress || email;
-      name = [user.firstName, user.lastName].filter(Boolean).join(" ") || name;
-    }
-  } catch {
-    // Clerk API might fail, use defaults
-  }
-
-  const slug = "org-" + clerkUserId.slice(-8);
-  const client = await pool.connect();
-  try {
-    await client.query("BEGIN");
-
-    // Race condition guard
-    const check = await client.query(
-      `SELECT o.* FROM organizations o JOIN users u ON u.org_id = o.id
-       WHERE u.clerk_user_id = $1 AND o.is_active = true`,
-      [clerkUserId]
-    );
-    if (check.rows[0]) {
-      await client.query("COMMIT");
-      return check.rows[0];
-    }
-
-    // Create org with Trial plan (7 days, Pro-level access)
-    const orgResult = await client.query(
-      `INSERT INTO organizations (name, slug, plan, trial_ends_at,
-        max_materials, max_users, max_alerts,
-        features_telegram, features_forecast, features_api, features_pdf_reports)
-       VALUES ($1, $2, 'trial', NOW() + INTERVAL '7 days',
-        999, 1, 999, true, true, false, false)
-       RETURNING *`,
-      [name, slug]
-    );
-    const org = orgResult.rows[0];
-
-    // Create user
-    await client.query(
-      `INSERT INTO users (org_id, clerk_user_id, email, name, role)
-       VALUES ($1, $2, $3, $4, 'owner')`,
-      [org.id, clerkUserId, email, name]
-    );
-
-    // Add all materials (Trial = full access)
-    await client.query(
-      `INSERT INTO org_materials (org_id, material_id)
-       SELECT $1, id FROM materials WHERE is_active = true`,
-      [org.id]
-    );
-
-    await client.query("COMMIT");
-    return org;
-  } catch (e) {
-    await client.query("ROLLBACK");
-    throw e;
-  } finally {
-    client.release();
-  }
+  return result.rows[0] || null;
 }
 
 export async function requireOrg() {
@@ -159,9 +53,9 @@ export async function requireOrgFromApiKey(
   return org;
 }
 
-/** Get the current user row (with role) from Clerk session. */
+/** Get the current user row (with role) from session. */
 export async function getUser() {
-  const userId = getClerkUserId();
+  const userId = getSessionUserId();
   if (!userId) return null;
 
   const result = await pool.query(

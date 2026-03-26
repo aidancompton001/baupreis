@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lebenslauf — Eduard Morocho Baias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #1E3A5F;
+    --primary-light: #2563EB;
+    --accent: #F59E0B;
+    --text: #1A1A2E;
+    --text-light: #4B5563;
+    --text-white: #F0F4F8;
+    --bg: #FAFAF8;
+    --sidebar-bg: #1E3A5F;
+    --border: #E5E7EB;
+    --section-line: #D1D5DB;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 210mm;
+    margin: 0 auto;
+  }
+
+  .page {
+    display: grid;
+    grid-template-columns: 72mm 1fr;
+    min-height: 297mm;
+  }
+
+  /* ===== LEFT SIDEBAR ===== */
+  .sidebar {
+    background: var(--sidebar-bg);
+    color: var(--text-white);
+    padding: 0 16px 24px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 28px 0 16px;
+  }
+
+  .photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid var(--accent);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  }
+
+  .sidebar-section {
+    margin-bottom: 18px;
+  }
+
+  .sidebar-title {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .sidebar-item {
+    margin-bottom: 8px;
+    font-size: 8.5pt;
+    line-height: 1.4;
+  }
+
+  .sidebar-item .label {
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: rgba(240,244,248,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1px;
+  }
+
+  .sidebar-item .value {
+    color: var(--text-white);
+    font-weight: 400;
+  }
+
+  .sidebar-item a {
+    color: var(--text-white);
+    text-decoration: none;
+  }
+
+  /* Skills */
+  .skill-category {
+    margin-bottom: 10px;
+  }
+
+  .skill-category-name {
+    font-size: 8pt;
+    font-weight: 600;
+    color: rgba(240,244,248,0.85);
+    margin-bottom: 4px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+  }
+
+  .skill-tag {
+    background: rgba(255,255,255,0.1);
+    color: var(--text-white);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 7.5pt;
+    font-weight: 400;
+  }
+
+  .skill-tag.highlight {
+    background: var(--accent);
+    color: var(--primary);
+    font-weight: 600;
+  }
+
+  /* Languages */
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 8.5pt;
+  }
+
+  .lang-name { font-weight: 500; }
+
+  .lang-level {
+    font-size: 7.5pt;
+    color: rgba(240,244,248,0.7);
+  }
+
+  .lang-bar-bg {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    margin-top: 2px;
+  }
+
+  .lang-bar {
+    height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* Personal */
+  .personal-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 8pt;
+    color: rgba(240,244,248,0.85);
+  }
+
+  .personal-icon {
+    color: var(--accent);
+    font-size: 10pt;
+    flex-shrink: 0;
+    width: 14px;
+    text-align: center;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main {
+    padding: 28px 24px 24px 24px;
+  }
+
+  .name {
+    font-size: 24pt;
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+
+  .tagline {
+    font-size: 10pt;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-top: 4px;
+    margin-bottom: 16px;
+  }
+
+  .summary {
+    font-size: 9pt;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding: 12px 14px;
+    background: #F0F4F8;
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* Sections */
+  .section {
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--primary);
+    margin-bottom: 12px;
+  }
+
+  /* Experience entries */
+  .entry {
+    margin-bottom: 14px;
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2px;
+  }
+
+  .entry-title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .entry-date {
+    font-size: 8pt;
+    font-weight: 500;
+    color: var(--primary-light);
+    white-space: nowrap;
+    margin-left: 8px;
+  }
+
+  .entry-company {
+    font-size: 8.5pt;
+    color: var(--text-light);
+    font-style: italic;
+    margin-bottom: 4px;
+  }
+
+  .entry-details {
+    list-style: none;
+    padding: 0;
+  }
+
+  .entry-details li {
+    font-size: 8.5pt;
+    line-height: 1.4;
+    color: var(--text);
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 2px;
+  }
+
+  .entry-details li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-light);
+  }
+
+  /* Education */
+  .edu-entry {
+    margin-bottom: 10px;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .edu-entry::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 6px;
+    height: 6px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+  }
+
+  .edu-title {
+    font-size: 9.5pt;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .edu-place {
+    font-size: 8pt;
+    color: var(--text-light);
+  }
+
+  .edu-date {
+    font-size: 8pt;
+    color: var(--primary-light);
+    font-weight: 500;
+  }
+
+  /* Signature */
+  .signature-block {
+    margin-top: auto;
+    padding-top: 20px;
+    text-align: right;
+    font-size: 9pt;
+    color: var(--text);
+  }
+
+  .signature-line {
+    margin-top: 32px;
+    border-top: 1px solid var(--text-light);
+    display: inline-block;
+    padding-top: 4px;
+    min-width: 200px;
+    text-align: center;
+    font-size: 8.5pt;
+  }
+
+  /* Print */
+  @media print {
+    body { max-width: none; margin: 0; }
+    .page { min-height: 297mm; height: 297mm; overflow: hidden; }
+    .sidebar { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    .summary { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    .entry::before, .edu-entry::before { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    .skill-tag, .skill-tag.highlight { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    .lang-bar-bg, .lang-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; color-adjust: exact; }
+    .entry, .edu-entry { break-inside: avoid; page-break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- ===== LEFT SIDEBAR ===== -->
+  <div class="sidebar">
+    <div class="photo-container">
+      <img class="photo" src="photo_2026-02-19_22-31-50.jpg" alt="Eduard Morocho Baias">
+    </div>
+
+    <!-- Contact -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">Kontakt</div>
+      <div class="sidebar-item">
+        <div class="label">Adresse</div>
+        <div class="value">Oefelestraße 19<br>80469 München</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Telefon</div>
+        <div class="value">+49 155 636 75 772</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">E-Mail</div>
+        <div class="value"><a href="mailto:ebaias.muc@gmail.com">ebaias.muc@gmail.com</a></div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Geburtsdatum</div>
+        <div class="value">02.01.1990</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Staatsangehörigkeit</div>
+        <div class="value">Ukrainisch</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Aufenthalt</div>
+        <div class="value">§24 AufenthG<br>(Erwerbstätigkeit erlaubt)<br>Gültig bis: 04.03.2027</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Familienstand</div>
+        <div class="value">Verheiratet</div>
+      </div>
+      <div class="sidebar-item">
+        <div class="label">Portfolio</div>
+        <div class="value"><a href="https://baupreis.ais152.com">baupreis.ais152.com</a></div>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">Technische Kenntnisse</div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Web & Frontend</div>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">Next.js</span>
+          <span class="skill-tag highlight">TypeScript</span>
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Tailwind CSS</span>
+          <span class="skill-tag">HTML/CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Backend & Datenbanken</div>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">PostgreSQL</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Webhooks</span>
+          <span class="skill-tag">Node.js</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">KI & Automatisierung</div>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">Claude AI</span>
+          <span class="skill-tag">OpenAI API</span>
+          <span class="skill-tag">n8n</span>
+          <span class="skill-tag">Make</span>
+          <span class="skill-tag">Zapier</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">DevOps & Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Hetzner Cloud</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">Docker</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Zahlungssysteme</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Paddle</span>
+          <span class="skill-tag">PayPal</span>
+          <span class="skill-tag">Stripe</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">3D & Video</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Unreal Engine</span>
+          <span class="skill-tag">Cinema4D</span>
+          <span class="skill-tag">Adobe Suite</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">Sprachen</div>
+
+      <div class="lang-item">
+        <span class="lang-name">Ukrainisch</span>
+        <span class="lang-level">Muttersprache</span>
+      </div>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:100%"></div></div>
+
+      <div class="lang-item" style="margin-top:8px">
+        <span class="lang-name">Russisch</span>
+        <span class="lang-level">Muttersprache</span>
+      </div>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:100%"></div></div>
+
+      <div class="lang-item" style="margin-top:8px">
+        <span class="lang-name">Englisch</span>
+        <span class="lang-level">B2 (fließend)</span>
+      </div>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:75%"></div></div>
+
+      <div class="lang-item" style="margin-top:8px">
+        <span class="lang-name">Deutsch</span>
+        <span class="lang-level">A1–A2 (lernend)</span>
+      </div>
+      <div class="lang-bar-bg"><div class="lang-bar" style="width:25%"></div></div>
+    </div>
+
+    <!-- Personal -->
+    <div class="sidebar-section">
+      <div class="sidebar-title">Persönliches</div>
+      <div class="personal-item">
+        <span class="personal-icon">&#9654;</span>
+        <span>Marathonläufer — Zielorientiert und ausdauernd</span>
+      </div>
+      <div class="personal-item">
+        <span class="personal-icon">&#9654;</span>
+        <span>Internationale Erfahrung: DE, UK, GR, IT</span>
+      </div>
+      <div class="personal-item">
+        <span class="personal-icon">&#9654;</span>
+        <span>Militärische Ausbildung — Disziplin und Führungsqualität</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main">
+    <div class="name">Eduard Morocho Baias</div>
+    <div class="tagline">IT-Entwickler &nbsp;|&nbsp; SaaS-Entwickler &nbsp;|&nbsp; KI-Automatisierung</div>
+
+    <div class="summary">
+      Unternehmer und Entwickler mit über 12 Jahren Erfahrung in der Leitung von Geschäftsbetrieben, Videoproduktion und digitalen Technologien. Seit 2024 spezialisiert auf KI-Automatisierung und SaaS-Entwicklung. Eigenständige Konzeption, Entwicklung und Markteinführung der SaaS-Plattform <strong>BauPreis AI</strong> — einer KI-gestützten Lösung für das Monitoring von Baustoffpreisen in Deutschland.
+    </div>
+
+    <!-- BERUFSERFAHRUNG -->
+    <div class="section">
+      <div class="section-title">Berufserfahrung</div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Full-Stack-Entwickler — BauPreis AI (Eigenprojekt)</span>
+          <span class="entry-date">08.2025 – heute</span>
+        </div>
+        <div class="entry-company">Eigenes Projekt, München</div>
+        <ul class="entry-details">
+          <li>Eigenständige Entwicklung einer SaaS-Plattform für Baustoffpreismonitoring mit KI-Prognosen</li>
+          <li>Tech-Stack: Next.js 14, TypeScript, PostgreSQL 16, Claude AI API, Tailwind CSS</li>
+          <li>Hosting auf Hetzner Cloud (Nürnberg, DSGVO-konform), PWA für mobile Nutzung</li>
+          <li>Integration: Paddle, WhatsApp-Alerts, PDF-Berichterstellung</li>
+          <li>52 Seiten, 3.100+ Preisdatenpunkte, 16 Baustoffe mit Echtzeitdaten</li>
+          <li>Produkt live unter <strong>baupreis.ais152.com</strong></li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">KI-Automatisierungsentwickler & Workflow-Architekt</span>
+          <span class="entry-date">01.2024 – 07.2025</span>
+        </div>
+        <div class="entry-company">Eigene Projekte, Remote / München</div>
+        <ul class="entry-details">
+          <li>Entwicklung von KI-gestützten Automatisierungsworkflows mit n8n, Make und Zapier</li>
+          <li>Architektur und Implementierung von Multi-Step-AI-Pipelines</li>
+          <li>Integration von APIs: OpenAI, Claude AI, WhatsApp, Google Sheets, Webhooks</li>
+          <li>Automatisierung von Geschäftsprozessen für kleine Unternehmen</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">CGI Generalist & Videoproduzent</span>
+          <span class="entry-date">01.2021 – 12.2023</span>
+        </div>
+        <div class="entry-company">Eigenes Produktionsstudio, Ukraine</div>
+        <ul class="entry-details">
+          <li>Erstellung von 3D-Werbevideos für Unternehmen und Ausstellungen</li>
+          <li>Unreal Engine, Cinema4D, Adobe Suite (After Effects, Premiere Pro)</li>
+          <li>Gesamter Produktionsprozess von der Idee bis zum finalen Render</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Gastronomie-Management & Geschäftsführung</span>
+          <span class="entry-date">2009 – 2020</span>
+        </div>
+        <div class="entry-company">Verschiedene Betriebe, Kiew & Ukraine</div>
+        <ul class="entry-details">
+          <li>Geschäftsführung eines Gastronomie-Komplexes mit 100+ Mitarbeitenden (Café, Restaurant, Pub, Nachtclub)</li>
+          <li>Eröffnung und Konzeption von 10+ Gastronomiebetrieben als Launch-Manager</li>
+          <li>Eventmanagement: 100+ Konzerte und Corporate Events</li>
+          <li>Budgetmanagement, Kostenkontrolle, Personalführung und -schulung</li>
+          <li>Stv. Restaurantleiter — Restaurant Pache (30+ Mitarbeitende)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AUSBILDUNG -->
+    <div class="section">
+      <div class="section-title">Ausbildung</div>
+
+      <div class="edu-entry">
+        <div class="edu-date">2024 – 2025</div>
+        <div class="edu-title">Weiterbildung: Full-Stack-Entwicklung & KI-Integration</div>
+        <div class="edu-place">Next.js, TypeScript, PostgreSQL, Docker, Cloud-Deployment, Claude AI</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="edu-date">2022 – 2024</div>
+        <div class="edu-title">Selbststudium: Programmierung & Webentwicklung</div>
+        <div class="edu-place">HTML, CSS, JavaScript, React, Node.js, Python — Grundlagen und Praxisprojekte</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="edu-date">2020 – 2022</div>
+        <div class="edu-title">Weiterbildung: Videoproduktion & CGI</div>
+        <div class="edu-place">Regie, Motion Design, 3D-Animation, Unreal Engine (Epic Games)</div>
+      </div>
+
+      <div class="edu-entry">
+        <div class="edu-date">2008 – 2012</div>
+        <div class="edu-title">Tourismusmanagement</div>
+        <div class="edu-place">Institut für Tourismusmanagement, Ukraine</div>
+      </div>
+    </div>
+
+    <div class="signature-block">
+      <div>München, den 19. Februar 2026</div>
+      <div class="signature-line">
+        Eduard Morocho Baias
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -118,7 +118,7 @@ export default function OnboardingPage() {
               {t("onboarding.trialStart")}
             </p>
 
-            <div className="bg-white rounded-2xl border p-8 mb-8 text-left max-w-md mx-auto">
+            <div className="bg-white rounded-xl border p-8 mb-8 text-left max-w-md mx-auto">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 {t("onboarding.companyLabel")}
               </label>
@@ -226,7 +226,7 @@ export default function OnboardingPage() {
               {t("onboarding.setupHint")}
             </p>
 
-            <div className="bg-white rounded-2xl border p-6 mb-8 text-left max-w-md mx-auto">
+            <div className="bg-white rounded-xl border p-6 mb-8 text-left max-w-md mx-auto">
               <h3 className="font-semibold mb-3">{t("onboarding.yourSettings")}</h3>
               <div className="space-y-2 text-sm text-gray-600">
                 {companyName && (

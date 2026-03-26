@@ -1,24 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getStripe } from "@/lib/stripe";
-
-const DEV_USER_ID = "dev_local_user";
-
-function isClerkConfigured(): boolean {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
-}
-
-function getClerkUserId(): string | null {
-  if (!isClerkConfigured()) return DEV_USER_ID;
-  const { auth } = require("@clerk/nextjs/server");
-  const { userId } = auth();
-  return userId;
-}
+import { getSession } from "@/lib/session";
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
@@ -47,9 +34,9 @@ export async function POST(req: NextRequest) {
       sessionParams.customer_email = email;
     }
 
-    const session = await getStripe().checkout.sessions.create(sessionParams);
+    const checkoutSession = await getStripe().checkout.sessions.create(sessionParams);
 
-    return NextResponse.json({ url: session.url });
+    return NextResponse.json({ url: checkoutSession.url });
   } catch (error: unknown) {
     console.error("[Checkout] Error:", error instanceof Error ? error.message : String(error));
     return NextResponse.json(

@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useLocale } from "@/i18n/LocaleContext";
 
 function LocalSignUp() {
   const router = useRouter();
+  const { t } = useLocale();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
@@ -26,14 +28,14 @@ function LocalSignUp() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || "Registrierung fehlgeschlagen.");
+        setError(data.error || t("auth.register.error"));
         setLoading(false);
         return;
       }
 
       router.push(data.redirect || "/onboarding");
     } catch {
-      setError("Netzwerkfehler. Bitte versuchen Sie es erneut.");
+      setError(t("auth.network.error"));
       setLoading(false);
     }
   }
@@ -46,23 +48,23 @@ function LocalSignUp() {
             BauPreis AI
           </Link>
           <h1 className="text-2xl font-bold text-gray-900 mt-6">
-            Kostenlos registrieren
+            {t("auth.register.title")}
           </h1>
           <p className="text-gray-500 mt-2">
-            14 Tage kostenlos testen. Keine Kreditkarte erforderlich.
+            {t("auth.register.subtitle")}
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white rounded-2xl border shadow-sm p-8 space-y-5"
+          className="bg-white rounded-xl border shadow-sm p-8 space-y-5"
         >
           <div>
             <label
               htmlFor="email"
               className="block text-sm font-medium text-gray-700 mb-1.5"
             >
-              E-Mail-Adresse *
+              {t("auth.email.required")}
             </label>
             <input
               id="email"
@@ -71,7 +73,7 @@ function LocalSignUp() {
               autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="name@firma.de"
+              placeholder={t("auth.email.placeholder")}
               className="w-full border rounded-lg px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
@@ -81,14 +83,14 @@ function LocalSignUp() {
               htmlFor="name"
               className="block text-sm font-medium text-gray-700 mb-1.5"
             >
-              Ihr Name
+              {t("auth.name")}
             </label>
             <input
               id="name"
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Max Mustermann"
+              placeholder={t("auth.name.placeholder")}
               className="w-full border rounded-lg px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
@@ -98,14 +100,14 @@ function LocalSignUp() {
               htmlFor="company"
               className="block text-sm font-medium text-gray-700 mb-1.5"
             >
-              Firmenname
+              {t("auth.company")}
             </label>
             <input
               id="company"
               type="text"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              placeholder="Musterbau GmbH"
+              placeholder={t("auth.company.placeholder")}
               className="w-full border rounded-lg px-4 py-3 text-base focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none"
             />
           </div>
@@ -121,7 +123,7 @@ function LocalSignUp() {
             disabled={loading}
             className="w-full bg-brand-600 text-white py-3 rounded-lg text-base font-semibold hover:bg-brand-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? "Wird erstellt..." : "Kostenlos starten"}
+            {loading ? t("auth.register.loading") : t("auth.register.button")}
           </button>
 
           <div className="relative">
@@ -129,7 +131,7 @@ function LocalSignUp() {
               <div className="w-full border-t border-gray-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-3 bg-white text-gray-400">oder</span>
+              <span className="px-3 bg-white text-gray-400">{t("auth.or")}</span>
             </div>
           </div>
 
@@ -143,28 +145,28 @@ function LocalSignUp() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            Mit Google registrieren
+            {t("auth.google.register")}
           </a>
 
           <p className="text-center text-sm text-gray-500">
-            Bereits registriert?{" "}
+            {t("auth.has.account")}{" "}
             <Link
               href="/sign-in"
               className="text-brand-600 font-medium hover:underline"
             >
-              Anmelden
+              {t("auth.login.link")}
             </Link>
           </p>
         </form>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          Mit der Registrierung akzeptieren Sie unsere{" "}
+          {t("auth.terms.prefix")}{" "}
           <Link href="/agb" className="underline">
-            AGB
+            {t("auth.terms.agb")}
           </Link>{" "}
-          und{" "}
+          {t("auth.terms.and")}{" "}
           <Link href="/datenschutz" className="underline">
-            Datenschutzerklärung
+            {t("auth.terms.privacy")}
           </Link>
           .
         </p>

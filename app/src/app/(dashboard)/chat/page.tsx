@@ -166,7 +166,7 @@ export default function ChatPage() {
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white rounded-2xl border shadow-sm p-4 mb-4 space-y-4">
+      <div className="flex-1 overflow-y-auto bg-gradient-to-b from-gray-50/50 to-white rounded-xl border shadow-sm p-4 mb-4 space-y-4">
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <span className="text-4xl mb-4">💬</span>
@@ -193,7 +193,7 @@ export default function ChatPage() {
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap shadow-sm ${
+              className={`max-w-[80%] rounded-xl px-4 py-3 text-sm whitespace-pre-wrap shadow-sm ${
                 msg.role === "user"
                   ? "bg-gradient-to-br from-brand-600 to-brand-700 text-white"
                   : "bg-gray-100 text-gray-900"

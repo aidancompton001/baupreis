@@ -185,7 +185,7 @@ export default function AboPage() {
       )}
 
       {/* Current plan info */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 hover:shadow-md transition-all duration-300">
         <div className="flex items-start justify-between">
           <div>
             <h2 className="font-semibold text-lg">
@@ -287,7 +287,7 @@ export default function AboPage() {
           return (
             <div
               key={plan.id}
-              className={`rounded-2xl p-6 transition-all duration-300 ${
+              className={`rounded-xl p-6 transition-all duration-300 ${
                 plan.popular
                   ? "border-2 border-brand-600 shadow-lg hover:shadow-xl relative"
                   : "border border-gray-200 hover:shadow-lg hover:-translate-y-1"

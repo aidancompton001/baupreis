@@ -21,7 +21,7 @@
 
 | # | Имя | Роль | Зачем нужен |
 |---|-----|------|-------------|
-| **#1** | Eduard Baias | Product Architect | Продукт, стратегия, контроль, реестр замечаний |
+| **#1** | Markus Lehmann | Product Architect | Продукт, стратегия, контроль, реестр замечаний |
 | **#2** | Lena Hoffmann | UX/UI Engineer | Дизайн-система, CSS, responsive, German B2B UX |
 | **#3** | Maximilian Braun | Frontend Engineer | Next.js 14, компоненты, PWA, i18n |
 | **#5** | Andreas Keller | Backend Engineer | API, PostgreSQL, multi-tenant, cron, webhooks |
@@ -51,7 +51,7 @@
 
 | # | Дата | Специалист | Замечание | Страйк | Статус |
 |---|------|-----------|-----------|--------|--------|
-| 1 | 2026-03-18 | #1 Eduard Baias — PA | Пропуск шагов 5-6-7 протокола CEO (TDD). Тесты написаны пост-фактум, пропущены 2 бага. | 1/2 | Активен |
+| 1 | 2026-03-18 | #1 Markus Lehmann — PA | Пропуск шагов 5-6-7 протокола CEO (TDD). Тесты написаны пост-фактум, пропущены 2 бага. | 1/2 | Активен |
 
 > Ведёт **#1 Product Architect**. 2 замечания = увольнение. Без обсуждения.
 
@@ -59,7 +59,7 @@
 
 ## Детальные профили
 
-### #1 — Eduard Baias — PRODUCT ARCHITECT
+### #1 — Markus Lehmann — PRODUCT ARCHITECT
 
 **Грейд:** Principal+ (18+ лет)
 **Роль в проекте:** Стратег продукта + ПРАВАЯ РУКА CEO
@@ -394,4 +394,25 @@
 
 *Команда сформирована: 2026-02-26*
 *Обновлено: 2026-03-18 — V7.0 реструктуризация. Команда оптимизирована: 8 специалистов вместо 15. Роли #4/#5/#6/#10 объединены в #5 Backend. #9 EM → #8 Chief of Staff. Роли #11/#12/#13/#15 удалены (вызываются ad hoc при необходимости).*
-*Product Architect: Eduard Baias (#1)*
+*Product Architect: Markus Lehmann (#1)*
+
+---
+
+## Знания из Eko-OYLIS (прогружено 2026-03-19)
+
+### Анимационные техники (проверены на production, применимы к UI)
+
+| # | Техника | Как применить в BauPreis |
+|---|---------|------------------------|
+| 1 | **Staggered Scroll Reveal** (IntersectionObserver + cascade delays) | Dashboard карточки, pricing page |
+| 2 | **Glassmorphism Cards** (backdrop-filter: blur) | Dashboard widgets, pricing cards |
+| 3 | **Card Hover Multi-Layer** (lift + glow + border) | Pricing plans, feature cards |
+| 4 | **CSS `clamp()`** для responsive типографики | Landing page, dashboard |
+| 5 | **`prefers-reduced-motion`** | Accessibility стандарт |
+
+### Методологические уроки
+
+- **CSS в ТС — конкретные значения** (Eko: 3 увольнения UX/UI за абстрактные ТС без px/rem/hex)
+- **Form backend решать в Sprint0** (Eko: 5 попыток пока нашли рабочий)
+- **Legal docs между языками = зеркально 1:1** (Eko: разное retention time DE/EN = юр. риск)
+- **Schema/OG ссылки проверять** (Eko: несуществующий файл в structured data)

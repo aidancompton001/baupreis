@@ -1,29 +1,16 @@
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-
-const DEV_USER_ID = "dev_local_user";
-
-function isClerkConfigured(): boolean {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
-}
-
-function getClerkUserId(): string | null {
-  if (!isClerkConfigured()) return DEV_USER_ID;
-  const { auth } = require("@clerk/nextjs/server");
-  const { userId } = auth();
-  return userId;
-}
+import { getSession } from "@/lib/session";
 
 /**
  * POST — accept a team invite.
- * Flow: User signs up → Clerk webhook creates auto-org → user calls this endpoint
+ * Flow: User signs up → auto-org created → user calls this endpoint
  * → user is moved to invite org, auto-org is deactivated.
  */
 export async function POST(req: NextRequest) {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht angemeldet." }, { status: 401 });
     }
 
@@ -61,7 +48,7 @@ export async function POST(req: NextRequest) {
        FROM users u
        JOIN organizations o ON u.org_id = o.id
        WHERE u.clerk_user_id = $1 AND u.is_active = true`,
-      [userId]
+      [session.uid]
     );
 
     if (userResult.rows.length === 0) {

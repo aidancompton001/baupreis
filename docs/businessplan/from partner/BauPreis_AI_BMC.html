@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauPreis AI — Business Model Canvas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f0f4f8; padding: 20px; }
+
+  .page {
+    width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+
+  /* Header */
+  .header {
+    background: #1F3864;
+    color: white;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+  .header-left p  { font-size: 12px; color: #A8C4E0; margin-top: 2px; }
+  .header-right   { text-align: right; font-size: 11px; color: #A8C4E0; line-height: 1.6; }
+  .header-right strong { color: white; }
+
+  /* Canvas Grid */
+  .canvas {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0;
+    border-top: 3px solid #2E5FA3;
+  }
+
+  .block {
+    border: 1px solid #dde4ed;
+    padding: 14px 14px 12px;
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+
+  /* Row spans */
+  .key-partners    { grid-column: 1; grid-row: 1 / 3; min-height: 390px; }
+  .key-activities  { grid-column: 2; grid-row: 1; }
+  .value-prop      { grid-column: 3; grid-row: 1 / 3; min-height: 390px; }
+  .cust-relations  { grid-column: 4; grid-row: 1; }
+  .cust-segments   { grid-column: 5; grid-row: 1 / 3; min-height: 390px; }
+  .key-resources   { grid-column: 2; grid-row: 2; }
+  .channels        { grid-column: 4; grid-row: 2; }
+  .cost-structure  { grid-column: 1 / 4; grid-row: 3; }
+  .revenue-streams { grid-column: 4 / 6; grid-row: 3; }
+
+  /* Colors */
+  .key-partners   { background: #EBF3FB; }
+  .key-activities { background: #EEF7EE; }
+  .value-prop     { background: #FFF8E7; border: 2px solid #F4B942; }
+  .cust-relations { background: #EEF7EE; }
+  .cust-segments  { background: #EBF3FB; }
+  .key-resources  { background: #EEF7EE; }
+  .channels       { background: #EEF7EE; }
+  .cost-structure { background: #FDECEA; }
+  .revenue-streams{ background: #E8F5E9; }
+
+  .block-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #2E5FA3;
+    border-bottom: 1.5px solid #2E5FA3;
+    padding-bottom: 5px;
+    margin-bottom: 4px;
+  }
+
+  .value-prop .block-title { color: #B8860B; border-color: #F4B942; }
+  .cost-structure .block-title { color: #C00000; border-color: #C00000; }
+  .revenue-streams .block-title { color: #1E7145; border-color: #1E7145; }
+
+  .item {
+    font-size: 11px;
+    color: #222;
+    line-height: 1.45;
+    padding: 4px 6px 4px 16px;
+    position: relative;
+    border-radius: 3px;
+  }
+  .item::before {
+    content: "▸";
+    position: absolute;
+    left: 4px;
+    color: #2E5FA3;
+    font-size: 10px;
+  }
+  .value-prop .item::before   { color: #B8860B; }
+  .cost-structure .item::before { color: #C00000; }
+  .revenue-streams .item::before { color: #1E7145; }
+
+  .item-group {
+    font-size: 10px;
+    font-weight: 700;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 8px;
+    margin-bottom: 2px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 9px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-weight: 700;
+    margin-left: 4px;
+    vertical-align: middle;
+  }
+  .tag-fact    { background: #1F3864; color: white; }
+  .tag-key     { background: #F4B942; color: #333; }
+  .tag-metric  { background: #1E7145; color: white; }
+  .tag-alert   { background: #C00000; color: white; }
+
+  .metric-box {
+    background: white;
+    border: 1px solid #dde4ed;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: #333;
+  }
+  .metric-box strong { color: #1F3864; font-size: 12px; }
+
+  /* Bottom row */
+  .cost-structure { min-height: 160px; }
+  .revenue-streams { min-height: 160px; }
+
+  /* Footer */
+  .footer {
+    background: #1F3864;
+    color: #A8C4E0;
+    font-size: 10px;
+    padding: 10px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer strong { color: white; }
+
+  @media print {
+    body { padding: 0; background: white; }
+    .page { box-shadow: none; border-radius: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>BauPreis AI — Business Model Canvas</h1>
+      <p>B2B SaaS · Echtzeit-Baustoffpreise · DACH Markt · März 2026</p>
+    </div>
+    <div class="header-right">
+      <strong>ARPA €89/міс</strong> · OPEX €2,444.60/міс<br>
+      Break-even: 28 клієнти · LTV/CAC: 8.2x<br>
+      Старт монетизації: Квітень 2026
+    </div>
+  </div>
+
+  <!-- Canvas -->
+  <div class="canvas">
+
+    <!-- 1. KEY PARTNERS -->
+    <div class="block key-partners">
+      <div class="block-title">1. Ключові партнери</div>
+
+      <div class="item-group">Постачальники даних</div>
+      <div class="item">LME (London Metal Exchange) — metals.dev API <span class="tag tag-fact">FACT</span></div>
+      <div class="item">Destatis (Statistisches Bundesamt) — офіційна статистика DE</div>
+      <div class="item">Hetzner Cloud — серверна інфраструктура (Нюрнберг, GDPR)</div>
+
+      <div class="item-group">Технологічні партнери</div>
+      <div class="item">Anthropic Claude API — AI прогнози та аналіз</div>
+      <div class="item">Stripe — платіжна обробка (з 15.03.2026)</div>
+      <div class="item">Telegram — канал алертів</div>
+
+      <div class="item-group">Канальні партнери (Target)</div>
+      <div class="item">ZDB (Zentralverband des Deutschen Baugewerbes) — M4</div>
+      <div class="item">ORCA Software — POC інтеграція M6</div>
+      <div class="item">Regionale Handwerkskammern (HWK)</div>
+
+      <div class="item-group">Сервісні партнери</div>
+      <div class="item">Steuerberater (DE) — бухгалтерія та податки</div>
+      <div class="item">Wise Business — банківський рахунок</div>
+    </div>
+
+    <!-- 2. KEY ACTIVITIES -->
+    <div class="block key-activities">
+      <div class="block-title">2. Ключові активності</div>
+
+      <div class="item">Збір та обробка цінових даних (4× на день, 16 матеріалів)</div>
+      <div class="item">Генерація AI-прогнозів через Claude API</div>
+      <div class="item">Налаштування та відправка цінових алертів (Email + Telegram)</div>
+      <div class="item">Product-Led Growth: trial onboarding sequences</div>
+      <div class="item">LinkedIn organic outreach (150 повідомлень/міс)</div>
+      <div class="item">SEO / blog content (1-2 статті/міс від M3)</div>
+      <div class="item">Участь у галузевих виставках (DACH+HOLZ, Bauma)</div>
+    </div>
+
+    <!-- 3. VALUE PROPOSITION -->
+    <div class="block value-prop">
+      <div class="block-title">⭐ 3. Ціннісна пропозиція</div>
+
+      <div class="item-group">Головний value</div>
+      <div class="item"><strong>Економія 15-30% на матеріалах</strong> через правильний вибір часу закупівлі</div>
+      <div class="item">Реал-тайм моніторинг 16 будматеріалів — оновлення 4× на день</div>
+      <div class="item">AI-прогнози з confidence score — конкретні рекомендації «купуй / чекай»</div>
+      <div class="item">Миттєві алерти через Telegram та Email при досягненні цільової ціни</div>
+
+      <div class="item-group">Диференціатори</div>
+      <div class="item">Єдина DACH-орієнтована платформа для будівельних матеріалів</div>
+      <div class="item">Дані зберігаються на серверах у DE (Hetzner) — GDPR compliant</div>
+      <div class="item">Legierungsrechner — інструмент розрахунку легованих сталей</div>
+      <div class="item">PLG модель: 7 днів безкоштовно, без кредитної картки</div>
+
+      <div class="metric-box">
+        <strong>Break-even:</strong> 28 клієнтів<br>
+        <strong>LTV/CAC:</strong> 8.2x &nbsp; <strong>Payback:</strong> 2.4 міс
+      </div>
+    </div>
+
+    <!-- 4. CUSTOMER RELATIONSHIPS -->
+    <div class="block cust-relations">
+      <div class="block-title">4. Відносини з клієнтами</div>
+
+      <div class="item">Self-serve PLG: 7-денний trial без демо та sales call</div>
+      <div class="item">Автоматизований email onboarding (Day 0-2-7-14)</div>
+      <div class="item">In-app onboarding: перший алерт = Aha Moment (Day 0-2)</div>
+      <div class="item">Founder-led support на ранньому етапі (direct Telegram/Email)</div>
+      <div class="item">Health Score: alerts ≥3 + sessions/тиждень ≥2</div>
+      <div class="item">BASIS → PRO upsell через Legierungsrechner як тригер</div>
+    </div>
+
+    <!-- 5. CUSTOMER SEGMENTS -->
+    <div class="block cust-segments">
+      <div class="block-title">5. Сегменти клієнтів</div>
+
+      <div class="item-group">Основний ICP <span class="tag tag-key">Y1</span></div>
+      <div class="item"><strong>Kalkulator</strong> — розрахунок кошторисів у SMB Bauunternehmen</div>
+      <div class="item"><strong>Bauleiter</strong> — управління будівельними проектами</div>
+      <div class="item">Компанії 10-500 осіб, Німеччина (DE only Year 1)</div>
+
+      <div class="item-group">Розширення <span class="tag tag-fact">Y2+</span></div>
+      <div class="item">Австрія та Швейцарія (DACH expansion)</div>
+      <div class="item">Einkaufsleiter у великих Baukonzernen</div>
+      <div class="item">Будівельні асоціації (ZDB, HWK) — bulk ліцензії</div>
+
+      <div class="metric-box">
+        <strong>Ціль Y1:</strong> 100 клієнтів<br>
+        <strong>ARR Y1:</strong> €106,800<br>
+        <strong>Сегмент:</strong> SMB 100%
+      </div>
+    </div>
+
+    <!-- 6. KEY RESOURCES -->
+    <div class="block key-resources">
+      <div class="block-title">6. Ключові ресурси</div>
+
+      <div class="item"><strong>Технологія:</strong> AI engine (Claude API) + data pipeline</div>
+      <div class="item"><strong>Дані:</strong> LME + Destatis + ринкові джерела (16 матеріалів)</div>
+      <div class="item"><strong>Команда:</strong> CEO+CTO (DE) + Product Lead (UA) + Dev (part-time)</div>
+      <div class="item"><strong>Бренд:</strong> baupreis.ais152.com + LinkedIn + SEO-активи</div>
+      <div class="item"><strong>Інфра:</strong> Hetzner DE, GDPR-compliant, 99.9% uptime target</div>
+    </div>
+
+    <!-- 7. CHANNELS -->
+    <div class="block channels">
+      <div class="block-title">7. Канали</div>
+
+      <div class="item">LinkedIn Organic (150 outreach/міс) — основний M1-M5</div>
+      <div class="item">SEO / Блог (DE) — накопичується з M3, головний M9+</div>
+      <div class="item">Newsletter (ціль 3,000 subs до M12)</div>
+      <div class="item">Галузеві виставки (DACH+HOLZ, Bauma 2027)</div>
+      <div class="item">Google Ads — старт M9 після підтвердження CAC</div>
+      <div class="item">Referral / ZDB Partnership — M4+</div>
+    </div>
+
+    <!-- 8. COST STRUCTURE -->
+    <div class="block cost-structure">
+      <div class="block-title">8. Структура витрат</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 4px;">
+
+        <div>
+          <div class="item-group">Операційні (€444.60/міс)</div>
+          <div class="item">Сервер Hetzner: €25/міс</div>
+          <div class="item">HubSpot + Apollo + Sales Nav: €175/міс</div>
+          <div class="item">Email + Claude API + домен: €35/міс</div>
+          <div class="item">Бухгалтерія + банк: €210/міс</div>
+        </div>
+
+        <div>
+          <div class="item-group">Команда (€2,000/міс від M6+)</div>
+          <div class="item">CEO+CTO (part-time, DE): €800/міс</div>
+          <div class="item">Product Lead (part-time, UA): €800/міс</div>
+          <div class="item">Розробник (погодинно max): €400/міс</div>
+          <div class="item"><strong>Тригер: MRR ≥ €3,000</strong></div>
+        </div>
+
+        <div>
+          <div class="item-group">Маркетинг (фазований)</div>
+          <div class="item">M1-M3: €0 (органіка)</div>
+          <div class="item">M4-M5: €300-500/міс</div>
+          <div class="item">M6+: €800-1,000/міс</div>
+          <div class="item">One-time виставка Кельн: €2,830</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 9. REVENUE STREAMS -->
+    <div class="block revenue-streams">
+      <div class="block-title">9. Потоки доходів</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+
+        <div>
+          <div class="item-group">Тарифи (SaaS підписки)</div>
+          <div class="item"><strong>Basis:</strong> €49/міс або €470/рік — 5 матеріалів</div>
+          <div class="item"><strong>Pro:</strong> €149/міс або €1,430/рік — всі + AI <span class="tag tag-key">flagship</span></div>
+          <div class="item"><strong>Team:</strong> €299/міс або €2,870/рік — до 5 users + API</div>
+        </div>
+
+        <div>
+          <div class="item-group">Ключові метрики</div>
+          <div class="item">ARPA: €89/міс (GTM baseline) · до €159 (PRO flagship)</div>
+          <div class="item">Churn target: &lt;7%/міс · LTV: €1,271</div>
+          <div class="item">Trial → Paid: 17.5% · Break-even M6 Вер 2026</div>
+          <div class="item">ARR Y1 ціль: €106,800 (100 клієнтів)</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /canvas -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>BauPreis AI · Business Model Canvas · <strong>Березень 2026</strong> · Конфіденційно</span>
+    <span>OPEX <strong>€2,444.60/міс</strong> · ARPA <strong>€89–€159/міс</strong> · Break-even <strong>28 клієнтів</strong> · LTV/CAC <strong>8.2x</strong></span>
+    <span>Джерела: GTM Strategy v2.0 · Breakeven Analysis · Financial Model v2</span>
+  </div>
+
+</div>
+</body>
+</html>

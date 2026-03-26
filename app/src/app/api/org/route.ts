@@ -1,25 +1,12 @@
 import { cancelSubscription } from "@/lib/stripe";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-
-const DEV_USER_ID = "dev_local_user";
-
-function isClerkConfigured(): boolean {
-  const key = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || "";
-  return key.startsWith("pk_live_") || key.startsWith("pk_test_");
-}
-
-function getClerkUserId(): string | null {
-  if (!isClerkConfigured()) return DEV_USER_ID;
-  const { auth } = require("@clerk/nextjs/server");
-  const { userId } = auth();
-  return userId;
-}
+import { getSession } from "@/lib/session";
 
 export async function GET() {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
@@ -30,9 +17,8 @@ export async function GET() {
               o.stripe_subscription_id, o.stripe_customer_id, o.stripe_status,
               o.trial_ends_at, o.is_active, o.created_at
        FROM organizations o
-       JOIN users u ON u.org_id = o.id
-       WHERE u.clerk_user_id = $1`,
-      [userId]
+       WHERE o.id = $1`,
+      [session.oid]
     );
 
     if (!result.rows[0]) {
@@ -47,18 +33,18 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
     const body = await req.json();
 
     const userResult = await pool.query(
-      `SELECT u.*, o.id as org_id, o.stripe_subscription_id
+      `SELECT u.*, o.id as org_id, o.stripe_subscription_id, o.stripe_customer_id
        FROM users u JOIN organizations o ON u.org_id = o.id
        WHERE u.clerk_user_id = $1`,
-      [userId]
+      [session.uid]
     );
 
     if (!userResult.rows[0]) {
@@ -77,11 +63,11 @@ export async function POST(req: NextRequest) {
       }
       const { getStripe } = await import("@/lib/stripe");
       const origin = req.headers.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "";
-      const session = await getStripe().billingPortal.sessions.create({
+      const portalSession = await getStripe().billingPortal.sessions.create({
         customer: user.stripe_customer_id,
         return_url: `${origin}/einstellungen/abo`,
       });
-      return NextResponse.json({ portalUrl: session.url });
+      return NextResponse.json({ portalUrl: portalSession.url });
     }
 
     // Handle subscription cancellation
@@ -107,8 +93,8 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
-    const userId = getClerkUserId();
-    if (!userId) {
+    const session = getSession();
+    if (!session) {
       return NextResponse.json({ error: "Nicht autorisiert" }, { status: 401 });
     }
 
@@ -121,8 +107,8 @@ export async function PATCH(req: NextRequest) {
 
     await pool.query(
       `UPDATE organizations SET name = $1, updated_at = NOW()
-       WHERE id = (SELECT org_id FROM users WHERE clerk_user_id = $2)`,
-      [name.trim(), userId]
+       WHERE id = $2`,
+      [name.trim(), session.oid]
     );
 
     return NextResponse.json({ success: true });

@@ -95,8 +95,8 @@ export default function MaterialDetailPage() {
             onClick={() => setDays(d)}
             className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
               days === d
-                ? "bg-gradient-to-r from-brand-600 to-indigo-600 text-white shadow-md"
-                : "bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md"
+                ? "bg-brand-600 text-white shadow-md"
+                : "bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md"
             }`}
           >
             {t("material.days", { count: d })}
@@ -105,7 +105,7 @@ export default function MaterialDetailPage() {
         <a
           href={`/api/export/prices?material=${code}&days=${days}`}
           download
-          className="ml-auto px-4 py-2 rounded-xl text-sm font-medium bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
+          className="ml-auto px-4 py-2 rounded-xl text-sm font-medium bg-white border border-gray-200 text-gray-600 hover:bg-white hover:shadow-md transition-all duration-200"
         >
           {t("material.csvExport")}
         </a>

@@ -253,7 +253,7 @@ export default function PreisgleitklauselPage() {
 
       {org?.plan === "trial" && <TrialFeatureBanner plan="Pro" />}
 
-      <div className="bg-white rounded-2xl border shadow-sm p-6 mb-6">
+      <div className="bg-white rounded-xl border shadow-sm p-6 mb-6">
         <h2 className="font-semibold mb-4 text-gray-800">{t("escalation.contractData")}</h2>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -391,7 +391,7 @@ export default function PreisgleitklauselPage() {
 
       {/* Results */}
       {calculated && allPricesAvailable && (
-        <div className="bg-white rounded-2xl border shadow-sm p-6">
+        <div className="bg-white rounded-xl border shadow-sm p-6">
           <div className="flex items-start justify-between mb-4">
             <h2 className="font-semibold text-gray-800">{t("escalation.result")}</h2>
             <button
@@ -494,7 +494,7 @@ export default function PreisgleitklauselPage() {
       )}
 
       {calculated && !allPricesAvailable && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-6 text-center shadow-sm">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center shadow-sm">
           <p className="text-yellow-700">
             {t("escalation.missingPriceData")}
           </p>

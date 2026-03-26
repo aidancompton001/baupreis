@@ -107,7 +107,7 @@ export default function PreisePage() {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`rounded-2xl p-8 ${
+                className={`rounded-xl p-8 ${
                   plan.popular
                     ? "border-2 border-brand-600 shadow-lg relative"
                     : "border hover:shadow-lg transition"

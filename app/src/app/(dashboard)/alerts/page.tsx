@@ -169,7 +169,7 @@ export default function AlertsPage() {
       </div>
 
       {/* Active Rules */}
-      <div className="bg-white rounded-2xl border shadow-sm mb-6 overflow-hidden">
+      <div className="bg-white rounded-xl border shadow-sm mb-6 overflow-hidden">
         <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
           <h2 className="font-semibold text-gray-800">{t("alerts.activeRules", { count: rules.length })}</h2>
         </div>
@@ -237,7 +237,7 @@ export default function AlertsPage() {
       </div>
 
       {/* Sent Alerts Log */}
-      <div className="bg-white rounded-2xl border shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border shadow-sm overflow-hidden">
         <div className="p-4 border-b bg-gradient-to-r from-gray-50 to-white">
           <h2 className="font-semibold text-gray-800">{t("alerts.sentAlarms")}</h2>
         </div>
@@ -272,7 +272,7 @@ export default function AlertsPage() {
       {/* Create Alert Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl">
+          <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold">{t("alerts.modal.title")}</h2>
               <button

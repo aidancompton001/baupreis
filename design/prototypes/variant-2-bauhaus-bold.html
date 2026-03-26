@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauPreis AI — Bauhaus Bold Variant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; color: #1A1A1A; background: #FFFFFF; line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+
+/* ── Colors ── */
+:root {
+  --red: #C1292E;
+  --red-hover: #D93338;
+  --red-light: #FEE2E2;
+  --black: #1A1A1A;
+  --yellow: #F5C518;
+  --yellow-light: #FEF9C3;
+  --salmon: #BC8279;
+  --white: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-900: #111827;
+  --green: #16A34A;
+}
+
+.headline { font-family: 'Space Grotesk', sans-serif; }
+
+/* ── Container ── */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+  border-bottom: 3px solid var(--red);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700; color: var(--black); display: flex; align-items: center; gap: 10px; }
+.logo-icon { width: 32px; height: 32px; background: var(--red); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+.logo-icon svg { width: 18px; height: 18px; }
+.logo span { color: var(--red); }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray-600); transition: color 0.2s; }
+.nav-links a:hover { color: var(--red); }
+.btn-cta {
+  background: var(--red); color: var(--white); padding: 10px 24px;
+  border-radius: 8px; font-size: 0.875rem; font-weight: 700;
+  transition: all 0.2s; border: none; cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 0.03em;
+}
+.btn-cta:hover { background: var(--red-hover); transform: translateY(-1px); }
+
+/* ── Bauhaus geometric shapes ── */
+.geo-circle { border-radius: 50%; position: absolute; pointer-events: none; }
+.geo-rect { position: absolute; pointer-events: none; }
+.geo-triangle { position: absolute; pointer-events: none; width: 0; height: 0; }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh; display: flex; align-items: center; padding: 120px 24px 80px;
+  position: relative; overflow: hidden; background: var(--white);
+}
+.hero-geo-1 { width: 400px; height: 400px; background: var(--red); opacity: 0.06; top: -100px; right: -100px; }
+.hero-geo-2 { width: 200px; height: 200px; background: var(--yellow); opacity: 0.15; bottom: 80px; left: -60px; }
+.hero-geo-3 { width: 120px; height: 120px; background: var(--black); opacity: 0.04; top: 200px; right: 200px; border-radius: 0; }
+.hero-geo-4 { width: 80px; height: 80px; background: var(--salmon); opacity: 0.2; bottom: 200px; right: 80px; }
+.hero-content { position: relative; z-index: 10; max-width: 1200px; margin: 0 auto; width: 100%; }
+.hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+  background: var(--red-light); border: 2px solid var(--red);
+  border-radius: 4px; font-size: 0.75rem; font-weight: 700; color: var(--red);
+  margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.08em;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700; color: var(--black); line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 8px;
+}
+.hero h1 span { color: var(--red); }
+.hero h1 .dot { color: var(--yellow); }
+.hero-tagline { font-family: 'Space Grotesk', sans-serif; font-size: clamp(1rem, 2vw, 1.25rem); font-weight: 500; color: var(--gray-600); margin-bottom: 12px; }
+.hero-sub { font-size: 1rem; color: var(--gray-500); max-width: 480px; line-height: 1.7; margin-bottom: 32px; }
+.hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 48px; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+  background: var(--red); color: var(--white); border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em;
+  transition: all 0.2s; box-shadow: 4px 4px 0 var(--black);
+}
+.btn-primary:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--black); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+  background: var(--white); color: var(--black); border: 3px solid var(--black);
+  border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em; transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--yellow-light); }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.stat-box { padding: 16px; border: 2px solid var(--gray-200); border-radius: 8px; text-align: center; }
+.stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--red); }
+.stat-label { font-size: 0.75rem; color: var(--gray-500); margin-top: 2px; }
+
+/* Hero right — Bauhaus composition */
+.hero-composition {
+  position: relative; width: 100%; aspect-ratio: 1; max-width: 500px; margin: 0 auto;
+}
+.comp-big-circle {
+  width: 80%; height: 80%; border-radius: 50%; background: var(--red);
+  position: absolute; top: 10%; left: 10%; opacity: 0.08;
+}
+.comp-rect-1 {
+  width: 70%; height: 50%; background: var(--black); position: absolute;
+  top: 25%; left: 15%; border-radius: 12px; overflow: hidden;
+  box-shadow: 8px 8px 0 var(--yellow);
+}
+.comp-rect-1-inner { padding: 20px; color: var(--white); height: 100%; display: flex; flex-direction: column; justify-content: space-between; }
+.comp-mini-chart { display: flex; align-items: flex-end; gap: 6px; height: 60px; }
+.comp-bar { width: 20px; border-radius: 3px 3px 0 0; }
+.comp-yellow-sq {
+  width: 60px; height: 60px; background: var(--yellow); position: absolute;
+  bottom: 10%; right: 5%; transform: rotate(15deg);
+}
+.comp-red-circle {
+  width: 40px; height: 40px; border-radius: 50%; background: var(--red);
+  position: absolute; top: 5%; right: 15%;
+}
+.comp-salmon-rect {
+  width: 100px; height: 30px; background: var(--salmon); position: absolute;
+  bottom: 25%; left: 0; border-radius: 4px; opacity: 0.7;
+}
+
+/* ── Problem ── */
+.problem { padding: 100px 0; background: var(--black); color: var(--white); position: relative; overflow: hidden; }
+.problem-geo { width: 300px; height: 300px; border-radius: 50%; border: 40px solid var(--red); opacity: 0.08; position: absolute; top: -100px; right: -80px; pointer-events: none; }
+.eyebrow {
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--yellow);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700; line-height: 1.15; margin-bottom: 16px;
+}
+.section-sub { font-size: 1.0625rem; color: var(--gray-400); max-width: 560px; line-height: 1.7; }
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+.card {
+  background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 12px; padding: 32px; transition: all 0.3s; position: relative; overflow: hidden;
+}
+.card:hover { border-color: var(--red); transform: translateY(-4px); }
+.card-accent { position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+.card-accent-1 { background: var(--red); }
+.card-accent-2 { background: var(--yellow); }
+.card-accent-3 { background: var(--salmon); }
+.card-stat {
+  font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 8px;
+}
+.card-stat-red { color: var(--red); }
+.card-stat-yellow { color: var(--yellow); }
+.card-stat-salmon { color: var(--salmon); }
+.card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.125rem; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+.card p { font-size: 0.9375rem; color: var(--gray-400); line-height: 1.6; }
+
+/* ── Dashboard ── */
+.dashboard-section { padding: 100px 0; background: var(--gray-50); position: relative; }
+.dashboard-section .eyebrow { color: var(--red); }
+.dashboard-header { text-align: center; margin-bottom: 48px; }
+.dashboard-mockup {
+  background: var(--white); border: 3px solid var(--black); border-radius: 12px;
+  max-width: 1000px; margin: 0 auto; overflow: hidden;
+  box-shadow: 8px 8px 0 var(--red);
+}
+.dash-titlebar {
+  background: var(--black); padding: 12px 16px; display: flex; align-items: center; gap: 8px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.8125rem; font-weight: 600; color: var(--white);
+}
+.dash-dot { width: 12px; height: 12px; border-radius: 50%; }
+.dash-body { padding: 24px; }
+.dash-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.kpi-card {
+  border: 2px solid var(--gray-200); border-radius: 8px; padding: 16px;
+  position: relative; overflow: hidden;
+}
+.kpi-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.kpi-card:nth-child(1)::before { background: var(--red); }
+.kpi-card:nth-child(2)::before { background: var(--yellow); }
+.kpi-card:nth-child(3)::before { background: var(--salmon); }
+.kpi-card:nth-child(4)::before { background: var(--black); }
+.kpi-label {
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--gray-500); margin-bottom: 6px;
+}
+.kpi-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--black); }
+.kpi-change { font-size: 0.8125rem; font-weight: 700; margin-top: 4px; }
+.kpi-up { color: var(--green); }
+.kpi-down { color: var(--red); }
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+.chart-box { border: 2px solid var(--gray-200); border-radius: 8px; padding: 20px; }
+.chart-title {
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.8125rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray-600); margin-bottom: 16px;
+}
+
+/* ── Pricing ── */
+.pricing { padding: 100px 0; background: var(--white); position: relative; overflow: hidden; }
+.pricing-geo-1 { width: 200px; height: 200px; background: var(--yellow); opacity: 0.08; position: absolute; bottom: -60px; left: -60px; border-radius: 50%; pointer-events: none; }
+.pricing-geo-2 { width: 150px; height: 150px; background: var(--red); opacity: 0.05; position: absolute; top: 40px; right: -40px; pointer-events: none; }
+.pricing .eyebrow { color: var(--red); }
+.pricing-header { text-align: center; margin-bottom: 48px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; }
+.price-card {
+  border: 3px solid var(--gray-200); border-radius: 12px; padding: 36px;
+  position: relative; transition: all 0.3s; background: var(--white);
+}
+.price-card:hover { transform: translateY(-4px); }
+.price-card.featured {
+  border-color: var(--red); background: var(--white);
+  box-shadow: 6px 6px 0 var(--red);
+}
+.price-badge {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  background: var(--red); color: var(--white); padding: 6px 20px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+}
+.price-name { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+.price-desc { font-size: 0.875rem; color: var(--gray-500); margin-bottom: 24px; line-height: 1.5; }
+.price-amount { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 700; color: var(--black); }
+.price-amount span { font-size: 1rem; font-weight: 500; color: var(--gray-500); }
+.price-features { list-style: none; margin: 24px 0; }
+.price-features li { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 0.9375rem; color: var(--gray-600); }
+.price-features li.off { color: var(--gray-400); }
+.check { color: var(--red); font-weight: 700; }
+.cross { color: var(--gray-400); }
+.price-btn {
+  display: block; width: 100%; padding: 14px; border-radius: 8px; text-align: center;
+  font-family: 'Space Grotesk', sans-serif; font-size: 0.9375rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em;
+  border: none; cursor: pointer; transition: all 0.2s;
+}
+.price-btn-default { background: var(--white); color: var(--black); border: 3px solid var(--black); }
+.price-btn-default:hover { background: var(--yellow-light); }
+.price-btn-featured { background: var(--red); color: var(--white); box-shadow: 4px 4px 0 var(--black); }
+.price-btn-featured:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--black); }
+
+/* ── Footer ── */
+.footer { padding: 48px 0; background: var(--black); color: var(--white); }
+.footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; font-weight: 700; }
+.footer-logo span { color: var(--red); }
+.footer-text { font-size: 0.8125rem; color: var(--gray-500); margin-top: 4px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { font-size: 0.8125rem; color: var(--gray-500); transition: color 0.2s; }
+.footer-links a:hover { color: var(--yellow); }
+.footer-bar { height: 4px; display: flex; margin-top: 32px; }
+.footer-bar div:nth-child(1) { flex: 3; background: var(--red); }
+.footer-bar div:nth-child(2) { flex: 2; background: var(--yellow); }
+.footer-bar div:nth-child(3) { flex: 1; background: var(--salmon); }
+.footer-bar div:nth-child(4) { flex: 4; background: var(--black); border-top: 4px solid rgba(255,255,255,0.1); }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hero-layout { grid-template-columns: 1fr; }
+  .hero-composition { display: none; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .dash-top { grid-template-columns: repeat(2, 1fr); }
+  .charts-row { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+@media (max-width: 375px) {
+  .hero h1 { font-size: 2rem; }
+  .container { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+      Bau<span>Preis</span> AI
+    </a>
+    <div class="nav-links">
+      <a href="#pricing">Preise</a>
+      <a href="#">Über uns</a>
+      <a href="#">Anmelden</a>
+      <button class="btn-cta">Kostenlos testen</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="geo-circle hero-geo-1"></div>
+  <div class="geo-circle hero-geo-2"></div>
+  <div class="geo-rect hero-geo-3"></div>
+  <div class="geo-circle hero-geo-4"></div>
+  <div class="hero-content">
+    <div class="hero-layout">
+      <div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          B2B SaaS — Deutsche Baubranche
+        </div>
+        <h1>MATERIAL&shy;PREISE<span class="dot">.</span><br>DIGITAL<span class="dot">.</span></h1>
+        <p class="hero-tagline">Intelligentes Monitoring von Baustoffpreisen</p>
+        <p class="hero-sub">Verfolgen Sie 16 wichtige Baustoffe in Echtzeit. KI-gestützte Prognosen, automatisierte Alarme und datenbasierte Insights — alles in einer Plattform.</p>
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary">Plattform entdecken <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="#pricing" class="btn-secondary">Pläne ansehen</a>
+        </div>
+        <div class="stats">
+          <div class="stat-box"><div class="stat-value">16</div><div class="stat-label">Materialien</div></div>
+          <div class="stat-box"><div class="stat-value">7</div><div class="stat-label">Datenquellen</div></div>
+          <div class="stat-box"><div class="stat-value">3.000+</div><div class="stat-label">Datenpunkte</div></div>
+          <div class="stat-box"><div class="stat-value">100%</div><div class="stat-label">DSGVO</div></div>
+        </div>
+      </div>
+      <!-- Bauhaus composition -->
+      <div class="hero-composition">
+        <div class="comp-big-circle"></div>
+        <div class="comp-red-circle"></div>
+        <div class="comp-rect-1">
+          <div class="comp-rect-1-inner">
+            <div>
+              <div style="font-family:'Space Grotesk';font-size:0.625rem;text-transform:uppercase;letter-spacing:0.1em;color:#9CA3AF;margin-bottom:4px;">DASHBOARD</div>
+              <div style="font-family:'Space Grotesk';font-size:1.25rem;font-weight:700;">€7.915</div>
+              <div style="font-size:0.75rem;color:#22C55E;font-weight:600;">+2.3% BauPreis Index</div>
+            </div>
+            <div class="comp-mini-chart">
+              <div class="comp-bar" style="height:25px;background:var(--red);"></div>
+              <div class="comp-bar" style="height:40px;background:var(--red);"></div>
+              <div class="comp-bar" style="height:30px;background:var(--red);"></div>
+              <div class="comp-bar" style="height:55px;background:var(--yellow);"></div>
+              <div class="comp-bar" style="height:45px;background:var(--yellow);"></div>
+              <div class="comp-bar" style="height:35px;background:var(--salmon);"></div>
+              <div class="comp-bar" style="height:50px;background:var(--red);"></div>
+              <div class="comp-bar" style="height:38px;background:var(--red);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="comp-yellow-sq"></div>
+        <div class="comp-salmon-rect"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem">
+  <div class="problem-geo"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="eyebrow">Das Problem</div>
+    <h2 class="section-title">Die Baubranche tappt bei<br>Preisen im Dunkeln</h2>
+    <p class="section-sub">Materialkosten sind volatil. Den meisten Unternehmen fehlen die Werkzeuge, um rechtzeitig zu reagieren.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-accent card-accent-1"></div>
+        <div class="card-stat card-stat-red">+64%</div>
+        <h3>Explodierende Preise</h3>
+        <p>Baustoffpreise in Deutschland sind seit 2010 um 64% gestiegen, mit extremen Spitzen während Lieferkettenstörungen.</p>
+      </div>
+      <div class="card">
+        <div class="card-accent card-accent-2"></div>
+        <div class="card-stat card-stat-yellow">82%</div>
+        <h3>Keine digitalen Tools</h3>
+        <p>Laut PwC (2025) fehlt 82% der Bauunternehmen jede digitale Lösung für ein systematisches Preismonitoring.</p>
+      </div>
+      <div class="card">
+        <div class="card-accent card-accent-3"></div>
+        <div class="card-stat card-stat-salmon">Manuell</div>
+        <h3>Telefonate &amp; Tabellen</h3>
+        <p>Die meisten Einkaufsteams verlassen sich noch auf Lieferantenanrufe, gedruckte Kataloge und fragmentierte Excel-Tabellen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DASHBOARD MOCKUP ═══ -->
+<section class="dashboard-section">
+  <div class="container">
+    <div class="dashboard-header">
+      <div class="eyebrow">Dashboard</div>
+      <h2 class="section-title headline">Alles auf einen Blick</h2>
+      <p class="section-sub" style="margin:0 auto;color:var(--gray-500)">Das BauPreis Dashboard gibt Ihnen einen sofortigen Überblick über alle 16 überwachten Baustoffe mit Echtzeit-Preisdaten.</p>
+    </div>
+    <div class="dashboard-mockup">
+      <div class="dash-titlebar">
+        <div class="dash-dot" style="background:var(--red)"></div>
+        <div class="dash-dot" style="background:var(--yellow)"></div>
+        <div class="dash-dot" style="background:var(--green)"></div>
+        <span style="margin-left:12px">baupreis.ais152.com/dashboard</span>
+      </div>
+      <div class="dash-body">
+        <!-- KPI Row -->
+        <div class="dash-top">
+          <div class="kpi-card">
+            <div class="kpi-label">BauPreis Index</div>
+            <div class="kpi-value">€7.915</div>
+            <div class="kpi-change kpi-up">+2.3%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Stahlpreis</div>
+            <div class="kpi-value">€450.00</div>
+            <div class="kpi-change kpi-up">+12.5%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Kupferpreis</div>
+            <div class="kpi-value">€8.234</div>
+            <div class="kpi-change kpi-down">-3.2%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Konstruktionsholz</div>
+            <div class="kpi-value">€285.50</div>
+            <div class="kpi-change kpi-down">-30.5%</div>
+          </div>
+        </div>
+        <!-- Charts -->
+        <div class="charts-row">
+          <div class="chart-box">
+            <div class="chart-title">Stahlpreis Prognose Q2 2026 (90 Tage)</div>
+            <svg width="100%" height="200" viewBox="0 0 600 200" preserveAspectRatio="none">
+              <line x1="0" y1="50" x2="600" y2="50" stroke="#E5E7EB" stroke-width="1"/>
+              <line x1="0" y1="100" x2="600" y2="100" stroke="#E5E7EB" stroke-width="1"/>
+              <line x1="0" y1="150" x2="600" y2="150" stroke="#E5E7EB" stroke-width="1"/>
+              <path d="M0,160 C40,155 80,140 120,135 C160,130 200,120 240,100 C280,80 320,90 360,75 C400,60 440,50 480,55 C520,60 560,45 600,30 L600,200 L0,200 Z" fill="url(#areaGrad2)" opacity="0.3"/>
+              <path d="M0,160 C40,155 80,140 120,135 C160,130 200,120 240,100 C280,80 320,90 360,75 C400,60 440,50 480,55 C520,60 560,45 600,30" fill="none" stroke="#C1292E" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M420,52 C460,48 500,42 540,35 C570,30 590,25 600,20" fill="none" stroke="#F5C518" stroke-width="2" stroke-dasharray="6,4" stroke-linecap="round"/>
+              <circle cx="420" cy="52" r="5" fill="#F5C518" stroke="#fff" stroke-width="2"/>
+              <defs>
+                <linearGradient id="areaGrad2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#C1292E" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#C1292E" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <text x="10" y="195" fill="#9CA3AF" font-size="10" font-family="Space Grotesk">Jan</text>
+              <text x="150" y="195" fill="#9CA3AF" font-size="10" font-family="Space Grotesk">Feb</text>
+              <text x="290" y="195" fill="#9CA3AF" font-size="10" font-family="Space Grotesk">Mär</text>
+              <text x="430" y="195" fill="#9CA3AF" font-size="10" font-family="Space Grotesk">Apr</text>
+              <text x="560" y="195" fill="#9CA3AF" font-size="10" font-family="Space Grotesk">Mai</text>
+            </svg>
+          </div>
+          <div class="chart-box">
+            <div class="chart-title">Top 5 Materialien</div>
+            <svg width="100%" height="200" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+              <rect x="10" y="55" width="30" height="105" rx="2" fill="#C1292E"/>
+              <rect x="48" y="80" width="30" height="80" rx="2" fill="#1A1A1A"/>
+              <rect x="86" y="100" width="30" height="60" rx="2" fill="#BC8279"/>
+              <rect x="124" y="70" width="30" height="90" rx="2" fill="#F5C518"/>
+              <rect x="162" y="115" width="30" height="45" rx="2" fill="#C1292E" opacity="0.5"/>
+              <text x="25" y="175" fill="#6B7280" font-size="8" font-family="Space Grotesk" text-anchor="middle">Stahl</text>
+              <text x="63" y="175" fill="#6B7280" font-size="8" font-family="Space Grotesk" text-anchor="middle">Kupfer</text>
+              <text x="101" y="175" fill="#6B7280" font-size="8" font-family="Space Grotesk" text-anchor="middle">Alu</text>
+              <text x="139" y="175" fill="#6B7280" font-size="8" font-family="Space Grotesk" text-anchor="middle">Holz</text>
+              <text x="177" y="175" fill="#6B7280" font-size="8" font-family="Space Grotesk" text-anchor="middle">Beton</text>
+              <text x="25" y="50" fill="#C1292E" font-size="9" font-family="Space Grotesk" font-weight="700" text-anchor="middle">+12.5%</text>
+              <text x="63" y="75" fill="#1A1A1A" font-size="9" font-family="Space Grotesk" font-weight="700" text-anchor="middle">+8.1%</text>
+              <text x="101" y="95" fill="#BC8279" font-size="9" font-family="Space Grotesk" font-weight="700" text-anchor="middle">+5.4%</text>
+              <text x="139" y="65" fill="#9e7e00" font-size="9" font-family="Space Grotesk" font-weight="700" text-anchor="middle">-30.5%</text>
+              <text x="177" y="110" fill="#C1292E" font-size="9" font-family="Space Grotesk" font-weight="700" text-anchor="middle">+2.1%</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="pricing" id="pricing">
+  <div class="pricing-geo-1"></div>
+  <div class="pricing-geo-2"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="pricing-header">
+      <div class="eyebrow" style="color:var(--red)">Preise</div>
+      <h2 class="section-title headline">Pläne für jede Teamgröße</h2>
+      <p class="section-sub" style="margin:0 auto;color:var(--gray-500)">Starten Sie mit Basis für essentielles Monitoring, upgraden Sie auf Pro für KI-Insights, oder wählen Sie Team für vollen Organisationszugang.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- Basis -->
+      <div class="price-card">
+        <div class="price-name">Basis</div>
+        <div class="price-desc">Essentielles Preismonitoring für Einzelnutzer und kleine Einkaufsteams.</div>
+        <div class="price-amount">€49 <span>/Mon.</span></div>
+        <ul class="price-features">
+          <li><span class="check">&#10003;</span> 5 Materialien</li>
+          <li><span class="check">&#10003;</span> 1 Benutzer</li>
+          <li><span class="check">&#10003;</span> E-Mail-Alarme (3 Regeln)</li>
+          <li><span class="check">&#10003;</span> 30-Tage Preisverlauf</li>
+          <li><span class="check">&#10003;</span> CSV-Export</li>
+          <li class="off"><span class="cross">&#10007;</span> KI-Prognosen</li>
+          <li class="off"><span class="cross">&#10007;</span> Telegram-Benachrichtigungen</li>
+          <li class="off"><span class="cross">&#10007;</span> API-Zugang</li>
+        </ul>
+        <button class="price-btn price-btn-default">Jetzt starten</button>
+      </div>
+      <!-- Pro -->
+      <div class="price-card featured">
+        <div class="price-badge">AM BELIEBTESTEN</div>
+        <div class="price-name">Pro</div>
+        <div class="price-desc">Voller Plattformzugang mit KI-gestützter Analyse und Prognosen für datengetriebenen Einkauf.</div>
+        <div class="price-amount">€149 <span>/Mon.</span></div>
+        <ul class="price-features">
+          <li><span class="check">&#10003;</span> Alle 16 Materialien</li>
+          <li><span class="check">&#10003;</span> 1 Benutzer</li>
+          <li><span class="check">&#10003;</span> Unbegrenzte Alarme</li>
+          <li><span class="check">&#10003;</span> 365-Tage Verlauf</li>
+          <li><span class="check">&#10003;</span> KI-Prognosen &amp; Analyse</li>
+          <li><span class="check">&#10003;</span> KI-Chat</li>
+          <li><span class="check">&#10003;</span> Telegram-Benachrichtigungen</li>
+          <li class="off"><span class="cross">&#10007;</span> API-Zugang &amp; PDF-Berichte</li>
+        </ul>
+        <button class="price-btn price-btn-featured">Kostenlos testen</button>
+      </div>
+      <!-- Team -->
+      <div class="price-card">
+        <div class="price-name">Team</div>
+        <div class="price-desc">Enterprise-Zugang für Einkaufsabteilungen und Projektmanagement-Teams.</div>
+        <div class="price-amount">€299 <span>/Mon.</span></div>
+        <ul class="price-features">
+          <li><span class="check">&#10003;</span> Alle 16 Materialien</li>
+          <li><span class="check">&#10003;</span> Bis zu 5 Benutzer</li>
+          <li><span class="check">&#10003;</span> Unbegrenzt alles</li>
+          <li><span class="check">&#10003;</span> KI-Prognosen &amp; Analyse</li>
+          <li><span class="check">&#10003;</span> REST API-Zugang</li>
+          <li><span class="check">&#10003;</span> PDF-Berichterstellung</li>
+          <li><span class="check">&#10003;</span> Prioritäts-Support</li>
+          <li><span class="check">&#10003;</span> Team-Rollen &amp; Berechtigungen</li>
+        </ul>
+        <button class="price-btn price-btn-default">Kontakt aufnehmen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo">Bau<span>Preis</span> AI</div>
+        <div class="footer-text">Intelligentes Monitoring von Baustoffpreisen</div>
+        <div class="footer-text">Entwickelt in München, Deutschland</div>
+      </div>
+      <div class="footer-links">
+        <a href="#">Datenschutz</a>
+        <a href="#">Impressum</a>
+        <a href="#">AGB</a>
+        <a href="#">Kontakt</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

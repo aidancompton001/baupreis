@@ -97,7 +97,7 @@ export default function WelcomeTour() {
 
       {/* Tour Card */}
       <div
-        className="fixed z-[999] w-80 bg-white rounded-2xl shadow-2xl p-5 border border-gray-100"
+        className="fixed z-[999] w-80 bg-white rounded-xl shadow-2xl p-5 border border-gray-100"
         style={{
           top: pos.below ? pos.top : undefined,
           bottom: pos.below ? undefined : window.innerHeight - pos.top,

@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Businessplan — BauPreis AI SaaS (DE/RU)</title>
+<style>
+  :root {
+    --navy: #1F3864;
+    --accent: #2E5FA3;
+    --gold: #C8982A;
+    --text: #1a1a1a;
+    --muted: #555;
+    --light: #f7f8fa;
+    --border: #d0d7e2;
+    --green: #1E7145;
+    --red: #B91C1C;
+    --ru: #6B4C9A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text); line-height: 1.6; background: white; font-size: 11pt;
+  }
+  .page-container { max-width: 210mm; margin: 0 auto; padding: 0 15mm; }
+
+  /* COVER */
+  .cover {
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    page-break-after: always; padding: 30mm 20mm;
+  }
+  .cover-line { width: 80px; height: 4px; background: var(--gold); margin: 24px auto; }
+  .cover h1 { font-size: 32pt; color: var(--navy); font-weight: 700; letter-spacing: -0.5px; }
+  .cover .subtitle { font-size: 14pt; color: var(--accent); font-weight: 400; margin-bottom: 8px; }
+  .cover .tagline { font-size: 11pt; color: var(--muted); max-width: 440px; margin: 0 auto 32px; }
+  .cover-info { font-size: 10.5pt; color: var(--text); line-height: 2; }
+  .cover-info strong { color: var(--navy); }
+  .cover-date { margin-top: 40px; font-size: 10pt; color: var(--muted); }
+  .cover-badge {
+    display: inline-block; margin-top: 24px; padding: 6px 18px;
+    border: 2px solid var(--navy); border-radius: 4px;
+    font-size: 9pt; font-weight: 700; color: var(--navy);
+    text-transform: uppercase; letter-spacing: 1.5px;
+  }
+
+  /* RUSSIAN TRANSLATION */
+  .ru {
+    font-style: italic; color: var(--ru); font-size: 9.5pt;
+    margin-bottom: 2px; line-height: 1.5;
+  }
+  .ru-block {
+    border-left: 3px solid #D4C5E8; padding-left: 10px;
+    margin-bottom: 4px;
+  }
+
+  /* HEADINGS */
+  h2 {
+    font-size: 16pt; color: var(--navy); font-weight: 700;
+    margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 3px solid var(--navy);
+    page-break-after: avoid; orphans: 3; widows: 3;
+  }
+  h3 { font-size: 12pt; color: var(--accent); font-weight: 600; margin-top: 20px; margin-bottom: 10px; page-break-after: avoid; }
+  h4 { font-size: 11pt; color: var(--navy); font-weight: 600; margin-top: 14px; margin-bottom: 6px; page-break-after: avoid; }
+
+  p { margin-bottom: 10px; }
+  strong { color: var(--navy); }
+  .highlight { background: #FFF8E1; border-left: 4px solid var(--gold); padding: 10px 14px; margin: 12px 0; font-size: 10.5pt; page-break-inside: avoid; }
+  .note { background: var(--light); border-left: 4px solid var(--accent); padding: 10px 14px; margin: 12px 0; font-size: 10pt; color: var(--muted); page-break-inside: avoid; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 16px; font-size: 10pt; page-break-inside: avoid; }
+  th { background: var(--navy); color: white; font-weight: 600; text-align: left; padding: 8px 10px; font-size: 9.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+  td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--light); }
+  tr.total td { font-weight: 700; background: #E8EDF5; border-top: 2px solid var(--navy); color: var(--navy); }
+  tr.subtotal td { font-weight: 600; background: #EEF2F7; }
+  td.number, th.number { text-align: right; }
+  td.positive { color: var(--green); font-weight: 600; }
+  td.negative { color: var(--red); }
+  ul, ol { margin: 8px 0 12px 20px; }
+  li { margin-bottom: 4px; }
+  .section-break { page-break-before: always; }
+
+  .positioning { font-family: monospace; font-size: 9.5pt; background: var(--light); padding: 12px 16px; border-radius: 4px; margin: 10px 0; white-space: pre; line-height: 1.5; }
+
+  /* SWOT */
+  .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; page-break-inside: avoid; }
+  .swot-box { padding: 12px 14px; border-radius: 6px; font-size: 10pt; }
+  .swot-box h4 { margin-top: 0; margin-bottom: 6px; }
+  .swot-s { background: #E8F5E9; border: 1px solid #A5D6A7; } .swot-s h4 { color: #2E7D32; }
+  .swot-w { background: #FFF3E0; border: 1px solid #FFCC80; } .swot-w h4 { color: #E65100; }
+  .swot-o { background: #E3F2FD; border: 1px solid #90CAF9; } .swot-o h4 { color: #1565C0; }
+  .swot-t { background: #FDECEA; border: 1px solid #EF9A9A; } .swot-t h4 { color: #C62828; }
+  .swot-box ul { margin-left: 16px; }
+
+  .page-footer { margin-top: 30px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 8.5pt; color: var(--muted); text-align: center; }
+
+  .lang-note {
+    background: #F3E8FF; border: 1px solid #D4C5E8; border-radius: 6px;
+    padding: 10px 14px; margin: 16px 0; font-size: 10pt; color: var(--ru);
+  }
+
+  @media print {
+    body { font-size: 10.5pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-container { max-width: 100%; padding: 0 12mm; }
+    .cover { padding: 40mm 20mm; min-height: 260mm; }
+    h2 { margin-top: 16px; }
+    table { font-size: 9.5pt; }
+    .ru { font-size: 9pt; }
+    ul, ol { page-break-inside: avoid; }
+    p { orphans: 3; widows: 3; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-line"></div>
+  <h1>BauPreis</h1>
+  <div class="subtitle">Intelligente Baustoffpreis&uuml;berwachung</div>
+  <div class="tagline">Webbasierte SaaS-Plattform f&uuml;r automatisiertes Monitoring der Preise f&uuml;r 16 zentrale Baustoffe in Deutschland mit KI-gest&uuml;tzten Prognosen</div>
+  <div class="cover-line"></div>
+  <div class="cover-info">
+    <strong>Gr&uuml;nder:</strong> Eduard Morocho Baias<br>
+    <strong>Telefon:</strong> +49 155 636 75 772<br>
+    <strong>E-Mail:</strong> ebaias.muc@gmail.com<br>
+    <strong>Rechtsform:</strong> Einzelunternehmen (Kleingewerbe)<br>
+    <strong>Standort:</strong> M&uuml;nchen, Bayern
+  </div>
+  <div class="cover-date">Geplanter Start: Q2 2026 (nach Bewilligung des Einstiegsgeldes)</div>
+  <div class="cover-badge">Businessplan &middot; Februar 2026</div>
+  <p style="margin-top:18px; font-size:9pt; color:var(--ru); font-style:italic;">DE/RU &mdash; Zweisprachige Version zur Vorbereitung / Двуязычная версия для подготовки</p>
+</div>
+
+<div class="page-container">
+
+<div class="lang-note">
+  <strong>Hinweis / Примечание:</strong> <em>Русский текст (курсивом, фиолетовым) приведён над каждым немецким блоком для подготовки к презентации. Официальный документ &mdash; немецкий текст.</em>
+</div>
+
+<!-- 1 -->
+<h2>1. Zusammenfassung (Executive Summary)</h2>
+
+<h3>Gesch&auml;ftsidee</h3>
+<div class="ru ru-block">Бизнес-идея: BauPreis &mdash; это веб-платформа SaaS, которая предлагает строительным компаниям, архитекторам и закупщикам автоматический мониторинг цен на 16 ключевых стройматериалов в Германии. Платформа ежедневно собирает актуальные данные о ценах из публичных и коммерческих источников, анализирует тренды с помощью искусственного интеллекта (Claude API) и автоматически уведомляет пользователей о значительных изменениях цен по e-mail и WhatsApp.</div>
+<p>BauPreis ist eine webbasierte SaaS-Plattform (Software-as-a-Service), die Bauunternehmen, Architekten und Eink&auml;ufern eine automatisierte &Uuml;berwachung der Preise f&uuml;r 16 zentrale Baustoffe in Deutschland bietet. Die Plattform sammelt t&auml;glich aktuelle Preisdaten aus &ouml;ffentlichen und kommerziellen Quellen, analysiert Trends mithilfe k&uuml;nstlicher Intelligenz (Claude API) und benachrichtigt Nutzer automatisch &uuml;ber signifikante Preis&auml;nderungen per E-Mail und WhatsApp.</p>
+
+<h3>Zielmarkt</h3>
+<div class="ru ru-block">Целевой рынок: В Германии около 350 000 строительных компаний (источник: Bauindustrie.de / Destatis). Основная целевая группа &mdash; малые и средние строительные предприятия (МСП) до 50 сотрудников &mdash; примерно 70 000 компаний. У этих компаний сейчас нет доступного цифрового решения для систематического мониторинга цен на стройматериалы.</div>
+<p>In Deutschland gibt es rund 350.000 Bauunternehmen (Quelle: Bauindustrie.de / Destatis). Die prim&auml;re Zielgruppe sind kleine und mittlere Bauunternehmen (KMU) mit bis zu 50 Mitarbeitern &mdash; gesch&auml;tzt rund 70.000 Betriebe. Diese Unternehmen haben aktuell keine bezahlbare digitale L&ouml;sung zur systematischen Baustoffpreis&uuml;berwachung.</p>
+
+<h3>Gesch&auml;ftsmodell</h3>
+<div class="ru ru-block">Бизнес-модель: Подписка с тремя тарифами:</div>
+<table>
+  <tr><th>Tarif</th><th>Preis/Monat</th><th>Preis/Jahr</th><th>Zielgruppe</th></tr>
+  <tr><td><strong>Basis</strong></td><td>49 &euro;</td><td>470 &euro;</td><td>Einzelunternehmer, kleine Handwerker</td></tr>
+  <tr><td><strong>Pro</strong></td><td>149 &euro;</td><td>1.430 &euro;</td><td>Mittelst&auml;ndische Bauunternehmen</td></tr>
+  <tr><td><strong>Team</strong></td><td>299 &euro;</td><td>2.870 &euro;</td><td>Gr&ouml;&szlig;ere Unternehmen mit Einkaufsabteilung</td></tr>
+</table>
+
+<h3>Umsatzprognose</h3>
+<div class="ru ru-block">Прогноз выручки:</div>
+<table>
+  <tr><th></th><th class="number">Jahr 1</th><th class="number">Jahr 2</th><th class="number">Jahr 3</th></tr>
+  <tr><td>Kunden (Ende)</td><td class="number">12</td><td class="number">35</td><td class="number">70</td></tr>
+  <tr><td>Umsatz</td><td class="number">4.615 &euro;</td><td class="number">32.475 &euro;</td><td class="number">84.570 &euro;</td></tr>
+  <tr class="total"><td>Gewinn (nach Steuern)</td><td class="number">1.409 &euro;</td><td class="number">23.442 &euro;</td><td class="number">57.191 &euro;</td></tr>
+</table>
+
+<h3>Alleinstellungsmerkmal (USP)</h3>
+<div class="ru ru-block">Уникальное торговое предложение (УТП): BauPreis &mdash; единственное доступное SaaS-решение для мониторинга цен на стройматериалы в сегменте МСП в Германии. Комбинация автоматического сбора данных, AI-прогнозов и мгновенных уведомлений уникальна в этой ценовой категории (от 49 &euro;/мес). Прототип уже разработан, доступен на baupreis.ais152.com и включает 52 страницы и более 3 100 записей о ценах.</div>
+<p>BauPreis ist die einzige bezahlbare SaaS-L&ouml;sung f&uuml;r Baustoffpreismonitoring im KMU-Segment in Deutschland. Die Kombination aus automatischer Datenerfassung, KI-gest&uuml;tzten Prognosen und sofortigen Benachrichtigungen ist in dieser Preisklasse (ab 49&nbsp;&euro;/Monat) einzigartig. Der Prototyp ist bereits entwickelt, live erreichbar unter baupreis.ais152.com und umfasst 52 Seiten sowie &uuml;ber 3.100 Preisdatens&auml;tze.</p>
+
+<div class="highlight">
+<div class="ru" style="color:#8B6914;">Важное примечание: Платформа была разработана как учебный технический проект. Коммерческая деятельность (активное привлечение клиентов, выставление счетов, маркетинговые мероприятия) начнётся только после одобрения стартовых субсидий и регистрации предприятия. До этого момента коммерческая деятельность не ведётся.</div>
+<strong>Wichtiger Hinweis:</strong> Die Plattform wurde als technisches Lernprojekt entwickelt. Die <strong>kommerzielle T&auml;tigkeit</strong> beginnt erst <strong>nach Bewilligung des Einstiegsgeldes</strong> und der Gewerbeanmeldung. Vor diesem Zeitpunkt finden keine gesch&auml;ftlichen Aktivit&auml;ten statt.</div>
+
+<!-- 2 -->
+<h2 class="section-break">2. Gr&uuml;nderprofil</h2>
+
+<h3>Pers&ouml;nliche Daten</h3>
+<div class="ru ru-block">Личные данные:</div>
+<ul>
+  <li><strong>Name:</strong> Eduard Morocho Baias</li>
+  <li><strong>Standort:</strong> M&uuml;nchen, Bayern</li>
+  <li><strong>Aufenthaltsstatus:</strong> &sect;&nbsp;24 AufenthG (vor&uuml;bergehender Schutz), Erwerbst&auml;tigkeit einschlie&szlig;lich Selbst&auml;ndigkeit gestattet, verl&auml;ngert bis 04.03.2027</li>
+</ul>
+
+<h3>Qualifikation</h3>
+<div class="ru ru-block">Квалификация:</div>
+<table>
+  <tr><th>Bereich</th><th>Kompetenz</th></tr>
+  <tr><td>Programmierung</td><td>TypeScript, JavaScript, React, Next.js, Node.js</td></tr>
+  <tr><td>Datenbanken</td><td>PostgreSQL, SQL, Datenmodellierung</td></tr>
+  <tr><td>Cloud &amp; DevOps</td><td>Docker, Linux-Server, Caddy, CI/CD</td></tr>
+  <tr><td>KI-Integration</td><td>Claude API (Anthropic), Prompt Engineering</td></tr>
+  <tr><td>Webentwicklung</td><td>Responsive Design, Tailwind CSS, PWA</td></tr>
+</table>
+
+<h3>Werdegang</h3>
+<div class="ru ru-block">Карьерный путь:</div>
+<table>
+  <tr><th>Zeitraum</th><th>T&auml;tigkeit</th></tr>
+  <tr><td>2009&ndash;2020</td><td>Gastronomie-Management &amp; Gesch&auml;ftsf&uuml;hrung in Kiew (100+ Mitarbeitende, 10+ Betriebe)</td></tr>
+  <tr><td>2020&ndash;2024</td><td>Videoproduktion &amp; CGI: eigenes Produktionsstudio (3D, Unreal Engine, Cinema4D)</td></tr>
+  <tr><td>2022&ndash;2024</td><td>Selbststudium: Programmierung und Webentwicklung (HTML, CSS, JavaScript, React, Node.js, PostgreSQL)</td></tr>
+  <tr><td>Feb. 2025</td><td>Ankunft in Deutschland, Integrationskurse, Deutschkurse</td></tr>
+  <tr><td>2024&ndash;2025</td><td>Fortgeschrittene Technologien: TypeScript, Next.js, Docker, KI-Integration</td></tr>
+  <tr><td>2025&ndash;2026</td><td>Konzeption und Entwicklung von BauPreis als praxisnahes Hauptprojekt</td></tr>
+</table>
+
+<div class="ru ru-block">Образование: Туризм-менеджмент (2008&ndash;2012, Украина). IT: самообучение &mdash; доказательство &mdash; полностью самостоятельно разработанный прототип:</div>
+<p><strong>Ausbildung:</strong> Tourismusmanagement (2008&ndash;2012, Ukraine). IT: autodidaktisch &mdash; Nachweis durch den vollst&auml;ndig eigenentwickelten Prototyp:</p>
+<ul>
+  <li><strong>52 Seiten</strong> (Dashboard, Verwaltung, Landing Page)</li>
+  <li><strong>Multi-Tenant-Architektur</strong> (Mandantenf&auml;higkeit)</li>
+  <li><strong>7 automatisierte Hintergrundprozesse</strong></li>
+  <li><strong>WhatsApp-Bot-Integration</strong></li>
+  <li><strong>3.106 Preisdatens&auml;tze</strong> aus realen Quellen</li>
+  <li><strong>Live erreichbar</strong> unter baupreis.ais152.com</li>
+</ul>
+
+<h3>Branchenkenntnisse</h3>
+<div class="ru ru-block">Отраслевые знания: Глубокое понимание ценовых структур стройматериалов, закупочных процессов в МСП и проблем калькуляции &mdash; приобретено через анализ публичных строительных индексов (BKI, Destatis), отраслевых отчётов (PwC) и создание конвейера сбора данных.</div>
+<p>Fundiertes Verst&auml;ndnis der Preisstrukturen f&uuml;r Baustoffe, der Einkaufsprozesse in KMU und der Herausforderungen bei der Kalkulation &mdash; erworben durch Analyse &ouml;ffentlicher Baupreisindizes (BKI, Destatis), Branchenberichte (PwC) und den Aufbau der Datenerfassungspipeline.</p>
+
+<h3>Warum Selbst&auml;ndigkeit statt Anstellung?</h3>
+<div class="ru ru-block">Почему самозанятость, а не найм?</div>
+<ol>
+  <li><div class="ru">Прототип уже существует &mdash; разработан, протестирован, работает в продакшене.</div><strong>Der Prototyp existiert bereits</strong> &mdash; entwickelt, getestet, im Produktivbetrieb.</li>
+  <li><div class="ru">Уникальная рыночная ниша &mdash; нет сопоставимого решения в доступном сегменте.</div><strong>Einzigartige Marktl&uuml;cke</strong> &mdash; keine vergleichbare L&ouml;sung im bezahlbaren Segment.</li>
+  <li><div class="ru">Низкий порог входа &mdash; основные инвестиции уже сделаны. Текущие расходы: ~50 &euro;/мес.</div><strong>Niedrige Markteintrittsbarriere</strong> &mdash; Hauptinvestition bereits get&auml;tigt. Laufende Kosten: ~50&nbsp;&euro;/Monat.</li>
+  <li><div class="ru">Масштабируемость &mdash; тот же сервер обслуживает сотни клиентов.</div><strong>Skalierbarkeit</strong> &mdash; derselbe Server bedient Hunderte von Kunden.</li>
+</ol>
+
+<h3>Zeitaufwand</h3>
+<div class="ru ru-block">Затраты времени: Основная занятость (минимум 20 часов/неделю):</div>
+<p><strong>Hauptberuflich</strong> (mindestens 20 Stunden/Woche):</p>
+<table>
+  <tr><th>Aufgabe</th><th class="number">Stunden/Woche</th></tr>
+  <tr><td>Produktentwicklung &amp; Wartung</td><td class="number">10</td></tr>
+  <tr><td>Marketing &amp; Vertrieb</td><td class="number">6</td></tr>
+  <tr><td>Kundenbetreuung &amp; Support</td><td class="number">2</td></tr>
+  <tr><td>Administration &amp; Buchhaltung</td><td class="number">2</td></tr>
+  <tr class="total"><td><strong>Gesamt</strong></td><td class="number"><strong>20</strong></td></tr>
+</table>
+
+<!-- 3 -->
+<h2 class="section-break">3. Gesch&auml;ftsidee / Produkt</h2>
+
+<h3>Problem</h3>
+<div class="ru ru-block">Проблема: Цены на стройматериалы с 2010 года выросли на 64% (BKI), при общей инфляции всего 25%. В 2021&ndash;2022: до 17,6% в год. Несмотря на это, большинство МСП отслеживают материальные затраты вручную. 82% называют отсутствие цифровых компетенций главным препятствием (PwC 2025).</div>
+<p>Die Preise f&uuml;r Baumaterialien sind seit 2010 um <strong>64&nbsp;%</strong> gestiegen (BKI Baupreisindex), w&auml;hrend die allgemeine Inflation nur 25&nbsp;% betrug. 2021&ndash;2022: bis zu 17,6&nbsp;% pro Jahr. Trotzdem &uuml;berwachen die meisten KMU ihre Materialkosten manuell. <strong>82&nbsp;%</strong> nennen fehlendes digitales Know-how als Haupthindernis (PwC 2025).</p>
+
+<h3>L&ouml;sung</h3>
+<div class="ru ru-block">Решение:</div>
+
+<h4>Automatische Datenerfassung</h4>
+<div class="ru">Автоматический сбор данных: ежедневный сбор цен на 16 ключевых стройматериалов из публичных индексов, сырьевых бирж, отраслевых данных.</div>
+<ul>
+  <li>T&auml;gliche Erfassung der Preise f&uuml;r 16 zentrale Baustoffe</li>
+  <li>Quellen: &Ouml;ffentliche Preisindizes, Rohstoffb&ouml;rsen, Branchendaten</li>
+</ul>
+
+<h4>KI-gest&uuml;tzte Analyse</h4>
+<div class="ru">AI-анализ: анализ трендов и прогнозы через Claude API (Anthropic), автоматическое обнаружение значительных изменений цен, еженедельные и ежемесячные аналитические отчёты.</div>
+<ul>
+  <li>Trendanalyse und Prognosen mittels Claude API (Anthropic)</li>
+  <li>Automatische Erkennung signifikanter Preis&auml;nderungen</li>
+  <li>W&ouml;chentliche und monatliche Analysereports</li>
+</ul>
+
+<h4>Sofortige Benachrichtigung</h4>
+<div class="ru">Мгновенные уведомления: e-mail-оповещения при превышении порога, WhatsApp-бот для уведомлений в реальном времени (Pro/Team), индивидуальные пороги по каждому материалу.</div>
+<ul>
+  <li>E-Mail-Alerts bei Preis&auml;nderungen &uuml;ber definierter Schwelle</li>
+  <li>WhatsApp-Bot f&uuml;r Echtzeit-Benachrichtigungen (Pro/Team)</li>
+  <li>Individuelle Schwellenwerte je Material konfigurierbar</li>
+</ul>
+
+<h4>Dashboard</h4>
+<div class="ru">Дашборд: наглядное отображение всех цен и трендов, история цен (90+ дней), мобильная оптимизация (PWA).</div>
+<ul>
+  <li>&Uuml;bersichtliche Darstellung aller Materialpreise und Trends</li>
+  <li>Historische Preisentwicklung (90+ Tage)</li>
+  <li>Mobile-optimiert (PWA) &mdash; Smartphone und Tablet</li>
+</ul>
+
+<h3>Produktmerkmale nach Tarif</h3>
+<div class="ru ru-block">Функции по тарифам:</div>
+<table>
+  <tr><th>Funktion</th><th>Basis (49&nbsp;&euro;)</th><th>Pro (149&nbsp;&euro;)</th><th>Team (299&nbsp;&euro;)</th></tr>
+  <tr><td>Material&uuml;berwachung</td><td>5 Materialien</td><td>Alle 16</td><td>Alle 16</td></tr>
+  <tr><td>Benutzer</td><td>1</td><td>1</td><td>Bis zu 5</td></tr>
+  <tr><td>E-Mail-Alerts</td><td>3 Regeln</td><td>Unbegrenzt</td><td>Unbegrenzt</td></tr>
+  <tr><td>WhatsApp-Alerts</td><td>&mdash;</td><td>&check;</td><td>&check;</td></tr>
+  <tr><td>KI-Prognosen</td><td>&mdash;</td><td>&check;</td><td>&check;</td></tr>
+  <tr><td>API-Zugang</td><td>&mdash;</td><td>&mdash;</td><td>&check;</td></tr>
+  <tr><td>PDF-Berichte</td><td>&mdash;</td><td>&mdash;</td><td>&check;</td></tr>
+</table>
+
+<h3>Monetarisierung</h3>
+<div class="ru ru-block">Монетизация: Регулярный доход через ежемесячные или годовые подписки. Годовые подписки: скидка ~20%. Оплата через Stripe (EU-лицензия). НДС не применяется в первый год благодаря режиму малого предпринимателя (&sect; 19 UStG).</div>
+<p>Wiederkehrende Einnahmen durch monatliche oder j&auml;hrliche Abonnements. Jahresabonnements: ca. 20&nbsp;% Rabatt. Zahlungsabwicklung &uuml;ber Stripe (EU-Lizenz). Umsatzsteuer entf&auml;llt im ersten Jahr dank Kleinunternehmerregelung (&sect;&nbsp;19 UStG).</p>
+
+<!-- 4 -->
+<h2 class="section-break">4. Marktanalyse</h2>
+
+<h3>Gesamtmarkt (TAM)</h3>
+<div class="ru ru-block">Общий рынок (TAM):</div>
+<table>
+  <tr><th>Kennzahl</th><th>Wert</th><th>Quelle</th></tr>
+  <tr><td>Bauvolumen Deutschland</td><td>~430 Mrd. &euro; (2024)</td><td>Destatis</td></tr>
+  <tr><td>Bauunternehmen gesamt</td><td>~350.000</td><td>Bauindustrie.de</td></tr>
+  <tr><td>Davon Bauhauptgewerbe</td><td>~83.000</td><td>Destatis</td></tr>
+  <tr><td>Besch&auml;ftigte Bauwirtschaft</td><td>~2,7 Mio.</td><td>Bauindustrie.de</td></tr>
+</table>
+
+<h3>SAM &mdash; Prim&auml;re Zielgruppe</h3>
+<div class="ru ru-block">SAM &mdash; Основная целевая группа:</div>
+<table>
+  <tr><th>Segment</th><th>Gesch&auml;tzte Anzahl</th><th>Potenzial</th></tr>
+  <tr><td>Bauunternehmen KMU (bis 50 MA)</td><td>~70.000</td><td>Prim&auml;r</td></tr>
+  <tr><td>Architektur- und Planungsb&uuml;ros</td><td>~40.000</td><td>Sekund&auml;r</td></tr>
+  <tr><td>Einkaufsabteilungen</td><td>~30.000</td><td>Sekund&auml;r</td></tr>
+</table>
+
+<h3>SOM &mdash; Realistisches Kundenziel</h3>
+<div class="ru ru-block">SOM &mdash; Реалистичная цель по клиентам:</div>
+<table>
+  <tr><th></th><th class="number">Jahr 1</th><th class="number">Jahr 2</th><th class="number">Jahr 3</th></tr>
+  <tr><td><strong>Zielkunden (Ende)</strong></td><td class="number">12</td><td class="number">35</td><td class="number">70</td></tr>
+  <tr><td>Neukunden/Monat (&Oslash;)</td><td class="number">~1</td><td class="number">~2</td><td class="number">~3</td></tr>
+  <tr><td>Churn-Rate (monatlich)</td><td class="number">~5&nbsp;%</td><td class="number">~5&nbsp;%</td><td class="number">~5&nbsp;%</td></tr>
+  <tr><td>Marktdurchdringung</td><td class="number">0,017&nbsp;%</td><td class="number">0,05&nbsp;%</td><td class="number">0,1&nbsp;%</td></tr>
+</table>
+
+<h3>Tarif-Mix</h3>
+<div class="ru ru-block">Тарифный микс:</div>
+<table>
+  <tr><th>Tarif</th><th class="number">Jahr 1</th><th class="number">Jahr 2</th><th class="number">Jahr 3</th></tr>
+  <tr><td>Basis (49&nbsp;&euro;)</td><td class="number">70&nbsp;%</td><td class="number">50&nbsp;%</td><td class="number">35&nbsp;%</td></tr>
+  <tr><td>Pro (149&nbsp;&euro;)</td><td class="number">25&nbsp;%</td><td class="number">40&nbsp;%</td><td class="number">45&nbsp;%</td></tr>
+  <tr><td>Team (299&nbsp;&euro;)</td><td class="number">5&nbsp;%</td><td class="number">10&nbsp;%</td><td class="number">20&nbsp;%</td></tr>
+  <tr class="total"><td><strong>&Oslash; Umsatz/Kunde</strong></td><td class="number"><strong>~74&nbsp;&euro;</strong></td><td class="number"><strong>~113&nbsp;&euro;</strong></td><td class="number"><strong>~139&nbsp;&euro;</strong></td></tr>
+</table>
+
+<h3>Markttrends</h3>
+<div class="ru ru-block">Рыночные тренды:</div>
+<ol>
+  <li><div class="ru">Экстремальный рост цен на стройматериалы &mdash; +64% с 2010 года (BKI). 2025: +3,2% (Destatis).</div><strong>Extreme Preissteigerungen bei Baustoffen</strong> &mdash; +64&nbsp;% seit 2010 (BKI). 2025: +3,2&nbsp;% (Destatis).</li>
+  <li><div class="ru">Растущий рынок строительного ПО &mdash; 4&ndash;11 млрд USD (2025), CAGR ~9%.</div><strong>Wachsender Construction-Software-Markt</strong> &mdash; 4&ndash;11 Mrd. USD (2025), CAGR ~9&nbsp;%.</li>
+  <li><div class="ru">Дефицит цифровизации &mdash; 82% строительных компаний называют недостаток цифровых компетенций (PwC 2025).</div><strong>Digitalisierungsdefizit</strong> &mdash; 82&nbsp;% der Bauunternehmen nennen fehlendes Know-how (PwC 2025).</li>
+</ol>
+
+<!-- 5 -->
+<h2 class="section-break">5. Wettbewerbsanalyse</h2>
+
+<h3>Direkte und indirekte Wettbewerber</h3>
+<div class="ru ru-block">Прямые и непрямые конкуренты:</div>
+<table>
+  <tr><th>Anbieter</th><th>Art</th><th>Preis</th><th>St&auml;rken</th><th>Schw&auml;chen</th></tr>
+  <tr><td><strong>Heinze.de</strong></td><td>Baudatenbank</td><td>Kostenlos</td><td>Gro&szlig;e Datenbank</td><td>Kein Monitoring, keine Alerts</td></tr>
+  <tr><td><strong>BKI</strong></td><td>Baukosteninformation</td><td>ab 500&nbsp;&euro;/Jahr</td><td>Umfassende Daten</td><td>Zu teuer f&uuml;r KMU</td></tr>
+  <tr><td><strong>ORCA AVA</strong></td><td>AVA-Software</td><td>ab 900&nbsp;&euro;/Jahr</td><td>Integriert in Ausschreibungen</td><td>Fokus AVA, nicht Monitoring</td></tr>
+  <tr><td><strong>Cosuno</strong></td><td>Beschaffung</td><td>auf Anfrage</td><td>Digitale Vergabe</td><td>Kein Materialpreis-Monitoring</td></tr>
+  <tr><td><strong>Excel/manuell</strong></td><td>Eigen</td><td>0&nbsp;&euro;</td><td>Keine Kosten</td><td>Zeitaufw&auml;ndig, fehleranf&auml;llig</td></tr>
+</table>
+
+<h3>Positionierung</h3>
+<div class="ru ru-block">Позиционирование: BauPreis занимает нишу между бесплатными, но недостаточными инструментами и дорогими корпоративными решениями:</div>
+<div class="positioning">Kostenlos          BauPreis (49&ndash;299 &euro;)          Enterprise (500+ &euro;)
++-- Heinze         +-- Basis: 49 &euro;/Monat        +-- BKI: ab 500 &euro;/Jahr
++-- Excel          +-- Pro: 149 &euro;/Monat         +-- Enterprise-ERP
++-- Telefon        +-- Team: 299 &euro;/Monat        +-- Individuelle L&ouml;sungen</div>
+
+<h3>Wettbewerbsvorteile</h3>
+<div class="ru ru-block">Конкурентные преимущества:</div>
+<ol>
+  <li><div class="ru">Нет сопоставимого решения дешевле 100 &euro;/мес.</div><strong>Keine vergleichbare L&ouml;sung</strong> unter 100&nbsp;&euro;/Monat</li>
+  <li><div class="ru">AI-прогнозы &mdash; единственный продукт в этой ценовой категории.</div><strong>KI-Prognosen</strong> &mdash; einziges Produkt in der Preisklasse</li>
+  <li><div class="ru">Мгновенные уведомления &mdash; E-Mail + WhatsApp.</div><strong>Sofortige Benachrichtigungen</strong> &mdash; E-Mail + WhatsApp</li>
+  <li><div class="ru">Низкий порог входа &mdash; 14-дневный тест, от 49 &euro;/мес.</div><strong>Niedrige Einstiegsh&uuml;rde</strong> &mdash; 14-Tage-Test, ab 49&nbsp;&euro;/Monat</li>
+  <li><div class="ru">Соответствие DSGVO &mdash; сервер в Нюрнберге (Hetzner).</div><strong>DSGVO-konform</strong> &mdash; Server in N&uuml;rnberg (Hetzner)</li>
+</ol>
+
+<!-- 6 -->
+<h2 class="section-break">6. Marketing und Vertrieb</h2>
+
+<h3>Strategie: Die ersten 12 Kunden (Jahr 1)</h3>
+<div class="ru ru-block">Стратегия: первые 12 клиентов (Год 1):</div>
+
+<div class="highlight">
+<div class="ru" style="color:#8B6914;">Уже выполнено (до регистрации): Посещение DACH+HOLZ International (Кёльн, 24&ndash;27.02.2026) &mdash; ведущая европейская выставка кровли и деревянного строительства. Первые прямые беседы с потенциальными клиентами из целевой группы. Входной билет в приложении.</div>
+<strong>Bereits durchgef&uuml;hrt (vor Gr&uuml;ndung):</strong> Besuch der DACH+HOLZ International (K&ouml;ln, 24.&ndash;27.02.2026) &mdash; Europas f&uuml;hrende Fachmesse f&uuml;r Dach und Holzbau. Erste direkte Gespr&auml;che mit potenziellen Kunden aus der Zielgruppe. Eintrittskarte als Nachweis im Anhang.</div>
+
+<h4>Monat 1&ndash;3: Direktansprache + Messen (Outbound)</h4>
+<div class="ru">Месяцы 1&ndash;3: Прямое обращение + выставки. Идентифицировать 100 строительных компаний в Мюнхене/Верхней Баварии через базу IHK. Личные e-mail с тестовым доступом (50 в Q1). Телефонное сопровождение. <strong>digitalBAU (Кёльн, 24–26.03.2026)</strong> — выставка цифровых решений в строительной отрасли (ИИ, BIM, Smart Construction). <strong>ARCHITECT@WORK Мюнхен (15–16.04.2026)</strong>. <strong>Construction Summit (Гамбург, 22–23.04.2026)</strong> — конференция по цифровизации. Цель: 5 тестовых пользователей, из них 1&ndash;2 платящих клиента.</div>
+<ul>
+  <li>100 Bauunternehmen in M&uuml;nchen/Oberbayern &uuml;ber IHK-Firmendatenbank identifizieren</li>
+  <li>Pers&ouml;nliche E-Mail-Ansprache mit Testzugang (50 im Q1)</li>
+  <li>Telefonische Nachfassung</li>
+  <li><strong>digitalBAU (K&ouml;ln, 24.&ndash;26.03.2026)</strong> &mdash; Messe f&uuml;r digitale L&ouml;sungen in der Baubranche (KI, BIM, Smart Construction)</li>
+  <li><strong>ARCHITECT@WORK M&uuml;nchen (15.&ndash;16.04.2026)</strong></li>
+  <li><strong>Construction Summit (Hamburg, 22.&ndash;23.04.2026)</strong> &mdash; Konferenz f&uuml;r Digitalisierung und Innovation im Bauwesen</li>
+  <li>Ziel: 5 Testnutzer, davon 1&ndash;2 zahlende Kunden</li>
+</ul>
+
+<h4>Monat 4&ndash;6: Content + Outbound + Google Ads</h4>
+<div class="ru">Месяцы 4&ndash;6: Контент + прямое обращение + Google Ads. 2 статьи/мес, LinkedIn-профиль как отраслевой эксперт (3 поста/нед). Google Ads: 50&ndash;100 &euro;/мес для нишевых B2B-ключевиков. Цель: 4&ndash;6 платящих клиентов.</div>
+<ul>
+  <li>2 Fachartikel pro Monat</li>
+  <li>LinkedIn-Profil als Branchenexperte (3 Beitr&auml;ge/Woche)</li>
+  <li>Google Ads: 50&ndash;100&nbsp;&euro;/Monat f&uuml;r nischenspezifische B2B-Keywords mit geringer Konkurrenz. Bei gesch&auml;tztem CPC von 1&ndash;3&nbsp;&euro;: ~30&ndash;100 Klicks/Monat, ~5&nbsp;% Trial-Registrierungen. Testbudget zur Validierung des Kanals.</li>
+  <li>Ziel: kumuliert 4&ndash;6 zahlende Kunden</li>
+</ul>
+
+<h4>Monat 7&ndash;12: Skalierung + weitere Messen</h4>
+<div class="ru">Месяцы 7&ndash;12: Масштабирование + дальнейшие выставки. Google Ads оптимизировать на основе данных месяцев 4&ndash;6. Выставки: Zukunft Bau / HAUS Stuttgart — региональная выставка строительства и жилья. Цель: 12 платящих клиентов.</div>
+<ul>
+  <li>Google Ads optimieren auf Basis der Monat-4&ndash;6-Daten</li>
+  <li>Besuch: Zukunft Bau / HAUS Stuttgart &mdash; Regionale Bau- und Wohnmesse</li>
+  <li>Quartals-Report als Lead-Magnet</li>
+  <li>Ziel: kumuliert 12 zahlende Kunden</li>
+</ul>
+
+<h3>Conversion-Funnel</h3>
+<div class="ru ru-block">Воронка конверсии:</div>
+<table>
+  <tr><th>Stufe</th><th>Kennzahl</th><th>Annahme</th></tr>
+  <tr><td>Website-Besucher</td><td>pro Monat</td><td>~200 (M1&ndash;6), ~500 (M7&ndash;12)</td></tr>
+  <tr><td>Trial-Registrierung</td><td>Conversion</td><td>~5&nbsp;% der Besucher</td></tr>
+  <tr><td>Trial &rarr; Bezahlt</td><td>Conversion</td><td>~20&nbsp;% der Trial-Nutzer</td></tr>
+  <tr><td>Ergebnis/Monat</td><td>Neukunden</td><td>~1&ndash;2 (M1&ndash;6), ~2&ndash;3 (M7&ndash;12)</td></tr>
+</table>
+
+<h3>Vertriebsprozess</h3>
+<div class="ru ru-block">Процесс продаж:</div>
+<ol>
+  <li><div class="ru">Заинтересованный находит BauPreis через прямое обращение, Google или LinkedIn</div>Interessent findet BauPreis &uuml;ber Direktansprache, Google oder LinkedIn</li>
+  <li><div class="ru">14-дневный тестовый период (бесплатно, без платёжных данных)</div>14-Tage-Testphase (kostenlos, keine Zahlungsdaten)</li>
+  <li><div class="ru">Автоматическая серия e-mail для онбординга (день 1, 3, 7, 12)</div>Automatisiertes E-Mail-Onboarding (Tag 1, 3, 7, 12)</li>
+  <li><div class="ru">Личное напоминание на 10-й день</div>Pers&ouml;nliche Nachfassung am Tag 10</li>
+  <li><div class="ru">Переход на платный тариф через Stripe</div>Upgrade &uuml;ber Stripe-Checkout</li>
+  <li><div class="ru">Постоянная поддержка через e-mail и WhatsApp</div>Laufende Betreuung &uuml;ber E-Mail und WhatsApp</li>
+</ol>
+
+<h3>Marketingbudget</h3>
+<div class="ru ru-block">Маркетинговый бюджет:</div>
+<table>
+  <tr><th>Posten</th><th class="number">Monat 1&ndash;6</th><th class="number">Monat 7&ndash;12</th><th class="number">Jahr 2</th></tr>
+  <tr><td>Direktansprache</td><td class="number">20&nbsp;&euro;</td><td class="number">20&nbsp;&euro;</td><td class="number">20&nbsp;&euro;</td></tr>
+  <tr><td>Google Ads</td><td class="number">0&nbsp;&euro;</td><td class="number">50&ndash;100&nbsp;&euro;</td><td class="number">100&ndash;200&nbsp;&euro;</td></tr>
+  <tr><td>LinkedIn</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td><td class="number">80&nbsp;&euro;</td></tr>
+  <tr><td>Messen/Networking</td><td class="number">30&nbsp;&euro;</td><td class="number">30&nbsp;&euro;</td><td class="number">100&nbsp;&euro;</td></tr>
+  <tr><td>Content/SEO</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td></tr>
+  <tr class="total"><td><strong>Gesamt/Monat</strong></td><td class="number"><strong>~50&nbsp;&euro;</strong></td><td class="number"><strong>~100&ndash;150&nbsp;&euro;</strong></td><td class="number"><strong>~300&ndash;400&nbsp;&euro;</strong></td></tr>
+</table>
+
+<!-- 7 -->
+<h2 class="section-break">7. Unternehmensorganisation</h2>
+
+<h3>Rechtsform</h3>
+<div class="ru ru-block">Правовая форма: Индивидуальное предприятие (малый бизнес):</div>
+<p><strong>Einzelunternehmen (Kleingewerbe):</strong></p>
+<ul>
+  <li><div class="ru">Регистрация предприятия: 60 &euro; (KVR M&uuml;nchen)</div>Gewerbeanmeldung: 60&nbsp;&euro; (KVR M&uuml;nchen)</li>
+  <li><div class="ru">Минимальный уставной капитал не требуется</div>Keine Mindestkapitalanforderung</li>
+  <li><div class="ru">Упрощённая бухгалтерия (E&Uuml;R)</div>Einfache Buchf&uuml;hrung (E&Uuml;R)</li>
+  <li><div class="ru">Освобождение от промыслового налога: 24 500 &euro;/год</div>Gewerbesteuer-Freibetrag: 24.500&nbsp;&euro;/Jahr</li>
+  <li><div class="ru">Режим малого предпринимателя (&sect; 19 UStG): без НДС до 25 000 &euro; выручки за предыдущий год</div>Kleinunternehmerregelung (&sect;&nbsp;19 UStG): Keine USt bis 25.000&nbsp;&euro; Vorjahresumsatz</li>
+</ul>
+
+<h3>Standort</h3>
+<div class="ru ru-block">Место: Домашний офис в Мюнхене. Полностью цифровой, не привязан к местоположению.</div>
+<p>Homeoffice in M&uuml;nchen. Vollst&auml;ndig digital und ortsunabh&auml;ngig.</p>
+
+<h3>Technische Infrastruktur</h3>
+<div class="ru ru-block">Техническая инфраструктура:</div>
+<table>
+  <tr><th>Komponente</th><th>Anbieter</th><th class="number">Kosten/Monat</th><th>DSGVO</th></tr>
+  <tr><td>Server</td><td>Hetzner Cloud CX32, N&uuml;rnberg</td><td class="number">~15&nbsp;&euro;</td><td>&check; DE</td></tr>
+  <tr><td>Domain + SSL</td><td>Caddy (auto-SSL)</td><td class="number">~1&nbsp;&euro;</td><td>&check;</td></tr>
+  <tr><td>Authentifizierung</td><td>Clerk</td><td class="number">0&nbsp;&euro;</td><td>&check;</td></tr>
+  <tr><td>E-Mail-Versand</td><td>Resend</td><td class="number">0&nbsp;&euro;</td><td>&check;</td></tr>
+  <tr><td>KI-Analyse</td><td>Claude API (Anthropic)</td><td class="number">~20&ndash;50&nbsp;&euro;</td><td>&check;</td></tr>
+  <tr><td>Zahlungsabwicklung</td><td>Stripe (EU)</td><td class="number">1,4&nbsp;% + 0,25&nbsp;&euro;/Txn</td><td>&check;</td></tr>
+</table>
+
+<h3>Personal</h3>
+<div class="ru ru-block">Персонал: В первый год наёма нет. Все задачи выполняет основатель. С года 2 возможно привлечение фрилансеров.</div>
+<p>Im ersten Jahr keine Einstellungen. Alle Aufgaben: Gr&uuml;nder. Ab Jahr 2 ggf. Freelancer.</p>
+
+<!-- 8 SWOT -->
+<h2 class="section-break">8. SWOT-Analyse</h2>
+
+<div class="ru ru-block">SWOT-анализ:</div>
+<div class="swot-grid">
+  <div class="swot-box swot-s">
+    <h4>St&auml;rken</h4>
+    <div class="ru">Сильные стороны:</div>
+    <ul>
+      <li>Produkt fertig und live</li>
+      <li>Extrem niedrige Betriebskosten (~50&nbsp;&euro;/Monat)</li>
+      <li>Einzigartiges Angebot im KMU-Segment</li>
+      <li>KI-Prognosen als Vorsprung</li>
+      <li>DSGVO-konform (Server in DE)</li>
+      <li>Skalierbar</li>
+    </ul>
+  </div>
+  <div class="swot-box swot-w">
+    <h4>Schw&auml;chen</h4>
+    <div class="ru">Слабые стороны:</div>
+    <ul>
+      <li>Einzelgr&uuml;nder</li>
+      <li>Autodidaktische Ausbildung</li>
+      <li>Begrenztes Marketingbudget</li>
+      <li>Keine etablierte Marke</li>
+    </ul>
+  </div>
+  <div class="swot-box swot-o">
+    <h4>Chancen</h4>
+    <div class="ru">Возможности:</div>
+    <ul>
+      <li>Unbesetzte Marktnische 49&ndash;299&nbsp;&euro;</li>
+      <li>82&nbsp;% Digitalisierungsbedarf</li>
+      <li>Anhaltende Preisvolatilit&auml;t</li>
+      <li>Construction-SaaS CAGR ~9&nbsp;%</li>
+      <li>F&ouml;rderm&ouml;glichkeiten</li>
+    </ul>
+  </div>
+  <div class="swot-box swot-t">
+    <h4>Risiken</h4>
+    <div class="ru">Риски:</div>
+    <ul>
+      <li>Langer B2B-Vertriebszyklus</li>
+      <li>Saisonalit&auml;t</li>
+      <li>API-Abh&auml;ngigkeit</li>
+      <li>Gro&szlig;e Player</li>
+      <li>Churn 3&ndash;7&nbsp;%/Monat</li>
+      <li>Einpersonenrisiko</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Gegenma&szlig;nahmen</h3>
+<div class="ru ru-block">Контрмеры:</div>
+<ul>
+  <li><div class="ru">Против длинного цикла продаж: 14-дневный тестовый период</div><strong>Vertriebszyklus:</strong> 14-Tage-Testphase</li>
+  <li><div class="ru">Против сезонности: годовые подписки со скидкой</div><strong>Saisonalit&auml;t:</strong> Jahresabonnements mit Rabatt</li>
+  <li><div class="ru">Против зависимости от API: 3+ независимых источника данных</div><strong>API-Abh&auml;ngigkeit:</strong> 3+ unabh&auml;ngige Datenquellen</li>
+  <li><div class="ru">Против крупных игроков: фокус на простоте и доступности</div><strong>Gro&szlig;e Player:</strong> Fokus Einfachheit + Bezahlbarkeit</li>
+  <li><div class="ru">Против оттока: онбординг-письма, персональная поддержка</div><strong>Churn:</strong> Onboarding-Mails, pers&ouml;nliche Betreuung</li>
+  <li><div class="ru">Против риска одного человека: 7 автоматизированных фоновых процессов</div><strong>Einpersonenrisiko:</strong> 7 automatisierte Hintergrundprozesse</li>
+</ul>
+
+<!-- 8a -->
+<h2 class="section-break">8a. Meilensteinplan (Jahr 1)</h2>
+<div class="ru ru-block">План вех (Год 1):</div>
+<table>
+  <tr><th>Monat</th><th>Meilenstein</th><th>Aktivit&auml;ten</th></tr>
+  <tr><td>1</td><td><strong>Marktstart</strong></td><td>Gewerbeanmeldung, Stripe live, 50 Direktansprachen. DACH+HOLZ bereits besucht (Feb. 2026). <strong>digitalBAU K&ouml;ln (24.&ndash;26.03.2026)</strong></td></tr>
+  <tr><td>2</td><td><strong>Erster Kunde + Messen</strong></td><td>Trial-Nutzer, Onboarding optimieren, SEO-Blog. <strong>ARCHITECT@WORK M&uuml;nchen (15.&ndash;16.04.)</strong> und <strong>Construction Summit Hamburg (22.&ndash;23.04.)</strong></td></tr>
+  <tr><td>3</td><td><strong>Produkt-Feedback</strong></td><td>Kundenfeedbacks auswerten, Features priorisieren</td></tr>
+  <tr><td>4&ndash;6</td><td><strong>Traktion</strong></td><td>4&ndash;6 zahlende Kunden, Google-Ranking, LinkedIn 200+</td></tr>
+  <tr><td>7&ndash;9</td><td><strong>Wachstum</strong></td><td>Google Ads optimieren, Zukunft Bau / HAUS Stuttgart besuchen, 8 Kunden, Break-even</td></tr>
+  <tr><td>10&ndash;12</td><td><strong>Konsolidierung</strong></td><td>12 Kunden, Churn-Analyse, Jahresabo, Quartals-Report</td></tr>
+</table>
+
+<!-- 8b -->
+<h2>8b. Worst-Case-Szenario</h2>
+<div class="ru ru-block">Худший сценарий: Допущение &mdash; только 50% от запланированных клиентов.</div>
+<p><strong>Annahme:</strong> Nur 50&nbsp;% der geplanten Kunden.</p>
+<table>
+  <tr><th></th><th class="number">Basis</th><th class="number">Worst-Case (50&nbsp;%)</th></tr>
+  <tr><td>Kunden Jahr 1</td><td class="number">12</td><td class="number">6</td></tr>
+  <tr><td>Umsatz Jahr 1</td><td class="number">4.615&nbsp;&euro;</td><td class="number">~2.300&nbsp;&euro;</td></tr>
+  <tr><td>Kunden Jahr 2</td><td class="number">35</td><td class="number">18</td></tr>
+  <tr><td>Umsatz Jahr 2</td><td class="number">32.475&nbsp;&euro;</td><td class="number">~16.000&nbsp;&euro;</td></tr>
+</table>
+<ul>
+  <li><div class="ru">Год 1: Расходы (~3 200 &euro;) покрываются стартовыми субсидиями (~3 384 &euro;/год). Никакого риска.</div>Jahr 1: Ausgaben (~3.200&nbsp;&euro;) durch Einstiegsgeld (~3.384&nbsp;&euro;/Jahr) gedeckt. <strong>Kein Risiko.</strong></li>
+  <li><div class="ru">План Б: Через 18 месяцев при &lt;10 клиентах &rarr; возврат в IT-отрасль, BauPreis как побочный проект.</div>Plan B: Nach 18 Monaten bei &lt;10 Kunden &rarr; R&uuml;ckkehr in IT-Branche, BauPreis als Nebent&auml;tigkeit.</li>
+  <li><div class="ru">Финансовый риск: Минимальный. Собственный капитал 200 &euro; = единственные личные вложения.</div><strong>Finanzielles Risiko: Minimal.</strong> Eigenkapital 200&nbsp;&euro; = einziger pers&ouml;nlicher Einsatz.</li>
+</ul>
+
+<!-- 8c -->
+<h2>8c. Rechtliche Rahmenbedingungen</h2>
+<div class="ru ru-block">Правовые рамки:</div>
+<ul>
+  <li><div class="ru">DSGVO: Все данные на немецком сервере (Hetzner, Нюрнберг).</div><strong>DSGVO:</strong> Alle Daten auf deutschem Server (Hetzner, N&uuml;rnberg).</li>
+  <li><div class="ru">Обязанность указания выходных данных: согласно &sect; 5 TMG на всех страницах.</div><strong>Impressumspflicht:</strong> Gem&auml;&szlig; &sect;&nbsp;5 TMG auf allen Seiten.</li>
+  <li><div class="ru">Общие условия: будут подготовлены до выхода на рынок.</div><strong>AGB:</strong> Werden vor Marktstart erstellt.</li>
+  <li><div class="ru">Право на пребывание: &sect; 24 AufenthG &mdash; самозанятость разрешена. Продлено до 04.03.2027.</div><strong>Aufenthaltsrecht:</strong> &sect;&nbsp;24 AufenthG &mdash; Selbst&auml;ndigkeit gestattet. Verl&auml;ngert bis 04.03.2027.</li>
+</ul>
+
+<!-- 9 FINANZPLANUNG -->
+<h2 class="section-break">9. Finanzplanung</h2>
+
+<h3>9a. Kapitalbedarfsplan</h3>
+<div class="ru ru-block">9a. План потребности в капитале (стартовые инвестиции):</div>
+
+<h4>A. Grundkosten</h4>
+<div class="ru">А. Базовые расходы:</div>
+<table>
+  <tr><th>Position</th><th class="number">Betrag</th><th>Erl&auml;uterung</th></tr>
+  <tr><td>Gewerbeanmeldung</td><td class="number">60&nbsp;&euro;</td><td>KVR M&uuml;nchen, einmalig</td></tr>
+  <tr><td>Server Hetzner CX32 (1 Jahr)</td><td class="number">300&nbsp;&euro;</td><td>N&uuml;rnberg, DSGVO</td></tr>
+  <tr><td>Domain + SSL (1 Jahr)</td><td class="number">15&nbsp;&euro;</td><td></td></tr>
+  <tr><td>Claude API Credits (6 Monate)</td><td class="number">300&nbsp;&euro;</td><td>KI-Analysen</td></tr>
+  <tr><td>Buchhaltungssoftware (1 Jahr)</td><td class="number">96&nbsp;&euro;</td><td>lexoffice</td></tr>
+  <tr class="subtotal"><td><strong>Zwischensumme</strong></td><td class="number"><strong>771&nbsp;&euro;</strong></td><td></td></tr>
+</table>
+
+<h4>B. Marketing (erste 6 Monate)</h4>
+<div class="ru">Б. Маркетинг (первые 6 месяцев):</div>
+<table>
+  <tr><th>Position</th><th class="number">Betrag</th><th>Erl&auml;uterung</th></tr>
+  <tr><td>Messebesuch DACH+HOLZ (Feb. 2026 &mdash; bereits besucht)</td><td class="number">850&nbsp;&euro;</td><td>Eintritt, Anreise, &Uuml;bernachtung</td></tr>
+  <tr><td>Weitere Messen (digitalBAU, ARCHITECT@WORK, Construction Summit, Zukunft Bau) <div class="ru">Дальнейшие выставки (digitalBAU, ARCHITECT@WORK, Construction Summit, Zukunft Bau)</div></td><td class="number">1.207&nbsp;&euro;</td><td>Eintrittskarten, Anreise, Unterkunft (Details siehe Messeplan) <div class="ru">Входные билеты, проезд, проживание (детали см. план выставок)</div></td></tr>
+  <tr><td>Google Ads (6 &times; 100&nbsp;&euro;)</td><td class="number">600&nbsp;&euro;</td><td></td></tr>
+  <tr><td>LinkedIn Sales Navigator</td><td class="number">480&nbsp;&euro;</td><td>6 Monate</td></tr>
+  <tr><td>Marketing-Tools</td><td class="number">300&nbsp;&euro;</td><td>E-Mail, CRM</td></tr>
+  <tr><td>Druckmaterial</td><td class="number">150&nbsp;&euro;</td><td></td></tr>
+  <tr class="subtotal"><td><strong>Zwischensumme</strong></td><td class="number"><strong>3.587&nbsp;&euro;</strong></td><td></td></tr>
+</table>
+
+<h4>C. Infrastruktur (12 Monate)</h4>
+<div class="ru">В. Инфраструктура (12 месяцев):</div>
+<table>
+  <tr><th>Position</th><th class="number">Betrag</th><th>Erl&auml;uterung</th></tr>
+  <tr><td>Metals.dev API</td><td class="number">360&nbsp;&euro;</td><td>1 Jahr</td></tr>
+  <tr><td>Resend E-Mail-Service</td><td class="number">120&nbsp;&euro;</td><td>6 Monate Pro</td></tr>
+  <tr><td>IHK-Mitgliedsbeitrag</td><td class="number">150&nbsp;&euro;</td><td>1 Jahr</td></tr>
+  <tr><td>Externe Datenquellen</td><td class="number">240&nbsp;&euro;</td><td>1 Jahr</td></tr>
+  <tr><td>Sicherheitspuffer <div class="ru">Резервный буфер</div></td><td class="number">272&nbsp;&euro;</td><td>Reserve</td></tr>
+  <tr class="subtotal"><td><strong>Zwischensumme</strong></td><td class="number"><strong>1.142&nbsp;&euro;</strong></td><td></td></tr>
+</table>
+
+<table><tr class="total"><td><strong>Gesamter Kapitalbedarf</strong> <div class="ru">Общая потребность в капитале</div></td><td class="number"><strong>5.500&nbsp;&euro;</strong></td><td></td></tr></table>
+
+<div class="note">
+<div class="ru" style="color:var(--ru);">Ноутбук (Alienware m17 R3, i9, 32 GB RAM) и интернет уже имеются.</div>
+Laptop (Alienware m17 R3, i9, 32 GB RAM) und Internet bereits vorhanden.</div>
+
+<!-- 9b -->
+<h3 class="section-break">9b. Umsatzplanung (36 Monate)</h3>
+<div class="ru ru-block">9b. Планирование выручки (36 месяцев):</div>
+
+<h4>Jahr 1 &mdash; Monatlich</h4>
+<div class="ru">Год 1 &mdash; помесячно:</div>
+<table>
+  <tr><th>Monat</th><th class="number">Neue</th><th class="number">Gesamt</th><th class="number">&Oslash;/Kunde</th><th class="number">Umsatz</th></tr>
+  <tr><td>1</td><td class="number">0</td><td class="number">0</td><td class="number">&mdash;</td><td class="number">0&nbsp;&euro;</td></tr>
+  <tr><td>2</td><td class="number">1</td><td class="number">1</td><td class="number">49&nbsp;&euro;</td><td class="number">49&nbsp;&euro;</td></tr>
+  <tr><td>3</td><td class="number">1</td><td class="number">2</td><td class="number">49&nbsp;&euro;</td><td class="number">98&nbsp;&euro;</td></tr>
+  <tr><td>4</td><td class="number">0</td><td class="number">2</td><td class="number">49&nbsp;&euro;</td><td class="number">98&nbsp;&euro;</td></tr>
+  <tr><td>5</td><td class="number">1</td><td class="number">3</td><td class="number">55&nbsp;&euro;</td><td class="number">165&nbsp;&euro;</td></tr>
+  <tr><td>6</td><td class="number">1</td><td class="number">4</td><td class="number">60&nbsp;&euro;</td><td class="number">240&nbsp;&euro;</td></tr>
+  <tr><td>7</td><td class="number">1</td><td class="number">5</td><td class="number">65&nbsp;&euro;</td><td class="number">325&nbsp;&euro;</td></tr>
+  <tr><td>8</td><td class="number">1</td><td class="number">6</td><td class="number">70&nbsp;&euro;</td><td class="number">420&nbsp;&euro;</td></tr>
+  <tr><td>9</td><td class="number">2</td><td class="number">8</td><td class="number">75&nbsp;&euro;</td><td class="number">600&nbsp;&euro;</td></tr>
+  <tr><td>10</td><td class="number">1</td><td class="number">9</td><td class="number">80&nbsp;&euro;</td><td class="number">720&nbsp;&euro;</td></tr>
+  <tr><td>11</td><td class="number">2</td><td class="number">11</td><td class="number">80&nbsp;&euro;</td><td class="number">880&nbsp;&euro;</td></tr>
+  <tr><td>12</td><td class="number">1</td><td class="number">12</td><td class="number">85&nbsp;&euro;</td><td class="number">1.020&nbsp;&euro;</td></tr>
+  <tr class="total"><td colspan="4"><strong>Jahr 1 gesamt</strong></td><td class="number"><strong>4.615&nbsp;&euro;</strong></td></tr>
+</table>
+
+<h4>Jahr 2 &mdash; Quartalsweise</h4>
+<div class="ru">Год 2 &mdash; поквартально:</div>
+<table>
+  <tr><th>Quartal</th><th class="number">Kunden</th><th class="number">&Oslash;/Kunde</th><th class="number">Quartalsumsatz</th></tr>
+  <tr><td>Q1</td><td class="number">16</td><td class="number">95&nbsp;&euro;</td><td class="number">4.560&nbsp;&euro;</td></tr>
+  <tr><td>Q2</td><td class="number">22</td><td class="number">100&nbsp;&euro;</td><td class="number">6.600&nbsp;&euro;</td></tr>
+  <tr><td>Q3</td><td class="number">28</td><td class="number">110&nbsp;&euro;</td><td class="number">9.240&nbsp;&euro;</td></tr>
+  <tr><td>Q4</td><td class="number">35</td><td class="number">115&nbsp;&euro;</td><td class="number">12.075&nbsp;&euro;</td></tr>
+  <tr class="total"><td colspan="3"><strong>Jahr 2 gesamt</strong></td><td class="number"><strong>32.475&nbsp;&euro;</strong></td></tr>
+</table>
+
+<h4>Jahr 3 &mdash; Quartalsweise</h4>
+<div class="ru">Год 3 &mdash; поквартально:</div>
+<table>
+  <tr><th>Quartal</th><th class="number">Kunden</th><th class="number">&Oslash;/Kunde</th><th class="number">Quartalsumsatz</th></tr>
+  <tr><td>Q1</td><td class="number">42</td><td class="number">120&nbsp;&euro;</td><td class="number">15.120&nbsp;&euro;</td></tr>
+  <tr><td>Q2</td><td class="number">50</td><td class="number">125&nbsp;&euro;</td><td class="number">18.750&nbsp;&euro;</td></tr>
+  <tr><td>Q3</td><td class="number">60</td><td class="number">130&nbsp;&euro;</td><td class="number">23.400&nbsp;&euro;</td></tr>
+  <tr><td>Q4</td><td class="number">70</td><td class="number">130&nbsp;&euro;</td><td class="number">27.300&nbsp;&euro;</td></tr>
+  <tr class="total"><td colspan="3"><strong>Jahr 3 gesamt</strong></td><td class="number"><strong>84.570&nbsp;&euro;</strong></td></tr>
+</table>
+
+<!-- 9c -->
+<h3 class="section-break">9c. Rentabilit&auml;tsvorschau</h3>
+<div class="ru ru-block">9c. Прогноз рентабельности:</div>
+<table>
+  <tr><th>Position</th><th class="number">Jahr 1</th><th class="number">Jahr 2</th><th class="number">Jahr 3</th></tr>
+  <tr class="total"><td><strong>Umsatz</strong></td><td class="number"><strong>4.615&nbsp;&euro;</strong></td><td class="number"><strong>32.475&nbsp;&euro;</strong></td><td class="number"><strong>84.570&nbsp;&euro;</strong></td></tr>
+  <tr><td>&mdash; Server &amp; Infrastruktur</td><td class="number negative">-600&nbsp;&euro;</td><td class="number negative">-720&nbsp;&euro;</td><td class="number negative">-960&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Claude API</td><td class="number negative">-300&nbsp;&euro;</td><td class="number negative">-600&nbsp;&euro;</td><td class="number negative">-1.200&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Marketing</td><td class="number negative">-1.380&nbsp;&euro;</td><td class="number negative">-3.600&nbsp;&euro;</td><td class="number negative">-4.800&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Stripe-Geb&uuml;hren (1,4&nbsp;% + 0,25&nbsp;&euro;/Txn)</td><td class="number negative">-80&nbsp;&euro;</td><td class="number negative">-527&nbsp;&euro;</td><td class="number negative">-1.343&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Buchhaltungssoftware</td><td class="number negative">-96&nbsp;&euro;</td><td class="number negative">-96&nbsp;&euro;</td><td class="number negative">-96&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Steuerberater</td><td class="number">0&nbsp;&euro;</td><td class="number negative">-500&nbsp;&euro;</td><td class="number negative">-1.000&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; IHK-Mitgliedsbeitrag</td><td class="number negative">-150&nbsp;&euro;</td><td class="number negative">-150&nbsp;&euro;</td><td class="number negative">-200&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Preisdaten-APIs</td><td class="number negative">-360&nbsp;&euro;</td><td class="number negative">-480&nbsp;&euro;</td><td class="number negative">-600&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Sonstige</td><td class="number negative">-240&nbsp;&euro;</td><td class="number negative">-360&nbsp;&euro;</td><td class="number negative">-480&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Kapitaldienst / Tilgung</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td></tr>
+  <tr class="subtotal"><td><strong>Aufwendungen gesamt</strong></td><td class="number"><strong>-3.206&nbsp;&euro;</strong></td><td class="number"><strong>-7.033&nbsp;&euro;</strong></td><td class="number"><strong>-10.679&nbsp;&euro;</strong></td></tr>
+  <tr class="total"><td><strong>Gewinn vor Steuern</strong></td><td class="number positive"><strong>1.409&nbsp;&euro;</strong></td><td class="number positive"><strong>25.442&nbsp;&euro;</strong></td><td class="number positive"><strong>73.891&nbsp;&euro;</strong></td></tr>
+  <tr><td>&mdash; Einkommensteuer</td><td class="number">0&nbsp;&euro;</td><td class="number negative">~2.000&nbsp;&euro;</td><td class="number negative">~13.500&nbsp;&euro;</td></tr>
+  <tr><td>&mdash; Gewerbesteuer (Freibetrag 24.500&nbsp;&euro;)</td><td class="number">0&nbsp;&euro;</td><td class="number">0&nbsp;&euro;</td><td class="number negative">~3.200&nbsp;&euro;</td></tr>
+  <tr class="total"><td><strong>Gewinn nach Steuern</strong></td><td class="number positive"><strong>~1.409&nbsp;&euro;</strong></td><td class="number positive"><strong>~23.442&nbsp;&euro;</strong></td><td class="number positive"><strong>~57.191&nbsp;&euro;</strong></td></tr>
+</table>
+
+<div class="note">
+  <div class="ru" style="color:var(--ru);">Примечания: Режим малого предпринимателя (&sect; 19 UStG): Год 1 без НДС. С года 2 переход на обычное налогообложение. Отток: при 12 клиентах в конце Г1 &mdash; абсолютный эффект ~0&ndash;1 клиент/мес. Обслуживание долга: 0 &euro; &mdash; нет стороннего финансирования. Инвестиционная субсидия = невозвратная.</div>
+  <strong>Hinweise:</strong><br>
+  &bull; <strong>Kleinunternehmerregelung (&sect;&nbsp;19 UStG):</strong> Jahr 1 keine USt. Ab Jahr 2 Wechsel zur Regelbesteuerung.<br>
+  &bull; <strong>Churn:</strong> Bei 12 Kunden Ende J1 &rarr; absoluter Effekt ~0&ndash;1 Kunde/Monat. Konservative Neukundenannahmen.<br>
+  &bull; <strong>Kapitaldienst:</strong> 0&nbsp;&euro; &mdash; keine Fremdfinanzierung. Investitionszuschuss = nicht r&uuml;ckzahlbar.
+</div>
+
+<!-- 9d -->
+<h3>9d. Liquidit&auml;tsplan (Jahr 1)</h3>
+<div class="ru ru-block">9d. План ликвидности (Год 1):</div>
+<table>
+  <tr><th>Monat</th><th class="number">Einnahmen</th><th class="number">Ausgaben</th><th class="number">Saldo</th><th class="number">Kumuliert</th></tr>
+  <tr><td>1</td><td class="number">0&nbsp;&euro;</td><td class="number">460&nbsp;&euro;</td><td class="number negative">-460&nbsp;&euro;</td><td class="number negative">-460&nbsp;&euro;</td></tr>
+  <tr><td>2</td><td class="number">49&nbsp;&euro;</td><td class="number">185&nbsp;&euro;</td><td class="number negative">-136&nbsp;&euro;</td><td class="number negative">-596&nbsp;&euro;</td></tr>
+  <tr><td>3</td><td class="number">98&nbsp;&euro;</td><td class="number">185&nbsp;&euro;</td><td class="number negative">-87&nbsp;&euro;</td><td class="number negative">-683&nbsp;&euro;</td></tr>
+  <tr><td>4</td><td class="number">98&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number negative">-187&nbsp;&euro;</td><td class="number negative">-870&nbsp;&euro;</td></tr>
+  <tr><td>5</td><td class="number">165&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number negative">-120&nbsp;&euro;</td><td class="number negative">-990&nbsp;&euro;</td></tr>
+  <tr><td>6</td><td class="number">240&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number negative">-45&nbsp;&euro;</td><td class="number negative">-1.035&nbsp;&euro;</td></tr>
+  <tr><td>7</td><td class="number">325&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+40&nbsp;&euro;</td><td class="number negative">-995&nbsp;&euro;</td></tr>
+  <tr><td>8</td><td class="number">420&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+135&nbsp;&euro;</td><td class="number negative">-860&nbsp;&euro;</td></tr>
+  <tr><td>9</td><td class="number">600&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+315&nbsp;&euro;</td><td class="number negative">-545&nbsp;&euro;</td></tr>
+  <tr><td>10</td><td class="number">720&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+435&nbsp;&euro;</td><td class="number negative">-110&nbsp;&euro;</td></tr>
+  <tr><td>11</td><td class="number">880&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+595&nbsp;&euro;</td><td class="number positive">+485&nbsp;&euro;</td></tr>
+  <tr><td>12</td><td class="number">1.020&nbsp;&euro;</td><td class="number">285&nbsp;&euro;</td><td class="number positive">+735&nbsp;&euro;</td><td class="number positive">+1.220&nbsp;&euro;</td></tr>
+</table>
+<div class="ru ru-block">Точка безубыточности: месяц 11 (накопленное сальдо становится положительным). Частные потребности (~1 700 &euro;/мес) покрываются пособием/стартовыми субсидиями (см. 9e). Стартовые инвестиции финансируются инвестиционной субсидией (&sect; 16c SGB II).</div>
+<p><strong>Break-even: Monat 11</strong> (kumulierter Saldo wird positiv).</p>
+<div class="note">Privater Bedarf (~1.700&nbsp;&euro;/Monat) wird durch B&uuml;rgergeld/Einstiegsgeld gedeckt (siehe 9e). Startinvestitionen finanziert durch Investitionszuschuss (&sect;&nbsp;16c SGB II).</div>
+
+<!-- 9e -->
+<h3>9e. Privater Finanzbedarf</h3>
+<div class="ru ru-block">9e. Личные финансовые потребности:</div>
+<table>
+  <tr><th>Position</th><th class="number">Monatlich</th></tr>
+  <tr><td>Miete (Warmmiete, M&uuml;nchen)</td><td class="number">~1.200&nbsp;&euro;</td></tr>
+  <tr><td>Lebenshaltung</td><td class="number">~350&nbsp;&euro;</td></tr>
+  <tr><td>Krankenversicherung</td><td class="number">&uuml;ber B&uuml;rgergeld</td></tr>
+  <tr><td>Telefon / Internet</td><td class="number">~40&nbsp;&euro;</td></tr>
+  <tr><td>Transport (MVV)</td><td class="number">~60&nbsp;&euro;</td></tr>
+  <tr><td>Sonstiges</td><td class="number">~50&nbsp;&euro;</td></tr>
+  <tr class="total"><td><strong>Gesamt</strong></td><td class="number"><strong>~1.700&nbsp;&euro;/Monat</strong></td></tr>
+</table>
+
+<h4>Weg in die Unabh&auml;ngigkeit</h4>
+<div class="ru ru-block">Путь к финансовой независимости:</div>
+<table>
+  <tr><th>Phase</th><th>Zeitraum</th><th>Deckung</th></tr>
+  <tr><td><strong>Phase 1</strong></td><td>Monat 1&ndash;12</td><td>B&uuml;rgergeld + Einstiegsgeld (~282&nbsp;&euro;/Monat)</td></tr>
+  <tr><td><strong>Phase 2</strong></td><td>Monat 13&ndash;24</td><td>Gesch&auml;ftseinkommen (~2.700&nbsp;&euro;) + reduziertes B&uuml;rgergeld</td></tr>
+  <tr><td><strong>Phase 3</strong></td><td>Ab Monat 25</td><td>Vollst&auml;ndig aus Gesch&auml;ft (~4.540&nbsp;&euro;) &mdash; <strong>kein B&uuml;rgergeld</strong></td></tr>
+</table>
+
+<div class="highlight">
+<div class="ru" style="color:#8B6914;">Цель: Полная независимость от социальных выплат с года 3 (прибыль ~57 000 &euro;/год >> потребности ~20 400 &euro;/год).</div>
+<strong>Ziel:</strong> Vollst&auml;ndige Unabh&auml;ngigkeit von Sozialleistungen ab Jahr 3 (Gewinn ~57.000&nbsp;&euro;/Jahr &gt;&gt; Bedarf ~20.400&nbsp;&euro;/Jahr).</div>
+
+<!-- 9f -->
+<h3>9f. Finanzierungsplan</h3>
+<div class="ru ru-block">9f. План финансирования:</div>
+<table>
+  <tr><th>Quelle</th><th class="number">Betrag</th><th>Status</th></tr>
+  <tr><td>Eigenkapital</td><td class="number">~200&nbsp;&euro;</td><td>Vorhanden</td></tr>
+  <tr><td>Einstiegsgeld (&sect;&nbsp;16b SGB II)</td><td class="number">~282&nbsp;&euro;/Monat (563&nbsp;&euro; &times; 50&nbsp;%)</td><td>Beantragt</td></tr>
+  <tr><td>Investitionszuschuss (&sect;&nbsp;16c SGB II)</td><td class="number">bis 5.000&nbsp;&euro;</td><td>Beantragt</td></tr>
+  <tr class="subtotal"><td><strong>Gesamtfinanzierung (Jahr 1)</strong></td><td class="number"><strong>bis ~8.584&nbsp;&euro;</strong></td><td></td></tr>
+  <tr><td>Kapitalbedarf (9a) <div class="ru">Потребность в капитале</div></td><td class="number">5.500&nbsp;&euro;</td><td></td></tr>
+  <tr class="total"><td><strong>&Uuml;berdeckung</strong> <div class="ru">Превышение</div></td><td class="number positive"><strong>+3.084&nbsp;&euro;</strong></td><td>Sicherheitspuffer</td></tr>
+</table>
+
+<div class="note">
+<div class="ru" style="color:var(--ru);">Пояснение: Инвестиционная субсидия (до 5 000 &euro;) покрывает стартовые инвестиции (5 500 &euro;) почти полностью. Разница (500 &euro;) покрывается собственным капиталом. Стартовые деньги дополняют пособие и обеспечивают стабильность. Остаток (+3 084 &euro;) служит резервным буфером.</div>
+<strong>Erl&auml;uterung:</strong> Investitionszuschuss (bis 5.000&nbsp;&euro;) deckt Startinvestitionen (5.500&nbsp;&euro;) nahezu vollst&auml;ndig. Differenz (500&nbsp;&euro;) durch Eigenkapital gedeckt. Einstiegsgeld erg&auml;nzt B&uuml;rgergeld f&uuml;r Stabilit&auml;t. &Uuml;berdeckung (+3.084&nbsp;&euro;) dient als Sicherheitspuffer.</div>
+
+<!-- 10 -->
+<h2 class="section-break">10. Anhang</h2>
+
+<h3>Quellenverzeichnis</h3>
+<div class="ru ru-block">Список источников:</div>
+<table>
+  <tr><th>#</th><th>Quelle</th><th>Verwendung</th></tr>
+  <tr><td>1</td><td>BKI Baupreisindex</td><td>+64&nbsp;% (2010&ndash;2022)</td></tr>
+  <tr><td>2</td><td>Destatis</td><td>+3,2&nbsp;% (2025)</td></tr>
+  <tr><td>3</td><td>Bauindustrie.de</td><td>350.000 Unternehmen, 2,7 Mio. Besch&auml;ftigte</td></tr>
+  <tr><td>4</td><td>PwC-Studie 2025</td><td>82&nbsp;% Digitalisierungsbarriere</td></tr>
+  <tr><td>5</td><td>Mordor Intelligence</td><td>CAGR ~9&nbsp;%</td></tr>
+  <tr><td>6</td><td>Fortune Business Insights</td><td>$11,78 Mrd. (2026)</td></tr>
+  <tr><td>7</td><td>&sect;&nbsp;16b SGB II</td><td>Einstiegsgeld</td></tr>
+  <tr><td>8</td><td>&sect;&nbsp;16c SGB II</td><td>Investitionszuschuss</td></tr>
+  <tr><td>9</td><td>Bundesregierung</td><td>Regelbedarf 2026: 563&nbsp;&euro;</td></tr>
+  <tr><td>10</td><td>IHK M&uuml;nchen</td><td>Tragf&auml;higkeitsbescheinigung</td></tr>
+</table>
+
+<h3>Weitere Anh&auml;nge (separat)</h3>
+<div class="ru ru-block">Дополнительные приложения (подаются отдельно):</div>
+<ul>
+  <li>Lebenslauf des Gr&uuml;nders</li>
+  <li>Screenshots der Live-Plattform (baupreis.ais152.com)</li>
+  <li>Qualifikationsnachweise / Zertifikate</li>
+  <li>Aufenthaltserlaubnis (&sect;&nbsp;24 AufenthG)</li>
+  <li>Eintrittskarte DACH+HOLZ International (K&ouml;ln, 24.&ndash;27.02.2026) &mdash; Nachweis des Messebesuchs</li>
+</ul>
+
+<div class="page-footer">
+  BauPreis &mdash; Businessplan &middot; Eduard Morocho Baias &middot; M&uuml;nchen &middot; Februar 2026
+</div>
+
+</div>
+</body>
+</html>
