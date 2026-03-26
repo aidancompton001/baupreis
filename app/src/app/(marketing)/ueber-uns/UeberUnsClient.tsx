@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useLocale } from "@/i18n/LocaleContext";
+import { BauhausOverlay } from "@/components/decorations";
 
 export default function UeberUnsPage() {
   const { t } = useLocale();
@@ -58,6 +59,7 @@ export default function UeberUnsPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-gradient-to-br from-brand-600 via-brand-700 to-bauhaus-black">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <BauhausOverlay variant="medium" opacity={0.08} />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl font-bold font-grotesk text-white mb-6 tracking-tight">
             {t("aboutUs.heading")}

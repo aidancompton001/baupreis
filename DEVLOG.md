@@ -9,6 +9,38 @@
 
 ---
 
+### [S032] — 2026-03-26 — T011: Bauhaus Geometric Decorations System
+
+**Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью ТС)
+**Статус:** завершено
+
+**Что сделано:**
+- 5 SVG-примитивов: BauCircle, BauTriangle, BauRect, BauDiamond, BauHalfCircle
+- 4 композиции: CompositionCornerTL, CompositionCornerBR, CompositionStripe, CompositionGrid
+- BauhausOverlay: бесшовный SVG-паттерн (sparse/medium/dense), тайл 120×120
+- grid.svg создан (починены 4 страницы с битыми ссылками)
+- Landing page: inline div-декорации → SVG-компоненты + новые элементы (Triangle, Stripe, Overlay)
+- Preise: добавлены декорации (была пустая)
+- Über Uns, Kontakt, Blog, Legal: BauhausOverlay поверх grid.svg
+- Footer: CompositionGrid фон
+- Accessibility: `@media (prefers-reduced-motion: reduce)` в globals.css
+
+**Ключевые решения:**
+- Тайл 120×120 вместо 80×80 — по замечанию Ланды (менее заметный повтор)
+- BauDiamond как `<polygon>` вместо rotated rect — чище SVG
+- grid.svg упрощён до линий + точек (без треугольников) — subpixel артефакты на mobile
+
+**Артефакты:**
+- `app/src/components/decorations/` (4 файла)
+- `app/public/grid.svg`
+- Изменены: page.tsx, PreiseClient, UeberUnsClient, KontaktClient, BlogClient, LegalPageShell, globals.css
+
+**Следующие шаги:**
+- Проверка в браузере desktop + mobile
+- Визуальное подтверждение CEO
+
+---
+
 ### [S025] — 2026-03-26 — T010: Unified Navigation (сайт + dashboard = единое целое)
 
 **Роли:** #1 Markus Lehmann — PA, #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review

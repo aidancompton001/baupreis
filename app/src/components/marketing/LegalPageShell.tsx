@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { BauhausOverlay } from "@/components/decorations";
 
 interface LegalSection {
   title: string;
@@ -34,6 +35,7 @@ export function LegalPageShell({ heading, date, sections }: LegalPageShellProps)
       {/* Hero */}
       <section className="relative pt-32 pb-14 px-4 overflow-hidden bg-gradient-to-br from-gray-800 via-gray-900 to-black">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        <BauhausOverlay variant="sparse" opacity={0.05} />
         <div className="relative max-w-4xl mx-auto text-center">
           <h1 className="text-3xl sm:text-4xl font-bold font-grotesk text-white mb-3 tracking-tight">
             {heading}

@@ -116,3 +116,14 @@ body {
 .sidebar-item-inactive {
   @apply text-gray-600 hover:bg-gray-100 hover:text-gray-900 border-l-[3px] border-l-transparent;
 }
+
+/* ── Accessibility: reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-left,
+  .animate-right,
+  .dash-appear {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

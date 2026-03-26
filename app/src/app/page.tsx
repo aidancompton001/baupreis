@@ -4,6 +4,10 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 /* MobileNav and LanguageSwitcher moved to UnifiedHeader */
 import { useLocale } from "@/i18n/LocaleContext";
+import { BauCircle, BauTriangle } from "@/components/decorations";
+import { CompositionCornerBR, CompositionStripe } from "@/components/decorations";
+import { BauhausOverlay } from "@/components/decorations";
+import { CompositionGrid } from "@/components/decorations";
 
 /* ── SVG icons ── */
 const ArrowRight = () => (
@@ -62,8 +66,9 @@ export default function LandingPage() {
       {/* ═══ HERO — 2 Columns ═══ */}
       <section data-hero className="min-h-screen flex items-center pt-16 pb-16 px-6 relative overflow-hidden bg-white">
         {/* Background geometric shapes */}
-        <div className="absolute -top-[100px] -right-[100px] w-[400px] h-[400px] rounded-full pointer-events-none bg-brand-600 opacity-[0.06]" />
-        <div className="absolute bottom-[80px] -left-[60px] w-[200px] h-[200px] rounded-full pointer-events-none bg-bauhaus-yellow opacity-[0.12]" />
+        <BauCircle color="#C1292E" size={400} opacity={0.06} className="absolute -top-[100px] -right-[100px]" />
+        <BauCircle color="#F5C518" size={200} opacity={0.12} className="absolute bottom-[80px] -left-[60px] hidden sm:block" />
+        <BauTriangle color="#1A1A1A" size={120} opacity={0.05} rotation={15} className="absolute bottom-[40px] right-[10%] hidden lg:block" />
 
         <div className="relative z-10 max-w-[1200px] mx-auto w-full">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -144,7 +149,8 @@ export default function LandingPage() {
 
       {/* ═══ PROBLEM ═══ */}
       <section className="bg-bauhaus-black text-white py-20 lg:py-28 relative overflow-hidden">
-        <div className="absolute -top-[100px] -right-[80px] w-[300px] h-[300px] rounded-full border-[40px] border-brand-600 opacity-[0.08] pointer-events-none" />
+        <BauCircle color="#C1292E" size={300} opacity={0.08} className="absolute -top-[100px] -right-[80px]" />
+        <CompositionCornerBR opacity={0.08} className="absolute bottom-[-40px] right-[-20px] hidden md:block" />
         <div className="max-w-[1200px] mx-auto px-6 relative z-10">
           <div className="animate-on-scroll">
             <span className="text-xs font-bold tracking-[0.12em] uppercase text-bauhaus-yellow mb-4 inline-block font-grotesk">{t("landing2.problemEyebrow")}</span>
@@ -250,10 +256,13 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══ STRIPE DIVIDER ═══ */}
+      <CompositionStripe />
+
       {/* ═══ PRICING ═══ */}
       <section id="pricing" className="py-20 lg:py-28 bg-white relative overflow-hidden">
-        <div className="absolute bottom-[-60px] left-[-60px] w-[200px] h-[200px] rounded-full bg-bauhaus-yellow opacity-[0.08] pointer-events-none" />
-        <div className="absolute top-[40px] right-[-40px] w-[150px] h-[150px] bg-brand-600 opacity-[0.05] pointer-events-none" />
+        <BauCircle color="#F5C518" size={200} opacity={0.08} className="absolute bottom-[-60px] left-[-60px]" />
+        <BauTriangle color="#C1292E" size={150} opacity={0.05} className="absolute top-[40px] right-[-40px] hidden md:block" />
         <div className="max-w-[1200px] mx-auto px-6 relative z-10">
           <div className="text-center mb-12 animate-on-scroll">
             <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">{t("landing2.pricingEyebrow")}</span>
@@ -318,8 +327,9 @@ export default function LandingPage() {
       </section>
 
       {/* ═══ FAQ ═══ */}
-      <section className="py-20 bg-gray-50 px-6">
-        <div className="max-w-3xl mx-auto">
+      <section className="py-20 bg-gray-50 px-6 relative overflow-hidden">
+        <BauhausOverlay variant="sparse" opacity={0.03} />
+        <div className="max-w-3xl mx-auto relative z-10">
           <h2 className="text-3xl font-bold font-grotesk text-center text-gray-900 mb-12 animate-on-scroll">
             {t("landing.faqTitle")}
           </h2>
@@ -335,8 +345,9 @@ export default function LandingPage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-bauhaus-black text-gray-400 py-16">
-        <div className="max-w-[1200px] mx-auto px-6">
+      <footer className="bg-bauhaus-black text-gray-400 py-16 relative overflow-hidden">
+        <CompositionGrid opacity={0.03} />
+        <div className="max-w-[1200px] mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8 mb-10">
             <div>
               <div className="mb-2">

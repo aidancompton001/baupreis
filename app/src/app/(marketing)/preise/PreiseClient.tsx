@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLocale } from "@/i18n/LocaleContext";
+import { BauhausOverlay, CompositionCornerTL } from "@/components/decorations";
 
 export default function PreisePage() {
   const { t } = useLocale();
@@ -73,8 +74,10 @@ export default function PreisePage() {
 
   return (
     <main className="min-h-screen">
-      <section className="pt-32 pb-20 px-4">
-        <div className="max-w-6xl mx-auto">
+      <section className="pt-32 pb-20 px-4 relative overflow-hidden">
+        <CompositionCornerTL opacity={0.08} className="absolute -top-[20px] -left-[20px] hidden md:block" />
+        <BauhausOverlay variant="sparse" opacity={0.04} />
+        <div className="max-w-6xl mx-auto relative z-10">
           <h1 className="text-4xl font-bold text-center text-gray-900 mb-4">
             {t("pricing.title")}
           </h1>
