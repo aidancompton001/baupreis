@@ -9,6 +9,42 @@
 
 ---
 
+### [S024] — 2026-03-26 — T008: Официальные логотипы на сайте
+
+**Роли:** #2 Lena Hoffmann — UX/UI
+**Статус:** завершено
+
+**Что сделано:**
+- Horizontal лого → landing nav, marketing header, dashboard header, landing footer
+- Vertical лого → sign-in, sign-up pages
+- PWA icons сгенерированы (icon-192.png, icon-512.png) из logo-icon.png
+- manifest.json: theme_color #C1292E, bg_color #1A1A1A
+- Старый logo-bauhaus.png удалён, 0 ссылок
+
+**Артефакты:** icon-192.png, icon-512.png, page.tsx, MarketingHeader, dashboard/layout, sign-in, sign-up
+
+---
+
+### [S023] — 2026-03-26 — T007: Brand Identity Full Compliance
+
+**Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend
+**Статус:** завершено
+
+**Что сделано:**
+- Только 5 цветов Bauhaus: #C1292E, #1A1A1A, #BC8279, #FFFFFF, #F5C518
+- Убраны ВСЕ запрещённые: emerald, green, blue, amber, orange, rose, slate, stone, purple = 0
+- Убраны ВСЕ скругления: 295 rounded-* → rounded-none в 49 файлах = 0
+- Bebas Neue подключён для Hero H1
+- Dashboard categories = 5 Bauhaus цветов
+- Trend up = жёлтый, down = красный, badges = yellow/salmon
+
+**Верификация:**
+- `grep rounded-(xl|lg|2xl|md|3xl)` → 0 results
+- `grep (emerald|green|blue|amber|orange|rose|slate|stone|purple)` → 0 results
+- `npm run build` → 0 errors
+
+---
+
 ### [S022] — 2026-03-26 — T006: Landing = Прототип (структура, не только цвета)
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend
