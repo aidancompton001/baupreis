@@ -20,14 +20,15 @@ function useIsLoggedIn() {
 const HIDDEN_PATHS = ["/sign-in", "/sign-up", "/onboarding"];
 
 export default function UnifiedHeader() {
+  /* ALL hooks MUST be called before any conditional return (React Rules of Hooks) */
   const pathname = usePathname();
   const { t } = useLocale();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isLoggedIn = useIsLoggedIn();
 
-  /* Hide on auth/onboarding pages */
+  /* Hide on auth/onboarding pages — AFTER all hooks */
   if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return null;
 
-  const isLoggedIn = useIsLoggedIn();
   const isOnDashboard = pathname.startsWith("/dashboard") || pathname.startsWith("/material") || pathname.startsWith("/prognose") || pathname.startsWith("/chat") || pathname.startsWith("/alerts") || pathname.startsWith("/berichte") || pathname.startsWith("/einstellungen") || pathname.startsWith("/account") || pathname.startsWith("/preisgleitklausel") || pathname.startsWith("/legierungsrechner");
 
   const tabs = [

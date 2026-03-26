@@ -9,6 +9,22 @@
 
 ---
 
+### [S040] — 2026-03-26 — T017: Guest Mode Crash Fix + Trial 14d
+
+**Роли:** #3 Maximilian Braun (Frontend), #14 Hans Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+
+- Root cause: React Rules of Hooks violation in UnifiedHeader (hook after conditional return)
+- Fix: moved useIsLoggedIn() before conditional return
+- Trial days: 7 → 14 in guest.register (de/en/ru)
+- 84/84 tests green
+
+**Артефакты:** `UnifiedHeader.tsx`, `de.ts`, `en.ts`, `ru.ts`
+
+---
+
 ### [S039] — 2026-03-26 — T016: Dashboard Guest Preview
 
 **Роли:** #3 Maximilian Braun (Frontend), #14 Hans Landa (ревью)

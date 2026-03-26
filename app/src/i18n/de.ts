@@ -78,7 +78,7 @@ const de: Record<string, string> = {
   "dashboard.noDataHint": "Die Preisdaten werden automatisch gesammelt. Bitte schauen Sie sp\u00e4ter wieder vorbei.",
   "guest.title": "Dashboard freischalten",
   "guest.description": "Registrieren Sie sich kostenlos, um Echtzeit-Preisdaten, KI-Prognosen und Marktanalysen zu sehen.",
-  "guest.register": "Kostenlos testen \u2014 7 Tage",
+  "guest.register": "Kostenlos testen \u2014 14 Tage",
   "guest.login": "Anmelden",
 
   // Material Detail
