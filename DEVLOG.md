@@ -9,6 +9,22 @@
 
 ---
 
+### [S038] — 2026-03-26 — T015: Marketing Pages Bauhaus Redesign
+
+**Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+
+- Preise: чёрный hero, Oswald text-5xl цены, border-2 cards, shadow buttons, Bauhaus toggle, tile
+- Über Uns: чёрный hero, красные icon-боксы, border-2 cards с hover shadow, tiles
+- Kontakt: чёрный hero, border-2 inputs, shadow form card, styled submit, tile декор
+- Все 3: Oswald headings, Grotesk body, Bauhaus color bar, no rounded
+
+**Артефакты:** `PreiseClient.tsx`, `UeberUnsClient.tsx`, `KontaktClient.tsx`
+
+---
+
 ### [S037] — 2026-03-26 — T014: Dashboard Overview Chart + Materialien Tab
 
 **Роли:** #3 Maximilian Braun (Frontend), #2 Lena Hoffmann (UX), #14 Hans Landa (ревью)
