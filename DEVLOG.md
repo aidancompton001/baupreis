@@ -9,6 +9,24 @@
 
 ---
 
+### [S037] — 2026-03-26 — T014: Dashboard Overview Chart + Materialien Tab
+
+**Роли:** #3 Maximilian Braun (Frontend), #2 Lena Hoffmann (UX), #14 Hans Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+
+- IndexChart: Recharts BarChart, 30 дней, красные/жёлтые столбики, переключатель 7d/30d
+- Dynamic import с ssr:false (Landa: SSR crash prevention)
+- Number() конвертация в /api/index (Landa: pg numeric strings)
+- Новая страница /dashboard/materialien (материалы вынесены из Overview)
+- Новая вкладка "Materialien" в DashboardSubNav
+- i18n: de/en/ru ключи добавлены
+
+**Артефакты:** `IndexChart.tsx`, `materialien/page.tsx`, `dashboard/page.tsx`, `DashboardSubNav.tsx`, `api/index/route.ts`, `de/en/ru.ts`
+
+---
+
 ### [S036] — 2026-03-26 — T013: Bauhaus Tiles Library (Visual Language)
 
 **Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью ТС)

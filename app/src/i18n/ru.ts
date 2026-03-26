@@ -42,6 +42,7 @@ const ru: Record<string, string> = {
 
   // Navigation
   "nav.overview": "Обзор",
+  "nav.materials": "Материалы",
   "nav.forecasts": "ИИ-прогнозы",
   "nav.chat": "ИИ-чат",
   "nav.escalation": "Эскалация цен",
@@ -66,6 +67,8 @@ const ru: Record<string, string> = {
   "dashboard.days30": "30 дней",
   "dashboard.today": "Сегодня",
   "dashboard.days7": "7 дней",
+  "dashboard.days": "дней",
+  "dashboard.materialsSubtitle": "Все материалы по категориям с актуальными ценами и трендами",
   "dashboard.buyNow": "Покупать сейчас",
   "dashboard.wait": "Подождать",
   "dashboard.observe": "Наблюдать",

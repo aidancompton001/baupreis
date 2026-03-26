@@ -16,6 +16,7 @@ import {
 
 const subNavItems = [
   { href: "/dashboard", labelKey: "nav.overview", icon: <IconDashboard size={16} />, dataTour: undefined },
+  { href: "/dashboard/materialien", labelKey: "nav.materials", icon: <IconDashboard size={16} />, dataTour: undefined },
   { href: "/prognose", labelKey: "nav.forecasts", icon: <IconForecasts size={16} />, dataTour: "nav-prognose" },
   { href: "/chat", labelKey: "nav.chat", icon: <IconChat size={16} />, dataTour: undefined },
   { href: "/preisgleitklausel", labelKey: "nav.escalation", icon: <IconEscalation size={16} />, dataTour: undefined },
@@ -31,6 +32,7 @@ export default function DashboardSubNav() {
 
   function isActive(href: string) {
     if (href === "/dashboard") return pathname === "/dashboard";
+    if (href === "/dashboard/materialien") return pathname === "/dashboard/materialien";
     return pathname.startsWith(href);
   }
 

@@ -19,7 +19,15 @@ export async function GET(req: NextRequest) {
       [days]
     );
 
-    return NextResponse.json(result.rows);
+    const rows = result.rows.map((row: Record<string, unknown>) => ({
+      ...row,
+      index_value: row.index_value != null ? Number(row.index_value) : null,
+      change_pct_1d: row.change_pct_1d != null ? Number(row.change_pct_1d) : null,
+      change_pct_7d: row.change_pct_7d != null ? Number(row.change_pct_7d) : null,
+      change_pct_30d: row.change_pct_30d != null ? Number(row.change_pct_30d) : null,
+    }));
+
+    return NextResponse.json(rows);
   } catch (error: unknown) {
     if (error instanceof Error && ["No organization found", "Trial expired", "Subscription cancelled"].includes(error.message)) {
       return NextResponse.json({ error: error instanceof Error ? error.message : "Interner Serverfehler" }, { status: 403 });

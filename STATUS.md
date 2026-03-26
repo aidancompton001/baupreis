@@ -1,7 +1,7 @@
 # STATUS.md — BauPreis AI SaaS
 
 **Обновлён:** 2026-03-26
-**Сессия:** S036 (T013: Bauhaus Tiles Library)
+**Сессия:** S037 (T014: Dashboard Overview Chart + Materialien Tab)
 **Методология:** V7.0 (MainCore CLAUDE_TEMPLATE + TEAM_TEMPLATE)
 
 ## Текущий этап
