@@ -176,52 +176,28 @@ export default function DashboardPage() {
       )}
 
       {/* ═══ YELLOW KPI BLOCKS (as in mockup) ═══ */}
-      {analysis.length > 0 && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {(() => {
-            const steelItem = analysis.find((a) => a.category === "steel");
-            const woodItem = analysis.find((a) => a.category === "wood");
-            const steelPrice = steelItem ? priceMap.get(steelItem.code) : null;
-            const woodPrice = woodItem ? priceMap.get(woodItem.code) : null;
-            return (
-              <>
-                {steelItem && (
-                  <div className="bg-[#F5C518] border-2 border-[#1A1A1A] p-6">
-                    <p className="font-grotesk text-[0.6rem] uppercase tracking-wide text-[#1A1A1A]/70 font-bold mb-1">{steelItem.name_de}</p>
-                    <p className="font-oswald text-4xl text-[#1A1A1A]">
-                      {steelItem.change_pct_30d > 0 ? "+" : ""}{steelItem.change_pct_30d.toFixed(1)}%
-                    </p>
-                  </div>
-                )}
-                {steelPrice && (
-                  <div className="bg-[#F5C518] border-2 border-[#1A1A1A] p-6">
-                    <p className="font-grotesk text-[0.6rem] uppercase tracking-wide text-[#1A1A1A]/70 font-bold mb-1">{steelPrice.name_de}</p>
-                    <p className="font-oswald text-4xl text-[#1A1A1A]">
-                      €{Number(steelPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}
-                    </p>
-                  </div>
-                )}
-                {woodItem && (
-                  <div className="bg-[#F5C518] border-2 border-[#1A1A1A] p-6">
-                    <p className="font-grotesk text-[0.6rem] uppercase tracking-wide text-[#1A1A1A]/70 font-bold mb-1">{woodItem.name_de}</p>
-                    <p className="font-oswald text-4xl text-[#1A1A1A]">
-                      {woodItem.change_pct_30d > 0 ? "+" : ""}{woodItem.change_pct_30d.toFixed(1)}%
-                    </p>
-                  </div>
-                )}
-                {woodPrice && (
-                  <div className="bg-[#F5C518] border-2 border-[#1A1A1A] p-6">
-                    <p className="font-grotesk text-[0.6rem] uppercase tracking-wide text-[#1A1A1A]/70 font-bold mb-1">{woodPrice.name_de}</p>
-                    <p className="font-oswald text-4xl text-[#1A1A1A]">
-                      €{Number(woodPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}
-                    </p>
-                  </div>
-                )}
-              </>
-            );
-          })()}
-        </div>
-      )}
+      {analysis.length > 0 && (() => {
+        const steelItem = analysis.find((a) => a.category === "steel");
+        const woodItem = analysis.find((a) => a.category === "wood");
+        const steelPrice = steelItem ? priceMap.get(steelItem.code) : null;
+        const woodPrice = woodItem ? priceMap.get(woodItem.code) : null;
+        const blocks = [
+          steelItem ? { label: steelItem.name_de, value: `${(steelItem.change_pct_30d || 0) > 0 ? "+" : ""}${(steelItem.change_pct_30d || 0).toFixed(1)}%` } : null,
+          steelPrice ? { label: steelPrice.name_de, value: `€${Number(steelPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}` } : null,
+          woodItem ? { label: woodItem.name_de, value: `${(woodItem.change_pct_30d || 0) > 0 ? "+" : ""}${(woodItem.change_pct_30d || 0).toFixed(1)}%` } : null,
+          woodPrice ? { label: woodPrice.name_de, value: `€${Number(woodPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}` } : null,
+        ].filter(Boolean);
+        return blocks.length > 0 ? (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {blocks.map((b, i) => (
+              <div key={i} className="bg-[#F5C518] border-2 border-[#1A1A1A] p-6">
+                <p className="font-grotesk text-[0.6rem] uppercase tracking-wide text-[#1A1A1A]/70 font-bold mb-1">{b!.label}</p>
+                <p className="font-oswald text-4xl text-[#1A1A1A]">{b!.value}</p>
+              </div>
+            ))}
+          </div>
+        ) : null;
+      })()}
 
       <div data-tour="dashboard-grid">
         {sortedCategories.map((category) => {
