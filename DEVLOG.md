@@ -9,6 +9,21 @@
 
 ---
 
+### [S036] — 2026-03-26 — T013: Bauhaus Tiles Library (Visual Language)
+
+**Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью ТС)
+**Статус:** завершено
+
+**Что сделано:**
+
+- 12 полноцветных SVG-тайлов (100% opacity) из Visual Language бренда
+- BauhausGrid — responsive 3×3 сетка (1col/2col/3col)
+- Новая папка `tiles/` отдельно от `decorations/`
+
+**Артефакты:** `app/src/components/tiles/` (3 файла)
+
+---
+
 ### [S035] — 2026-03-26 — T012: Dashboard crash — toFixed is not a function
 
 **Роли:** #5 Andreas Keller (Backend), #14 Hans Landa (ревью)

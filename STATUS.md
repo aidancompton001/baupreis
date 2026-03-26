@@ -1,7 +1,7 @@
 # STATUS.md — BauPreis AI SaaS
 
 **Обновлён:** 2026-03-26
-**Сессия:** S035 (T012: Dashboard toFixed crash fix)
+**Сессия:** S036 (T013: Bauhaus Tiles Library)
 **Методология:** V7.0 (MainCore CLAUDE_TEMPLATE + TEAM_TEMPLATE)
 
 ## Текущий этап
