@@ -4,13 +4,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageDropdown from "./LanguageDropdown";
 import AccountDropdown from "./AccountDropdown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocale } from "@/i18n/LocaleContext";
 
-/* Check if user is logged in via session cookie (lightweight, no API call) */
+/* Check if user is logged in via session cookie — SSR-safe with useEffect */
 function useIsLoggedIn() {
-  if (typeof document === "undefined") return false;
-  return document.cookie.includes("session=");
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    setLoggedIn(document.cookie.includes("session=") || document.cookie.includes("baupreis_session="));
+  }, []);
+  return loggedIn;
 }
 
 /* Pages where header should NOT appear */
