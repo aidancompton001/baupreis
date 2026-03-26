@@ -1,7 +1,7 @@
 # STATUS.md — BauPreis AI SaaS
 
 **Обновлён:** 2026-03-26
-**Сессия:** S032 (T011: Bauhaus Geometric Decorations)
+**Сессия:** S035 (T012: Dashboard toFixed crash fix)
 **Методология:** V7.0 (MainCore CLAUDE_TEMPLATE + TEAM_TEMPLATE)
 
 ## Текущий этап
@@ -14,6 +14,7 @@ Production (Phases 1-6 complete). Bauhaus decoration system created and deployed
 
 ## Последние выполненные задачи
 
+- [x] S035: T012 Dashboard toFixed crash — pg numeric→string fix на API level, 84 тестов green
 - [x] S032: T011 Bauhaus Geometric Decorations — 5 SVG-примитивов, 4 композиции, overlay, grid.svg fix
 - [x] S025: T010 Unified Navigation — сайт + dashboard merged
 - [x] S031: SEO Phase 1+2 — trial 14d, metadata, FAQPage, BreadcrumbList, 51 SEO-тестов

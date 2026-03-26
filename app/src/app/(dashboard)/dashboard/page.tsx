@@ -182,9 +182,9 @@ export default function DashboardPage() {
         const steelPrice = steelItem ? priceMap.get(steelItem.code) : null;
         const woodPrice = woodItem ? priceMap.get(woodItem.code) : null;
         const blocks = [
-          steelItem ? { label: steelItem.name_de, value: `${(steelItem.change_pct_30d || 0) > 0 ? "+" : ""}${(steelItem.change_pct_30d || 0).toFixed(1)}%` } : null,
+          steelItem ? { label: steelItem.name_de, value: `${Number(steelItem.change_pct_30d || 0) > 0 ? "+" : ""}${Number(steelItem.change_pct_30d || 0).toFixed(1)}%` } : null,
           steelPrice ? { label: steelPrice.name_de, value: `€${Number(steelPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}` } : null,
-          woodItem ? { label: woodItem.name_de, value: `${(woodItem.change_pct_30d || 0) > 0 ? "+" : ""}${(woodItem.change_pct_30d || 0).toFixed(1)}%` } : null,
+          woodItem ? { label: woodItem.name_de, value: `${Number(woodItem.change_pct_30d || 0) > 0 ? "+" : ""}${Number(woodItem.change_pct_30d || 0).toFixed(1)}%` } : null,
           woodPrice ? { label: woodPrice.name_de, value: `€${Number(woodPrice.price_eur).toLocaleString("de-DE", { minimumFractionDigits: 2 })}` } : null,
         ].filter(Boolean);
         return blocks.length > 0 ? (

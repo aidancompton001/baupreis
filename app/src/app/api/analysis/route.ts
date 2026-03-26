@@ -50,6 +50,8 @@ export async function GET(req: NextRequest) {
     const hasForecast = canAccess(org, "forecast");
     const rows = result.rows.map((row: Record<string, string>) => ({
       ...row,
+      change_pct_7d: row.change_pct_7d != null ? Number(row.change_pct_7d) : null,
+      change_pct_30d: row.change_pct_30d != null ? Number(row.change_pct_30d) : null,
       forecast_json: hasForecast ? row.forecast_json : null,
     }));
 
