@@ -62,15 +62,15 @@ function plainMiddleware(request: NextRequest) {
     pathname === "/agb" ||
     pathname.startsWith("/blog");
 
-  if (!isPublic) {
-    const hasSession = request.cookies.get(SESSION_COOKIE)?.value;
-    if (!hasSession) {
-      const signInUrl = new URL("/sign-in", request.url);
-      signInUrl.searchParams.set("redirect", pathname);
-      const redirectResponse = NextResponse.redirect(signInUrl);
-      return setLocaleCookie(request, redirectResponse);
-    }
+  // Dashboard routes: allow guest access (GuestOverlay handles UX)
+  // API routes still require auth (return 403 without session)
+  if (!isPublic && !pathname.startsWith("/api/")) {
+    // Let guests through to dashboard pages — no redirect
+    // GuestOverlay in layout.tsx will show blur + CTA
   }
+
+  // API routes (non-public): still require session — but return 403, not redirect
+  // (handled by requireOrg() in each route handler)
 
   return setLocaleCookie(request);
 }

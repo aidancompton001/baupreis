@@ -75,6 +75,10 @@ const en: Record<string, string> = {
   "dashboard.observe": "Monitor",
   "dashboard.noData": "No data available yet.",
   "dashboard.noDataHint": "Price data is collected automatically. Please check back later.",
+  "guest.title": "Unlock Dashboard",
+  "guest.description": "Sign up for free to access real-time price data, AI forecasts, and market analysis.",
+  "guest.register": "Free trial \u2014 7 days",
+  "guest.login": "Sign in",
 
   // Material Detail
   "material.currentPrice": "Current Price",

@@ -74,6 +74,10 @@ const ru: Record<string, string> = {
   "dashboard.observe": "Наблюдать",
   "dashboard.noData": "Данные ещё недоступны.",
   "dashboard.noDataHint": "Ценовые данные собираются автоматически. Пожалуйста, зайдите позже.",
+  "guest.title": "Открыть дашборд",
+  "guest.description": "Зарегистрируйтесь бесплатно для доступа к ценам, ИИ-прогнозам и аналитике рынка.",
+  "guest.register": "Бесплатно \u2014 7 дней",
+  "guest.login": "Войти",
 
   // Material Detail
   "material.currentPrice": "Текущая цена",

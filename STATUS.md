@@ -1,7 +1,7 @@
 # STATUS.md — BauPreis AI SaaS
 
 **Обновлён:** 2026-03-26
-**Сессия:** S038 (T015: Marketing Pages Bauhaus Redesign)
+**Сессия:** S039 (T016: Dashboard Guest Preview)
 **Методология:** V7.0 (MainCore CLAUDE_TEMPLATE + TEAM_TEMPLATE)
 
 ## Текущий этап

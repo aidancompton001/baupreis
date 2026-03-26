@@ -9,6 +9,23 @@
 
 ---
 
+### [S039] — 2026-03-26 — T016: Dashboard Guest Preview
+
+**Роли:** #3 Maximilian Braun (Frontend), #14 Hans Landa (ревью)
+**Статус:** завершено
+
+**Что сделано:**
+
+- GuestOverlay: blur backdrop + Bauhaus CTA card (lock icon, register/login buttons)
+- Middleware: убран redirect на /sign-in для dashboard routes
+- Layout: cookie check → GuestOverlay для гостей, скрыты TrialBanner/WelcomeTour
+- i18n: guest.* ключи de/en/ru
+- API по-прежнему 403 без сессии (безопасность сохранена)
+
+**Артефакты:** `GuestOverlay.tsx`, `middleware.ts`, `layout.tsx`, `de/en/ru.ts`
+
+---
+
 ### [S038] — 2026-03-26 — T015: Marketing Pages Bauhaus Redesign
 
 **Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью)
