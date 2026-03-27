@@ -9,6 +9,20 @@
 
 ---
 
+### [S046] — 2026-03-27 — T023: Fix Missing Price in Material Cards
+
+**Роли:** #3 Erik Zimmermann — Frontend, #14 Hans Landa II — Review
+**Статус:** завершено
+
+**Что сделано:**
+- Root cause: `days=1` слишком короткий, цены старше 24ч не показывались
+- Fix: `days=1` → `days=7` (по рекомендации Ланды — robust против выходных/праздников)
+- Trigger `collect-prices` cron: 11 цен собрано (10 Eurostat + 1 SMARD)
+
+**Артефакты:** `app/src/app/(dashboard)/dashboard/materialien/page.tsx`
+
+---
+
 ### [S045] — 2026-03-27 — T021: Notification Bell im Header
 
 **Роли:** #3 Erik Zimmermann — Frontend, #2 Katarina Weiß — UX, #14 Hans Landa II — Review
