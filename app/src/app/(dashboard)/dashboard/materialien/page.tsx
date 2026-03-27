@@ -62,7 +62,7 @@ export default function MaterialienPage() {
   useEffect(() => {
     Promise.all([
       fetch("/api/analysis").then((res) => res.json()),
-      fetch("/api/prices?days=7").then((res) => res.json()),
+      fetch("/api/prices?days=90").then((res) => res.json()),
     ])
       .then(([analysisData, priceData]) => {
         if (Array.isArray(analysisData)) setAnalysis(analysisData);

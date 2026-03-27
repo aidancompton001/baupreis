@@ -9,6 +9,20 @@
 
 ---
 
+### [S047] — 2026-03-27 — T025: Cron 3x/Tag + days=90
+
+**Роли:** #6 Dirk Schneider — SRE, #3 Erik Zimmermann — Frontend
+**Статус:** завершено
+
+**Что сделано:**
+- Root cause: metals.dev 100 req/mo free tier, cron 4x/day = 124 req → quota exhausted
+- Cron: `0 0,6,12,18` → `0 1,9,17` (3x/day = 93 req/mo < 100)
+- Frontend: `days=7` → `days=90` (показывает LME-цены даже при 14-дневных данных)
+
+**Артефакты:** `page.tsx`, server crontab
+
+---
+
 ### [S046] — 2026-03-27 — T023: Fix Missing Price in Material Cards
 
 **Роли:** #3 Erik Zimmermann — Frontend, #14 Hans Landa II — Review
@@ -54,7 +68,7 @@
 
 ---
 
-### [S044] — 2026-03-27 — T013: Changelog Page (Neuigkeiten)
+### [S044] — 2026-03-27 — T027: Changelog Page (Neuigkeiten)
 
 **Роли:** #3 Erik Zimmermann — Frontend, #14 Hans Landa II — Review
 **Статус:** завершено
@@ -71,7 +85,7 @@
 
 ---
 
-### [S044] — 2026-03-27 — T020: Fix 0.00% Price Change Bug
+### [S047] — 2026-03-27 — T020: Fix 0.00% Price Change Bug
 
 **Роли:** #5 Stefan Hartmann — Backend, #14 Hans Landa II — Review
 **Статус:** завершено
@@ -118,7 +132,7 @@
 
 ---
 
-### [S042] — 2026-03-27 — T012: Infographic Placement on Landing
+### [S042] — 2026-03-27 — T026: Infographic Placement on Landing
 
 **Роли:** #2 Katarina Weiß — UX/UI, #14 Hans Landa II — Review
 **Статус:** завершено
@@ -267,7 +281,7 @@
 
 ---
 
-### [S033] — 2026-03-26 — ВСЯ КОМАНДА РАССТРЕЛЯНА
+### [S048] — 2026-03-26 — ВСЯ КОМАНДА РАССТРЕЛЯНА
 
 **Решение CEO:** Расстрел всей команды V7.0 (8 специалистов).
 **Статус:** ИСПОЛНЕНО
@@ -298,7 +312,7 @@
 
 ---
 
-### [S032] — 2026-03-26 — T011: Bauhaus Geometric Decorations System
+### [S049] — 2026-03-26 — T011: Bauhaus Geometric Decorations System
 
 **Роли:** #2 Lena Hoffmann (UX/UI), #14 Hans Landa (ревью ТС)
 **Статус:** завершено
@@ -330,7 +344,7 @@
 
 ---
 
-### [S025] — 2026-03-26 — T010: Unified Navigation (сайт + dashboard = единое целое)
+### [S050] — 2026-03-26 — T010: Unified Navigation (сайт + dashboard = единое целое)
 
 **Роли:** #1 Markus Lehmann — PA, #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review
 **Статус:** завершено
@@ -348,7 +362,7 @@
 
 ---
 
-### [S024] — 2026-03-26 — T008: Официальные логотипы на сайте
+### [S051] — 2026-03-26 — T008: Официальные логотипы на сайте
 
 **Роли:** #2 Lena Hoffmann — UX/UI
 **Статус:** завершено
@@ -364,7 +378,7 @@
 
 ---
 
-### [S023] — 2026-03-26 — T007: Brand Identity Full Compliance
+### [S052] — 2026-03-26 — T007: Brand Identity Full Compliance
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend
 **Статус:** завершено
@@ -384,7 +398,7 @@
 
 ---
 
-### [S022] — 2026-03-26 — T006: Landing = Прототип (структура, не только цвета)
+### [S053] — 2026-03-26 — T006: Landing = Прототип (структура, не только цвета)
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend
 **Статус:** завершено
@@ -403,7 +417,7 @@
 
 ---
 
-### [S021] — 2026-03-26 — T004: Bauhaus Bold Full Redesign (50+ файлов)
+### [S054] — 2026-03-26 — T004: Bauhaus Bold Full Redesign (50+ файлов)
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #3 Maximilian Braun — Frontend, #14 Hans Landa — Review
 **Статус:** завершено
@@ -425,7 +439,7 @@
 
 ---
 
-### [S020] — 2026-03-26 — Прототипы: Landing + Dashboard (Bauhaus Bold)
+### [S055] — 2026-03-26 — Прототипы: Landing + Dashboard (Bauhaus Bold)
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #14 Hans Landa — Review
 **Статус:** завершено
@@ -442,7 +456,7 @@
 
 ---
 
-### [S019] — 2026-03-26 — 8 Creative Briefs для Luma Labs инфографик
+### [S056] — 2026-03-26 — 8 Creative Briefs для Luma Labs инфографик
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #1 Markus Lehmann — PA, #14 Hans Landa — Review
 **Статус:** завершено
@@ -465,7 +479,7 @@
 
 ---
 
-### [S018] — 2026-03-26 — 2 прототипа дизайна из Luma Brand Identity
+### [S057] — 2026-03-26 — 2 прототипа дизайна из Luma Brand Identity
 
 **Роли:** #2 Lena Hoffmann — UX/UI, #1 Markus Lehmann — PA, #14 Hans Landa — Review
 **Статус:** завершено
