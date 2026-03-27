@@ -28,6 +28,9 @@ export default function MarketingFooter() {
           <Link href="/kontakt" className="hover:text-gray-900">
             {t("nav.contact")}
           </Link>
+          <Link href="/changelog" className="hover:text-gray-900">
+            Neuigkeiten
+          </Link>
           <button
             onClick={() => window.__openCookieSettings?.()}
             className="hover:text-gray-900 cursor-pointer"

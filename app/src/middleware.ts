@@ -60,7 +60,8 @@ function plainMiddleware(request: NextRequest) {
     pathname === "/datenschutz" ||
     pathname === "/impressum" ||
     pathname === "/agb" ||
-    pathname.startsWith("/blog");
+    pathname.startsWith("/blog") ||
+    pathname === "/changelog";
 
   // Dashboard routes: allow guest access (GuestOverlay handles UX)
   // API routes still require auth (return 403 without session)

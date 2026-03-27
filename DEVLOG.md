@@ -9,6 +9,47 @@
 
 ---
 
+### [S044] — 2026-03-27 — T013: Changelog Page (Neuigkeiten)
+
+**Роли:** #3 Erik Zimmermann — Frontend, #14 Hans Landa II — Review
+**Статус:** завершено
+
+**Что сделано:**
+- Страница /changelog с 12 записями из истории проекта
+- Hero "NEUIGKEITEN" в Bauhaus-стиле (чёрный фон, Oswald)
+- Timeline cards с тегами: NEU (красный), VERBESSERUNG (жёлтый), FIX (salmon), DESIGN (чёрный)
+- DE/EN поддержка (RU → fallback EN)
+- Middleware: /changelog добавлен в public routes
+- Footer: ссылка "Neuigkeiten"
+
+**Артефакты:** changelog/page.tsx, ChangelogClient.tsx, entries.ts, middleware.ts, MarketingFooter.tsx
+
+---
+
+### [S043] — 2026-03-27 — T019: API-Datenquellen Dokumentation
+
+**Роли:** #5 Stefan Hartmann — Backend, #14 Hans Landa II — Review
+**Статус:** завершено
+
+**Что сделано:**
+- Документ T019: маппинг 16 материалов → 4 API-платформы с credentials
+- Верификация vs реальный код (`data-sources.ts`, `collect-prices/route.ts`)
+- Landa Review: CONDITIONAL PASS → 4 замечания исправлены
+
+**Ключевые решения:**
+- API-Key удалён из git-tracked документа (→ CREDENTIALS.md)
+- Diesel помечен как INAKTIV (нет TANKERKOENIG_API_KEY на сервере)
+
+**Находки Ланды (исправлены):**
+- KRITISCH: API-Key в открытом тексте → убран
+- ERNST: Diesel nicht aktiv (15/16 real) → задокументировано
+- ERNST: insulation_eps EUR/m² в code comment → помечен как Bug
+- BEMERKUNG: 7-й cron job (downgrade-trials) добавлен
+
+**Артефакты:** `docs/tasks/T019_api_datenquellen_dokumentation.md`
+
+---
+
 ### [S042] — 2026-03-27 — T012: Infographic Placement on Landing
 
 **Роли:** #2 Katarina Weiß — UX/UI, #14 Hans Landa II — Review
