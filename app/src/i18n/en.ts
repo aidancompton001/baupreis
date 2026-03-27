@@ -974,6 +974,16 @@ const en: Record<string, string> = {
   "auth.terms.and": "and",
   "auth.terms.privacy": "Privacy Policy",
   "auth.email.required": "Email address *",
+
+  // Notifications
+  "notifications.title": "Notifications",
+  "notifications.empty": "No notifications",
+  "notifications.markAllRead": "Mark all read",
+  "notifications.showAll": "Show all",
+  "notifications.priceAlert": "Price alert",
+  "notifications.systemUpdate": "System update",
+  "notifications.priceChange": "Price change",
+  "notifications.justNow": "Just now",
 };
 
 export default en;

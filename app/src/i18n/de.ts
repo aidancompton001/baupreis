@@ -978,6 +978,16 @@ const de: Record<string, string> = {
   "auth.terms.and": "und",
   "auth.terms.privacy": "Datenschutzerklärung",
   "auth.email.required": "E-Mail-Adresse *",
+
+  // Notifications
+  "notifications.title": "Benachrichtigungen",
+  "notifications.empty": "Keine Benachrichtigungen",
+  "notifications.markAllRead": "Alle gelesen",
+  "notifications.showAll": "Alle anzeigen",
+  "notifications.priceAlert": "Preisalarm",
+  "notifications.systemUpdate": "Systemupdate",
+  "notifications.priceChange": "Preisänderung",
+  "notifications.justNow": "Gerade eben",
 };
 
 export default de;

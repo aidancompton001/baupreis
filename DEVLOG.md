@@ -9,6 +9,37 @@
 
 ---
 
+### [S045] — 2026-03-27 — T021: Notification Bell im Header
+
+**Роли:** #3 Erik Zimmermann — Frontend, #2 Katarina Weiß — UX, #14 Hans Landa II — Review
+**Статус:** завершено (код), ожидает деплой (миграция на сервере)
+
+**Что сделано:**
+
+- Migration `006_notifications.sql` — таблица notifications с `read_at` timestamp + partial index
+- API: `/api/notifications` (GET list + POST mark read) + `/api/notifications/unread-count` (polling)
+- Компонент `NotificationBell.tsx` — Bauhaus-стиль, badge "99+", dropdown, click-outside
+- `UnifiedHeader.tsx` — Bell между LangDropdown и AccountDropdown (только для залогиненных)
+- `send-alerts/route.ts` — INSERT в notifications при каждом alert + retention 90 дней
+- i18n: 8 ключей в de/en/ru
+- Type `Notification` в types/index.ts
+- Build OK, 93/93 тестов зелёные
+
+**Ключевые решения (по Ланде):**
+
+- `read_at TIMESTAMPTZ` вместо `is_read BOOLEAN` (race condition protection)
+- НЕ добавлять `is_read` в `alerts_sent` (только `notifications` таблица)
+- Per-org read state (MVP), per-user = Phase 2 для Team plan
+- Retention: DELETE > 90 дней в send-alerts cron
+- Cache-Control: `private, max-age=30` на unread-count
+- Badge: `motion-safe:animate-pulse` для `prefers-reduced-motion`
+
+**Артефакты:** `NotificationBell.tsx`, `notifications/route.ts`, `unread-count/route.ts`, `006_notifications.sql`
+
+**Деплой:** Требуется миграция на сервере перед запуском
+
+---
+
 ### [S044] — 2026-03-27 — T013: Changelog Page (Neuigkeiten)
 
 **Роли:** #3 Erik Zimmermann — Frontend, #14 Hans Landa II — Review

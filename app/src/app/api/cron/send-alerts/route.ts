@@ -186,6 +186,7 @@ export async function POST(req: NextRequest) {
       }
 
       // 6. Record sent alert
+      const plainText = messageText.replace(/<[^>]*>/g, "");
       await pool.query(
         `INSERT INTO alerts_sent (org_id, rule_id, material_id, message_text, channel, delivery_status)
          VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -193,12 +194,36 @@ export async function POST(req: NextRequest) {
           rule.org_id,
           rule.rule_id,
           rule.material_id,
-          messageText.replace(/<[^>]*>/g, ""), // store plain text
+          plainText,
           rule.channel,
           deliveryStatus,
         ]
       );
+
+      // 7. Create in-app notification
+      try {
+        await pool.query(
+          `INSERT INTO notifications (org_id, type, title, message, link)
+           VALUES ($1, 'price_alert', $2, $3, $4)`,
+          [
+            rule.org_id,
+            `${rule.name_de}: ${rule.rule_type === "price_change" ? "Preisänderung" : rule.rule_type === "price_above" ? "Preis überschritten" : rule.rule_type === "price_below" ? "Preis unterschritten" : "Zusammenfassung"}`,
+            plainText,
+            rule.code ? `/material/${rule.code}` : "/alerts",
+          ]
+        );
+      } catch {
+        // In-app notification is non-critical — don't fail the alert
+      }
+
       sent++;
+    }
+
+    // 8. Retention: delete notifications older than 90 days
+    try {
+      await pool.query("DELETE FROM notifications WHERE created_at < NOW() - INTERVAL '90 days'");
+    } catch {
+      // Non-critical cleanup
     }
 
     return NextResponse.json({

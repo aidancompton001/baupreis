@@ -10,6 +10,22 @@ export interface ChangelogEntry {
 export const changelogEntries: ChangelogEntry[] = [
   {
     date: "2026-03-27",
+    type: "feature",
+    titleDe: "Benachrichtigungsglocke im Header",
+    titleEn: "Notification Bell in Header",
+    descriptionDe: "Neue Benachrichtigungsglocke rechts im Header: Badge mit Anzahl ungelesener Meldungen, Dropdown mit Preisalarmen und Systemupdates. Automatische Erstellung bei jedem Preisalarm. Retention: 90 Tage.",
+    descriptionEn: "New notification bell on the right side of the header: badge with unread count, dropdown with price alerts and system updates. Automatic creation on every price alert. Retention: 90 days.",
+  },
+  {
+    date: "2026-03-27",
+    type: "feature",
+    titleDe: "API-Datenquellen dokumentiert",
+    titleEn: "API Data Sources Documented",
+    descriptionDe: "Vollständige Dokumentation aller 16 Materialien mit ihren 4 Datenquellen (metals.dev, Eurostat, Tankerkoenig, SMARD.de) — inklusive Zugangsdaten, Endpoints und Aktualisierungsintervalle.",
+    descriptionEn: "Complete documentation of all 16 materials with their 4 data sources (metals.dev, Eurostat, Tankerkoenig, SMARD.de) — including credentials, endpoints and update intervals.",
+  },
+  {
+    date: "2026-03-27",
     type: "fix",
     titleDe: "Preisänderungen in Materialien korrigiert",
     titleEn: "Price Changes in Materials Fixed",

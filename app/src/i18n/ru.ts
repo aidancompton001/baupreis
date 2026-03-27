@@ -942,6 +942,16 @@ const ru: Record<string, string> = {
   "tour.step5.description": "Создавайте PDF- и CSV-отчёты для ваших проектов и коллег.",
   "tour.step6.title": "Настройки",
   "tour.step6.description": "Здесь можно выбрать материалы, управлять подпиской и настроить интеграции.",
+
+  // Notifications
+  "notifications.title": "Уведомления",
+  "notifications.empty": "Нет уведомлений",
+  "notifications.markAllRead": "Все прочитаны",
+  "notifications.showAll": "Показать все",
+  "notifications.priceAlert": "Ценовой алерт",
+  "notifications.systemUpdate": "Обновление системы",
+  "notifications.priceChange": "Изменение цены",
+  "notifications.justNow": "Только что",
 };
 
 export default ru;

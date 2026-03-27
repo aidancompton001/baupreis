@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageDropdown from "./LanguageDropdown";
 import AccountDropdown from "./AccountDropdown";
+import NotificationBell from "./NotificationBell";
 import { useState, useEffect } from "react";
 import { useLocale } from "@/i18n/LocaleContext";
 
@@ -75,7 +76,10 @@ export default function UnifiedHeader() {
           <div className="flex items-center gap-3 ml-auto">
             <LanguageDropdown />
             {isLoggedIn ? (
-              <AccountDropdown />
+              <>
+                <NotificationBell />
+                <AccountDropdown />
+              </>
             ) : (
               <div className="hidden md:flex items-center gap-3">
                 <Link href="/sign-in" className="text-white/60 text-xs font-grotesk uppercase tracking-wide hover:text-white transition">

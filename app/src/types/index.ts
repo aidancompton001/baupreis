@@ -87,6 +87,18 @@ export interface MaterialOption {
   name_de: string;
 }
 
+/** In-app notification row from the `notifications` table. */
+export interface Notification {
+  id: string;
+  org_id: string;
+  type: "price_alert" | "system_update" | "price_change";
+  title: string;
+  message: string;
+  link: string | null;
+  read_at: string | null;
+  created_at: string;
+}
+
 /** Report row from the `reports` table. */
 export interface Report {
   id: string;
