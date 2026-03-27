@@ -59,6 +59,39 @@ function linearRegression(prices: PricePoint[]): {
   return { slope, intercept, r2 };
 }
 
+/**
+ * Compute percentage price change over N days using timestamp-based lookup.
+ * Finds the nearest price point to (latest - daysAgo) within ±24h tolerance.
+ * Returns null if insufficient data or no price within tolerance window.
+ */
+export function computePriceChangePct(
+  prices: PricePoint[],
+  daysAgo: number
+): number | null {
+  if (prices.length < 2) return null;
+
+  const latest = prices[0];
+  const cutoff = new Date(latest.timestamp).getTime() - daysAgo * 86400000;
+
+  // Find nearest price to cutoff within ±24h tolerance
+  let best: PricePoint | null = null;
+  let bestDist = Infinity;
+
+  for (const p of prices) {
+    const dist = Math.abs(new Date(p.timestamp).getTime() - cutoff);
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = p;
+    }
+  }
+
+  // Tolerance: within 24h of target
+  if (!best || bestDist > 86400000) return null;
+  if (best.price_eur === 0) return null;
+
+  return Math.round(((latest.price_eur - best.price_eur) / best.price_eur) * 10000) / 100;
+}
+
 /** Compute statistical baseline for a single material. */
 export function computeBaseline(prices: PricePoint[]): {
   ma7: number;

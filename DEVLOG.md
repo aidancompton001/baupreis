@@ -26,6 +26,29 @@
 
 ---
 
+### [S044] — 2026-03-27 — T020: Fix 0.00% Price Change Bug
+
+**Роли:** #5 Stefan Hartmann — Backend, #14 Hans Landa II — Review
+**Статус:** завершено
+
+**Что сделано:**
+
+- Root cause: 3 бага в `analyze/route.ts` (synthetic index вместо timestamp, fake heuristic, Claude без определения change_pct)
+- Новая функция `computePriceChangePct()` в `forecast-baseline.ts` — timestamp-based с ±24h толерантностью
+- Фикс synthetic path: заменён `prices[6]` + `*1.8` на серверный расчёт
+- Фикс Claude path: change_pct убран из Claude prompt, сервер считает детерминистично
+- 9 новых unit-тестов, все 93/93 зелёные
+
+**Ключевые решения:**
+
+- По рекомендации Ланды: сервер считает change_pct сам, НЕ доверяет Claude (детерминизм)
+- Функция в `forecast-baseline.ts`, не в отдельном файле (по Ланде)
+- 0.00% для Eurostat в рамках месяца = корректно (не баг, частота данных)
+
+**Артефакты:** `app/src/lib/forecast-baseline.ts`, `app/src/app/api/cron/analyze/route.ts`
+
+---
+
 ### [S043] — 2026-03-27 — T019: API-Datenquellen Dokumentation
 
 **Роли:** #5 Stefan Hartmann — Backend, #14 Hans Landa II — Review

@@ -2,7 +2,7 @@ import { requireCronAuth } from "@/lib/cron-auth";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
-import { computeBaseline } from "@/lib/forecast-baseline";
+import { computeBaseline, computePriceChangePct } from "@/lib/forecast-baseline";
 
 /**
  * POST /api/cron/analyze
@@ -93,15 +93,8 @@ export async function POST(req: NextRequest) {
         const latestPrice = prices[0]?.price_eur || 0;
         const baseline = computeBaseline(prices);
 
-        const oldPrice =
-          prices.length > 1
-            ? prices[Math.min(prices.length - 1, 6)]?.price_eur
-            : latestPrice;
-        const change7d =
-          oldPrice > 0
-            ? ((latestPrice - oldPrice) / oldPrice) * 100
-            : 0;
-        const change30d = change7d * 1.8;
+        const change7d = computePriceChangePct(prices, 7) ?? 0;
+        const change30d = computePriceChangePct(prices, 30) ?? 0;
 
         const trend =
           baseline.regression.slope > 0.01 ? "rising" : baseline.regression.slope < -0.01 ? "falling" : "stable";
@@ -187,8 +180,6 @@ Format:
   {
     "code": "material_code",
     "trend": "rising" | "falling" | "stable",
-    "change_pct_7d": number,
-    "change_pct_30d": number,
     "recommendation": "buy_now" | "wait" | "watch",
     "confidence": number (0-100),
     "explanation_de": "1 Satz auf Deutsch",
@@ -197,6 +188,8 @@ Format:
     "forecast_json": { "7d": number, "30d": number, "90d": number }
   }
 ]
+
+WICHTIG: Gib KEINE change_pct_7d oder change_pct_30d zurueck — diese werden serverseitig berechnet.
 
 Regeln:
 - forecast_json = prognostizierte PREISE (EUR), nicht Prozent
@@ -220,8 +213,6 @@ Regeln:
     type AnalysisItem = {
       code: string;
       trend: string;
-      change_pct_7d: number;
-      change_pct_30d: number;
       recommendation: string;
       confidence: number;
       explanation_de: string;
@@ -302,6 +293,10 @@ Regeln:
         continue;
       }
 
+      // Server-side deterministic calculation — NOT from Claude
+      const serverChange7d = computePriceChangePct(materialData.prices, 7) ?? 0;
+      const serverChange30d = computePriceChangePct(materialData.prices, 30) ?? 0;
+
       try {
         await pool.query(
           `INSERT INTO analysis
@@ -314,8 +309,8 @@ Regeln:
             materialData.material_id,
             now,
             a.trend,
-            a.change_pct_7d,
-            a.change_pct_30d,
+            serverChange7d,
+            serverChange30d,
             JSON.stringify(a.forecast_json),
             a.explanation_de,
             a.explanation_en || a.explanation_de,
