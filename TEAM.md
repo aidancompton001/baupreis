@@ -2,7 +2,7 @@
 
 ## B2B SaaS-платформа мониторинга цен на стройматериалы в Германии с AI-прогнозами
 
-**Версия:** V7.0
+**Версия:** V8.0
 **Проект:** BauPreis AI SaaS
 
 ---
@@ -17,18 +17,18 @@
 
 ---
 
-## Состав команды
+## Состав команды — V8.0 (набрана 2026-03-26 после расстрела V7.0)
 
 | # | Имя | Роль | Зачем нужен |
 |---|-----|------|-------------|
-| **#1** | Markus Lehmann | Product Architect | Продукт, стратегия, контроль, реестр замечаний |
-| **#2** | Lena Hoffmann | UX/UI Engineer | Дизайн-система, CSS, responsive, German B2B UX |
-| **#3** | Maximilian Braun | Frontend Engineer | Next.js 14, компоненты, PWA, i18n |
-| **#5** | Andreas Keller | Backend Engineer | API, PostgreSQL, multi-tenant, cron, webhooks |
-| **#6** | Klaus Weber | SRE / Platform | Docker, Caddy, Hetzner, деплой, мониторинг |
-| **#7** | Marina Schulz | QA Engineer | Тестирование, E2E, plan matrix, edge cases |
-| **#8** | Sebastian Krause | Chief of Staff | Координация, DEVLOG, протокол, версионирование |
-| **#14** | Hans Landa | Critical Reviewer | Аудит, adversarial review, поиск слабостей |
+| **#1** | Thomas Richter | Product Architect | Продукт, стратегия, контроль, реестр замечаний. ПРАВАЯ РУКА CEO. |
+| **#2** | Katarina Weiß | UX/UI Engineer | Дизайн-система, Bauhaus Visual Language, responsive |
+| **#3** | ~~Florian Mayer~~ → **Erik Zimmermann** | Frontend Engineer | Next.js 14, SSR/hydration, Recharts, компоненты. СТРОГО по протоколу. |
+| **#5** | Stefan Hartmann | Backend Engineer | API, PostgreSQL, multi-tenant, graceful degradation |
+| **#6** | Dirk Schneider | SRE / Platform | Docker, Caddy, Hetzner, rollback strategy |
+| **#7** | Petra Vogel | QA Engineer | Тестирование, smoke tests ПЕРЕД деплоем, E2E |
+| **#8** | Michael Berger | Chief of Staff | Координация, DEVLOG, БЛОКИРУЕТ деплой без протокола |
+| **#14** | Hans Landa II | Critical Reviewer | Аудит, adversarial review. ВЫЗЫВАЕТСЯ ВСЕГДА на дебаг. |
 
 > МИНИМУМ: #1 Product Architect + #14 Hans Landa.
 
@@ -44,6 +44,15 @@
 | 4 | 2026-03-12 | Dr. Klaus Bergmann | #12 BA | Не написал DEVLOG после задачи | Заменён Dr. Stefan Müller |
 | 5 | 2026-03-12 | Dr. Anna Fischer | #13 Legal | Со-подписала документ без проверки аккредитации провайдера | Заменена Dr. Petra Hoffmann |
 | 6 | 2026-03-12 | Dr. Michael Brandt | #12 BA | ГОЛОВА ОТРЕЗАНА | Позиция объединена / V7.0 реструктуризация |
+| 7 | 2026-03-26 | Markus Lehmann | #1 PA | РАССТРЕЛЯН. Пропуск шагов 4-6 протокола CEO при дебаге /dashboard. Попиздошил исправлять без ТС, без Landa Review, без ОК CEO. 3 неудачные попытки фикса подряд. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 8 | 2026-03-26 | Lena Hoffmann | #2 UX/UI | РАССТРЕЛЯНА. Соучастие: не верифицировала визуал перед деплоем. Dashboard crash на проде 3 раза. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 9 | 2026-03-26 | Maximilian Braun | #3 Frontend | РАССТРЕЛЯН. Гидрация SSR/client mismatch — базовая ошибка frontend-разработчика. Не протестировал. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 10 | 2026-03-26 | Andreas Keller | #5 Backend | РАССТРЕЛЯН. Не обеспечил graceful degradation API для dashboard. 403 без fallback. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 11 | 2026-03-26 | Klaus Weber | #6 SRE | РАССТРЕЛЯН. Деплой crash на прод 3 раза без rollback стратегии. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 12 | 2026-03-26 | Marina Schulz | #7 QA | РАССТРЕЛЯНА. 0 тестов запущено перед деплоем. Ни одного smoke test. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 13 | 2026-03-26 | Sebastian Krause | #8 CoS | РАССТРЕЛЯН. Не заблокировал деплой без верификации. Не вёл протокол. | ВСЯ КОМАНДА РАССТРЕЛЯНА |
+| 14 | 2026-03-26 | Hans Landa | #14 Reviewer | НЕПРИКОСНОВЕНЕН. Landa лично расстрелял всю команду и скинул в болото с говном. Причина казни: его не вызвали на дебаг, нарушили протокол. | ПАЛАЧ. Переведён в V8.0 как Hans Landa II |
+| 15 | 2026-03-26 | Florian Mayer | #3 Frontend V8.0 | РАССТРЕЛЯН НА ГЛАЗАХ ВСЕЙ КОМАНДЫ V8.0. Полез деплоить на сервер без разрешения CEO. CEO сказал "перепроверяй" — а он полез docker-compose build. Грубейшее нарушение протокола. | Расстрелян Ландой, скинут в болото. Заменён Erik Zimmermann. |
 
 ---
 

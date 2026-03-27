@@ -36,6 +36,7 @@ export default function UnifiedHeader() {
     { href: "/preise", label: t("nav.pricing") },
     { href: "/ueber-uns", label: t("nav.aboutUs") },
     { href: "/kontakt", label: t("nav.contact") },
+    { href: "/changelog", label: "Neuigkeiten" },
   ];
 
   function isActiveTab(href: string) {

@@ -415,6 +415,7 @@ export default function LandingPage() {
               <Link href="/impressum" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerImpressum")}</Link>
               <Link href="/datenschutz" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerDatenschutz")}</Link>
               <Link href="/agb" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">{t("landing.footerAgb")}</Link>
+              <Link href="/changelog" className="text-sm text-gray-400 hover:text-bauhaus-yellow transition">Neuigkeiten</Link>
             </div>
           </div>
 
