@@ -10,6 +10,22 @@ export interface ChangelogEntry {
 export const changelogEntries: ChangelogEntry[] = [
   {
     date: "2026-03-27",
+    type: "fix",
+    titleDe: "Preisänderungen in Materialien korrigiert",
+    titleEn: "Price Changes in Materials Fixed",
+    descriptionDe: "Serverseitige Berechnung der Preisänderungen (7-Tage, 30-Tage) für alle 16 Materialien korrigiert. Deterministische Berechnung statt clientseitiger Schätzung — zuverlässigere Daten im Dashboard.",
+    descriptionEn: "Server-side calculation of price changes (7-day, 30-day) for all 16 materials fixed. Deterministic calculation instead of client-side estimation — more reliable data in dashboard.",
+  },
+  {
+    date: "2026-03-27",
+    type: "feature",
+    titleDe: "Changelog-Seite (Neuigkeiten)",
+    titleEn: "Changelog Page (What's New)",
+    descriptionDe: "Neue öffentliche Seite /changelog — chronologischer Überblick über alle Plattform-Updates, neue Features und Verbesserungen.",
+    descriptionEn: "New public page /changelog — chronological overview of all platform updates, new features and improvements.",
+  },
+  {
+    date: "2026-03-27",
     type: "feature",
     titleDe: "Infografiken auf der Startseite",
     titleEn: "Infographics on Landing Page",
