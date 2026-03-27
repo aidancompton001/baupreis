@@ -134,6 +134,18 @@ export const IconBuilding = ({ size = 20, className }: IconProps) => (
   </svg>
 );
 
+// BI-13: Materials — geometric building blocks (cube + beam + pipe)
+export const IconMaterials = ({ size = 20, className }: IconProps) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
+    <rect x="2" y="12" width="8" height="8" fill="#C1292E" />
+    <rect x="4" y="14" width="4" height="4" fill="#FFFFFF" opacity="0.3" />
+    <rect x="12" y="8" width="10" height="4" fill="#1A1A1A" />
+    <rect x="12" y="14" width="10" height="4" fill="#F5C518" />
+    <circle cx="7" cy="6" r="4" fill="#1A1A1A" />
+    <circle cx="7" cy="6" r="2" fill="#FFFFFF" />
+  </svg>
+);
+
 // BI-12: Large Gear (decorative)
 export const IconGear = ({ size = 20, className }: IconProps) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" className={className}>
