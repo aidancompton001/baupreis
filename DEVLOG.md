@@ -9,6 +9,22 @@
 
 ---
 
+### [S042] — 2026-03-27 — T012: Infographic Placement on Landing
+
+**Роли:** #2 Katarina Weiß — UX/UI, #14 Hans Landa II — Review
+**Статус:** завершено
+
+**Что сделано:**
+- 10 инфографик рассортированы: 3 корректных, 7 отбракованы (опечатки)
+- Сжаты: 13MB→152KB, 12MB→217KB, 2MB→234KB
+- 3 секции добавлены на landing: Product Pipeline, Market Analysis, Dashboard Features
+- Bauhaus-стиль: border-2 border-[#1A1A1A], shadows, font-oswald headings
+- Landa Review: размеры проверены, год "2020" отмечен
+
+**Артефакты:** product-pipeline.jpg, market-analysis.jpg, dashboard-features.jpg, page.tsx
+
+---
+
 ### [S041] — 2026-03-26 — T018: Material Chart SMA-7 + Cards UX + Back Nav
 
 **Роли:** #2 Lena Hoffmann (UX), #3 Maximilian Braun (Frontend)

@@ -147,6 +147,23 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ═══ PRODUCT INFOGRAPHIC — How BauPreis AI Works ═══ */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-10 animate-on-scroll">
+            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">SO FUNKTIONIERT ES</span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-oswald uppercase text-[#1A1A1A]">Daten. KI-Analyse. Ergebnisse.</h2>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/img/infografic/product-pipeline.jpg"
+            alt="BauPreis AI Prozess: Dateneingang, KI-Analyse und Prognose, Erkenntnisse, Fundierte Einkaufsentscheidungen"
+            loading="lazy"
+            className="w-full max-w-[1000px] mx-auto border-2 border-[#1A1A1A] shadow-[6px_6px_0_#C1292E] animate-on-scroll"
+          />
+        </div>
+      </section>
+
       {/* ═══ PROBLEM ═══ */}
       <section className="bg-bauhaus-black text-white py-20 lg:py-28 relative overflow-hidden">
         <BauCircle color="#C1292E" size={300} opacity={0.08} className="absolute -top-[100px] -right-[80px]" />
@@ -172,6 +189,23 @@ export default function LandingPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ═══ MARKET INFOGRAPHIC — German Construction Market ═══ */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-10 animate-on-scroll">
+            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">MARKTANALYSE</span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-oswald uppercase text-[#1A1A1A]">Baustoffmarkt Deutschland 2026</h2>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/img/infografic/market-analysis.jpg"
+            alt="Baustoffmarkt Deutschland: 500+ Mrd. EUR Bauvolumen, Preisvolatilität auf Rekordniveau, 400.000 Unternehmen ohne Monitoring"
+            loading="lazy"
+            className="w-full max-w-[1000px] mx-auto border-2 border-[#1A1A1A] shadow-[6px_6px_0_#F5C518] animate-on-scroll"
+          />
         </div>
       </section>
 
@@ -253,6 +287,23 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ═══ DASHBOARD FEATURES INFOGRAPHIC ═══ */}
+      <section className="py-16 lg:py-24 bg-white">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="text-center mb-10 animate-on-scroll">
+            <span className="text-xs font-bold tracking-[0.12em] uppercase text-brand-600 mb-4 inline-block font-grotesk">PLATFORM FEATURES</span>
+            <h2 className="text-2xl sm:text-3xl font-bold font-oswald uppercase text-[#1A1A1A]">Alles in einer Plattform</h2>
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/img/infografic/dashboard-features.jpg"
+            alt="BauPreis AI Dashboard: Preisüberwachung, KI-Prognose, Preisalarme per Email und Telegram, BauPreis Index"
+            loading="lazy"
+            className="w-full max-w-[1000px] mx-auto border-2 border-[#1A1A1A] shadow-[6px_6px_0_#1A1A1A] animate-on-scroll"
+          />
         </div>
       </section>
 
