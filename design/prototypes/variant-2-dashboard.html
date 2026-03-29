@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BauPreis AI — Dashboard (Bauhaus Bold)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,sans-serif;color:#1A1A1A;background:#F9FAFB;line-height:1.6;}
+a{text-decoration:none;color:inherit;}
+.headline{font-family:'Space Grotesk',sans-serif;}
+
+:root{
+  --red:#C1292E;--red-light:#FEE2E2;--red-hover:#D93338;
+  --black:#1A1A1A;--yellow:#F5C518;--yellow-light:#FEF9C3;
+  --salmon:#BC8279;--white:#FFFFFF;
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-400:#9CA3AF;--gray-500:#6B7280;--gray-600:#4B5563;--gray-900:#111827;
+  --green:#16A34A;--green-light:#DCFCE7;
+}
+
+/* ── Header ── */
+.header{
+  position:fixed;top:0;left:0;right:0;z-index:100;height:64px;
+  background:var(--white);border-bottom:3px solid var(--red);
+  display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;display:flex;align-items:center;gap:10px;}
+.logo-icon{width:32px;height:32px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.logo span{color:var(--red);}
+.header-right{display:flex;align-items:center;gap:16px;}
+.header-user{display:flex;align-items:center;gap:8px;font-size:0.875rem;color:var(--gray-600);}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--red);color:var(--white);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;}
+.btn-logout{font-size:0.8125rem;color:var(--gray-500);background:none;border:1px solid var(--gray-200);padding:6px 14px;border-radius:6px;cursor:pointer;font-weight:500;transition:all 0.2s;}
+.btn-logout:hover{border-color:var(--red);color:var(--red);}
+
+/* ── Sidebar ── */
+.sidebar{
+  position:fixed;left:0;top:64px;bottom:0;width:256px;
+  background:var(--white);border-right:2px solid var(--gray-200);
+  overflow-y:auto;padding:16px;z-index:90;
+}
+.nav-item{
+  display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  font-size:0.875rem;font-weight:500;color:var(--gray-600);transition:all 0.2s;
+  margin-bottom:2px;border-left:3px solid transparent;cursor:pointer;
+}
+.nav-item:hover{background:var(--gray-100);color:var(--gray-900);}
+.nav-item.active{
+  background:var(--red-light);color:var(--red);font-weight:600;
+  border-left-color:var(--red);
+}
+.nav-icon{width:20px;height:20px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.nav-badge{font-size:0.625rem;font-weight:700;padding:2px 6px;border-radius:4px;margin-left:auto;text-transform:uppercase;letter-spacing:0.05em;font-family:'Space Grotesk',sans-serif;}
+.badge-pro{background:var(--yellow-light);color:#92400E;}
+.badge-team{background:var(--red-light);color:var(--red);}
+
+/* ── Main ── */
+.main{margin-left:256px;padding:88px 32px 32px;}
+
+/* ── Index Banner ── */
+.index-banner{
+  background:var(--black);border-radius:12px;padding:24px 32px;color:var(--white);
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;
+  position:relative;overflow:hidden;box-shadow:6px 6px 0 var(--red);
+}
+.index-banner::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;
+  border-radius:50%;background:var(--red);opacity:0.1;
+}
+.index-banner::after{
+  content:'';position:absolute;bottom:-20px;right:80px;width:80px;height:80px;
+  background:var(--yellow);opacity:0.08;
+}
+.index-label{font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray-400);margin-bottom:4px;}
+.index-value{font-family:'Space Grotesk',sans-serif;font-size:2.25rem;font-weight:700;}
+.index-meta{text-align:right;position:relative;z-index:2;}
+.index-change{font-size:0.8125rem;font-weight:600;}
+.index-change-label{font-size:0.6875rem;color:var(--gray-400);margin-bottom:2px;}
+.change-up{color:#4ADE80;}
+.change-down{color:#F87171;}
+.index-desc{font-size:0.75rem;color:var(--gray-500);margin-top:8px;max-width:600px;}
+
+/* ── Page Title ── */
+.page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;}
+.page-title{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:var(--black);}
+.page-subtitle{font-size:0.875rem;color:var(--gray-500);margin-top:2px;}
+.btn-export{
+  font-family:'Space Grotesk',sans-serif;font-size:0.8125rem;font-weight:600;
+  padding:8px 16px;border:2px solid var(--gray-200);border-radius:8px;
+  background:var(--white);color:var(--gray-600);cursor:pointer;transition:all 0.2s;
+  text-transform:uppercase;letter-spacing:0.03em;
+}
+.btn-export:hover{border-color:var(--black);color:var(--black);}
+
+/* ── Category Section ── */
+.category-section{margin-bottom:28px;}
+.category-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.category-icon{width:20px;height:20px;display:flex;align-items:center;justify-content:center;}
+.category-name{font-family:'Space Grotesk',sans-serif;font-size:0.8125rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;}
+.cat-stahl{color:var(--red);}
+.cat-metall{color:var(--black);}
+.cat-beton{color:var(--salmon);}
+.cat-holz{color:#B8860B;}
+.cat-daemm{color:var(--red);opacity:0.7;}
+.cat-energie{color:#B8860B;opacity:0.8;}
+
+/* ── Material Cards ── */
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+.mat-card{
+  background:var(--white);border:2px solid var(--gray-200);border-radius:10px;
+  padding:16px;border-left-width:4px;transition:all 0.2s;cursor:pointer;
+  position:relative;
+}
+.mat-card:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--gray-200);border-color:var(--gray-400);}
+.border-stahl{border-left-color:var(--red);}
+.border-metall{border-left-color:var(--black);}
+.border-beton{border-left-color:var(--salmon);}
+.border-holz{border-left-color:var(--yellow);}
+.border-daemm{border-left-color:rgba(193,41,46,0.5);}
+.border-energie{border-left-color:rgba(245,197,24,0.7);}
+
+.mat-top{display:flex;align-items:start;justify-content:space-between;margin-bottom:8px;}
+.mat-name{font-size:0.875rem;font-weight:600;color:var(--gray-900);line-height:1.3;}
+.mat-trend{font-size:1.125rem;}
+.mat-price{font-size:1.25rem;font-weight:800;color:var(--black);margin-bottom:8px;font-family:'Space Grotesk',sans-serif;}
+.mat-changes{display:flex;flex-direction:column;gap:4px;}
+.mat-row{display:flex;justify-content:space-between;font-size:0.8125rem;}
+.mat-label{color:var(--gray-500);}
+.mat-val-up{color:var(--red);font-weight:600;}
+.mat-val-down{color:var(--green);font-weight:600;}
+.mat-val-flat{color:var(--gray-500);font-weight:600;}
+.mat-rec{margin-top:10px;padding-top:10px;border-top:1px solid var(--gray-200);}
+.rec-badge{font-size:0.6875rem;font-weight:700;padding:3px 10px;border-radius:4px;font-family:'Space Grotesk',sans-serif;text-transform:uppercase;letter-spacing:0.04em;}
+.rec-buy{background:var(--green-light);color:var(--green);}
+.rec-wait{background:var(--yellow-light);color:#92400E;}
+.rec-observe{background:var(--gray-100);color:var(--gray-600);}
+
+/* ── Bottom Nav (mobile) ── */
+.bottom-nav{
+  display:none;position:fixed;bottom:0;left:0;right:0;background:var(--white);
+  border-top:2px solid var(--gray-200);z-index:100;padding:6px 0;
+}
+.bottom-nav-inner{display:flex;justify-content:space-around;}
+.bnav-item{display:flex;flex-direction:column;align-items:center;font-size:9px;color:var(--gray-500);gap:2px;padding:4px 2px;}
+.bnav-item.active{color:var(--red);font-weight:600;}
+
+/* ── Responsive ── */
+@media(max-width:1280px){.cards-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:1024px){.cards-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .main{margin-left:0;padding:80px 16px 80px;}
+  .bottom-nav{display:block;}
+  .cards-grid{grid-template-columns:1fr;}
+  .index-banner{flex-direction:column;align-items:flex-start;gap:16px;}
+  .index-meta{text-align:left;}
+  .page-header{flex-direction:column;align-items:flex-start;gap:12px;}
+  .header-user span{display:none;}
+}
+@media(max-width:375px){
+  .main{padding:76px 12px 76px;}
+  .index-value{font-size:1.75rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header class="header">
+  <a href="#" class="logo">
+    <span class="logo-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>
+    Bau<span>Preis</span> AI
+  </a>
+  <div class="header-right">
+    <button class="btn-logout">Abmelden</button>
+    <div class="header-user">
+      <span>Max Mustermann</span>
+      <div class="avatar">MM</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar">
+  <nav>
+    <a class="nav-item active">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+      Übersicht
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect x="2" y="2" width="20" height="20" rx="5"/><path d="m2 12 10 10"/></svg></span>
+      KI-Prognosen
+      <span class="nav-badge badge-pro">Pro</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+      KI-Chat
+      <span class="nav-badge badge-pro">Pro</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l3-9 4 18 3-9h5"/></svg></span>
+      Preisgleitklausel
+      <span class="nav-badge badge-pro">Pro</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M15 3h4a2 2 0 0 1 2 2v4"/><path d="M9 21H5a2 2 0 0 1-2-2v-4"/><path d="M15 21h4a2 2 0 0 0 2-2v-4"/><circle cx="12" cy="12" r="4"/></svg></span>
+      Legierungsrechner
+      <span class="nav-badge badge-pro">Pro</span>
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>
+      Alarme
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+      Berichte
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+      Einstellungen
+    </a>
+    <a class="nav-item">
+      <span class="nav-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+      Konto
+    </a>
+  </nav>
+</aside>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="main">
+
+  <!-- Index Banner -->
+  <div class="index-banner">
+    <div style="position:relative;z-index:2;">
+      <div class="index-label">BauPreis Index</div>
+      <div class="index-value">7.915,23</div>
+      <div class="index-desc">Gewichteter Durchschnitt aller 16 überwachten Baustoffe — aktualisiert täglich.</div>
+    </div>
+    <div class="index-meta">
+      <div class="index-change-label">30 Tage</div>
+      <div class="index-change change-up">+2.31%</div>
+      <div class="index-change-label" style="margin-top:8px;">Heute</div>
+      <div class="index-change change-up">+0.18%</div>
+    </div>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">Materialübersicht</h1>
+      <p class="page-subtitle">16 Baustoffe · 7 Datenquellen · Aktualisiert vor 2 Stunden</p>
+    </div>
+    <button class="btn-export">CSV Export</button>
+  </div>
+
+  <!-- ═══ STAHL ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-stahl">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><line x1="2" y1="12" x2="22" y2="12"/></svg></span>
+      <span class="category-name">Stahl</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-stahl">
+        <div class="mat-top"><div class="mat-name">Bewehrungsstahl</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€845,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+1,2%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+12,5%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+      <div class="mat-card border-stahl">
+        <div class="mat-top"><div class="mat-name">Stahlträger (HEB)</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€1.120,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,8%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+8,4%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+      <div class="mat-card border-stahl">
+        <div class="mat-top"><div class="mat-name">Spundwand</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€980,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-0,3%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+5,1%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-wait">Abwarten</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ METALL ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-metall">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+      <span class="category-name">Metall</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-metall">
+        <div class="mat-top"><div class="mat-name">Kupfer</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€8.234,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-1,1%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-3,2%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+      <div class="mat-card border-metall">
+        <div class="mat-top"><div class="mat-name">Aluminium</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€2.450,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,5%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+5,4%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+      <div class="mat-card border-metall">
+        <div class="mat-top"><div class="mat-name">Zink</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€2.680,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-0,2%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-1,8%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BETON ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-beton">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="3" x2="9" y2="21"/></svg></span>
+      <span class="category-name">Beton &amp; Zement</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-beton">
+        <div class="mat-top"><div class="mat-name">Transportbeton C25/30</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€95,00 /m³</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,1%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+2,1%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+      <div class="mat-card border-beton">
+        <div class="mat-top"><div class="mat-name">Zement CEM I</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€128,00 /t</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,3%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+1,5%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ HOLZ ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-holz">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 22h20L12 2z"/></svg></span>
+      <span class="category-name">Holz</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-holz">
+        <div class="mat-top"><div class="mat-name">Konstruktionsholz</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€285,00 /m³</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-2,1%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-30,5%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+      <div class="mat-card border-holz">
+        <div class="mat-top"><div class="mat-name">Brettschichtholz</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€420,00 /m³</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-1,5%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-22,3%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+      <div class="mat-card border-holz">
+        <div class="mat-top"><div class="mat-name">OSB-Platten</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€12,50 /m²</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-0,8%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-15,2%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ DÄMMSTOFFE ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-daemm">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 12h16"/><path d="M12 4v16"/></svg></span>
+      <span class="category-name">Dämmstoffe</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-daemm">
+        <div class="mat-top"><div class="mat-name">Mineralwolle</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€18,90 /m²</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,2%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+3,1%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+      <div class="mat-card border-daemm">
+        <div class="mat-top"><div class="mat-name">EPS Styropor</div><div class="mat-trend">&#x2192;</div></div>
+        <div class="mat-price">€14,20 /m²</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,1%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+1,8%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-wait">Abwarten</span></div>
+      </div>
+      <div class="mat-card border-daemm">
+        <div class="mat-top"><div class="mat-name">XPS Styrodur</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€22,50 /m²</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+0,4%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+4,2%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-observe">Beobachten</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ENERGIE ═══ -->
+  <div class="category-section">
+    <div class="category-header cat-energie">
+      <span class="category-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+      <span class="category-name">Energie</span>
+    </div>
+    <div class="cards-grid">
+      <div class="mat-card border-energie">
+        <div class="mat-top"><div class="mat-name">Strom (Industrie)</div><div class="mat-trend">&#x2198;</div></div>
+        <div class="mat-price">€0,185 /kWh</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-down">-0,5%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-down">-2,8%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-buy">Jetzt kaufen</span></div>
+      </div>
+      <div class="mat-card border-energie">
+        <div class="mat-top"><div class="mat-name">Diesel</div><div class="mat-trend">&#x2197;</div></div>
+        <div class="mat-price">€1,62 /L</div>
+        <div class="mat-changes">
+          <div class="mat-row"><span class="mat-label">7 Tage</span><span class="mat-val-up">+1,3%</span></div>
+          <div class="mat-row"><span class="mat-label">30 Tage</span><span class="mat-val-up">+6,7%</span></div>
+        </div>
+        <div class="mat-rec"><span class="rec-badge rec-wait">Abwarten</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══ BOTTOM NAV (Mobile) ═══ -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a class="bnav-item active">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Übersicht
+    </a>
+    <a class="bnav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8V4H8"/><rect x="2" y="2" width="20" height="20" rx="5"/><path d="m2 12 10 10"/></svg>
+      Prognosen
+    </a>
+    <a class="bnav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Alarme
+    </a>
+    <a class="bnav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Berichte
+    </a>
+    <a class="bnav-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Einstellungen
+    </a>
+  </div>
+</nav>
+
+</body>
+</html>
